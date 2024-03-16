@@ -31,14 +31,14 @@ class ChancmsService {
     }
   }
 
+
   /**
-   * @description 通用查询全局文章,不区分栏目
-   * @param {*} start 开始
-   * @param {*} len 查询个数
-   * @param {*} attr 1头条 2推荐 3轮播 4热门
-   * @returns {Array}
+   * @param {Object} attr 1头条 2推荐 3轮播 4热门
+   * @param {Object} len 查询个数
+   * @param {Object} start 开始
+   * @returns 
    */
-  static async getArticleList(start = 0, len = 5, attr = "") {
+  static async getArticleList({start, len, attr}) {
     try {
       const columns = [
         "a.id",

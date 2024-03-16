@@ -70,6 +70,23 @@ class ChancmsController {
     }
   }
 
+   /**
+   * @param {Object} attr 1头条 2推荐 3轮播 4热门
+   * @param {Object} len 查询个数
+   * @param {Object} start 开始
+   * @returns 
+   */
+  static async getArticleList(req, res, next){
+    try {
+      let params = {start:0, len: 5, attr:""}
+      const data = await chancms.getArticleList(params);
+      res.json({ ...success, data});
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+
 }
 
 module.exports = ChancmsController;
