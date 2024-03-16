@@ -56,8 +56,6 @@ class SlideController {
     }
   }
 
-
-
   // 搜索
   static async search(req, res, next) {
     try {
