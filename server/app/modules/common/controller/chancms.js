@@ -3,7 +3,7 @@ const Chan = require("chanjs");
 const {
   utils: { success, tree },
 } = Chan.helper;
-console.log(Chan.modules);
+// console.log(Chan.modules);
 const {
   api: {
     service: { site, frag, tag, friendlink, article },
