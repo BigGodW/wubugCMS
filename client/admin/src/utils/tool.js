@@ -25,18 +25,19 @@ export let addLabelValue = (arr) => {
 };
 
 // 无限极分类tree
-export let tree = (arr, pid = 0, leval = 1) => {
-  let tmp = [];
+export let tree = (arr, pid = 0) => {
+  let result = [];
   arr.forEach((item, index) => {
-    if (item.pid == pid && item.pid != 0) {
-      item.leval = leval;
-      item.children = tree(arr, item.id, leval + 1);
-      tmp.push(item);
-    } else {
-      tmp.push(item);
+    if (item.pid === pid) {
+      let children = tree(arr, item.id);
+      if (children.length) {
+        item.children = children;
+      }
+      item.level = 1; // 或者这里使用 leval，取决于你希望如何命名层级变量
+      result.push(item);
     }
   });
-  return tmp;
+  return result;
 };
 
 //返回id父级所有栏目
