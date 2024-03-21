@@ -12,7 +12,10 @@ module.exports = (opt) => {
   router.get("/friendlink", controller.chancms.friendlink);
   router.get("/category", controller.chancms.category);
   router.get("/getArticleList", controller.chancms.getArticleList);
-  
+  router.get("/getArticleListByCid", controller.chancms.getArticleListByCid);
+  router.get("/getArticleTag", controller.chancms.getArticleTag);
+  router.get("/list", controller.chancms.list);
+  router.get("/article", controller.chancms.article);
   //配置前缀
   app.use('/api-chancms/v1',router);
 

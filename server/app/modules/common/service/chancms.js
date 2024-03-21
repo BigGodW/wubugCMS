@@ -33,6 +33,7 @@ class ChancmsService {
 
 
   /**
+   * @description 获取文章(头条、推荐、轮播、热门)
    * @param {Object} attr 1头条 2推荐 3轮播 4热门
    * @param {Object} len 查询个数
    * @param {Object} start 开始
@@ -75,7 +76,7 @@ class ChancmsService {
   }
 
   /**
-   * @description 通用查询全局文章区分栏目
+   * @description 获取栏目文章（头条、推荐、轮播、热门）
    * @param {*} cid 栏目id
    * @param {*} len 查询个数
    * @param {*} attr 1头条 2推荐 3轮播 4热门
@@ -125,19 +126,19 @@ class ChancmsService {
    * @param {Number} aid 文章id
    * @returns {Array} 返回数组
    */
-  static async getTagsFromArticleByAid(aid) {
+  static async getArticleTag(id) {
     try {
       // 执行查询
       const result = await knex("article AS a")
       .select("a.cid", "t.id", "t.name", "t.path")
       .rightJoin("tag AS t", "t.id", "=", "a.tag_id")
-      .where("a.id", aid)
+      .where("a.id", id)
       .where("a.status", 0)
       .limit(10)
       .offset(0);;
       return result;
     } catch (err) {
-      console.error(`aid->${aid}`, err);
+      console.error(`aid->${id}`, err);
       return err;;
     }
   }
@@ -483,6 +484,42 @@ class ChancmsService {
     } catch (err) {
       console.error(err);
       return err;;
+    }
+  }
+
+
+  // 查
+  static async article(id) {
+    try {
+      // 查询文章
+      const data = await knex("article").where("id", "=", id).select();
+      //兼容mysql错误
+      if (!data[0] || !data[0].cid) {
+        return false;
+      }
+      // 通过栏目id查找模型id
+      const modId = await knex.raw(
+        `SELECT mid FROM category WHERE id=? LIMIT 0,1`,
+        [data[0].cid]
+      );
+
+      let field = [];
+      if (modId[0].length > 0 && modId[0][0].mid !== "0") {
+        // 通过模型查找表名
+        const tableName = await knex.raw(
+          `SELECT table_name FROM model WHERE id=?`,
+          [modId[0][0].mid]
+        );
+        // 通过表名查找文章
+        field = await knex.raw(`SELECT * FROM ? WHERE aid=? LIMIT 0,1`, [
+          tableName[0][0].table_name,
+          id,
+        ]);
+      }
+      return { ...data[0], field: field[0] || {} };
+    } catch (err) {
+      console.error(err)
+      return err;
     }
   }
 }
