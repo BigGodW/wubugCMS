@@ -112,3 +112,23 @@
 - name: 查询tag名称
 - current: 当前页 默认1
 - pageSize: 每页显示条数 默认10
+
+## 13.上一页
+
+作用：获取上一页
+<http://localhost:81/api-chancms/v1/prev?id=79&cid=6>
+
+入参：
+
+- id: 文章id
+- cid: 栏目id
+
+## 14.下一页
+
+作用：获取下一页
+<http://localhost:81/api-chancms/v1/next?id=79&cid=6>
+
+入参：
+
+- id: 文章id
+- cid: 栏目id

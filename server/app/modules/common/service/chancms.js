@@ -500,6 +500,34 @@ class ChancmsService {
       return err;
     }
   }
+
+   // 上一篇文章
+   static async prev({ id, cid }) {
+    try {
+      const result = await knex.raw(
+        `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`,
+        [id, cid]
+      );
+      return result[0];
+    } catch (err) {
+      console.error(err)
+      return err;
+    }
+  }
+
+  // 下一篇文章
+  static async next({ id, cid }) {
+    try {
+      const result = await knex.raw(
+        `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`,
+        [id, cid]
+      );
+      return result[0];
+    } catch (err) {
+      console.error(err)
+      return err;
+    }
+  }
 }
 
 module.exports = ChancmsService;

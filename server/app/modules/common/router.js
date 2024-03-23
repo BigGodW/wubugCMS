@@ -21,6 +21,8 @@ module.exports = (opt) => {
   router.get("/pv", controller.chancms.pv);
   router.get("/articleImg", controller.chancms.articleImg);
   router.get("/tagList", controller.chancms.tagList);
+  router.get("/prev", controller.chancms.prev);
+  router.get("/next", controller.chancms.next);
   //配置前缀
   app.use("/api-chancms/v1", router);
 };

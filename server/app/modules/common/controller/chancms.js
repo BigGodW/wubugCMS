@@ -209,6 +209,30 @@ class ChancmsController {
     }
   }
 
+  //上一页
+  static async prev(req, res, next) {
+    try {
+      const { id, cid } = req.query;
+      const data = await chancms.prev({ id, cid });
+      res.json({ ...success, data: data });
+      
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+
+  //下一页
+  static async next(req, res, next) {
+    try {
+      const { id, cid } = req.query;
+      const data = await chancms.next({ id, cid });
+      res.json({ ...success, data: data });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
     
 
 }
