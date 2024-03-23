@@ -1,9 +1,10 @@
-
 module.exports = (opt) => {
   const {
     router,
-    modules: {common:{controller}},
-    app
+    modules: {
+      common: { controller },
+    },
+    app,
   } = opt;
 
   router.get("/site", controller.chancms.site);
@@ -16,7 +17,10 @@ module.exports = (opt) => {
   router.get("/getArticleTag", controller.chancms.getArticleTag);
   router.get("/list", controller.chancms.list);
   router.get("/article", controller.chancms.article);
+  router.get("/banner", controller.chancms.banner);
+  router.get("/pv", controller.chancms.pv);
+  router.get("/articleImg", controller.chancms.articleImg);
+  router.get("/tagList", controller.chancms.tagList);
   //配置前缀
-  app.use('/api-chancms/v1',router);
-
+  app.use("/api-chancms/v1", router);
 };

@@ -72,3 +72,43 @@
 入参：
 
 - id: 文章id
+
+## 9.轮播图
+
+作用：获取轮播图
+<http://localhost:81/api-chancms/v1/banner?cur=1&pageSize=10>
+
+入参：
+
+- cur: 当前页 默认1
+- pageSize: 每页显示条数 默认10
+
+## 10.pv排行
+
+作用：获取pv排行
+<http://localhost:81/api-chancms/v1/pv?id=&len=10>
+
+入参：
+
+- id: 栏目id 可为空
+- len: 默认10
+
+## 11.图文（带图）
+
+作用：获取图文（头条，推荐，轮播，热门）列表，支持
+<http://localhost:81/api-chancms/v1/articleImg?attr=&len=10&id=>
+
+- attr:  1头条 2推荐 3轮播 4热门 默认空
+- len : 查询个数,默认10
+- id: 栏目id
+
+## 12.tag列表
+
+作用：获取tag列表
+<http://localhost:81/api-chancms/v1/tagList?name=&current=1&pageSize=10>
+
+入参：
+
+- name: 查询tag名称
+- current: 当前页 默认1
+- pageSize: 每页显示条数 默认10

@@ -31,7 +31,6 @@ class ChancmsService {
     }
   }
 
-
   /**
    * @description 获取文章(头条、推荐、轮播、热门)
    * @param {Object} attr 1头条 2推荐 3轮播 4热门
@@ -231,7 +230,7 @@ class ChancmsService {
    * @param {Number} len 默认10条
    * @returns
    */
-  static async getArticlePvList(len = 10, id = "") {
+  static async pv(len = 10, id = "") {
     try {
       let query = knex
         .select(
@@ -270,13 +269,13 @@ class ChancmsService {
   }
 
   /**
-   * @description 最新图文(全局|指定栏目)
+   * @description 图文(全局|指定栏目)
    * @param {Number|String} id 栏目id
    * @param {Number} len 默认10条
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    * @returns
    */
-  static async getNewImgList(len = 10, id = "", attr = "") {
+  static async articleImg({len, id,attr}) {
     try {
       let query = knex
         .select(
@@ -325,7 +324,7 @@ class ChancmsService {
    * @param {Number} pageSize 默认10条
    * @returns {Array}
    */
-  static async list(id, current = 1, pageSize = 10) {
+  static async list({ id, current, pageSize}) {
     try {
       const start = (current - 1) * pageSize;
 
@@ -386,9 +385,8 @@ class ChancmsService {
    * @param {Number} tag tagpath
    * @param {Number|String} current 当前页面
    * @param {Number} pageSize 默认10条
-   * @returns {Array}
    */
-  static async tags(name, current = 1, pageSize = 10) {
+  static async tagList({name,current,pageSize}) {
     try {
       const start = (current - 1) * pageSize;
 
@@ -447,30 +445,10 @@ class ChancmsService {
     }
   }
 
-  /**
-   * @description 通过文章id获取tags
-   * @param {*} articleId
-   * @returns {Array} 返回数组
-   */
-  static async fetchTagsByArticleId(articleId) {
-    try {
-      const tags = await knex("tag")
-        .select("tag.id", "tag.path", "tag.name")
-        .join(
-          "article",
-          knex.raw(`article.tag_id LIKE CONCAT('%', tag.id, '%')`)
-        )
-        .where("article.id", articleId)
-        .limit(10);
-      return tags;
-    } catch (err) {
-      console.error(err);
-      return err;;
-    }
-  }
+
 
   // banner轮播图
-  static async bannerSlide(cur = 1, pageSize = 10) {
+  static async banner(cur = 1, pageSize = 10) {
     try {
      
       const offset = parseInt((cur - 1) * pageSize);
