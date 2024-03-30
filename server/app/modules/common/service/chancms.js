@@ -1,6 +1,16 @@
 const Chan = require("chanjs");
-let {utils: { filterFields, formatDay}} = Chan.helper;
+let {
+  utils: { filterFields, formatDay },
+} = Chan.helper;
 let knex = Chan.knex;
+const {
+  api: {
+    service: { site, frag, tag, friendlink, article },
+  },
+  common: {
+    service: { chancms },
+  },
+} = Chan.modules;
 
 class ChancmsService {
   constructor() {}
@@ -8,26 +18,28 @@ class ChancmsService {
   // 网站栏目
   static async category() {
     try {
-      let res = await knex("category").select([
-        "id",
-        "pid",
-        "name",
-        "pinyin",
-        "path",
-        "sort",
-        "target",
-        "status",
-        "list_view",
-        "article_view",
-        "seo_title",
-        "seo_keywords",
-        "seo_description",
-        "type",
-      ]).orderBy("sort", "ASC");
+      let res = await knex("category")
+        .select([
+          "id",
+          "pid",
+          "name",
+          "pinyin",
+          "path",
+          "sort",
+          "target",
+          "status",
+          "list_view",
+          "article_view",
+          "seo_title",
+          "seo_keywords",
+          "seo_description",
+          "type",
+        ])
+        .orderBy("sort", "ASC");
       return res;
     } catch (err) {
       console.error(err);
-      return err;;
+      return err;
     }
   }
 
@@ -36,9 +48,9 @@ class ChancmsService {
    * @param {Object} attr 1头条 2推荐 3轮播 4热门
    * @param {Object} len 查询个数
    * @param {Object} start 开始
-   * @returns 
+   * @returns
    */
-  static async getArticleList({start, len, attr}) {
+  static async getArticleList({ start, len, attr }) {
     try {
       const columns = [
         "a.id",
@@ -70,7 +82,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(err);
-      return err;;
+      return err;
     }
   }
 
@@ -116,7 +128,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(`cid->${cid} attr-> ${attr} len->${len}`, err);
-      return err;;
+      return err;
     }
   }
 
@@ -129,25 +141,24 @@ class ChancmsService {
     try {
       // 执行查询
       const result = await knex("article AS a")
-      .select("a.cid", "t.id", "t.name", "t.path")
-      .rightJoin("tag AS t", "t.id", "=", "a.tag_id")
-      .where("a.id", id)
-      .where("a.status", 0)
-      .limit(10)
-      .offset(0);;
+        .select("a.cid", "t.id", "t.name", "t.path")
+        .rightJoin("tag AS t", "t.id", "=", "a.tag_id")
+        .where("a.id", id)
+        .where("a.status", 0)
+        .limit(10)
+        .offset(0);
       return result;
     } catch (err) {
       console.error(`aid->${id}`, err);
-      return err;;
+      return err;
     }
   }
-
   /**
    * @param [1,2,3] 栏目id，指定栏目id进行返回
    * @description 返回所有的根栏目
    * @returns {Array}
    */
-  static async getAllParentCategory(idArray=[]) {
+  static async getAllParentCategory(idArray = []) {
     try {
       const result = await knex("category")
         .select([
@@ -163,66 +174,36 @@ class ChancmsService {
         ])
         .where("pid", 0)
         .where("type", 0)
-        .where((builder) => (!idArray.length || builder.whereIn("id", idArray)))
+        .where((builder) => !idArray.length || builder.whereIn("id", idArray))
         .orderBy("sort", "ASC");
       return result;
     } catch (err) {
       console.error(err);
-      return err;;
+      return err;
     }
   }
 
   /**
-   * @description 获取所需多个栏目文章
-   * @param {Array} cids 栏目id
-   * @returns {Array}
+   * @description 通过文章id查找对应的tag标签
+   * @param {Number} id 文章id
+   * @returns {Array} 返回数组
    */
-   static async getArticleListByCids(cids=[]){
+  static async getTagsById(id) {
     try {
-
-      //tag去重
-      function uniqueByPath(arr) {
-        const map = new Map();
-        return arr.filter((item) => {
-            if (!map.has(item.path)) {
-                map.set(item.path, item);
-                return true;
-            }
-            return false;
-        });
-      }
-
-        //主栏目-图-文
-        let cate = await CommonService.getAllParentCategory(cids);
-        const cateField = ["id", "name", "path", "pinyin"];
-        cate = filterFields(cate, cateField);
-        let article = [];
-        for (let i = 0, item; i < cate.length; i++) {
-          let item = cate[i];
-          let tags = [];
-          // 推荐
-          let top = await CommonService.getArticleListByCid(item.id, 1, 2);
-          // 最新
-          let list = await CommonService.getArticleListByCid(item.id, 4);
-          list = formatDay(list);
-
-          // tag列表
-          for (let j = 0, sub; j < list.length; j++) {
-            sub = list[j];
-            let res = await CommonService.getTagsFromArticleByAid(sub.id);
-            tags.push(...res);
-          }
-          tags = uniqueByPath(tags);
-          article.push({ top, list, tags, category: item })
-        }
-        
-        return article;
-
-    } catch (error) {
-      console.error(err);
-      return err;;
+      // 执行查询
+      const result = await knex("article AS a")
+        .select("a.cid", "t.id", "t.name", "t.path")
+        .rightJoin("tag AS t", "t.id", "=", "a.tag_id")
+        .where("a.id", id)
+        .where("a.status", 0)
+        .limit(10)
+        .offset(0);
+      return result;
+    } catch (err) {
+      console.error(`aid->${id}`, err);
+      return err;
     }
-   }
+  }
 
   /**
    * @description 浏览pv排行(全局|指定栏目)
@@ -264,7 +245,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(`id->${id} len->${len}`, err);
-      return err;;
+      return err;
     }
   }
 
@@ -275,7 +256,7 @@ class ChancmsService {
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    * @returns
    */
-  static async articleImg({len, id,attr}) {
+  static async articleImg({ len, id, attr }) {
     try {
       let query = knex
         .select(
@@ -313,7 +294,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(`id->${id} len->${len}`, err);
-      return err;;
+      return err;
     }
   }
 
@@ -324,7 +305,7 @@ class ChancmsService {
    * @param {Number} pageSize 默认10条
    * @returns {Array}
    */
-  static async list({ id, current, pageSize}) {
+  static async list({ id, current, pageSize }) {
     try {
       const start = (current - 1) * pageSize;
 
@@ -376,7 +357,7 @@ class ChancmsService {
       };
     } catch (err) {
       console.error(`id->${id} current->${current} pageSize->${pageSize}`, err);
-      return err;;
+      return err;
     }
   }
 
@@ -386,7 +367,7 @@ class ChancmsService {
    * @param {Number|String} current 当前页面
    * @param {Number} pageSize 默认10条
    */
-  static async tagList({name,current,pageSize}) {
+  static async tagList({ name, current, pageSize }) {
     try {
       const start = (current - 1) * pageSize;
 
@@ -441,30 +422,26 @@ class ChancmsService {
         `id->${path} current->${current} pageSize->${pageSize}`,
         err
       );
-      return err;;
+      return err;
     }
   }
-
-
 
   // banner轮播图
   static async banner(cur = 1, pageSize = 10) {
     try {
-     
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
-        .select(['id','title','img_url','link_url'])
-        .from('slide')
+        .select(["id", "title", "img_url", "link_url"])
+        .from("slide")
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
       return list;
     } catch (err) {
       console.error(err);
-      return err;;
+      return err;
     }
   }
-
 
   // 查
   static async article(id) {
@@ -496,13 +473,13 @@ class ChancmsService {
       }
       return { ...data[0], field: field[0] || {} };
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return err;
     }
   }
 
-   // 上一篇文章
-   static async prev({ id, cid }) {
+  // 上一篇文章
+  static async prev({ id, cid }) {
     try {
       const result = await knex.raw(
         `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`,
@@ -510,7 +487,7 @@ class ChancmsService {
       );
       return result[0];
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return err;
     }
   }
@@ -524,7 +501,64 @@ class ChancmsService {
       );
       return result[0];
     } catch (err) {
-      console.error(err)
+      console.error(err);
+      return err;
+    }
+  }
+
+  // 搜索
+  static async search(key = "", cur = 1, pageSize = 10, cid = 0) {
+    try {
+      // 查询个数
+      let sql;
+      const countSql = `SELECT COUNT(*) as count FROM  article a LEFT JOIN category c ON a.cid=c.id`;
+      const keyStr = ` WHERE a.title LIKE \'%${key}%\'`;
+      const cidStr = `  AND c.id=?`;
+
+      if (cid === 0) {
+        sql = countSql + keyStr;
+      } else {
+        sql = countSql + keyStr + cidStr;
+      }
+      const total = cid ? await knex.raw(sql, [cid]) : await knex.raw(sql, []);
+      // 翻页
+      const offset = parseInt((cur - 1) * pageSize);
+      let sql_list = "";
+      const listStart = `SELECT a.id,a.title,a.attr,a.tag_id,a.description,a.cid,a.pv,a.createdAt,a.status,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.title LIKE  \'%${key}%\' `;
+      const listEnd = `ORDER BY a.id desc LIMIT ${offset},${parseInt(
+        pageSize
+      )}`;
+      if (cid === 0) {
+        sql_list = listStart + listEnd;
+      } else {
+        sql_list = listStart + `AND c.id=? ` + listEnd;
+      }
+      const list = cid
+        ? await knex.raw(sql_list, [cid])
+        : await knex.raw(sql_list, []);
+      const count = total[0][0].count || 1;
+      return {
+        count: count,
+        total: Math.ceil(count / pageSize),
+        current: +cur,
+        list: list[0],
+      };
+    } catch (err) {
+      console.error(err);
+      return err;
+    }
+  }
+
+  // 浏览pv增加
+  static async pvadd(id) {
+    try {
+      const result = await knex.raw(
+        `UPDATE article SET pv=pv+1 WHERE id=? LIMIT 1`,
+        [id]
+      );
+      return result[0].affectedRows ? "更新成功" : "更新失败或id不存在";
+    } catch (err) {
+      console.error(err);
       return err;
     }
   }

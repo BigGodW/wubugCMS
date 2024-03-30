@@ -23,6 +23,10 @@ module.exports = (opt) => {
   router.get("/tagList", controller.chancms.tagList);
   router.get("/prev", controller.chancms.prev);
   router.get("/next", controller.chancms.next);
+
+  router.get("/getTagsById", controller.chancms.getTagsById);
+  router.get("/search", controller.chancms.search);
+  router.get("/pvadd", controller.chancms.pvadd);
   //配置前缀
   app.use("/api-chancms/v1", router);
 };

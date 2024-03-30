@@ -131,7 +131,7 @@ class ChancmsController {
   static async list(req, res, next) {
     try {
       const { id, current = 1, pageSize = 10 } = req.query;
-      const data = await chancms.list({ id, current, pageSize});
+      const data = await chancms.list({ id, current, pageSize });
       res.json({ ...success, data });
     } catch (error) {
       console.error(error);
@@ -179,17 +179,17 @@ class ChancmsController {
       next(error);
     }
   }
- 
+
   /**
    * @description 图文（带图文）
    * @param {Number|String} id 栏目id
    * @param {Number} len 默认10条
    * @param {*} attr 1头条 2推荐 3轮播 4热门
-   */  
+   */
   static async articleImg(req, res, next) {
     try {
       const { id = "", attr = "", len = 10 } = req.query;
-      const data = await chancms.articleImg({len, id,attr});
+      const data = await chancms.articleImg({ len, id, attr });
       res.json({ ...success, data: data });
     } catch (error) {
       console.error(error);
@@ -201,7 +201,7 @@ class ChancmsController {
   static async tagList(req, res, next) {
     try {
       const { name = "", current = 1, pageSize = 10 } = req.query;
-      const data = await chancms.tagList({name,current,pageSize});
+      const data = await chancms.tagList({ name, current, pageSize });
       res.json({ ...success, data: data });
     } catch (error) {
       console.error(error);
@@ -215,7 +215,6 @@ class ChancmsController {
       const { id, cid } = req.query;
       const data = await chancms.prev({ id, cid });
       res.json({ ...success, data: data });
-      
     } catch (error) {
       console.error(error);
       next(error);
@@ -233,8 +232,56 @@ class ChancmsController {
       next(error);
     }
   }
-    
 
+  /**
+   * @description 当前文章tag
+   * @param {Object} id 文章id
+   */
+  static async getTagsById(req, res, next) {
+    try {
+      const { id } = req.query;
+      const data = await chancms.getTagsById(id);
+      res.json({ ...success, data: data });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+
+  /**
+   * @description 搜索
+   * @param {Object} key 关键词
+   * @param {Object} cur 当前页
+   * @param {Object} pageSize 每页显示条数
+   * @param {Object} cid 栏目id
+   */
+  static async search(req, res, next) {
+    try {
+      const { key, cur, pageSize, cid } = req.query;
+      const data = await chancms.search(key, cur, pageSize, cid);
+      res.json({ ...success, data: data });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+
+  /**
+   * @description 浏览次数增加
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+  static async pvadd(req, res, next) {
+    try {
+      const { id } = req.query;
+      const data = await chancms.pvadd(id);
+      res.json({ ...success, data: data });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
 }
 
 module.exports = ChancmsController;
