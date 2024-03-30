@@ -206,7 +206,6 @@ class HomeController {
       }
 
       //没找到栏目 去404
-
       if (!cid) {
         res.redirect("/404.html");
         return;

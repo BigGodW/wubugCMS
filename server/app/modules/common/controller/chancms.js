@@ -282,6 +282,7 @@ class ChancmsController {
       next(error);
     }
   }
+
 }
 
 module.exports = ChancmsController;

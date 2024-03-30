@@ -15,7 +15,7 @@ module.exports = (opt) => {
   router.get("/getArticleList", controller.chancms.getArticleList);
   router.get("/getArticleListByCid", controller.chancms.getArticleListByCid);
   router.get("/getArticleTag", controller.chancms.getArticleTag);
-  router.get("/list", controller.chancms.list);
+  router.get(["/list","/page"], controller.chancms.list);
   router.get("/article", controller.chancms.article);
   router.get("/banner", controller.chancms.banner);
   router.get("/pv", controller.chancms.pv);
@@ -27,6 +27,7 @@ module.exports = (opt) => {
   router.get("/getTagsById", controller.chancms.getTagsById);
   router.get("/search", controller.chancms.search);
   router.get("/pvadd", controller.chancms.pvadd);
+
   //配置前缀
   app.use("/api-chancms/v1", router);
 };

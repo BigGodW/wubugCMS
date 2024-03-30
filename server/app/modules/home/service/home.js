@@ -27,29 +27,6 @@ class HomeService {
 
       let topnews = { top: top[0], news };
 
-      //主栏目-图-文
-      // let cate = await CommonService.getAllParentCategory();
-      // const cateField = ["id", "name", "path", "pinyin"];
-      // cate = filterFields(cate, cateField);
-      // let article = [];
-      // for (let i = 0, item; i < cate.length; i++) {
-      //   let item = cate[i];
-      //   let tags = [];
-      //   // 推荐
-      //   let top = await CommonService.getArticleListByCid(item.id, 1, 2);
-      //   // 最新
-      //   let list = await CommonService.getArticleListByCid(item.id, 4);
-      //   list = formatDay(list);
-
-      //   // tag列表
-      //   for (let j = 0, sub; j < list.length; j++) {
-      //     sub = list[j];
-      //     let res = await CommonService.getTagsFromArticleByAid(sub.id);
-      //     tags.push(...res);
-      //   }
-      //   article.push({ top, list, tags, category: item })
-      // }
-
       //图片列表(10条)
       let imgs = await CommonService.getNewImgList(8);
       const imgsField = ["id", "title", "path", "img"];
@@ -127,17 +104,6 @@ class HomeService {
   }
 
 
-  // tag列表页
-  static async tags(path, currentPage = 1, pageSize = 10) {
-    try {
-      const data = await CommonService.tags(path, currentPage, pageSize);
-      data.list = formatDay(data.list);
-      return data;
-    } catch (err) {
-      console.error(err);
-      return err;
-    }
-  }
 }
 
 module.exports = HomeService;
