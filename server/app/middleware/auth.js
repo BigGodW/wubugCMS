@@ -5,7 +5,7 @@ let {
 
 module.exports = () => {
   return async (req, res, next) => {
-    const token = req.cookies.token || req.headers.auth;
+    const token = req.cookies.token || req.headers.auth || '';
     if (token) {
       let { config } = req.app.locals;
       try {

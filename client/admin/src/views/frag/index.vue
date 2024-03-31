@@ -42,7 +42,8 @@
       <el-table-column fixed="right" width="120" label="操作">
         <template #default="scope">
           <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
-          <div class="inline-b ml-5" v-permission="'super'">
+          <!-- <div class="inline-b ml-5" v-permission="'super'"> -->
+          <div class="inline-b ml-5">
             <el-popconfirm
               width="220"
               @confirm="handleDel(scope.row)"

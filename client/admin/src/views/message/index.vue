@@ -22,7 +22,7 @@
       </el-table-column>
       <el-table-column fixed="right" width="100" label="操作">
         <template #default="scope">
-          <el-button :icon="View" circle @click="toEdit(scope.row)"></el-button>
+          <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
           <el-button
             :icon="Delete"
             circle

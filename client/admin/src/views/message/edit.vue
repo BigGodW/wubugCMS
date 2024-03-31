@@ -1,6 +1,6 @@
 <template>
   <div class="mr-10 ml-10 mb-20 pd-20 content-wrap">
-    <!-- <el-form ref="params" :model="params" label-width="84px" class="mt-20">
+    <el-form ref="params" :model="params" label-width="84px" class="mt-20">
       <el-form-item
         label="留言标题"
         :rules="[
@@ -52,12 +52,13 @@
         </el-date-picker>
       </el-form-item>
 
-      <el-form-item>
+      <el-form-item class="flex">
         <el-button type="primary" @click="submit('params')">保存</el-button>
+        <el-button @click="goBack">取消</el-button>
       </el-form-item>
     </el-form>
-     -->
-    <h3 class="mb-25 mt-10"># 留言内容</h3>
+
+    <!-- <h3 class="mb-25 mt-10"># 留言内容</h3>
 
     <div class="pd-10">
       <p class="f-14 mb-15">
@@ -84,7 +85,7 @@
       <el-button class="ml-25 mt-35" type="primary" @click="goBack"
         >返回</el-button
       >
-    </div>
+    </div> -->
   </div>
 </template>
 

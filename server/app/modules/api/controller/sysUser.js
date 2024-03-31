@@ -83,6 +83,9 @@ class SysUserController {
       let uid = req.query.id;
       if(!uid){
         const token = req.cookies.token;
+        if(!token){
+          return res.json({ ...fail, data: null, msg: "请先登录" });
+        }
         const user = await getToken(token, config.token.KEY);
         uid = user.uid;
       }

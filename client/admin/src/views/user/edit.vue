@@ -38,7 +38,7 @@
 import { update, detail } from "@/api/sys_user.js";
 import { getCookie, setCookie } from "@/utils/tool";
 import { list, del } from "@/api/sys_role.js";
-
+import { userStore } from "@/stores/user";
 export default {
   name: "admin-edit",
   data: () => {
@@ -120,8 +120,9 @@ export default {
             message: "更新成功,请重新登录^_^",
             type: "success",
           });
-          setCookie("token", "");
-          this.$router.push({ name: "login-in" });
+          const userInfo = userStore();
+          userInfo.logout();
+          location.reload();
         }
       } catch (error) {
         console.log(error);
