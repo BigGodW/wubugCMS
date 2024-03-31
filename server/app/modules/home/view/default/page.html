@@ -44,7 +44,7 @@
                 <!-- 单页栏目 -->
                 <section class="notices pos-s pd-20 mb-20 bg-fff" style="top:80px;z-index: 2;">
                     <h3 class="m-title border-dashed f-16 row justify-between bold">{{navSub.cate.name}}</h3>
-                    {{if data.length>0}}
+                    {{if data && data.length>0}}
                     <ul class="mt-10">
                         {{each data}}
                         <li class="f-16 pt-4 pb-4 row bold  pl-10">

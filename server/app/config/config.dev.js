@@ -10,7 +10,7 @@ config.database = {
   // port: "3306",默认3306
   user: "root",
   password: "123456",
-  database: "chancms",
+  database: "chanyue",
   // charset: "utf8mb4",
 };
 

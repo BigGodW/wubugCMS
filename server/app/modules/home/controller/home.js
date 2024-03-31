@@ -147,6 +147,8 @@ class HomeController {
 
       //热门 推荐 图文
       const data = await home.article(cid);
+      
+      console.log('article--->',data);
 
       //获取模板
       let view = navSub.cate.article_view;
@@ -173,7 +175,7 @@ class HomeController {
         config: { template },
       } = req.app.locals;
       const {
-        utils: { getChildrenId },
+        utils: { getChildrenId ,treeById},
       } = Chan.helper;
 
       const { cate, id } = req.params;
@@ -226,7 +228,7 @@ class HomeController {
           "YYYY-MM-DD HH:mm:ss"
         );
         // 当前位置
-        position = helper.treeById(article.cid, category);
+        position = treeById(article.cid, category);
         // 增加数量
         await ArticleService.count(article.id);
       }
