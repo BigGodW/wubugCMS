@@ -26,8 +26,9 @@
                         <div class="swiper-wrapper">
                             {{each banner}}
                             <div class="swiper-slide">
-                            <img src="{{$value.img_url}}" title="{{$value.title}}" alt="{{$value.title}}">
-                            <!-- <h3 class="carousel-title">{{$value.title}}</h3> -->
+                                <a href="{{$value.link_url}}" title="{{$value.title}}">
+                                    <img src="{{$value.img_url}}" title="{{$value.title}}" alt="{{$value.title}}">
+                                </a>
                             </div>
                             {{/each}}
                         </div>
@@ -66,7 +67,7 @@
                     {{each article}}
                     <div class="w-460 bg-fff pd-20">
                         <h3 class="m-title f-16 row justify-between border-dashed mb-10">{{$value.category.name}}<span
-                                class="more"><a href="{{$value.category.path}}/index.html">NEW</a></span></h3>
+                                class="more"><a href="{{$value.category.path}}/index.html">更多</a></span></h3>
                         {{if $value.top.title}}
                         <figure class="row justify-between">
                             <div class="thumb-120">

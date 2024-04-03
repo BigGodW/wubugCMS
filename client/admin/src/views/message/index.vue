@@ -16,7 +16,7 @@
       <el-table-column prop="id" width="80" label="编号"></el-table-column>
       <el-table-column prop="name" width="300" label="联系人"></el-table-column>
       <el-table-column prop="tel" label="手机号"></el-table-column>
-      <el-table-column prop="company" label="公司名称"></el-table-column>
+      <el-table-column prop="company" label="公司单位"></el-table-column>
       <el-table-column prop="createdAt" label="发布时间">
         <template #default="scope">{{ scope.row.createdAt }}</template>
       </el-table-column>

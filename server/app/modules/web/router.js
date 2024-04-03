@@ -5,7 +5,7 @@ const adapter = require("./middleware/adapter.js");
 module.exports = (opt) => {
   const {
     router,
-    modules: {home:{controller}},
+    modules: {web:{controller}},
     app
   } = opt;
 

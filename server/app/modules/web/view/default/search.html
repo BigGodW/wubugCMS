@@ -7,7 +7,7 @@
     <meta name="keywords" content="{{site.keywords}}"/>
     <meta property="og:title" content="{{site.title}}" />
     <meta property="og:description" content="{{site.description}}" />
-    <title>{{path}}-{{site.name}}</title>
+    <title>{{keywords}}-{{site.name}}</title>
     {{include './common/meta.html'}}
 
 <body class="bg-f8f8f8">
@@ -22,7 +22,7 @@
                 <div class="bg-fff pd-15 mb-1 f-14 c-999 radius-6">
                     <i class="ico-20 ico-home pos-r t-3"></i>
                     <a class="" href="/">首页</a> /
-                    <a class="c-666" href="/tags/{{path}}.html">tag标签：<span class="red">{{path}}</span></a>
+                    <a class="c-666" href="/search/{{keywords}}.html">搜索词：<span class="red">{{keywords}}</span></a>
                 </div>
 
                 <div class="bg-fff pl-25 pr-25 pb-25 radius-6 list">
@@ -40,19 +40,14 @@
                                 <div class="flex-1">
                                     <h3 class="f-18 ellips-2 bold mt-4 c-141414">
                                         <a href="{{$value.path}}/article-{{$value.id}}.html"
-                                            title="{{$value.title}}">{{$value.title}}</a>
-                                            
-                                    </h3>
-                                    <p class="f-12 mb-8 row">
-                                        <a class="el-tag mr-5 mb-5">{{path}}</a>
+                                            title="{{$value.title}}">{{@ $value.titles}}</a>
 
-                                        <span class="c-bfbfbf">
+                                    </h3>
+                                    <p class="f-12 c-bfbfbf mb-8">
                                         <i class="ico-20 ico-time pos-r t-4"></i> {{$value.createdAt}}
                                         <i class="ico-20 ico-admin pos-r t-4 ml-4"></i> {{$value.author ||'admin'}}
                                         <i class="ico-20 ico-view pos-r t-5 ml-4"></i> 阅读（{{$value.pv}}）
                                         <!-- <i class="ico-20 ico-zan pos-r t-4 ml-4"></i>点赞（95） -->
-                                    </span>
-
                                     </p>
                                     <p class="f-14 ellips-3 c-595959">
                                         <a href="{{$value.path}}/article-{{$value.id}}.html" title="{{$value.title}}">
@@ -66,11 +61,11 @@
                     {{else}}
                     <div class="el-empty">
                         <div class="mt-35 mb-35 f-30">
-                            <p>寻他千百度，</p>
+                            <p>灯火阑珊处，</p>
                             <p>文章一点无！</p>
                         </div>
                         <div class="el-empty__description">
-                            <p>禅悦-语录</p>
+                            <p><a href="https://www.chancms.top" target="_blank">ChanCMS</p>
                         </div>
                     </div>
                     {{/if}}
@@ -97,22 +92,23 @@
                     </p>
                 </section>
 
+
                 <!-- 广告 -->
                 <section class="ad mb-20 bg-fff">
-                    {{@ frag.ad.content || ''}}
+                 
+                    {{@ frag.ad || ''}}
                 </section>
+
 
             </aside>
         </div>
     </main>
 
 
-
     <!-- footer -->
     {{include './common/footer.html'}}
- <!-- 移动端导航 -->
- {{include './common/wap-nav.html'}}
-
+  <!-- 移动端导航 -->
+  {{include './common/wap-nav.html'}}
     <div class="api ignore mb-20 mt-20 pd-20 bg-f2f2f2">
         <h1>接口页面--全局数据：</h1>
         <p class="mb-20">site-> {{site}} </p>
@@ -131,10 +127,11 @@
         <p class="mb-20">list------>{{data}}</p>
     </div>
     {{include './common/js.html'}}
+    
     <!-- <script>
-      function toTag(){
+      function toPage(){
         let mumber = decodeURIComponent( location.pathname).match(/\d+/);
-        this.current = Array.isArray(mumber)?+mumber[0]:1;
+        let current = Array.isArray(mumber)?+mumber[0]:1;
         var searchTerm = "";
         var url = decodeURIComponent(location.pathname);
         // 匹配提取搜索词

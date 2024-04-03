@@ -4,7 +4,7 @@ const {
   utils: { pages },
 } = Chan.helper;
 const {
-  home: {service: { common,home }},
+  web: {service: { common,home }},
   api:{service:{article}}
 } = Chan.modules;
 
@@ -290,7 +290,7 @@ class HomeController {
       const page = id || 1;
       const pageSize = 10;
       // 文章列表
-      const data = await home.tags(path, page, pageSize);
+      const data = await common.tags(path, page, pageSize);
       //分页
       let { count } = data;
       let href = "/tag/" + path;

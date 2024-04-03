@@ -1,7 +1,7 @@
 
 const Chan = require("chanjs");
 const {
-  home: {service: { common }},
+  web: {service: { common }},
   api:{service:{site,frag,tag,friendlink}}
 } = Chan.modules;
 

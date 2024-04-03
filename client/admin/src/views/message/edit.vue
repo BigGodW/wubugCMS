@@ -14,9 +14,12 @@
       >
         <el-input v-model="params.name"></el-input>
       </el-form-item>
-
       <el-form-item label="手机号">
         <el-input v-model="params.tel"></el-input>
+      </el-form-item>
+
+      <el-form-item label="公司单位">
+        <el-input v-model="params.company"></el-input>
       </el-form-item>
 
       <el-form-item label="微信">

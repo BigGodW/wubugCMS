@@ -69,6 +69,6 @@ config.static = {
   preload: false,
 };
 
-config.views = [path.join(APP_PATH, `plugin/open/view`)];
+config.views = [path.join(APP_PATH, `modules/web/view`),path.join(APP_PATH, `plugin/open/view`)];
 
 module.exports = config;
