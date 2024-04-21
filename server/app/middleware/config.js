@@ -1,12 +1,10 @@
 const SysAppService = require("../modules/api/service/sysApp.js");
-const auth = require("./auth.js");
-
+const ua = require("./ua.js");
 const Chan = require('chanjs');
 
 // 所有配置入口
 module.exports = async function (app) {
   try {
-
     let config  = Chan.config;
     let sysconfig = await SysAppService.find();
     if(sysconfig.errno){
