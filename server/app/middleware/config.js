@@ -1,5 +1,4 @@
 const SysAppService = require("../modules/api/service/sysApp.js");
-const ua = require("./ua.js");
 const Chan = require('chanjs');
 
 // 所有配置入口
