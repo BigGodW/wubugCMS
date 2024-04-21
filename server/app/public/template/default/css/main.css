@@ -123,10 +123,10 @@ html {
 .logo {
     height: 42px;
     background: url(../img/logo.svg) left center no-repeat;
-    background-size: 24px 24px;
+    background-size: 50px 50px;
     font-family: "chanyue";
     font-weight: lighter;
-    padding-left: 30px;
+    padding-left: 45px;
     line-height: 42px;
 }
 
