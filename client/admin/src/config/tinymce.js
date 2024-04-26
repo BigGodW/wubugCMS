@@ -48,6 +48,14 @@ export let tinymceSet = {
   //其他配置参数
   valid_elements: "*[*]",
   allow_html_in_named_anchor: true, //允许name锚点 <a name="tagId"></a>
+
+  // 允许 <style> 作为 <head> 的直接子元素
+  valid_children: "div[style]",
+  // 接受 <style> 标签及其属性
+  // extended_valid_elements: "style[type]",
+  // 禁止合并自定义样式与内置样式（根据需要）
+  // style_formats_merge: false,
+
   // 以中文简体为例
   language: "zh-Hans",
   language_url: "/public/admin/tinymce/zh-Hans.js",
