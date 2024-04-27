@@ -11,10 +11,10 @@ const ROOT_PATH = process.cwd();
 const APP_PATH = path.join(ROOT_PATH, 'app');
 
 const config = {};
-config.version = "v3.0.0";
+config.version = "v3.0.1";
 config.appName = "ChanCms";
 config.port = '81';
-config.versionTime = "2024-03-02";
+config.versionTime = "2024-04-27";
 config.author = "明空";
 config.authorEmail = "867528315@qq.com";
 config.authorWechat = "yanyutao2014";

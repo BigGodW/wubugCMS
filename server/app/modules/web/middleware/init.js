@@ -1,11 +1,14 @@
-
 const Chan = require("chanjs");
 const {
-  web: {service: { common }},
-  api:{service:{site,frag,tag,friendlink}}
+  web: {
+    service: { common },
+  },
+  api: {
+    service: { site, frag, tag, friendlink },
+  },
 } = Chan.modules;
-
-let data = {site,frag,tag,friendlink,common};
+const info = require("./info");
+let data = { site, frag, tag, friendlink, common };
 
 module.exports = () => {
   return async (req, res, next) => {
@@ -14,11 +17,12 @@ module.exports = () => {
       let {
         config: { template, dataCache },
       } = req.app.locals;
-      res.setHeader('X-Powered-By', 'ChanCMS');
+
       if ("site" in req.app.locals && dataCache == "1") {
         await next();
         return;
       }
+      info(res);
       // 站点
       const site = await data.site.find();
       site.json = site.json || "";

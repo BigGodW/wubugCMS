@@ -11,8 +11,6 @@ const routers = (app, router) => {
     config: { template = "default", APP_PATH },
   } = app;
 
-  
-   
   //开源api（非自动加载模式）
   router.use("/open", open);
 
