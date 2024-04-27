@@ -14,7 +14,7 @@ module.exports = () => {
       let {
         config: { template, dataCache },
       } = req.app.locals;
-
+      res.setHeader('X-Powered-By', 'ChanCMS');
       if ("site" in req.app.locals && dataCache == "1") {
         await next();
         return;

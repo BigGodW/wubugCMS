@@ -17,6 +17,7 @@ module.exports = async function (app) {
     if (config.debug) {
         console.log("config", app.locals.config);
       }
+
   } catch (error) {
     console.log(error);
   }

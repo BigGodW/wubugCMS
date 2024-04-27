@@ -21,6 +21,7 @@ module.exports =()=>{
                 res.redirect(url);
                 return;
             }
+
           await next();
         } catch (error) {
           next(error);
