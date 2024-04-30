@@ -37,12 +37,12 @@ export let tinymceSet = {
   custom_images_upload_param: {},
   height: 550, // editor 高度
   toolbar:
-    "undo redo| code codesample | fullscreen | blocks alignleft aligncenter alignright alignjustify | link unlink | numlist bullist | image media table | fontsize forecolor backcolor | bold italic underline strikethrough | indent outdent | superscript subscript | removeformat | preview | code fullscreen",
+    "undo redo| bold italic underline strikethrough | forecolor backcolor fontsize | blocks alignleft aligncenter alignright alignjustify   |numlist bullist | image media table |   link unlink  | indent outdent | superscript subscript | removeformat | code codesample |  fullscreen preview",
   toolbar_mode: "sliding",
   quickbars_selection_toolbar:
     "removeformat | bold italic underline strikethrough | fontsize forecolor backcolor",
   plugins:
-    "link code image media table lists fullscreen quickbars codesample preview code fullscreen",
+    "link image media table lists fullscreen quickbars codesample preview code fullscreen",
   font_size_formats:
     "12px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px 34px 36px 38px 40px 42px 44px 46px 48px 50px 52px",
   link_default_target: "_blank",
