@@ -37,25 +37,20 @@ export let tinymceSet = {
   custom_images_upload_param: {},
   height: 550, // editor 高度
   toolbar:
-    "undo redo| code codesample | fullscreen | blocks alignleft aligncenter alignright alignjustify | link unlink | numlist bullist | image media table | fontsize forecolor backcolor | bold italic underline strikethrough | indent outdent | superscript subscript | removeformat |",
+    "undo redo| code codesample | fullscreen | blocks alignleft aligncenter alignright alignjustify | link unlink | numlist bullist | image media table | fontsize forecolor backcolor | bold italic underline strikethrough | indent outdent | superscript subscript | removeformat | preview | code fullscreen",
   toolbar_mode: "sliding",
   quickbars_selection_toolbar:
     "removeformat | bold italic underline strikethrough | fontsize forecolor backcolor",
-  plugins: "link code image media table lists fullscreen quickbars codesample",
+  plugins:
+    "link code image media table lists fullscreen quickbars codesample preview code fullscreen",
   font_size_formats:
-    "12px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px 34px 36px 38px 40px",
+    "12px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px 34px 36px 38px 40px 42px 44px 46px 48px 50px 52px",
   link_default_target: "_blank",
   //其他配置参数
-  valid_elements: "*[*]",
+
   allow_html_in_named_anchor: true, //允许name锚点 <a name="tagId"></a>
 
-  // 允许 <style> 作为 <head> 的直接子元素
-  valid_children: "div[style]",
-  // 接受 <style> 标签及其属性
-  // extended_valid_elements: "style[type]",
-  // 禁止合并自定义样式与内置样式（根据需要）
-  // style_formats_merge: false,
-
+  valid_children: "+div[p],+div[style]", // 支持div 包含p,支持style 支持class
   // 以中文简体为例
   language: "zh-Hans",
   language_url: "/public/admin/tinymce/zh-Hans.js",
