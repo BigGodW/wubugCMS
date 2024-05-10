@@ -149,29 +149,40 @@
             ></el-input>
           </el-form-item>
 
-          <el-form-item label="清理代码" prop="removeCode">
-            <el-input
-              v-model="params.removeCode"
-              placeholder="例：$('div').remove()"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="清理正则" prop="clearRegCode">
-            <div class="row w-p100">
-              <el-input
-                class="flex-1"
-                v-model="params.clearRegCode"
-                placeholder="填写正则"
-              ></el-input>
-              <el-button class="ml-5" type="primary" @click="getArticle"
-                >测试</el-button
-              >
-            </div>
-          </el-form-item>
-
+          <el-form-item
+        label="处理函数"
+        prop="parseData"
+        :rules="[
+          {
+            required: true,
+            message: '如果无特殊处理，请直接填写 return data;',
+            trigger: 'blur',
+          },
+        ]"
+      >
+        <div class="row w-p100">
+          <el-input
+            class="flex-1"
+            type="textarea"
+            :rows="13"
+            v-model="params.parseData"
+            placeholder="如果不做任何处理，直接返回data。拿到的文本是变量是data,可以直接js函数可以处理成需要的数据，最终需要返回data。例：
+            data = data.replaceAll('<BR>','<br/>');
+            return data;
+            //或
+            return data;
+            "
+          ></el-input>
+          <el-button class="ml-5" type="primary" @click="getArticle">
+            测试
+          </el-button>
+        </div>
+      </el-form-item>
+        
           <el-form-item class="show" label="文章结果">
             <p>标题：{{ article.title }}</p>
             <p>内容：</p>
-            <div v-html="article.article"></div>
+            <div>{{article.article}}</div>
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="保存配置" name="save">
@@ -234,7 +245,7 @@ export default {
         titleTag: "",
         articleTag: "",
         charset: "1", //utf-8
-        clearRegCode: "",
+        parseData: "",
         status: "1", //是否限制
         cid: 1,
       },
@@ -310,8 +321,7 @@ export default {
           taskUrl,
           titleTag,
           articleTag,
-          clearRegCode,
-          removeCode,
+          parseData,
           charset,
         } = this.params;
 
@@ -320,8 +330,7 @@ export default {
           taskUrl,
           titleTag,
           articleTag,
-          removeCode,
-          clearRegCode,
+          parseData,
           charset,
         });
         if (res.code == 200) {

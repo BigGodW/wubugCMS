@@ -38,54 +38,20 @@ class CollectController {
         taskUrl,
         titleTag,
         articleTag,
-        removeCode,
-        clearRegCode,
+        parseData,
         charset,
       } = req.body;
-      const data = await collect.common(taskUrl, charset);
-      const $ = cheerio.load(data.toString(), { decodeEntities: false });
+      const dataStr = await collect.common(taskUrl, charset);
+      const $ = cheerio.load(dataStr.toString(), { decodeEntities: false });
       const title = $(`${titleTag}`).text().trim();
-      //动态清理节点
-      eval(removeCode);
-      $(`${articleTag}`)
-        .find("*")
-        .not("img")
-        .remove("script")
-        .remove("style")
-        .remove("iframe")
-        .remove("audio")
-        .remove("video")
-        .remove("noscript")
-        .removeAttr("class")
-        .removeAttr("id")
-        .removeAttr("style")
-        .each((index, element) => {
-          const attributes = element.attributes;
-          for (let i = attributes.length - 1; i >= 0; i--) {
-            const attributeName = attributes[i].name;
-            if (attributeName.startsWith("data-")) {
-              $(element).removeAttr(attributeName);
-            }
-          }
-        });
+      let run = new Function(
+        `data`,
+       parseData
+      );
 
-      // 获取清理后的文本内容
-      let articleText = $(`${articleTag}`)
-        .html()
-        .trim()
-        .replace(/\r|\n/g, "")
-        .replace(/\"/g, "")
-        .replace(/<span\b[^>]*>(.*?)<\/span>/gi, "$1")
-        .replace(/<div\b[^>]*>(.*?)<\/div>/gi, "$1")
-        .replace(/<a\b[^>]*>(.*?)<\/a>/gi, "$1")
-        .replace(/<p>(\s*|<br\s*\/?>)<\/p>/g, "");
-
-      // 动态正则替换
-      const regex = new RegExp(clearRegCode, "gi");
-      // 替换操作
-      articleText = articleText.replace(regex, "");
-
-      res.json({ ...success, data: { title: title, article: articleText } });
+      let data = $(`${articleTag}`).html();
+      let dataend = run(data);
+      res.json({ ...success, data: { title: title, article: dataend } });
     } catch (error) {
       next(error);
     }
