@@ -1,6 +1,6 @@
 <template>
   <h1 class="logo">
-    <IconLogo class="icon mr-10"></IconLogo>
+    <IconLogo class="icon mr-5"></IconLogo>
     <span class="f-20" v-show="!flag">ChanCMS</span>
   </h1>
 </template>
@@ -33,16 +33,13 @@ export default defineComponent({
 
 <style scoped>
 .icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  /* background-color: #f9f9f9;
-  padding: 3px; */
+  width: 32px;
+  height: 32px;
 }
 .logo {
   padding: 9px;
   font-size: 20px;
-  font-weight: 100;
+
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
