@@ -26,8 +26,8 @@
           scope.row.status == 1 ? "草稿" : "发布"
         }}</template>
       </el-table-column>
-      <el-table-column prop="createdAt" label="发布时间">
-        <template #default="scope">{{ scope.row.createdAt }}</template>
+      <el-table-column prop="updatedAt" label="发布时间">
+        <template #default="scope">{{ scope.row.updatedAt }}</template>
       </el-table-column>
       <el-table-column fixed="right" width="222" label="操作">
         <template #default="scope">
@@ -152,8 +152,7 @@ export default {
           pages,
           titleTag,
           articleTag,
-          clearRegCode,
-          removeCode,
+          parseData,
           charset,
           cid,
           status,
@@ -164,8 +163,7 @@ export default {
           taskUrl: pages[this.step],
           titleTag,
           articleTag,
-          removeCode,
-          clearRegCode,
+          parseData,
           charset,
         });
         if (res.code == 200) {
@@ -188,8 +186,9 @@ export default {
         let params = { ...this.params };
         params.attr = params.attr.toString();
         params.tag_id = params.tag_id.toString();
+        console.log(params);
         //提取255字符作为文章描述
-        if (!params.description) {
+        if (!params.description && params.content) {
           params.description = filterHtml(params.content).substr(0, 255);
         }
         let res = await create({

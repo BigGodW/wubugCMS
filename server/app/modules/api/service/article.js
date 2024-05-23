@@ -9,6 +9,7 @@ let knex = Chan.knex;
 async function getImgsByArticleId(id, arr) {
   const imgStr = ` SELECT img,content FROM article WHERE id=${id}`;
   const img = await knex.raw(imgStr, []);
+
   if (img[0].length > 0) {
     if (img[0][0].img) {
       arr.push(img[0][0].img);

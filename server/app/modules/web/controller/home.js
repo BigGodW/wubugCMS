@@ -148,8 +148,6 @@ class HomeController {
       //热门 推荐 图文
       const data = await home.article(cid);
       
-      console.log('article--->',data);
-
       //获取模板
       let view = navSub.cate.article_view;
 

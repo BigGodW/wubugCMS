@@ -3,7 +3,7 @@ const Chan = require("chanjs");
 const {
   utils: { success, tree },
 } = Chan.helper;
-console.log(Chan.modules);
+
 const {
   api: {
     service: { site, frag, tag, friendlink, article },
@@ -80,7 +80,6 @@ class ChancmsController {
     try {
       const { attr, len, start } = req.query;
       let params = { attr, len: +len, start: +start };
-      console.log(params);
       const data = await chancms.getArticleList(params);
       res.json({ ...success, data });
     } catch (error) {

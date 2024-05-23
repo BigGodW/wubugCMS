@@ -72,9 +72,7 @@ class CollectService {
       'charset', 
       'titleTag',
       'articleTag',
-      'removeCode',
-      'clearRegCode',
-      'charset',
+      'parseData',
       'status','cid'])
         .from(CollectService.model)
         .limit(pageSize)
@@ -101,7 +99,7 @@ class CollectService {
       .where('id', '=', id)
       .select(['id', 'taskName', 'targetUrl', 
       'listTag', 'startNum','endNum','increment','pages',
-      'titleTag','articleTag','charset','clearRegCode','status','cid'])
+      'titleTag','articleTag','charset','parseData','status','cid'])
       return data[0];
     } catch (err) {
       return err;

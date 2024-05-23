@@ -128,6 +128,9 @@ exports.pc = (str) => {
 
 // 获取图片
 exports.filterImgFromStr = (str) => {
+  if(!str){
+    return [];
+  }
   const imgReg = /<img.*?(?:>|\/>)/gi; // 匹配出图片img标签
   const srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i; // 匹配出图片src属性
   const arr = str.match(imgReg);
