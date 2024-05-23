@@ -29,7 +29,7 @@ class SysAppController {
       const {
         config: { APP_PATH, template },
       } = req.app.locals;
-      const viewsPath = path.join(APP_PATH, `/modules/home/view/${template}`);
+      const viewsPath = path.join(APP_PATH, `/modules/web/view/${template}`);
       const data = getHtmlFilesSync(viewsPath);
       res.json({ ...success, data: data });
     } catch (err) {

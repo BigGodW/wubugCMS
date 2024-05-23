@@ -15,6 +15,7 @@ class HomeController {
   static async index(req, res, next) {
     try {
       const {
+        nav,
         config: { template },
       } = req.app.locals;
       let result = {};
@@ -24,7 +25,13 @@ class HomeController {
       }
       // 指定多栏目栏目获取文章列表 await common.getArticleListByCids([59,1,29,]) 不传入默认所有栏目
       let article = await common.getArticleListByCids();
-      res.render(`${template}/index.html`, { ...result, article });
+      //获取首页
+      let defaultView = 'index.html';
+      if(nav.length>0 && nav[0].list_view){
+        defaultView = nav[0].list_view;
+      }
+
+      res.render(`${template}/${defaultView}`, { ...result, article });
     } catch (error) {
       console.error(error);
       next(error);
