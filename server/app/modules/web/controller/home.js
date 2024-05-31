@@ -4,8 +4,12 @@ const {
   utils: { pages },
 } = Chan.helper;
 const {
-  web: {service: { common,home }},
-  api:{service:{article}}
+  web: {
+    service: { common, home },
+  },
+  api: {
+    service: { article },
+  },
 } = Chan.modules;
 
 const ArticleService = article;
@@ -18,6 +22,7 @@ class HomeController {
         nav,
         config: { template },
       } = req.app.locals;
+
       let result = {};
       if (!("slide" in res.locals)) {
         result = await home.home();
@@ -26,8 +31,8 @@ class HomeController {
       // 指定多栏目栏目获取文章列表 await common.getArticleListByCids([59,1,29,]) 不传入默认所有栏目
       let article = await common.getArticleListByCids();
       //获取首页
-      let defaultView = 'index.html';
-      if(nav.length>0 && nav[0].list_view){
+      let defaultView = "index.html";
+      if (nav.length > 0 && nav[0].pinyin == "home" && nav[0].list_view) {
         defaultView = nav[0].list_view;
       }
 
@@ -154,7 +159,7 @@ class HomeController {
 
       //热门 推荐 图文
       const data = await home.article(cid);
-      
+
       //获取模板
       let view = navSub.cate.article_view;
 
@@ -180,7 +185,7 @@ class HomeController {
         config: { template },
       } = req.app.locals;
       const {
-        utils: { getChildrenId ,treeById},
+        utils: { getChildrenId, treeById },
       } = Chan.helper;
 
       const { cate, id } = req.params;
@@ -220,7 +225,7 @@ class HomeController {
 
       //获取单页列表
       const data = await home.page(cid, 1, 20);
-   
+
       if (data.list.length > 0 && !id) {
         article = await ArticleService.detail(data.list[0].id);
       }
@@ -240,7 +245,7 @@ class HomeController {
       }
 
       //获取模板
-     
+
       let view = navSub?.cate?.article_view || "page.html";
       await res.render(`${template}/${view}`, {
         data: data.list,
@@ -292,7 +297,9 @@ class HomeController {
   // tag
   static async tag(req, res, next) {
     try {
-      const {config: { template }} = req.app.locals;
+      const {
+        config: { template },
+      } = req.app.locals;
       const { path, id } = req.params;
       const page = id || 1;
       const pageSize = 10;

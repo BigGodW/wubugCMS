@@ -8,7 +8,7 @@ const {
   },
 } = Chan.modules;
 const info = require("./info");
-let data = { site, frag, tag, friendlink, common };
+let api = { site, frag, tag, friendlink, common };
 
 module.exports = () => {
   return async (req, res, next) => {
@@ -24,21 +24,21 @@ module.exports = () => {
       }
       info(res);
       // 站点
-      const site = await data.site.find();
+      const site = await api.site.find();
       site.json = site.json || "";
       // 分类
-      const category = await data.common.category();
+      const category = await api.common.category();
       //导航
       const nav = utils.tree(category);
       // 友情链接
-      let friendlink = await data.friendlink.list();
+      let friendlink = await api.friendlink.list();
       friendlink = friendlink.list || [];
       //样式路径
       const base_url = `/public/template/${template}`;
       //获取碎片 默认获取100条
-      const frag = await data.frag.list();
+      const frag = await api.frag.list();
       //获取tag标签 默认100条
-      const tag = await data.tag.list();
+      const tag = await api.tag.list();
       req.app.locals = {
         ...req.app.locals,
         site,
