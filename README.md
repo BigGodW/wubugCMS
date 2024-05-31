@@ -95,12 +95,12 @@ server 部署代码
 * 案例二   [国际健康健美长寿论坛](http://www.internationjms.cn/)
 * 案例三   [世界大健康运动联盟](http://www.worldhealthgames.com/)
 * 案例四   [世界气功网](http://www.shijieqigong.com/)
-* 案例五   [昂翊信息](http://www.angyi-iot.com/)
-* 案例六   [萌狮换电](http://www.51mshd.com/)
-* 案例七   [七弈国象](https://doc.7yi.link/)
-* 案例八   [北京辉达环保科技有限公司](http://www.huidaep.com/)
-* 案例九   [微芒不朽](http://cms.kestrel-task.cn/)
-* 案例十   [蝌蚪云](https://kd-yun.top/)
+* 案例五   [蝌蚪云](https://kd-yun.top/)
+* 案例六   [昂翊信息](http://www.angyi-iot.com/)
+* 案例七   [萌狮换电](http://www.51mshd.com/)
+* 案例八   [七弈国象](https://doc.7yi.link/)
+* 案例九   [北京辉达环保科技有限公司](http://www.huidaep.com/)
+* 案例十   [微芒不朽](http://cms.kestrel-task.cn/)
 * 案例十一 [简游资讯](http://118.89.190.101:81/)
 * 案例十二 [雅俗共赏](http://www.cqsmservices.cn/)
 * 案例十三 [博客](http://www.blogyl.top/)
@@ -113,7 +113,7 @@ server 部署代码
 ## 👵开发文档
 
 * **官网:<https://www.chancms.top>**
-* **官网文档 <https://yanyutao0402.gitee.io/chanyue-doc>**
+* **官网文档 <https://www.chancms.top/docs/index.html>**
 
 ## ❤️项目关注
 
