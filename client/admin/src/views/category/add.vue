@@ -43,7 +43,7 @@
           </el-form-item>
 
           <el-form-item label="栏目标识">
-            <el-input v-model="params.pinyin" @change="changePath"></el-input>
+            <el-input v-model="params.pinyin" @change="changePath" placeholder="注：首页请填写home"></el-input>
           </el-form-item>
 
           <el-form-item label="栏目路径">

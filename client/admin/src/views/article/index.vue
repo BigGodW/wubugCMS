@@ -55,12 +55,16 @@
           <a
             class="block"
             v-if="scope.row.status === 0"
-            :href="`/article-${scope.row.id}.html`"
+            :href="
+              scope.row.type == '0'
+                ? `${domain}/article-${scope.row.id}.html`
+                : `${domain}/${scope.row.path}/page-${scope.row.id}.html`
+            "
             target="_blank"
           >
             {{ scope.row.title }}
           </a>
-          <span v-else>{{ scope.row.title }}</span>
+          
         </template>
       </el-table-column>
       <!-- <el-table-column prop="attr" label="属性">
@@ -154,6 +158,7 @@ export default {
   },
   data: () => {
     return {
+      domain:location.origin,
       keywords: "",
       cid: 0,
       cur: 1,
@@ -289,7 +294,9 @@ export default {
     },
 
     handleClick(e) {
-      let url = location.origin + `/article-${e.id}.html`;
+      let url= e.type=='0'?
+      `${location.origin}article-${e.id}.html`:
+      `${location.origin}${e.path}/page-${e.id}.html`;
       window.open(url);
     },
 

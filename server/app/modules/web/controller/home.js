@@ -220,6 +220,7 @@ class HomeController {
 
       //获取单页列表
       const data = await home.page(cid, 1, 20);
+   
       if (data.list.length > 0 && !id) {
         article = await ArticleService.detail(data.list[0].id);
       }
@@ -239,7 +240,8 @@ class HomeController {
       }
 
       //获取模板
-      let view = navSub.cate.article_view || "page.html";
+     
+      let view = navSub?.cate?.article_view || "page.html";
       await res.render(`${template}/${view}`, {
         data: data.list,
         cate: navSub.cate,

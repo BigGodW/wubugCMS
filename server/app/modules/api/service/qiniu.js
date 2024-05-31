@@ -47,10 +47,6 @@ class QiniuService  {
     putExtra.fname = file.filename;
     putExtra.metadata = {};
 
-    console.log('uploadToken', uploadToken,
-    key, 
-    localFile, 
-    putExtra, )
     return new Promise(async resove=>{
       formUploader.putFile(
         uploadToken,
