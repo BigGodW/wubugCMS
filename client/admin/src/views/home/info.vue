@@ -112,12 +112,12 @@
       <div class="bg-fff pd-20 radius-6 mb-20">
         <div class="mb-12 f-16 c-1d2129 bold">技术服务</div>
         <p class="f-13 mb-6 c-4e5969 row justify-around">
-          <span class="c-1d2129 col-12 mb-10">前端开发</span>
           <span class="c-1d2129 col-12 mb-10">企业建站</span>
-          <span class="c-1d2129 col-12 mb-10">小程序开发</span>
-          <span class="c-1d2129 col-12 mb-10">技术顾问</span>
-          <span class="c-1d2129 col-12">互动玩法2d</span>
-          <span class="c-1d2129 col-12">技术交流</span>
+          <span class="c-1d2129 col-12 mb-10">模板开发</span>
+          <span class="c-1d2129 col-12 mb-10">模板仿站</span>
+          <span class="c-1d2129 col-12 mb-10">模板定制</span>
+          <span class="c-1d2129 col-12">小程序开发</span>
+          <span class="c-1d2129 col-12">前端开发</span>
         </p>
       </div>
     </el-col>
