@@ -166,7 +166,7 @@ body {
 }
 
 .content-wrap{
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 122px);
   border-radius: 6px;
   background-color: #fff;
   padding: 20px;

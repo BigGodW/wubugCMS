@@ -2,11 +2,11 @@
   <div class="mr-10 ml-10 mb-20 pd-20 content-wrap">
     <el-form ref="params" :model="params" label-width="84px">
       <el-form-item label="菜单配置">
-        <el-input
+        <json-editor-vue
+          class="w-p100 vjs-tree"
           v-model="params.content"
-          :rows="18"
-          type="textarea"
-          placeholder="Please input"
+          @change="changeJson"
+          mode="code"
         />
       </el-form-item>
 
@@ -18,22 +18,24 @@
 </template>
 
 <script>
+import JsonEditorVue from "json-editor-vue3";
 import { find, update } from "@/api/menu.js";
-
 export default {
   name: "menu-index",
-  components: {},
+  components: { JsonEditorVue },
   // 注册组件
   data: () => {
     return {
       hasJsonFlag: true,
+      val: {},
       params: {
         //接口入参
         id: 0,
-        content: "",
+        content: {},
       },
     };
   },
+
   computed: {},
   async mounted() {},
 
@@ -42,8 +44,9 @@ export default {
   },
   unmounted() {},
   methods: {
-    onJsonChange(value) {
-      console.log("value:", value);
+    changeJson(val) {
+      console.log(val);
+      console.log(this.params);
     },
     // 文章详情
     async find() {
@@ -53,7 +56,7 @@ export default {
           const { id, content } = res.data;
           this.params = {
             id,
-            content: content,
+            content: JSON.parse(content),
           };
         }
       } catch (error) {
@@ -63,12 +66,18 @@ export default {
     //新增
     async update() {
       try {
-        let res = await update(this.params);
+        const { id, content } = this.params;
+        let params = {
+          id,
+          content: JSON.stringify(content),
+        };
+        let res = await update(params);
         if (res.code == 200) {
           this.$message({
             message: "更新成功^_^",
             type: "success",
           });
+          location.reload();
         }
       } catch (error) {
         console.log(error);
@@ -88,4 +97,38 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+.vjs-tree {
+  height: calc(100vh - 300px);
+  overflow: auto;
+  width: 100%;
+}
+::v-deep(.jsoneditor-menu) {
+  display: none;
+}
+::v-deep(.jsoneditor-statusbar) {
+  display: none;
+}
+::v-deep(.jsoneditor-outer) {
+  border: none;
+}
+::v-deep(.jsoneditor-vue3 .jsoneditor-menu) {
+  display: none;
+}
+::v-deep(.jsoneditor-vue3 .jsoneditor-statusbar) {
+  display: none;
+}
+::v-deep(.jsoneditor-vue3 .jsoneditor-outer) {
+  border: none;
+}
+::v-deep(.jsoneditor) {
+  border: 1px solid #f2f2f2;
+}
+::v-deep(.jsoneditor-outer.has-main-menu-bar) {
+  margin-top: 0;
+  padding-top: 0;
+}
+::v-deep(.ace-jsoneditor .ace_gutter) {
+  background-color: #f2f2f2;
+}
+</style>

@@ -2,7 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-
+import { viteCommonjs } from "@originjs/vite-plugin-commonjs";
 import legacy from "@vitejs/plugin-legacy";
 
 //组件扩展名称
@@ -19,6 +19,7 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [
       vue(),
+      viteCommonjs(),
       legacy({
         targets: ["defaults", "not IE 11"],
         // targets: ["> 1%, last 1 version, ie >= 11"], // 需要兼容的目标列表，可以设置多个

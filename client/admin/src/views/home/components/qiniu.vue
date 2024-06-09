@@ -2,7 +2,7 @@
   <div class="mr-10 ml-10">
     <!-- 基本设置 -->
     <el-tab-pane label="七牛云配置" class="mt-20" name="qiniu">
-      <el-form ref="set" :model="set" label-width="80px">
+      <el-form ref="set" :model="set" label-width="120px">
         <el-form-item prop="accessKey" label="accessKey(AK)">
           <el-input v-model="set.accessKey"></el-input>
         </el-form-item>
