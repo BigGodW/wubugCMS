@@ -18,7 +18,7 @@ config.versionTime = "2024-06-09";
 config.author = "明空";
 config.authorEmail = "867528315@qq.com";
 config.authorWechat = "yanyutao2014";
-config.JSON_LIMIT = '200kb';
+config.JSON_LIMIT = '100kb';
 
 config.appRoot = path.join(__dirname, "../");
 
