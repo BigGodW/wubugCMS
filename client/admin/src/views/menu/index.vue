@@ -2,11 +2,14 @@
   <div class="mr-10 ml-10 mb-20 pd-20 content-wrap">
     <el-form ref="params" :model="params" label-width="84px">
       <el-form-item label="菜单配置">
-        <json-editor-vue
+        <JsonEditorVue
+          :debounce="100"
           class="w-p100 vjs-tree"
+          :show-btns="false"
+          lang="zh"
+          :mode="'text'"
+          :expandedOnStart="false"
           v-model="params.content"
-          @change="changeJson"
-          mode="code"
         />
       </el-form-item>
 
@@ -18,7 +21,8 @@
 </template>
 
 <script>
-import JsonEditorVue from "json-editor-vue3";
+import JsonEditorVue from "json-editor-vue";
+
 import { find, update } from "@/api/menu.js";
 export default {
   name: "menu-index",
@@ -69,7 +73,7 @@ export default {
         const { id, content } = this.params;
         let params = {
           id,
-          content: JSON.stringify(content),
+          content: content,
         };
         let res = await update(params);
         if (res.code == 200) {
@@ -99,36 +103,64 @@ export default {
 </script>
 <style scoped>
 .vjs-tree {
-  height: calc(100vh - 300px);
+  height: calc(100vh - 200px);
   overflow: auto;
   width: 100%;
 }
-::v-deep(.jsoneditor-menu) {
-  display: none;
+::v-deep(.jse-menu) {
+  display: none !important;
 }
-::v-deep(.jsoneditor-statusbar) {
-  display: none;
+::v-deep(.cm-gutters, .cm-gutter-lint) {
+  border: none !important;
 }
-::v-deep(.jsoneditor-outer) {
-  border: none;
+
+::v-deep(.jse-main) {
+  /* border-top: 1px solid #f2f2f2; */
 }
-::v-deep(.jsoneditor-vue3 .jsoneditor-menu) {
-  display: none;
-}
-::v-deep(.jsoneditor-vue3 .jsoneditor-statusbar) {
-  display: none;
-}
-::v-deep(.jsoneditor-vue3 .jsoneditor-outer) {
-  border: none;
-}
-::v-deep(.jsoneditor) {
-  border: 1px solid #f2f2f2;
-}
-::v-deep(.jsoneditor-outer.has-main-menu-bar) {
+::v-deep(.jse-outer.has-main-menu-bar) {
   margin-top: 0;
   padding-top: 0;
 }
-::v-deep(.ace-jsoneditor .ace_gutter) {
-  background-color: #f2f2f2;
+::v-deep(.cm-editor .cm-gutters) {
+  background-color: #f2f2f2 !important;
+}
+::v-deep(.jse-text-mode.svelte-a0poeb .jse-contents.svelte-a0poeb) {
+  border: none !important;
+}
+::v-deep(
+    .jse-text-mode.svelte-a0poeb
+      .jse-contents.svelte-a0poeb
+      .cm-editor
+      .cm-activeLine,
+    .jse-text-mode.svelte-a0poeb
+      .jse-contents.svelte-a0poeb
+      .cm-editor
+      .cm-activeLineGutter
+  ) {
+  background-color: #f6f6f6 !important;
+}
+::v-deep(.ͼ1 .cm-gutter-lint) {
+  width: auto;
+}
+::v-deep(.ͼr) {
+  color: #000;
+  font-size: 15px;
+  font-family: "microsoft yahei";
+}
+::v-deep(.ͼq) {
+  color: #1a85f8;
+}
+::v-deep(.ͼo) {
+  font-size: 15px;
+  color: #999;
+  font-family: "microsoft yahei";
+}
+
+::v-deep(.jse-status-bar.svelte-hhcn0f.svelte-hhcn0f) {
+  border: none;
+  background-color: #fafafa;
+}
+::v-deep(.jse-status-bar.svelte-hhcn0f.svelte-hhcn0f:last-child) {
+  border: none;
 }
 </style>
