@@ -1,11 +1,12 @@
 
 const dayjs = require('dayjs');
-
+const path = require('path');
 const Chan = require("chanjs");
 let {
-  utils: { filterBody},
+  utils: { filterBody,delImg},
   api: { success },
 } = Chan.helper;
+let {APP_PATH} = Chan.config;
 
 const {
   api: {
@@ -122,6 +123,7 @@ class ArticleController {
   static async upload(req, res, next) {
     try {
       let file = req.files;
+      console.log('files-->',file)
       const { originalname, filename, path } = file[0];
       res.json({
         ...success, data: {
@@ -152,6 +154,17 @@ class ArticleController {
       const {config:{version,appName,port,versionTime,author}} = req.app.locals;
       const data = await article.tongji();
       res.json({ ...success, data: {...data,version,appName,port,versionTime,author }});
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async delfile(req, res, next){
+    try {
+      let url = req.query.url;
+      let filePath = path.join(APP_PATH, url);
+      let data = delImg(filePath);
+      res.json({ ...success, data });
     } catch (err) {
       next(err);
     }

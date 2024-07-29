@@ -151,18 +151,18 @@ exports.filterImgFromStr = (str) => {
  * @param {*} link 字符串
  */
 exports.delImg = (link) => {
-  // 判断文件是否存在
-  fs.access(link, function (err) {
-    if (err) {
-      console.error(err);
-    } else {
-      fs.unlink(link, (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-    }
-  });
+  try {
+    // 使用 fs.accessSync 判断文件是否存在
+    fs.accessSync(link);
+    // 如果文件存在，则使用 fs.unlinkSync 进行删除
+    fs.unlinkSync(link);
+    // 返回成功信息
+    return true;
+  } catch (err) {
+    // 如果文件不存在或出现其他错误，则捕获异常并输出错误信息
+    console.error(err);
+    return false;
+  }
 };
 
 //生成目录，异步改同步

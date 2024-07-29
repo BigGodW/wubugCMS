@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-10 ml-10 mb-20 pd-20 c-fff">
+  <div class="mr-10 ml-10 mb-20 pd-20 content-wrap">
     <el-form
       ref="params"
       :model="params"
@@ -33,15 +33,16 @@
 
       <el-form-item label="字段选项">
         <el-input
-          v-model="params.field_values"
+          v-model="params.field_default"
           :rows="2"
           type="textarea"
-          placeholder="单选、多选、下拉框，请填写json格式。例如：[{label:'男',value:'1'},{label:'女',value:'2'}]  "
+          placeholder="单选、多选、下拉框，请填写json格式。"
         ></el-input>
+        <p class="f-12 c-999">例如：{"options":[{"label":"本地下载","value":"1"},{"label":"电信下载","value":"2"}]}</p>
       </el-form-item>
 
       <el-form-item label="默认值">
-        <el-input v-model="params.field_default"></el-input>
+        <el-input v-model="params.field_values"></el-input>
       </el-form-item>
 
       <el-form-item label="排序">
@@ -141,6 +142,7 @@ export default {
             trigger: "blur",
           },
         ],
+        field_length:[{ required: true, message: "字段长度", trigger: "blur" }]
       },
     };
   },
@@ -158,7 +160,7 @@ export default {
     async hasUse(id) {
       try {
         let res = await hasUse(id);
-        if (res.data.has.length > 0) {
+        if (res?.data?.has?.length > 0) {
           this.disable = true;
         } else {
           this.disable = false;

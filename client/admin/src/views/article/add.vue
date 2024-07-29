@@ -4,6 +4,11 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="基本信息" name="first"></el-tab-pane>
         <el-tab-pane label="扩展信息" name="second"></el-tab-pane>
+        <el-tab-pane
+          label="模型信息"
+          name="three"
+          v-if="field.length > 0"
+        ></el-tab-pane>
       </el-tabs>
     </div>
 
@@ -223,6 +228,7 @@
                 <el-input v-model="params.seo_title"></el-input>
               </el-form-item>
             </el-col>
+
             <el-col :sm="24" :md="12">
               <el-form-item label="SEO关键词">
                 <el-input v-model="params.seo_keywords"></el-input>
@@ -252,54 +258,121 @@
                 <el-input v-model="params.link" max="120"></el-input>
               </el-form-item>
             </el-col>
-            <!--
-          field_cname   中文名称 varchar 60
-          field_ename   英文名称 varchar 60
-          field_type
-          from表单类型 1单行文本（varchar）
-          2.多行文本
-          text 3.下拉菜单
-          text 4.单选
-          text 5.多选
-          6.时间和日期
-          field_default  默认值可选 255
-          field_values   字段配置 男 女
-          field_sort     字段顺序
-          -->
-            <el-col
-              :sm="24"
-              :md="12"
-              :lg="8"
-              v-for="(item, index) of field"
-              :key="index"
-            >
-              <el-form-item :label="item.field_cname">
-                <el-input
-                  v-model="item.field_values"
-                  max="120"
-                  v-if="item.field_type === '1'"
-                ></el-input>
-                <el-input
-                  type="textarea"
-                  :rows="3"
-                  v-else-if="item.field_type === '2'"
-                  placeholder="请输入内容"
-                  v-model="item.field_values"
-                ></el-input>
-                <el-input
-                  type="textarea"
-                  :rows="3"
-                  v-else
-                  placeholder="请输入内容"
-                  autosize="false"
-                  v-model="item.field_values"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-
             <el-col :sm="24" :md="12">
               <el-form-item label="浏览数">
                 <el-input v-model="params.pv"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </div>
+
+        <div v-show="(activeIndex == 2) & (field.length > 0)">
+          <el-row :gutter="20">
+            <!--
+            field_cname   中文名称 varchar 60
+            field_ename   英文名称 varchar 60
+            field_type
+            from表单类型 1单行文本（varchar）
+            2.多行文本
+            text 3.下拉菜单
+            text 4.单选
+            text 5.多选
+            6.时间和日期
+            field_values  默认值可选 255
+            field_default   字段配置 男 女
+            field_sort     字段顺序
+            -->
+            <el-col
+              v-for="(item, index) of field"
+              :key="index"
+              :sm="24"
+              :md="24"
+              :lg="24"
+            >
+              <!-- 单行文本 -->
+              <el-form-item
+                :label="item.field_cname"
+                v-if="['1','7'].includes(item.field_type)"
+              >
+                <el-input v-model="item.field_values" max="120"></el-input>
+              </el-form-item>
+
+              <!-- 多行文本 -->
+              <el-form-item
+                :label="item.field_cname"
+                v-else-if="['2','9'].includes(item.field_type)"
+              >
+                <el-input
+                  type="textarea"
+                  :rows="4"
+                  placeholder="请输入内容"
+                  v-model="item.field_values"
+                ></el-input>
+              </el-form-item>
+
+              <!-- 下拉菜单 -->
+              <el-form-item
+                :label="item.field_cname"
+                v-else-if="['3','4','5'].includes(item.field_type)"
+              >
+                <el-select
+                  v-model="item.field_values"
+                  placeholder="请选择"
+                >
+                  <el-option
+                    v-for="item in item.field_default"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </el-form-item>
+
+              <!-- 时间日期 -->
+              <el-form-item   :label="item.field_cname" v-else-if="item.field_type === '6'">
+                <el-date-picker
+                v-model="item.field_values"
+                  :default-value="new Date()"
+                  type="datetime"
+                  placeholder="请选择"
+                >
+                </el-date-picker>
+              </el-form-item>
+
+              <!-- 多图上传 -->
+              <el-form-item
+                :label="item.field_cname"
+                class="row flex align-c justify-center"
+                v-else-if="item.field_type === '8'"
+              >
+                <!-- 图片显示 -->
+                <div class="cover row align-center">
+                  <div
+                    class="pos-r img-item"
+                    v-for="(item, index) of item.field_values"
+                  >
+                    <el-image :key="index" :src="item.url" fit="cover" />
+                    <div class="imgs-btn">
+                      <el-icon @click="toPreview(item)"><ZoomIn /></el-icon>
+                      <el-icon @click="handleRemove(item)"><Delete /></el-icon>
+                    </div>
+                  </div>
+                </div>
+                <!-- 放大 -->
+                <el-dialog v-model="dialogVisible">
+                  <el-image w-full :src="dialogImageUrl" alt="Preview Image" />
+                </el-dialog>
+                <!-- 上传 -->
+                <el-upload
+                  multiple
+                  :http-request="uploadPics"
+                  :data="{ ...item, index: index }"
+                  :before-upload="beforeUpload"
+                  :limit="10"
+                  :show-file-list="false"
+                >
+                  <el-icon class="upload-icon"><Plus /></el-icon>
+                </el-upload>
               </el-form-item>
             </el-col>
           </el-row>
@@ -315,7 +388,7 @@
 
 <script>
 import { find } from "@/api/category.js";
-import { create, findField } from "@/api/article.js";
+import { create, findField, delfile } from "@/api/article.js";
 import { search } from "@/api/tag.js";
 import { upload } from "@/api/upload.js";
 import Vue3Tinymce from "@/components/Vue3Tinymce/src/main.vue";
@@ -480,7 +553,9 @@ export default {
       }
     },
     //上传缩略图
-    async upload(file) {
+    async upload(file, item) {
+      console.log("file-->", file);
+      console.log("item-->", item);
       let fd = new FormData();
       //把上传文件的添加到 ForDate对象中
       fd.append("file", file.file);
@@ -491,11 +566,88 @@ export default {
       }
     },
 
+    //上传缩略图
+    async uploadPics(files) {
+      console.log("file-->", files);
+      const {
+        data: { index },
+        file,
+      } = files;
+      let fd = new FormData();
+      //把上传文件的添加到 ForDate对象中
+      fd.append("file", file);
+      let res = await upload(fd);
+      console.log("--->", res);
+      if (res.code === 200) {
+        const { filename, path } = res.data;
+
+        if (Array.isArray(this.field[index].field_values)) {
+          this.field[index].field_values.push({
+            name: filename,
+            url: path,
+          });
+        } else {
+          this.field[index].field_values = [
+            {
+              name: filename,
+              url: path,
+            },
+          ];
+        }
+        console.log("this.field-->", this.field);
+      }
+    },
+
+    //预览
+    async toPreview(item) {
+      this.dialogImageUrl = item.url;
+      this.dialogVisible = true;
+    },
+
+    //删除
+    async handleRemove(items) {
+      this.field.forEach((item, index) => {
+        if (Array.isArray(item.field_values)) {
+          item.field_values.forEach((item2, index2) => {
+            if (item2.url == items.url) {
+              this.delfile(items.url);
+              item.field_values.splice(index2, 1);
+            }
+          });
+        }
+      });
+    },
+
+    async delfile(url) {
+      try {
+        console.log("url----->", url);
+        let res = await delfile(url);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     //查询
     async findField(cid) {
       try {
         let res = await findField(cid);
         if (res.code === 200) {
+          res.data.fields.forEach((item) => {
+            //单选 多选
+            if (
+              item.field_default &&
+              item.field_default.includes("[{") &&
+              item.field_default.includes("options")
+            ) {
+              let field = item.field_default;
+              let s = JSON.parse(item.field_default);
+              console.log("--->", s.options);
+              item.field_default = s.options || [];
+            }
+            // 图片
+            if (item.field_type == "8") {
+              item.field_values = [];
+            }
+          });
           this.field = res.data.fields;
         }
       } catch (error) {
@@ -520,7 +672,10 @@ export default {
         //处理模型字段信息
         let fieldParams = {};
         this.field.map((item) => {
-          fieldParams[item.field_ename] = item.field_values;
+          fieldParams[item.field_ename] =
+            typeof item.field_values == "object"
+              ? JSON.stringify(item.field_values)
+              : item.field_values;
         });
 
         let res = await create({
@@ -546,6 +701,7 @@ export default {
 
     submit(formName) {
       this.$refs[formName].validate((valid) => {
+        console.log('valid-->',valid)
         if (valid) {
           if (this.params.cid == 0) {
             this.$message({
@@ -572,9 +728,8 @@ export default {
 
 .cover {
   div {
-    width: 120px;
-    height: 90px;
-    margin: 5px;
+    width: 100px;
+    height: 100px;
     cursor: pointer;
   }
 }
@@ -588,5 +743,49 @@ export default {
 }
 :deep(.el-drawer__body) {
   padding: 0;
+}
+
+.imgs-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  display: none;
+  transition: all 0.3s;
+}
+
+.img-item {
+  position: relative;
+  margin-right: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 5px;
+  border: 1px solid #f2f2f2;
+}
+
+.img-item:hover .imgs-btn {
+  display: flex;
+}
+
+.upload-icon {
+  border: 1px dashed #dcdfe6;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: 0.2s;
+  font-size: 28px;
+  color: #8c939d;
+  width: 100px;
+  height: 100px;
+  text-align: center;
 }
 </style>

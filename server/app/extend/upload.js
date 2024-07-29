@@ -30,9 +30,9 @@ const storage = multer.diskStorage({
   //修改上传后的文件名
   filename:  (req, file, cb) =>{
     //1、获取后缀名
-    let extname = path.extname(file.originalname);
+    // let extname = path.extname(file.originalname);
     //2、根据时间戳生成文件名
-    cb(null, Date.now() + `_source_${file.originalname}` + extname);
+    cb(null, Date.now() + `_source_${file.originalname}`);
   },
 });
 

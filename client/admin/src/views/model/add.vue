@@ -81,10 +81,10 @@ export default {
         let res = await create(params);
         if (res.code == 200) {
           this.$message({
-            message: "更新成功^_^",
+            message: "创建表成功^_^",
             type: "success",
           });
-          // this.$router.go(-1);
+          this.$router.go(-1);
         } else {
           this.$message({
             message: res.msg,

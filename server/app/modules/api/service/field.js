@@ -16,37 +16,42 @@ class FieldService {
         const result = await knex(FieldService.model).insert({ model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort,field_length }).transacting(trx);
 
         // result 返回是新增[id]
-        let len = field_length || 100
+        let len = field_length || 250
         let sql = '';
         if (result[0]) {
-          // 1单行文本（varchar）2.多行文本 text 3.下拉菜单 text 4.单选 text 5.多选 6.时间和日期 7.s数字 8.图片上传 9富文本
+          // 1单行文本（varchar）
           if (field_type === '1') {
             sql = `varchar(${len})  default \'\'`;
           }
+          // 2.多行文本 text 
           if (field_type === '2') {
-            sql = `varchar(${len})  default \'\'`;
+            sql = `text`;
           }
+          // 3.下拉菜单 text 
           if (field_type === '3') {
-            sql = `varchar(${len})  default \'\'`;
+            sql = `text`;
           }
+          // 4.单选 text 
           if (field_type === '4') {
-            sql = `varchar(${len})  default \'\''`;
+            sql = `text`;
           }
+          // 5.多选 text
           if (field_type === '5') {
-            sql = `varchar(${len})  default \'\'`;
+            sql = `text`;
           }
+          // 6.时间和日期 
           if (field_type === '6') {
             sql = `datetime default null`;
           }
-
+          // 7.s数字 
           if (field_type === '7') {
             sql = `varchar(${len})  default \'\'`;
           }
-
+          // 8.图片上传 
           if (field_type === '8') {
-            sql = `varchar(${len})  default \'\'`;
+            sql = `text`;
           }
-
+          // 9富文本
           if (field_type === '9') {
             sql = `longtext`;
           }

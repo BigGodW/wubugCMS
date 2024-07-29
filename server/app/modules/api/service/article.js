@@ -269,13 +269,14 @@ class ArticleService  {
           `SELECT table_name FROM model WHERE id=?`,
           [modId[0][0].mid]
         );
+        console.log(tableName)
         // 通过表名查找文章
-        field = await knex.raw(`SELECT * FROM ? WHERE aid=? LIMIT 0,1`, [
-          tableName[0][0].table_name,
+        field = await knex.raw(`SELECT * FROM ${tableName[0][0].table_name} WHERE aid=? LIMIT 0,1`, [
           id,
         ]);
+
       }
-      return { ...data[0], field: field[0] || {} };
+      return { ...data[0], field: field[0][0] || {} };
     } catch (err) {
       console.error(err)
       return err;

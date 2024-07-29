@@ -52,10 +52,11 @@ module.exports = (opt) => {
 
   //上传
   router.post("/upload", auth(), upload.any(),controller.article.upload);
-
+  router.get("/article/delfile", auth(), controller.article.delfile);
   // 七牛云相关
   router.get("/qiniu/getUploadToken", controller.qiniu.getUploadToken);
   router.post("/qiniu/upload", auth(), upload.any(),controller.qiniu.upload);
+ 
 
   // 模型管理
   router.get("/model/list", controller.model.list);

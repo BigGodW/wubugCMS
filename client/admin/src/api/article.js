@@ -26,6 +26,12 @@ export let del = (id) => {
   });
 };
 
+export let delfile = (url) =>{
+  return http({
+    url: `${API.BASE_API}/api/article/delfile?url=${url}`,
+    method: "get",
+  });
+}
 //改
 export let update = (opt) => {
   return http({
