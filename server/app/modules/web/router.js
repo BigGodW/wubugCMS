@@ -1,12 +1,13 @@
-
 const init = require("./middleware/init.js");
 const adapter = require("./middleware/adapter.js");
 
 module.exports = (opt) => {
   const {
     router,
-    modules: {web:{controller}},
-    app
+    modules: {
+      web: { controller },
+    },
+    app,
   } = opt;
 
   router.use(adapter());
@@ -78,7 +79,5 @@ module.exports = (opt) => {
   );
 
   //使用路由
-  app.use(router)
+  app.use(router);
 };
-
-

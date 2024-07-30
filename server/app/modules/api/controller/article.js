@@ -1,12 +1,11 @@
-
-const dayjs = require('dayjs');
-const path = require('path');
+const dayjs = require("dayjs");
+const path = require("path");
 const Chan = require("chanjs");
 let {
-  utils: { filterBody,delImg},
+  utils: { filterBody, delImg },
   api: { success },
 } = Chan.helper;
-let {APP_PATH} = Chan.config;
+let { APP_PATH } = Chan.config;
 
 const {
   api: {
@@ -15,13 +14,16 @@ const {
 } = Chan.modules;
 
 class ArticleController {
-
   // 增
   static async create(req, res, next) {
     try {
       const body = req.body;
-      body.defaultParams.createdAt = dayjs(body.defaultParams.createdAt).format('YYYY-MM-DD HH:mm:ss');
-      body.defaultParams.updatedAt = dayjs(body.defaultParams.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+      body.defaultParams.createdAt = dayjs(body.defaultParams.createdAt).format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      body.defaultParams.updatedAt = dayjs(body.defaultParams.updatedAt).format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
       body.defaultParams.content = filterBody(body.defaultParams.content);
       const data = await article.create(body);
       res.json({ ...success, data: data });
@@ -45,8 +47,8 @@ class ArticleController {
   static async update(req, res, next) {
     try {
       const body = req.body;
-      body.createdAt = dayjs(body.createdAt).format('YYYY-MM-DD HH:mm:ss');
-      body.updatedAt = dayjs(body.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+      body.createdAt = dayjs(body.createdAt).format("YYYY-MM-DD HH:mm:ss");
+      body.updatedAt = dayjs(body.updatedAt).format("YYYY-MM-DD HH:mm:ss");
       body.content = filterBody(body.content);
       const data = await article.update(body);
       res.json({ ...success, data: data });
@@ -87,21 +89,19 @@ class ArticleController {
     }
   }
 
-
   // 搜索
   static async search(req, res, next) {
     try {
-      const {cur,keyword,cid=0,pageSize=20} = req.query
+      const { cur, keyword, cid = 0, pageSize = 20 } = req.query;
       const data = await article.search(keyword, cur, pageSize, +cid);
-      data.list.forEach(ele => {
-        ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:mm:ss');
+      data.list.forEach((ele) => {
+        ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm:ss");
       });
       res.json({ ...success, data: data });
     } catch (err) {
       next(err);
     }
   }
-
 
   // 列表
   static async list(req, res, next) {
@@ -110,8 +110,8 @@ class ArticleController {
       const cid = req.query.cid;
       const pageSize = 10;
       const data = await article.list(cur, pageSize, cid);
-      data.list.forEach(ele => {
-        ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+      data.list.forEach((ele) => {
+        ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm:ss");
       });
       res.json({ ...success, data: data });
     } catch (err) {
@@ -123,16 +123,17 @@ class ArticleController {
   static async upload(req, res, next) {
     try {
       let file = req.files;
-      console.log('files-->',file)
+      console.log("files-->", file);
       const { originalname, filename, path } = file[0];
       res.json({
-        ...success, data: {
-          link: path.replace('app', ''),
+        ...success,
+        data: {
+          link: path.replace("app", ""),
           domain: req.hostname,
           originalname,
           filename,
-          path: '/' + path.replace(/\\/g, "/").replace(/^app\//, "")
-        }
+          path: "/" + path.replace(/\\/g, "/").replace(/^app\//, ""),
+        },
       });
     } catch (err) {
       next(err);
@@ -151,15 +152,20 @@ class ArticleController {
 
   static async tongji(req, res, next) {
     try {
-      const {config:{version,appName,port,versionTime,author}} = req.app.locals;
+      const {
+        config: { version, appName, port, versionTime, author },
+      } = req.app.locals;
       const data = await article.tongji();
-      res.json({ ...success, data: {...data,version,appName,port,versionTime,author }});
+      res.json({
+        ...success,
+        data: { ...data, version, appName, port, versionTime, author },
+      });
     } catch (err) {
       next(err);
     }
   }
 
-  static async delfile(req, res, next){
+  static async delfile(req, res, next) {
     try {
       let url = req.query.url;
       let filePath = path.join(APP_PATH, url);

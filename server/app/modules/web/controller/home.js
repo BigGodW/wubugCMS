@@ -1,5 +1,6 @@
 const dayjs = require("dayjs");
 const Chan = require("chanjs");
+const { json } = require("body-parser");
 const {
   utils: { pages },
 } = Chan.helper;
@@ -28,7 +29,8 @@ class HomeController {
         result = await home.home();
         res.locals = { ...res.locals, ...result };
       }
-      // 指定多栏目栏目获取文章列表 await common.getArticleListByCids([59,1,29,]) 不传入默认所有栏目
+      // 指定多栏目栏目获取文章列表
+      // await common.getArticleListByCids([59,1,29,]) 不传入默认所有栏目
       let article = await common.getArticleListByCids();
       //获取首页
       let defaultView = "index.html";
@@ -57,10 +59,12 @@ class HomeController {
       const currentPage = parseInt(current) || 1;
       const pageSize = 10;
       const { category } = req.app.locals;
+
       // 当前栏目和当前栏目下所有子导航
       let navSub = getChildrenId(cate || cid, category);
       // const navSubField = ["id", "name", "path"];
       // navSub.cate.children = filterFields(navSub.cate.children, navSubField);
+
       //获取栏目id
       const id = cid || navSub.cate.id || "";
       if (!id) {
@@ -84,6 +88,7 @@ class HomeController {
         href = position.slice(-1)[0].path + "/index";
         pageHtml = pages(currentPage, count, pageSize, href);
       }
+
       //获取模板
       let view = navSub.cate.list_view || "list.html";
       await res.render(`${template}/${view}`, {
@@ -123,46 +128,44 @@ class HomeController {
 
       // 文章列表
       const article = await ArticleService.detail(id);
+      console.log('article--id-->',article);
       if (!article) {
         res.redirect("/404.html");
         return;
       }
 
-      article.tags = await common.fetchTagsByArticleId(id);
-
       // 栏目id
       const cid = article.cid || "";
-
+      // 内容标签
+      article.tags = await common.fetchTagsByArticleId(id);
+      // 时间
       article.createdAt = dayjs(article.createdAt).format(
         "YYYY-MM-DD HH:mm:ss"
       );
       article.updatedAt = dayjs(article.updatedAt).format(
         "YYYY-MM-DD HH:mm:ss"
       );
-
       article.content = htmlDecode(article.content);
-
+      // 扩展字段
+      Object.getOwnPropertyNames(article.field).forEach(function(key) {
+        if(typeof article.field[key]== 'string' && article.field[key].includes("{")){
+          article.field[key] = JSON.parse(article.field[key]);
+        }
+      });
       // 当前栏目和当前栏目下所有子导航
       const navSub = getChildrenId(cid, category);
-
       // 当前位置
       const position = treeById(cid, category);
-
       // 增加数量
       await ArticleService.count(id);
-
       //上一页
       const pre = await ArticleService.pre(id, cid);
-
       //下一页
       const next = await ArticleService.next(id, cid);
-
       //热门 推荐 图文
       const data = await home.article(cid);
-
       //获取模板
       let view = navSub.cate.article_view;
-
       await res.render(`${template}/${view}`, {
         ...data,
         cate: navSub.cate,
