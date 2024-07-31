@@ -4,17 +4,14 @@ const fs = require("fs");
 const path = require("path");
 
 const storage = multer.diskStorage({
-  //配置上传的目录
-  destination: async function (req, file, cb){
-   
-    const {config:{template}} = req.app.locals;
-   
-    // 生成格式化日期
+  //目的地
+  destination: async function (req, file, cb) {
+    const {
+      config: { template },
+    } = req.app.locals;
     let date = dayjs(Date.now()).format("YYYY/MM/DD");
-    // 获取目录路径
     let dir = path.join(`app/public/uploads/${template}`, date);
-    // 生成目录，异步改同步
-    function mkdirsSync(dirname){
+    function mkdirsSync(dirname) {
       if (fs.existsSync(dirname)) {
         return true;
       } else {
@@ -23,12 +20,12 @@ const storage = multer.diskStorage({
           return true;
         }
       }
-    };
+    }
     mkdirsSync(dir);
     cb(null, dir);
   },
-  //修改上传后的文件名
-  filename:  (req, file, cb) =>{
+  //文件名
+  filename: (req, file, cb) => {
     //1、获取后缀名
     // let extname = path.extname(file.originalname);
     //2、根据时间戳生成文件名

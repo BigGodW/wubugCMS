@@ -1,28 +1,19 @@
 const Chan = require("chanjs");
 const {
-  web: {
-    service: { common },
-  },
-  api: {
-    service: { site, frag, tag, friendlink },
-  },
+  web: {service: { common }},
+  api: {service: { site, frag, tag, friendlink }},
 } = Chan.modules;
-const info = require("./info");
 let api = { site, frag, tag, friendlink, common };
 
 module.exports = () => {
   return async (req, res, next) => {
     try {
       let { utils } = Chan.helper;
-      let {
-        config: { template, dataCache },
-      } = req.app.locals;
-
+      let {config: { template, dataCache }} = req.app.locals;
       if ("site" in req.app.locals && dataCache == "1") {
         await next();
         return;
       }
-      info(res);
       // 站点
       const site = await api.site.find();
       site.json = site.json || "";

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="description"content="{{site.description}}">
+    <meta name="description" content="{{site.description}}">
     <meta name="keywords" content="{{site.keywords}}"/>
     <meta property="og:title" content="{{site.title}}" />
     <meta property="og:description" content="{{site.description}}" />
@@ -18,69 +18,11 @@
 
 <body class="bg-f8f8f8 pos-r">
     <!-- 头部 -->
-    <header class="row header-wrap justify-center pos-r">
-        <div class="header row align-c justify-between pt-5 pb-5">
-            <div class="row align-c">
-                <h1 class="logo" title="禅悦内容管理系统chanyue-cms">
-                    <span class="c-141414">前端小栈</span><span class="theme f-16 ml-5">• 禅悦</span>
-                </h1>
-                <nav class="nav">
-                    <ul class="row">
-                        <li class="nav-item"><a href="/"  title="首页">首页</a></li>
-                        <li class="nav-item">
-                            <a href="/"  title="首页">前端开发</a>
-                            <ul class="sub-nav">
-                                <li class="sub-nav-item"><a href="/" >vue</a></li>
-                                <li class="sub-nav-item"><a href="/" >react</a></li>
-                                <li class="sub-nav-item"><a href="/" >javascript</a></li>
-                                <li class="sub-nav-item"><a href="/" >css</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/"  title="首页">node开发</a>
-                            <ul class="sub-nav">
-                                <li class="sub-nav-item"><a href="/" >express</a></li>
-                                <li class="sub-nav-item"><a href="/" >mysql</a></li>
-                                <li class="sub-nav-item"><a href="/" >服务器</a></li>
-                            </ul>
-                        <li class="nav-item"><a href="/"  title="首页">SEO</a></li>
-                        <li class="nav-item"><a href="/"  title="首页">前端库</a></li>
-                        <li class="nav-item"><a href="/"  title="首页">禅悦cms</a></li>
-                        <li class="nav-item"><a href="/"  title="首页">案例</a></li>
-                        <li class="nav-item"><a href="/"  title="首页">关于</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="search">
-                <div class="el-input  el-input--prefix ">
-                    <div class="el-input__wrapper" role="button">
-                        <span class="el-input__prefix">
-                            <span class="el-input__prefix-inner">
-                                <i class="el-icon el-input__icon">
-                                    <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill="currentColor"
-                                            d="m795.904 750.72 124.992 124.928a32 32 0 0 1-45.248 45.248L750.656 795.904a416 416 0 1 1 45.248-45.248zM480 832a352 352 0 1 0 0-704 352 352 0 0 0 0 704z">
-                                        </path>
-                                    </svg>
-                                </i>
-                            </span>
-                        </span>
-                        <input class="el-input__inner" type="text" autocomplete="off" placeholder="搜索点什么">
-                    </div>
-                    <!-- <el-button class="ml-5">搜索</el-button> -->
-                </div>
-            </div>
-
-            <div class="ico-open"></div>
-        </div>
-    </header>
+    {{include './common/header.html'}}
 
     <!-- 头条文章 -->
     <main class="bg-f2f2f2 pt-10 pb-20 row">
-
         <div class="main center mt-10 row gap-20">
-
-
             <aside class="flex-1">
                 <!-- tag标签 -->
                 <section class="notices pos-s pd-20 mb-20 bg-fff" style="top:80px;z-index: 2;">
@@ -94,12 +36,6 @@
 
             <!-- 最新文章 -->
             <article class="article-index">
-                <!-- <div class="bg-fff radius-6 pd-15 mb-1 f-14 c-999">
-                    <i class="ico-20 ico-home pos-r t-3"></i>
-                    <a class="" href="" >首页</a> /
-                    <a class="c-666" href="" >nodejs开发</a> /
-                    express专题
-                </div> -->
                 <div class="bg-fff radius-6 pd-25">
                     <header class="border-b pos-r mb-20">
                         <h2 class="f-26 c-252933  bold mt-10">「ONLINE」在线留言</h2>
@@ -170,7 +106,6 @@
                                 <el-button type="primary" @click="submitSeo('message')">提交</el-button>
                             </el-form-item>
                         </el-form>
-
                     </article>
                 </div>
             </article>
@@ -179,12 +114,8 @@
 
    <!-- footer -->
    {{include './common/footer.html'}}
-
-     <!-- 移动端导航 -->
-  {{include './common/wap-nav.html'}}
-
-
-
+   <!-- 移动端导航 -->
+   {{include './common/wap-nav.html'}}
 </body>
 
 </html>

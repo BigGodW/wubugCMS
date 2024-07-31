@@ -24,11 +24,12 @@
                     <i class="ico-20 ico-home pos-r t-3"></i>
                     <a class="" href="/">首页</a> /
                     {{each position}}
-                    {{if $index < position.length-1}} <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
+                        {{if $index < position.length-1}} 
+                            <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
                         {{else}}
-                        <a class="c-666" href="{{$value.path}}/index.html">{{$value.name}}</a>
+                            <a class="c-666" href="{{$value.path}}/index.html">{{$value.name}}</a>
                         {{/if}}
-                        {{/each}}
+                    {{/each}}
                 </div>
 
                 <div class="bg-fff radius-6 pd-25">
@@ -42,7 +43,6 @@
                                 <i class="ico-20 ico-admin pos-r t-4 ml-4"></i> {{article.author}}
                                 <i class="ico-20 ico-view pos-r t-5 ml-4"></i> 阅读（{{article.pv}}）
                                 <!-- <i class="ico-20 ico-zan pos-r t-4 ml-4"></i>点赞（95） -->
-                               
                             </span>
 
                             {{each article.tags}}
@@ -148,7 +148,6 @@
                     </div>
                 </section>
             </aside>
-
         </div>
     </main>
 
@@ -167,21 +166,15 @@
         <p class="mb-20">base_url-> {{base_url}}</p>
         <p class="mb-20">frag--->{{frag}}</p>
         <p class="mb-20">tag--->{{tag}}</p>
-
-        <p class="mb-20">-----------</p>
         <p class="mb-20">position------>{{position}}</p>
         <p class="mb-20">navSub------>{{navSub}}</p>
         <p class="mb-20">article------>{{article}}</p>
-
-        <p class="mb-20 bg-fff">article.tags------>{{article.tags}}</p>
-
-
+        <p class="mb-20">article.tags------>{{article.tags}}</p>
         <p class="mb-20">news------>{{news}}</p>
         <p class="mb-20">hot------>{{hot}}</p>
         <p class="mb-20">imgs------>{{imgs}}</p>
         <p class="mb-20">pre------>{{pre}}</p>
         <p class="mb-20">next------>{{next}}</p>
-
     </div>
     {{include './common/js.html'}}
     <script src="{{base_url}}/js/katelog.min.js"></script>
@@ -200,7 +193,6 @@
     // katelogIns.contentEl.insertAdjacentHTML('afterBegin', html);
     // katelogIns.rebuild();
     </script>
-
 </body>
 
 </html>

@@ -65,11 +65,9 @@ class CommonService {
         .orderBy("a.createdAt", "DESC")
         .limit(len)
         .offset(start);
-
       if (attr) {
         query.where("a.attr", "LIKE", `%${attr}%`);
       }
-
       const result = await query;
       return result;
     } catch (err) {
@@ -89,7 +87,6 @@ class CommonService {
     try {
       // 获取所有id
       const res = await knex.select("id").from("category").where("pid", cid);
-
       const ids = [cid, ...res.map((item) => item.id)];
       // 构建查询条件
       let queryBuilder = knex
@@ -110,11 +107,9 @@ class CommonService {
         .where("a.status", 0)
         .orderBy("createdAt", "DESC")
         .limit(len);
-
       if (attr) {
         queryBuilder = queryBuilder.andWhere("a.attr", "LIKE", `%${attr}%`);
       }
-
       // 执行查询
       const result = await queryBuilder;
       return result;
@@ -197,7 +192,7 @@ class CommonService {
 
       //主栏目-图-文
       let cate = await CommonService.getAllParentCategory(cids);
-      cate = cate.filter((item) => item.path != "/home" && item.type=='0');
+      cate = cate.filter((item) => item.path != "/home" && item.type == "0");
       const cateField = ["id", "name", "path", "pinyin"];
       cate = filterFields(cate, cateField);
       let article = [];

@@ -1,37 +1,27 @@
 const path = require("path");
 
-/**
- * @description 根目录
- */
 const ROOT_PATH = process.cwd();
-
-/**
- * @description 程序目录
- */
-const APP_PATH = path.join(ROOT_PATH, 'app');
-
+const APP_PATH = path.join(ROOT_PATH, "app");
 const config = {};
+config.appRoot = APP_PATH;
 config.version = "v3.2.3";
 config.appName = "ChanCms";
-config.port = '81';
+config.port = "81";
 config.versionTime = "2024-06-09";
 config.author = "明空";
 config.authorEmail = "867528315@qq.com";
 config.authorWechat = "yanyutao2014";
-config.JSON_LIMIT = '100kb';
+config.JSON_LIMIT = "100kb";
 
-config.appRoot = path.join(__dirname, "../");
-
-// cookie sign key
+// cookie
 config.keys = "chanyue-cms_202301032044";
-
 config.token = {
-  KEY: "chanyue-cms", // JSON WEB TOKEN KEY
-  TIME: "1d", // 失效时间 10
+  KEY: "chanyue-cms",
+  TIME: "1d",
 };
-
+// md5 加盐
 config.secretcms = {
-  key: "chanyue-cms", // md5 加盐
+  key: "chanyue-cms",
 };
 
 // 关闭csrf
@@ -58,7 +48,7 @@ config.multipart = {
     ".mp4",
     ".avi",
   ],
-  fileExtensions: [".pdf", ".txt"], // 扩展几种上传的文件格式
+  fileExtensions: [".pdf", ".txt"],
 };
 
 // 模板配置

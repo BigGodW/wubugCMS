@@ -1,9 +1,6 @@
-
 const configBase = require("./config.base.js");
+const config = { ...configBase };
 
-const config = {...configBase};
-
-// add mysql config
 config.database = {
   // client: "mysql2", 默认mysql
   host: "localhost",
@@ -18,10 +15,8 @@ config.database = {
 config.debug = false;
 config.env = "prd";
 
-// 日志
 config.logger = {
-  level: 'tiny',
+  level: "tiny",
 };
-
 
 module.exports = config;

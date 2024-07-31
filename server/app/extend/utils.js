@@ -1,31 +1,20 @@
-
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const path = require("path");
-// this.ctx.helper.relative  <%=helper.relative(item.time)%>
-
-exports.md5 = (str) => {
-  return require("crypto").createHash("md5").update(str).digest("hex");
-};
 
 // 无限极分类tree
-exports.tree = (arr) => {
-  const result = [];
-  const dataTable = {};
-  for (let i = 0; i < arr.length; i++) {
-    const d = arr[i];
-    dataTable[d.id] = d;
-    if (d.pid !== 0 && dataTable[d.pid]) {
-      const childrenOfParent = dataTable[d.pid].children;
-      if (childrenOfParent && childrenOfParent.length) {
-        childrenOfParent.push(d);
-      } else {
-        dataTable[d.pid].children = [d];
+exports.tree = function tree(arr, pid = 0) {
+  let result = [];
+  arr.forEach((item, index) => {
+    if (item.pid === pid) {
+      let children = tree(arr, item.id);
+      if (children.length) {
+        item.children = children;
       }
-    } else {
-      result.push(d);
+      item.level = 1;
+      result.push(item);
     }
-  }
+  });
   return result;
 };
 
@@ -52,27 +41,6 @@ exports.treeById = (id, source) => {
   return arr;
 };
 
-// 返回
-// exports.getChildrenId = (id, source) => {
-//   const arr = [];
-//   const ids = [];
-
-//   source.forEach(item => {
-//     if (item.id == id) {
-//       arr.push(item);
-//     }
-//   });
-
-//   if (arr.length > 0 && arr[0].children) {
-//     arr[0].children.forEach(sub => {
-//       ids.push(sub.id);
-//     });
-//   }
-
-//   ids.push(id);
-//   return { arr, ids };
-// };
-
 // 获取子栏目
 exports.getChildrenId = (py, source) => {
   let cate = {};
@@ -86,7 +54,7 @@ exports.getChildrenId = (py, source) => {
   return { cate, id };
 };
 
-// 设置token this.ctx.token this.app.token
+// 设置token
 exports.setToken = (data, key, time) => {
   const token = jwt.sign(data, key, {
     expiresIn: time,
@@ -108,7 +76,12 @@ exports.getToken = (token, key) => {
   });
 };
 
-// 过滤 body标签
+// md5加密
+exports.md5 = (str) => {
+  return require("crypto").createHash("md5").update(str).digest("hex");
+};
+
+//过滤body标签
 exports.filterBody = (str) => {
   const result = /<body[^>]*>([\s\S]*)<\/body>/.exec(str);
   if (result && result.length === 2) return result[1];
@@ -128,11 +101,11 @@ exports.pc = (str) => {
 
 // 获取图片
 exports.filterImgFromStr = (str) => {
-  if(!str){
+  if (!str) {
     return [];
   }
-  const imgReg = /<img.*?(?:>|\/>)/gi; // 匹配出图片img标签
-  const srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i; // 匹配出图片src属性
+  const imgReg = /<img.*?(?:>|\/>)/gi;
+  const srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
   const arr = str.match(imgReg);
   const imgArr = [];
   if (arr) {
@@ -152,14 +125,10 @@ exports.filterImgFromStr = (str) => {
  */
 exports.delImg = (link) => {
   try {
-    // 使用 fs.accessSync 判断文件是否存在
     fs.accessSync(link);
-    // 如果文件存在，则使用 fs.unlinkSync 进行删除
     fs.unlinkSync(link);
-    // 返回成功信息
     return true;
   } catch (err) {
-    // 如果文件不存在或出现其他错误，则捕获异常并输出错误信息
     console.error(err);
     return false;
   }
@@ -177,16 +146,11 @@ exports.mkdirsSync = (dirname) => {
   }
 };
 
-exports.ip = (req) => {
-  return (req.headers["x-real-ip"] || req.connection.remoteAddress).slice(7);
-};
-
 /**
  * @example [{name:'yanyutao',age:33}] => {yanyutao:33}
  * @description 数组变对象：将数组中的key作为对象的key，其余作为value
  */
 exports.convertArrayToObject = (array, key) => {
-  //数组是否为空
   if (!Array.isArray(array) || array.length === 0) {
     return {};
   }
@@ -209,17 +173,17 @@ exports.convertArrayToObject = (array, key) => {
 const dayjs = require("dayjs");
 require("dayjs/locale/zh-cn");
 const relativeTime = require("dayjs/plugin/relativeTime");
-dayjs.extend(relativeTime); // 相对时间
-dayjs.locale("zh-cn"); // 使用本地化语言
+dayjs.extend(relativeTime);
+dayjs.locale("zh-cn");
 
-exports.filterFields = (data, fields,isTime=true) => {
+exports.filterFields = (data, fields, isTime = true) => {
   if (!Array.isArray(data) || data.length === 0) {
     return [];
   }
   return data.map((item) => {
-    if(isTime){
-      item.createdAt = dayjs(item.createdAt).format('MM-DD')
-    }else{
+    if (isTime) {
+      item.createdAt = dayjs(item.createdAt).format("MM-DD");
+    } else {
       item.createdAt = dayjs(item.createdAt).fromNow().replace(" ", "");
     }
     // item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD HH:mm:ss');
@@ -308,7 +272,6 @@ exports.pages = function (current, total, pageSize, href) {
   } else {
     pageTemp.push(`<li><a href='${href}${current + 1}.html'>下一页</a></li>`);
   }
-
   return pageTemp.join("");
 };
 
@@ -322,88 +285,45 @@ exports.fail = {
   msg: "error",
 };
 
-
-exports.cleanHTML = (htmlStr)=>{
-  // 清除 <script> 标签
-  htmlStr = htmlStr.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-
-  // 清除 <style> 标签
-  htmlStr = htmlStr.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
-
-  // 清除空白 <p> 标签
-  htmlStr = htmlStr.replace(/<p[^>]*>(\s|&nbsp;)*<\/p>/gi, '');
-
-  // 清除 <iframe> 标签
-  htmlStr = htmlStr.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
-
-  // 清除 <audio> 标签
-  htmlStr = htmlStr.replace(/<audio\b[^<]*(?:(?!<\/audio>)<[^<]*)*<\/audio>/gi, '');
-
-  // 清除 <video> 标签
-  htmlStr = htmlStr.replace(/<video\b[^<]*(?:(?!<\/video>)<[^<]*)*<\/video>/gi, '');
-
-  // 清除 <div>、<span>、<i> 和 <strong> 标签，但保留其文本内容
-  htmlStr = htmlStr.replace(/<(div|span|i|strong|b|sup|sub|article|section)[^>]*>(.*?)<\/\1>/gi, '$2');
-
-  // 清除标签属性，除了 <div>、<span>、<i> 和 <strong> 标签之外的其他标签属性
-  htmlStr = htmlStr.replace(/<(\w+)\s*[^>]*>/g, function(match, p1) {
-    if (!/^(div|span|i|strong)$/i.test(p1)) {
-      return match.replace(/\s+[a-zA-Z0-9-]+=('|")[^'"]*('|")/gi, '');
-    }
-    return match;
-  });
-
-  // 过滤空格和换行符
-  htmlStr = htmlStr.replace(/\s/g, '');
-
-  return htmlStr;
-}
-
-
 /**
  * @description 获取模板文件
- * @param {*} folderPath 
+ * @param {*} folderPath
  * @returns 获取模板文件
  */
-exports.getHtmlFilesSync = (folderPath)=>{
-  // 读取文件夹中的所有文件
+exports.getHtmlFilesSync = (folderPath) => {
   const files = fs.readdirSync(folderPath);
-  // 存储所有的HTML文件名
   const htmlFiles = [];
-  // 遍历所有文件
-  files.forEach(file => {
-    // 获取文件的完整路径
+  files.forEach((file) => {
     const filePath = path.join(folderPath, file);
-    // 获取文件的状态信息
     const stats = fs.statSync(filePath);
-    // 如果是HTML文件，则将文件名存入数组
-    if (stats.isFile() && path.extname(file) === '.html') {
+    if (stats.isFile() && path.extname(file) === ".html") {
       htmlFiles.push(file);
     }
   });
   return htmlFiles;
-}
+};
 
 /**
  * @description 获取用户登录ip
- * @param {*} req 
+ * @param {*} req
  * @returns 返回ip地址
  */
-exports.getIp = (req)=>{
-  let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  // 如果'x-forwarded-for'不是IP，则可能为代理服务器列表
-  if (typeof ip === 'string' && ip.indexOf(',') >= 0) {
-    ip = ip.split(',')[0];
+exports.getIp = (req) => {
+  let ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  // 如果是字符串且包含逗号，取第一个IP
+  if (typeof ip === "string") {
+    ip = ip.split(",").shift().trim();
   }
-  // 如果以上两种方式都无法获取IP，则使用remoteAddress
-  if (!ip) ip = req.connection.remoteAddress;
-
-  if(ip == '::1'){
-    ip = '127.0.0.1';
+  // 处理IPv6环回地址转换为IPv4
+  if (ip === "::1") {
+    ip = "127.0.0.1";
+  }
+  // 如果remoteAddress是以::ffff:开头，去除前缀
+  if (ip.startsWith("::ffff:")) {
+    ip = ip.substring(7);
   }
   return ip;
-}
-
+};
 
 exports.htmlDecode = (str) => {
   var s = "";

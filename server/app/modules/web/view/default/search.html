@@ -80,7 +80,6 @@
             </article>
 
             <aside class="flex-1">
-
                 <!-- tag标签 -->
                 <section class="notices pd-20 mb-20 bg-fff">
                     <h3 class="m-title border-dashed f-16 row justify-between">tag标签</h3>
@@ -92,27 +91,21 @@
                     </p>
                 </section>
 
-
                 <!-- 广告 -->
                 <section class="ad mb-20 bg-fff">
-                 
                     {{@ frag.ad || ''}}
                 </section>
-
-
             </aside>
         </div>
     </main>
 
-
     <!-- footer -->
     {{include './common/footer.html'}}
-  <!-- 移动端导航 -->
-  {{include './common/wap-nav.html'}}
+    <!-- 移动端导航 -->
+    {{include './common/wap-nav.html'}}
     <div class="api ignore mb-20 mt-20 pd-20 bg-f2f2f2">
         <h1>接口页面--全局数据：</h1>
         <p class="mb-20">site-> {{site}} </p>
-        <p class="mb-20">111-->{{site.json.siteSubtitle}}</p>
         <p class="mb-20">nav-> {{nav}} </p>
         <p class="mb-20">category-> {{category}}</p>
         <p class="mb-20">friendlink-> {{friendlink}}</p>
@@ -120,14 +113,11 @@
         <p class="mb-20">frag--->{{frag}}</p>
         <p class="mb-20">ad--->{{frag.ad}}</p>
         <p class="mb-20">tag--->{{tag}}</p>
-
-        <p class="mb-20">-----------</p>
         <p class="mb-20">position------>{{position}}</p>
         <p class="mb-20">navSub------>{{navSub}}</p>
         <p class="mb-20">list------>{{data}}</p>
     </div>
     {{include './common/js.html'}}
-    
     <!-- <script>
       function toPage(){
         let mumber = decodeURIComponent( location.pathname).match(/\d+/);

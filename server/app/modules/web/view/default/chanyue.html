@@ -13,6 +13,7 @@
 <body class="bg-f8f8f8">
     <!-- 头部 -->
     {{include './common/header.html'}}
+    
     <!-- banner -->
     <section class="banner row justify-center">
         <h1 class="chanyue text-c">ChanCMS</h1>
@@ -28,7 +29,6 @@
     </section>
 
     <section class="main center row justify-between flex-wrap pd-30 ">
-
         <div class="m-card">
             <h3 class="f-20 mb-20">大道至简</h3>
             <p class="f-16 mb-20">基于express自研mvc框架， 优秀的稳定性，可持续迭代，拒绝复杂设计模式。</p>
@@ -58,19 +58,15 @@
             <h3 class="f-20 mb-20">高持续性</h3>
             <p class="f-16 mb-20">多年深入nodejs技术栈，一心致力于自研开发，前后端代码逐行开发，可持续性强。</p>
         </div>
-
     </section>
-
 
     <footer class="pd-20">
         <p class="mt-30 text-c f-14">©CopyRight {{site.name}} </p>
         <p class="mt-5 text-c f-12"><a href="https://beian.miit.gov.cn/" rel="external nofollow" target="_blank">{{site.icp}}</a></p>
     </footer>
 
-
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
-
     {{include './common/js.html'}}
    
 </body>

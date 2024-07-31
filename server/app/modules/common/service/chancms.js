@@ -18,6 +18,7 @@ class ChancmsService {
   // 网站栏目
   static async category() {
     try {
+      
       let res = await knex("category")
         .select([
           "id",

@@ -1,9 +1,11 @@
 const Chan = require("chanjs");
-let {utils: { filterFields, formatDay}} = Chan.helper;
+let {
+  utils: { filterFields, formatDay },
+} = Chan.helper;
 
 const CommonService = require("./common.js");
 class HomeService {
-  constructor() { }
+  constructor() {}
   // 首页
   static async home() {
     try {
@@ -39,16 +41,15 @@ class HomeService {
       let hot = await CommonService.getArticlePvList(10);
 
       //推荐带图片
-      let recommendImgs = await CommonService.getNewImgList(5, '', 2);
+      let recommendImgs = await CommonService.getNewImgList(5, "", 2);
       const recommendImgsField = ["id", "title", "path", "img", "description"];
       recommendImgs = filterFields(recommendImgs, recommendImgsField);
-      return { banner,slide, topnews,  imgs, recommend, recommendImgs,hot };
+      return { banner, slide, topnews, imgs, recommend, recommendImgs, hot };
     } catch (err) {
       console.error(err);
       return err;
     }
   }
-
 
   // 列表页
   static async list(id, currentPage = 1, pageSize = 20) {
@@ -70,8 +71,6 @@ class HomeService {
       return err;
     }
   }
-
-
   // 文章页
   static async article(id) {
     try {
@@ -90,7 +89,6 @@ class HomeService {
     }
   }
 
-
   // 单页列表页
   static async page(id, currentPage = 1, pageSize = 10) {
     try {
@@ -102,8 +100,6 @@ class HomeService {
       return err;
     }
   }
-
-
 }
 
 module.exports = HomeService;
