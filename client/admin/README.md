@@ -48,12 +48,3 @@
 ```
 git config core.ignorecase false
 ```
-
-JSON在线格式化：http://coolaf.com/tool/json
-
-参考 <https://www.bilibili.com/video/BV1Su411q71n?p=27&vd_source=854ed77c43b6a79c6440062272e02418> routerlist
-
-<https://www.bilibili.com/video/BV1dS4y1y7vd/?spm_id_from=333.788.recommend_more_video.-1&vd_source=854ed77c43b6a79c6440062272e02418> vue3
-
-<https://www.bilibili.com/video/BV1x8411j7Ap/?spm_id_from=333.337.search-card.all.click&vd_source=854ed77c43b6a79c6440062272e02418>
-0:18:57
