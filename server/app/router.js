@@ -1,5 +1,5 @@
 const path = require("path");
-const open = require(`./plugin/router.js`);
+// const open = require(`./plugin/router.js`);
 
 /**
  * @description 处理路由
@@ -12,7 +12,7 @@ const routers = (app, router) => {
   } = app;
 
   //开源api（非自动加载模式）
-  router.use("/open", open);
+  // router.use("/open", open);
 
   //机器人抓取
   router.get("/robots.txt", function (req, res, next) {

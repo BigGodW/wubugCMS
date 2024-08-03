@@ -14,6 +14,7 @@ export default class Base {
       url: `${Base.API}/api/get`,
       method: "GET",
       params: params,
+      withCredentials: false, // 添加这一行
     });
   }
 

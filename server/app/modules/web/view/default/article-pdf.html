@@ -95,7 +95,7 @@
         const match = pdfurl.match(regex);
         if (match && match.length > 1) {
             const content = match[1];
-            let url = '/public/pdfjs/web/viewer.html?file=/open/pdf'+encodeURIComponent(`?file=${content}`)
+            let url = '/public/pdfjs/web/viewer.html?file=/plus-pdf/pdf'+encodeURIComponent(`?file=${content}`)
             var iframe = document.getElementById("iframe");
             if (iframe) {
                 iframe.src = url
