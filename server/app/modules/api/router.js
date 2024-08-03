@@ -9,9 +9,7 @@ module.exports = (opt) => {
     modules: { api:{controller}},
     app
   } = opt;
-  // 验证码
-  router.get("/captcha", controller.sysUser.captcha); // 验证码
-
+ 
   // 登录
   router.post("/sysUser/login", controller.sysUser.login);
   router.get("/sysUser/list", controller.sysUser.list);

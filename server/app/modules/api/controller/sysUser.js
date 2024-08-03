@@ -1,5 +1,4 @@
 const dayjs = require("dayjs");
-const svgCaptcha = require("svg-captcha");
 
 const Chan = require("chanjs");
 let {
@@ -127,25 +126,6 @@ class SysUserController {
     }
   }
 
-  // 获取验证码
-  static async captcha(req, res, next) {
-    try {
-      const captcha = svgCaptcha.create({
-        size: 4,
-        fontSize: 36,
-        width: 100,
-        height: 32,
-        ignoreChars: "0oO1ilI", // 验证码字符中排除 0o1i
-        noise: 3,
-        // background: '#cc9966',
-      });
-      res.cookie("captcha", captcha.text);
-      res.type = "image/svg+xml"; // 知道你个返回的类型
-      res.end(captcha.data); // 返回一张图片
-    } catch (err) {
-      next(err);
-    }
-  }
 }
 
 module.exports = SysUserController;

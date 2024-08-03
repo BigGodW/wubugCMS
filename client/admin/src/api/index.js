@@ -30,11 +30,3 @@ export let create = ({ username, password }) => {
     },
   });
 };
-
-//验证码
-export let captcha = (ver) => {
-  return http({
-    url: `${API.BASE_API}/api/captcha?v=${ver}`,
-    method: "get",
-  });
-};

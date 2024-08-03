@@ -31,8 +31,7 @@
     "mysql2": "^3.6.2",
     "node-schedule": "^2.1.1",
     "qiniu": "^7.10.0",
-    "serve-favicon": "^2.5.0",
-    "svg-captcha": "^1.4.0"
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
