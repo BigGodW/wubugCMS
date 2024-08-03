@@ -63,13 +63,7 @@
       </p>
     </footer>
 
-    <Vcode
-      :imgs="imgs"
-      :show="isShow"
-      @success="onSuccess"
-      @close="onClose"
-      @fail="onFail"
-    />
+    <Vcode :imgs="imgs" :show="isShow" @success="onSuccess" @fail="onFail" />
   </div>
 </template>
 
@@ -77,8 +71,7 @@
 import Vcode from "vue3-puzzle-vcode";
 import { defineComponent } from "vue";
 import { userStore } from "@/stores/user";
-import { login } from "@/api/index";
-import { setCookie, getCookie } from "@/utils/tool.js";
+import { setCookie } from "@/utils/tool.js";
 import IconLogo from "@/components/icons/IconLogo.vue";
 import { create } from "@/api/login_log.js";
 export default defineComponent({
@@ -90,34 +83,24 @@ export default defineComponent({
         password: "",
       },
       isShow: false,
-      imgs: ["/public/cover/06.jpg"],
-      captcha: "", // 添加验证码图片链接属性
+      imgs: [
+        "/public/cover/06.jpg",
+        "/public/cover/sea/01.png",
+        "/public/cover/sea/02.png",
+        "/public/cover/sea/03.png",
+        "/public/cover/sea/04.png",
+        "/public/cover/sea/05.png",
+        "/public/cover/sea/06.png",
+        "/public/cover/sea/07.png",
+      ],
     };
   },
-  created() {
-    // this.getCaptcha();
-  },
+  created() {},
   methods: {
-    // async getCaptcha() {
-    //   try {
-    //     let v = Math.random().toString().slice(4, 8);
-    //     let res = await captcha(v);
-    //     this.captcha = res;
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // },
-    onSuccess(e) {
-      console.log(e);
+    onSuccess() {
       this.toLogin();
     },
     onFail(e) {
-      console.log(e);
-    },
-    refresh(e) {
-      console.log(e);
-    },
-    onClose(e) {
       console.log(e);
     },
 

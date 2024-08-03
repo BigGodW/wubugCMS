@@ -64,7 +64,6 @@
           >
             {{ scope.row.title }}
           </a>
-          
         </template>
       </el-table-column>
       <!-- <el-table-column prop="attr" label="属性">
@@ -158,7 +157,7 @@ export default {
   },
   data: () => {
     return {
-      domain:location.origin,
+      domain: location.origin,
       keywords: "",
       cid: 0,
       cur: 1,
@@ -294,9 +293,10 @@ export default {
     },
 
     handleClick(e) {
-      let url= e.type=='0'?
-      `${location.origin}article-${e.id}.html`:
-      `${location.origin}${e.path}/page-${e.id}.html`;
+      let url =
+        e.type == "0"
+          ? `${location.origin}article-${e.id}.html`
+          : `${location.origin}${e.path}/page-${e.id}.html`;
       window.open(url);
     },
 

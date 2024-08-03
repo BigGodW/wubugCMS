@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 09/06/2024 22:46:14
+ Date: 03/08/2024 15:18:49
 */
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ CREATE TABLE `article`  (
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES (80, 8, '', '关于作者：明空', '', '', '', '', '', '', '', '', '明空，ChanCMS开发作者。', '', '<p>明空，<strong>ChanCMS</strong>开发作者。</p>\n<p>拥有逾十年实战经验的前端开发资深专家，始终保持一线开发的敏锐触觉与持续创新精神，紧跟技术潮流，与时俱进。</p>\n<p>2012年，大学毕业后即投身前端领域，在网页三剑客（Dreamweaver、Flash、Fireworks）盛行的时代，熟练掌握DW、FALSH、FW&amp;FL等工具，应对IE6、IE7、IE8等浏览器兼容问题游刃有余，奠定扎实的前端基础。</p>\n<p>2013年，随着Web技术的发展，适时拓宽技能栈，涉足后端领域，学习并精通PHP与MySQL，熟练运用DedeCMS、Discuz!等主流建站系统，亲历&ldquo;PHP是世界上最好的语言&rdquo;这一口号盛行的时期。</p>\n<p>2015年，随着前后端分离理念的普及与Ajax技术的广泛应用，迅速响应行业变革，投身微信小程序的早期开发浪潮，成为<strong>首批微信小程序生态的开发者</strong>。</p>\n<p>2016年，面对Node.js的崛起，明空深入研究并掌握了Express与Koa2等Node.js框架，深入mysql数据库设计，成为<strong>首批nodejs生态全栈开发者。</strong></p>\n<p>2017年，前端工程化趋势日益明显，React与Vue两大框架崭露头角，Grunt、Gulp、Webpack等构建工具百花齐放。紧跟潮流，熟练驾驭这些现代工具与框架，为项目构建高效、规范的开发流程。</p>\n<p>2018年，Vue2体系趋于成熟，深耕细作，以苦干实干的精神投入到大量项目的实际开发中，积累了丰富的实战经验，成为Vue阵营中的坚实砥柱。</p>\n<p>2019年，着眼未来，明空进一步拓宽技术视野，涉足小游戏开发领域，精研Canvas与3D技术，深度探索动画效果实现，为丰富交互体验贡献卓越技术力量。</p>\n<p>2021年，Vue3横空出世，迅速掌握React其新特性与设计理念，积极参与到新一代前端框架的应用实践中，见证并推动Vue/react生态的双峰并立格局形成。</p>\n<p>2024年，面对席卷行业的&ldquo;卷文化&rdquo;，以积极态度应对竞争压力，不断提升自我，卷入技术深度与广度的双重修炼中，力求在日益激烈的前端市场中稳扎稳打，以高效、优质的搬砖精神应对行业挑战，持续为项目增效赋能。</p>', 0, 34, '', '2024-03-31 20:30:35', '2024-06-09 22:38:44');
+INSERT INTO `article` VALUES (80, 8, '', '关于作者：明空', '', '', '', '', '', '', '', '', '明空，ChanCMS开发作者。', '', '<p>明空，<strong>ChanCMS</strong>开发作者。</p>\n<p>拥有逾十年实战经验的前端开发资深专家，始终保持一线开发的敏锐触觉与持续创新精神，紧跟技术潮流，与时俱进。</p>\n<p>2012年，大学毕业后即投身前端领域，在网页三剑客（Dreamweaver、Flash、Fireworks）盛行的时代，熟练掌握DW、FALSH、FW&amp;FL等工具，应对IE6、IE7、IE8等浏览器兼容问题游刃有余，奠定扎实的前端基础。</p>\n<p>2013年，随着Web技术的发展，适时拓宽技能栈，涉足后端领域，学习并精通PHP与MySQL，熟练运用DedeCMS、Discuz!等主流建站系统，亲历&ldquo;PHP是世界上最好的语言&rdquo;这一口号盛行的时期。</p>\n<p>2015年，随着前后端分离理念的普及与Ajax技术的广泛应用，迅速响应行业变革，投身微信小程序的早期开发浪潮，成为<strong>首批微信小程序生态的开发者</strong>。</p>\n<p>2016年，面对Node.js的崛起，明空深入研究并掌握了Express与Koa2等Node.js框架，深入mysql数据库设计，成为<strong>首批nodejs生态全栈开发者。</strong></p>\n<p>2017年，前端工程化趋势日益明显，React与Vue两大框架崭露头角，Grunt、Gulp、Webpack等构建工具百花齐放。紧跟潮流，熟练驾驭这些现代工具与框架，为项目构建高效、规范的开发流程。</p>\n<p>2018年，Vue2体系趋于成熟，深耕细作，以苦干实干的精神投入到大量项目的实际开发中，积累了丰富的实战经验，成为Vue阵营中的坚实砥柱。</p>\n<p>2019年，着眼未来，明空进一步拓宽技术视野，涉足小游戏开发领域，精研Canvas与3D技术，深度探索动画效果实现，为丰富交互体验贡献卓越技术力量。</p>\n<p>2021年，Vue3横空出世，迅速掌握React其新特性与设计理念，积极参与到新一代前端框架的应用实践中，见证并推动Vue/react生态的双峰并立格局形成。</p>\n<p>2024年，面对席卷行业的&ldquo;卷文化&rdquo;，以积极态度应对竞争压力，不断提升自我，卷入技术深度与广度的双重修炼中，力求在日益激烈的前端市场中稳扎稳打，以高效、优质的搬砖精神应对行业挑战，持续为项目增效赋能。</p>', 0, 43, '', '2024-03-31 20:30:35', '2024-06-18 22:54:23');
 INSERT INTO `article` VALUES (81, 3, '', 'ChanCMS快速入门', '', '1,6', '', '', '', '', '', '', 'ChanCMS快速入门，启动项目。', '', '<h2>环境配置​</h2>\n<p>前置条件：安装node.js mysql 和 mysql可视化工具。本地开发推荐用phpStudy。</p>\n<p><span style=\"color: rgb(230, 126, 35);\">WARNING</span></p>\n<p>注意：版本有要求</p>\n<pre class=\"language-markup\"><code>nodejs v18.14.2+\nmysql v5.7.26(兼容v5.6)</code></pre>\n<h2>获取项目​</h2>\n<p>下载地址</p>\n<pre class=\"language-markup\"><code>https://gitee.com/yanyutao0402/chanyue-cms</code></pre>\n<h2>框架结构</h2>\n<pre class=\"language-markup\"><code>|- client (后台管理界面源码，二次开发使用，不需要部署到服务器)\n      |- admin 后台管理\n|- data \n      |- chanyue.sql 数据库文件\n|- server 源码(重点部署到服务器)\n      |- app\n      |- config 配置\n      |- extend 扩展功能\n      |- middleware 中间件\n      |- modules 模块\n            |-api   模块\n                 |-- controller\n                 |-- service\n                 |-- router.js\n            |-home 模块\n                 |-- controller\n                 |-- service\n                 |-- view\n                 |-- router.js\n             |-common 模块\n                 |-- controller\n                 |-- service\n                 |-- view\n                 |-- router.js\n            ...\n       |- plugin 插件\n       |- public 静态资源\n       |- utils 工具\n       |- router.js 总路由\n       |-app.js 应用入口\n       |-pm2.json pm2管理</code></pre>\n<h2>安装运行​</h2>\n<p>1 导入数据库文件</p>\n<pre class=\"language-markup\"><code>data/chanyue.sql</code></pre>\n<p>2 修改数据库配置文件</p>\n<pre class=\"language-markup\"><code>server/config/config.dev.js //开发环境\nserver/config/config.prd.js //生产环境</code></pre>\n<p>3 设置npm源安装依赖，切换新镜像源</p>\n<pre class=\"language-markup\"><code>npm config set registry https://registry.npmmirror.com </code></pre>\n<p>4.安装依赖运行</p>\n<pre class=\"language-markup\"><code>npm i\nnpm run dev</code></pre>\n<p>前台后访问 http://localhost:81 ，完成网站启动。</p>\n<p>5.后台管理​</p>\n<p>访问地址</p>\n<pre class=\"language-markup\"><code>http://localhost:81/public/admin/index.html</code></pre>\n<p>默认账号密码：</p>\n<pre class=\"language-markup\"><code>chanyue 123456</code></pre>', 0, 10, '', '2024-04-03 20:28:41', '2024-04-03 23:00:23');
 INSERT INTO `article` VALUES (82, 3, '', 'ChanCMS模块介绍', '', '1,6', '', '', '', '', '', '', 'ChanCms作为一款内容管理系统，其核心模块被划分为三个主要部分：api模块、common模块和home模块。', '', '<p>ChanCms作为一款内容管理系统，其核心模块被划分为三个主要部分：api模块、common模块和home模块。这些模块各司其职，共同构成了系统的核心功能架构。针对您的要求，我对原有描述进行了文案优化如下：</p>\n<h2>API模块</h2>\n<p>API模块专为后台操作设计，构建了一套完备的接口服务体系。此模块面向后台管理系统及可能涉及的外部应用，提供安全、高效的数据交互通道。通过标准化的RESTful API接口，它实现了对内容管理、用户权限、系统设置等关键业务逻辑的远程调用支持。无论是执行数据增删改查、获取统计报表，还是进行复杂的后台配置与管理任务，API模块均能确保后台操作的无缝集成与流畅执行，为后台管理人员提供便捷、可控的操作环境。</p>\n<h2>Common模块</h2>\n<p>Common模块作为系统的通用接口中枢，专注于为无头CMS（Headless CMS）应用场景提供强有力的支持。它无缝衔接各类前端框架与平台，确保内容能在PC端SSR（Server-Side Rendering）环境、移动端WAP站点以及各类小程序中顺畅展现。此模块精心封装了一系列与平台无关的接口服务，兼顾灵活性与适应性，使得内容能够在多渠道、多设备间实现统一的内容分发与呈现，极大地简化了跨平台内容部署与更新的工作流程，助力企业轻松构建现代化、响应式的跨终端内容体验。</p>\n<h2>Home模块</h2>\n<p>Home模块专注于打造以搜索引擎优化（SEO）为核心的网站前端。它采用传统的服务端模板渲染技术，精心生成符合SEO最佳实践的HTML静态页面，确保网站内容能够被搜索引擎快速、准确地抓取、理解和排名。此模块不仅提供丰富的模板体系和高度定制化的页面布局选项，还兼顾用户体验，确保访问者在各类浏览器环境下都能获得快速加载、易于导航的优质内容浏览体验。Home模块是构建高搜索引擎可见度、提升自然流量与用户黏性的基石，尤其适用于对SEO效果有严格要求的网站建设项目。</p>\n<pre class=\"language-markup\"><code> |- modules 模块\n       |-api  模块\n            |-- controller\n            |-- service\n            |-- router.js\n       |-home 模块\n             |-- controller\n             |-- service\n             |-- view\n             |-- router.js\n        |-common 模块\n              |-- controller\n              |-- service\n              |-- view\n              |-- router.js</code></pre>', 0, 3, '', '2024-04-03 20:54:44', '2024-05-23 22:08:07');
 INSERT INTO `article` VALUES (83, 3, '', 'ChanCMS内容管理系统', '', '1,6', '2', '', '', '', '', '', 'ChanCMS是一款基于Express和MySQL研发的高质量实用型CMS管理系统。它具备多种类型网站开发，易扩展、基于模块化和插件化开发模式，适用于商用企业级程序开发。', '', '<p>ChanCMS是一款基于Express和MySQL构建的轻量级、高质量实用型内容管理系统（CMS）。以下是对这款CMS系统可能具备的特性和功能的概述：</p>\n<ol>\n<li>\n<p><strong>轻量化架构</strong>：ChanCMS采用自研chanjs轻量级mvc框架实现，轻量、灵活、稳定、高性能，且可持续。用Express作为底层框架，以其简洁、灵活、高效的特性实现快速响应的API开发。结合MySQL数据库，提供稳定、高效的数据存储与查询能力。整体设计注重性能优化和资源高效利用，确保系统在有限的硬件资源下仍能保持良好的运行效率。</p>\n</li>\n<li>\n<p><strong>模块化设计</strong>：系统采用模块化架构，各功能模块如用户管理、权限控制、内容发布、媒体管理、模板引擎等独立且可扩展，便于开发者根据实际需求进行定制和二次开发。</p>\n</li>\n<li>\n<p><strong>内容管理</strong>：提供便捷的内容编辑、分类、标签管理功能，支持富文本编辑器，方便用户创建、编辑和发布各类图文、视频等内容。满足不同内容管理场景需求。</p>\n</li>\n<li>\n<p><strong>用户与权限管理</strong>：内置完善的用户注册、登录、角色分配及权限控制系统。支持多用户协作，可根据角色设定不同的操作权限，确保系统数据安全。</p>\n</li>\n<li>\n<p><strong>SEO友好</strong>：内置SEO优化机制，支持自定义页面标题、描述、关键词等SEO元素，生成利于搜索引擎收录的URL结构，提升网站在搜索引擎中的排名。</p>\n</li>\n<li>\n<p><strong>模板与主题系统</strong>：采用灵活的模板引擎，支持自定义前端主题和布局，允许用户或设计师根据品牌风格轻松调整网站外观，无需深入代码即可实现界面个性化。</p>\n</li>\n<li>\n<p><strong>插件与扩展</strong>：提供插件接口，用户或开发者可以开发并安装各种功能插件，如评论系统、统计分析、社交媒体集成等，以扩展系统的功能，满足多样化需求。</p>\n</li>\n<li>\n<p><strong>API支持</strong>：提供RESTful API接口，方便与其他系统（如移动应用、第三方服务等）进行数据交互和集成。</p>\n</li>\n<li>\n<p><strong>文档与社区支持</strong>：提供详尽的用户手册、开发者文档以及活跃的技术社区支持，帮助用户快速上手、解决问题并持续学习。</p>\n</li>\n</ol>\n<p data-spm-anchor-id=\"5176.28103460.0.i5.297c3f99fjQmkZ\">综上所述，ChanCMS作为一款基于Express+MySQL的轻量级CMS管理系统，以其灵活、易用、可扩展的特性，<span>它具备多种类型网站开发，公司，企业，学校，政府，图片，下载，产品等各类型商用网站建设。</span></p>\n<h2>核心功能模块</h2>\n<ul>\n<li>网站信息</li>\n<li>站点管理</li>\n<li>栏目管理</li>\n<li>文章模块</li>\n<li>标签管理</li>\n<li>碎片管理 (广告，碎片文案，公司地址、电话、名称，微信等万能模块)</li>\n<li>扩展模型</li>\n<li>文章采集</li>\n<li>用户管理</li>\n<li>菜单管理</li>\n<li>登录日志</li>\n<li>在线留言</li>\n<li>本地上传&七牛云上传</li>\n<li>日志功能</li>\n</ul>\n<h2>默认插件</h2>\n<ul>\n<li>中英切换(js插件)</li>\n<li>语音播报(js插件)</li>\n<li>pdf预览(按需加载)</li>\n<li>代码展示</li>\n</ul>', 0, 5, '', '2024-04-03 21:18:44', '2024-04-03 21:18:44');
@@ -262,98 +262,107 @@ CREATE TABLE `login_log`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL COMMENT '用户id',
   `ip` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'ip',
+  `city` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '城市',
+  `region` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '地区',
+  `country` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '国家',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `uid`(`uid`, `createdAt`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 91 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of login_log
 -- ----------------------------
-INSERT INTO `login_log` VALUES (1, 1, '127.0.0.1', '2023-11-01 17:01:53');
-INSERT INTO `login_log` VALUES (2, 3, '127.0.0.1', '2023-11-01 17:38:53');
-INSERT INTO `login_log` VALUES (3, 1, '127.0.0.1', '2023-11-01 17:39:49');
-INSERT INTO `login_log` VALUES (4, 3, '127.0.0.1', '2023-11-01 17:51:16');
-INSERT INTO `login_log` VALUES (5, 2, '127.0.0.1', '2023-11-01 17:51:57');
-INSERT INTO `login_log` VALUES (6, 1, '127.0.0.1', '2023-11-01 21:55:40');
-INSERT INTO `login_log` VALUES (7, 3, '127.0.0.1', '2023-11-01 22:11:35');
-INSERT INTO `login_log` VALUES (8, 1, '127.0.0.1', '2023-11-01 22:11:51');
-INSERT INTO `login_log` VALUES (9, 2, '127.0.0.1', '2023-11-01 22:13:49');
-INSERT INTO `login_log` VALUES (10, 3, '127.0.0.1', '2023-11-01 22:14:09');
-INSERT INTO `login_log` VALUES (11, 2, '127.0.0.1', '2023-11-05 21:39:45');
-INSERT INTO `login_log` VALUES (12, 2, '127.0.0.1', '2023-11-05 23:18:19');
-INSERT INTO `login_log` VALUES (13, 1, '127.0.0.1', '2023-11-05 23:19:20');
-INSERT INTO `login_log` VALUES (14, 2, '127.0.0.1', '2023-11-05 23:41:48');
-INSERT INTO `login_log` VALUES (15, 1, '127.0.0.1', '2023-11-05 23:58:42');
-INSERT INTO `login_log` VALUES (16, 2, '127.0.0.1', '2023-11-05 23:59:06');
-INSERT INTO `login_log` VALUES (17, 1, '127.0.0.1', '2023-11-07 09:35:47');
-INSERT INTO `login_log` VALUES (18, 1, '127.0.0.1', '2023-11-08 11:22:11');
-INSERT INTO `login_log` VALUES (19, 1, '127.0.0.1', '2023-11-25 12:59:36');
-INSERT INTO `login_log` VALUES (20, 2, '127.0.0.1', '2023-11-25 13:00:00');
-INSERT INTO `login_log` VALUES (21, 1, '127.0.0.1', '2023-11-25 13:05:01');
-INSERT INTO `login_log` VALUES (22, 1, '127.0.0.1', '2023-11-25 18:04:58');
-INSERT INTO `login_log` VALUES (23, 1, '127.0.0.1', '2023-11-26 11:56:25');
-INSERT INTO `login_log` VALUES (24, 1, '127.0.0.1', '2023-12-05 22:20:58');
-INSERT INTO `login_log` VALUES (25, 1, '127.0.0.1', '2023-12-07 20:57:59');
-INSERT INTO `login_log` VALUES (26, 1, '127.0.0.1', '2023-12-08 21:29:29');
-INSERT INTO `login_log` VALUES (27, 2, '127.0.0.1', '2023-12-08 21:33:06');
-INSERT INTO `login_log` VALUES (28, 2, '127.0.0.1', '2023-12-09 09:49:01');
-INSERT INTO `login_log` VALUES (29, 2, '127.0.0.1', '2023-12-10 13:10:37');
-INSERT INTO `login_log` VALUES (30, 1, '127.0.0.1', '2023-12-10 19:18:41');
-INSERT INTO `login_log` VALUES (31, 2, '127.0.0.1', '2023-12-10 19:30:35');
-INSERT INTO `login_log` VALUES (32, 2, '127.0.0.1', '2023-12-17 18:48:38');
-INSERT INTO `login_log` VALUES (33, 1, '127.0.0.1', '2023-12-17 19:50:41');
-INSERT INTO `login_log` VALUES (34, 2, '127.0.0.1', '2023-12-17 20:12:33');
-INSERT INTO `login_log` VALUES (35, 2, '127.0.0.1', '2023-12-17 20:15:34');
-INSERT INTO `login_log` VALUES (36, 1, '127.0.0.1', '2023-12-17 20:15:49');
-INSERT INTO `login_log` VALUES (37, 2, '127.0.0.1', '2023-12-17 20:18:15');
-INSERT INTO `login_log` VALUES (38, 2, '127.0.0.1', '2023-12-23 20:20:16');
-INSERT INTO `login_log` VALUES (39, 1, '127.0.0.1', '2023-12-31 20:23:16');
-INSERT INTO `login_log` VALUES (40, 2, '127.0.0.1', '2023-12-31 20:41:37');
-INSERT INTO `login_log` VALUES (41, 1, '127.0.0.1', '2024-01-01 18:07:43');
-INSERT INTO `login_log` VALUES (42, 1, '127.0.0.1', '2024-01-19 20:04:56');
-INSERT INTO `login_log` VALUES (43, 1, '127.0.0.1', '2024-02-01 23:19:03');
-INSERT INTO `login_log` VALUES (44, 1, '127.0.0.1', '2024-02-01 23:28:59');
-INSERT INTO `login_log` VALUES (45, 1, '127.0.0.1', '2024-02-01 23:37:21');
-INSERT INTO `login_log` VALUES (46, 1, '127.0.0.1', '2024-02-09 20:54:58');
-INSERT INTO `login_log` VALUES (47, 1, '127.0.0.1', '2024-02-09 21:23:43');
-INSERT INTO `login_log` VALUES (48, 1, '127.0.0.1', '2024-02-17 21:36:44');
-INSERT INTO `login_log` VALUES (49, 2, '127.0.0.1', '2024-02-17 21:46:57');
-INSERT INTO `login_log` VALUES (50, 1, '127.0.0.1', '2024-02-19 22:20:25');
-INSERT INTO `login_log` VALUES (51, 2, '127.0.0.1', '2024-02-22 20:05:46');
-INSERT INTO `login_log` VALUES (52, 2, '127.0.0.1', '2024-02-22 21:56:03');
-INSERT INTO `login_log` VALUES (53, 2, '127.0.0.1', '2024-03-01 20:21:38');
-INSERT INTO `login_log` VALUES (54, 2, '127.0.0.1', '2024-03-02 21:57:39');
-INSERT INTO `login_log` VALUES (55, 2, '127.0.0.1', '2024-03-02 22:22:36');
-INSERT INTO `login_log` VALUES (56, 2, '127.0.0.1', '2024-03-03 16:41:29');
-INSERT INTO `login_log` VALUES (57, 2, '127.0.0.1', '2024-03-04 21:14:05');
-INSERT INTO `login_log` VALUES (58, 2, '127.0.0.1', '2024-03-04 21:18:50');
-INSERT INTO `login_log` VALUES (59, 2, '127.0.0.1', '2024-03-04 21:58:46');
-INSERT INTO `login_log` VALUES (60, 2, '127.0.0.1', '2024-03-04 21:58:49');
-INSERT INTO `login_log` VALUES (61, 2, '127.0.0.1', '2024-03-04 22:06:11');
-INSERT INTO `login_log` VALUES (62, 2, '127.0.0.1', '2024-03-04 22:06:52');
-INSERT INTO `login_log` VALUES (63, 1, '127.0.0.1', '2024-03-08 20:58:38');
-INSERT INTO `login_log` VALUES (64, 1, '127.0.0.1', '2024-03-21 22:15:17');
-INSERT INTO `login_log` VALUES (65, 2, '127.0.0.1', '2024-03-21 22:35:17');
-INSERT INTO `login_log` VALUES (66, 1, '127.0.0.1', '2024-03-21 22:46:54');
-INSERT INTO `login_log` VALUES (67, 1, '127.0.0.1', '2024-03-23 17:33:26');
-INSERT INTO `login_log` VALUES (68, 1, '127.0.0.1', '2024-03-31 20:03:11');
-INSERT INTO `login_log` VALUES (69, 1, '127.0.0.1', '2024-03-31 20:04:35');
-INSERT INTO `login_log` VALUES (70, 1, '127.0.0.1', '2024-03-31 21:09:49');
-INSERT INTO `login_log` VALUES (71, 1, '127.0.0.1', '2024-03-31 21:13:36');
-INSERT INTO `login_log` VALUES (72, 1, '127.0.0.1', '2024-03-31 21:16:31');
-INSERT INTO `login_log` VALUES (73, 1, '127.0.0.1', '2024-04-03 20:28:33');
-INSERT INTO `login_log` VALUES (74, 1, '127.0.0.1', '2024-04-04 08:53:55');
-INSERT INTO `login_log` VALUES (75, 2, '127.0.0.1', '2024-04-26 22:45:40');
-INSERT INTO `login_log` VALUES (76, 1, '127.0.0.1', '2024-04-30 20:39:58');
-INSERT INTO `login_log` VALUES (77, 2, '127.0.0.1', '2024-04-30 20:45:31');
-INSERT INTO `login_log` VALUES (78, 2, '127.0.0.1', '2024-05-10 21:54:32');
-INSERT INTO `login_log` VALUES (79, 1, '127.0.0.1', '2024-05-15 23:15:53');
-INSERT INTO `login_log` VALUES (80, 1, '127.0.0.1', '2024-05-18 16:16:27');
-INSERT INTO `login_log` VALUES (81, 1, '127.0.0.1', '2024-05-23 22:04:25');
-INSERT INTO `login_log` VALUES (82, 1, '127.0.0.1', '2024-05-31 21:14:48');
-INSERT INTO `login_log` VALUES (83, 3, '127.0.0.1', '2024-06-09 19:48:20');
-INSERT INTO `login_log` VALUES (84, 2, '127.0.0.1', '2024-06-09 19:48:51');
+INSERT INTO `login_log` VALUES (1, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 17:01:53');
+INSERT INTO `login_log` VALUES (2, 3, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 17:38:53');
+INSERT INTO `login_log` VALUES (3, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 17:39:49');
+INSERT INTO `login_log` VALUES (4, 3, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 17:51:16');
+INSERT INTO `login_log` VALUES (5, 2, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 17:51:57');
+INSERT INTO `login_log` VALUES (6, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 21:55:40');
+INSERT INTO `login_log` VALUES (7, 3, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 22:11:35');
+INSERT INTO `login_log` VALUES (8, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 22:11:51');
+INSERT INTO `login_log` VALUES (9, 2, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 22:13:49');
+INSERT INTO `login_log` VALUES (10, 3, '127.0.0.1', NULL, NULL, NULL, '2023-11-01 22:14:09');
+INSERT INTO `login_log` VALUES (11, 2, '127.0.0.1', NULL, NULL, NULL, '2023-11-05 21:39:45');
+INSERT INTO `login_log` VALUES (12, 2, '127.0.0.1', NULL, NULL, NULL, '2023-11-05 23:18:19');
+INSERT INTO `login_log` VALUES (13, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-05 23:19:20');
+INSERT INTO `login_log` VALUES (14, 2, '127.0.0.1', NULL, NULL, NULL, '2023-11-05 23:41:48');
+INSERT INTO `login_log` VALUES (15, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-05 23:58:42');
+INSERT INTO `login_log` VALUES (16, 2, '127.0.0.1', NULL, NULL, NULL, '2023-11-05 23:59:06');
+INSERT INTO `login_log` VALUES (17, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-07 09:35:47');
+INSERT INTO `login_log` VALUES (18, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-08 11:22:11');
+INSERT INTO `login_log` VALUES (19, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-25 12:59:36');
+INSERT INTO `login_log` VALUES (20, 2, '127.0.0.1', NULL, NULL, NULL, '2023-11-25 13:00:00');
+INSERT INTO `login_log` VALUES (21, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-25 13:05:01');
+INSERT INTO `login_log` VALUES (22, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-25 18:04:58');
+INSERT INTO `login_log` VALUES (23, 1, '127.0.0.1', NULL, NULL, NULL, '2023-11-26 11:56:25');
+INSERT INTO `login_log` VALUES (24, 1, '127.0.0.1', NULL, NULL, NULL, '2023-12-05 22:20:58');
+INSERT INTO `login_log` VALUES (25, 1, '127.0.0.1', NULL, NULL, NULL, '2023-12-07 20:57:59');
+INSERT INTO `login_log` VALUES (26, 1, '127.0.0.1', NULL, NULL, NULL, '2023-12-08 21:29:29');
+INSERT INTO `login_log` VALUES (27, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-08 21:33:06');
+INSERT INTO `login_log` VALUES (28, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-09 09:49:01');
+INSERT INTO `login_log` VALUES (29, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-10 13:10:37');
+INSERT INTO `login_log` VALUES (30, 1, '127.0.0.1', NULL, NULL, NULL, '2023-12-10 19:18:41');
+INSERT INTO `login_log` VALUES (31, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-10 19:30:35');
+INSERT INTO `login_log` VALUES (32, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-17 18:48:38');
+INSERT INTO `login_log` VALUES (33, 1, '127.0.0.1', NULL, NULL, NULL, '2023-12-17 19:50:41');
+INSERT INTO `login_log` VALUES (34, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-17 20:12:33');
+INSERT INTO `login_log` VALUES (35, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-17 20:15:34');
+INSERT INTO `login_log` VALUES (36, 1, '127.0.0.1', NULL, NULL, NULL, '2023-12-17 20:15:49');
+INSERT INTO `login_log` VALUES (37, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-17 20:18:15');
+INSERT INTO `login_log` VALUES (38, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-23 20:20:16');
+INSERT INTO `login_log` VALUES (39, 1, '127.0.0.1', NULL, NULL, NULL, '2023-12-31 20:23:16');
+INSERT INTO `login_log` VALUES (40, 2, '127.0.0.1', NULL, NULL, NULL, '2023-12-31 20:41:37');
+INSERT INTO `login_log` VALUES (41, 1, '127.0.0.1', NULL, NULL, NULL, '2024-01-01 18:07:43');
+INSERT INTO `login_log` VALUES (42, 1, '127.0.0.1', NULL, NULL, NULL, '2024-01-19 20:04:56');
+INSERT INTO `login_log` VALUES (43, 1, '127.0.0.1', NULL, NULL, NULL, '2024-02-01 23:19:03');
+INSERT INTO `login_log` VALUES (44, 1, '127.0.0.1', NULL, NULL, NULL, '2024-02-01 23:28:59');
+INSERT INTO `login_log` VALUES (45, 1, '127.0.0.1', NULL, NULL, NULL, '2024-02-01 23:37:21');
+INSERT INTO `login_log` VALUES (46, 1, '127.0.0.1', NULL, NULL, NULL, '2024-02-09 20:54:58');
+INSERT INTO `login_log` VALUES (47, 1, '127.0.0.1', NULL, NULL, NULL, '2024-02-09 21:23:43');
+INSERT INTO `login_log` VALUES (48, 1, '127.0.0.1', NULL, NULL, NULL, '2024-02-17 21:36:44');
+INSERT INTO `login_log` VALUES (49, 2, '127.0.0.1', NULL, NULL, NULL, '2024-02-17 21:46:57');
+INSERT INTO `login_log` VALUES (50, 1, '127.0.0.1', NULL, NULL, NULL, '2024-02-19 22:20:25');
+INSERT INTO `login_log` VALUES (51, 2, '127.0.0.1', NULL, NULL, NULL, '2024-02-22 20:05:46');
+INSERT INTO `login_log` VALUES (52, 2, '127.0.0.1', NULL, NULL, NULL, '2024-02-22 21:56:03');
+INSERT INTO `login_log` VALUES (53, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-01 20:21:38');
+INSERT INTO `login_log` VALUES (54, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-02 21:57:39');
+INSERT INTO `login_log` VALUES (55, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-02 22:22:36');
+INSERT INTO `login_log` VALUES (56, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-03 16:41:29');
+INSERT INTO `login_log` VALUES (57, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-04 21:14:05');
+INSERT INTO `login_log` VALUES (58, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-04 21:18:50');
+INSERT INTO `login_log` VALUES (59, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-04 21:58:46');
+INSERT INTO `login_log` VALUES (60, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-04 21:58:49');
+INSERT INTO `login_log` VALUES (61, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-04 22:06:11');
+INSERT INTO `login_log` VALUES (62, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-04 22:06:52');
+INSERT INTO `login_log` VALUES (63, 1, '127.0.0.1', NULL, NULL, NULL, '2024-03-08 20:58:38');
+INSERT INTO `login_log` VALUES (64, 1, '127.0.0.1', NULL, NULL, NULL, '2024-03-21 22:15:17');
+INSERT INTO `login_log` VALUES (65, 2, '127.0.0.1', NULL, NULL, NULL, '2024-03-21 22:35:17');
+INSERT INTO `login_log` VALUES (66, 1, '127.0.0.1', NULL, NULL, NULL, '2024-03-21 22:46:54');
+INSERT INTO `login_log` VALUES (67, 1, '127.0.0.1', NULL, NULL, NULL, '2024-03-23 17:33:26');
+INSERT INTO `login_log` VALUES (68, 1, '127.0.0.1', NULL, NULL, NULL, '2024-03-31 20:03:11');
+INSERT INTO `login_log` VALUES (69, 1, '127.0.0.1', NULL, NULL, NULL, '2024-03-31 20:04:35');
+INSERT INTO `login_log` VALUES (70, 1, '127.0.0.1', NULL, NULL, NULL, '2024-03-31 21:09:49');
+INSERT INTO `login_log` VALUES (71, 1, '127.0.0.1', NULL, NULL, NULL, '2024-03-31 21:13:36');
+INSERT INTO `login_log` VALUES (72, 1, '127.0.0.1', NULL, NULL, NULL, '2024-03-31 21:16:31');
+INSERT INTO `login_log` VALUES (73, 1, '127.0.0.1', NULL, NULL, NULL, '2024-04-03 20:28:33');
+INSERT INTO `login_log` VALUES (74, 1, '127.0.0.1', NULL, NULL, NULL, '2024-04-04 08:53:55');
+INSERT INTO `login_log` VALUES (75, 2, '127.0.0.1', NULL, NULL, NULL, '2024-04-26 22:45:40');
+INSERT INTO `login_log` VALUES (76, 1, '127.0.0.1', NULL, NULL, NULL, '2024-04-30 20:39:58');
+INSERT INTO `login_log` VALUES (77, 2, '127.0.0.1', NULL, NULL, NULL, '2024-04-30 20:45:31');
+INSERT INTO `login_log` VALUES (78, 2, '127.0.0.1', NULL, NULL, NULL, '2024-05-10 21:54:32');
+INSERT INTO `login_log` VALUES (79, 1, '127.0.0.1', NULL, NULL, NULL, '2024-05-15 23:15:53');
+INSERT INTO `login_log` VALUES (80, 1, '127.0.0.1', NULL, NULL, NULL, '2024-05-18 16:16:27');
+INSERT INTO `login_log` VALUES (81, 1, '127.0.0.1', NULL, NULL, NULL, '2024-05-23 22:04:25');
+INSERT INTO `login_log` VALUES (82, 1, '127.0.0.1', NULL, NULL, NULL, '2024-05-31 21:14:48');
+INSERT INTO `login_log` VALUES (83, 3, '127.0.0.1', NULL, NULL, NULL, '2024-06-09 19:48:20');
+INSERT INTO `login_log` VALUES (84, 2, '127.0.0.1', NULL, NULL, NULL, '2024-06-09 19:48:51');
+INSERT INTO `login_log` VALUES (85, 3, '127.0.0.1', NULL, NULL, NULL, '2024-07-21 15:57:11');
+INSERT INTO `login_log` VALUES (86, 2, '127.0.0.1', NULL, NULL, NULL, '2024-07-21 15:57:48');
+INSERT INTO `login_log` VALUES (87, 3, '127.0.0.1', NULL, NULL, NULL, '2024-07-29 21:45:39');
+INSERT INTO `login_log` VALUES (88, 2, '127.0.0.1', NULL, NULL, NULL, '2024-07-29 21:45:59');
+INSERT INTO `login_log` VALUES (89, 1, '127.0.0.1', NULL, NULL, NULL, '2024-08-03 14:37:25');
+INSERT INTO `login_log` VALUES (90, 2, '127.0.0.1', '', '', '', '2024-08-03 15:08:34');
 
 -- ----------------------------
 -- Table structure for message

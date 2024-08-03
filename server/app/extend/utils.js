@@ -309,7 +309,14 @@ exports.getHtmlFilesSync = (folderPath) => {
  * @returns 返回ip地址
  */
 exports.getIp = (req) => {
-  let ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  let ip = 
+  req.headers['x-forwarded-for'] ||
+	req.ip ||
+	req?.connection?.remoteAddress ||
+	req?.socket?.remoteAddress ||
+	req?.connection?.socket?.remoteAddress ||
+	'';
+
   // 如果是字符串且包含逗号，取第一个IP
   if (typeof ip === "string") {
     ip = ip.split(",").shift().trim();
