@@ -1,13 +1,5 @@
-
-
 const Chan = require("chanjs");
-let {
-  utils: { setToken, getToken, md5 },
-  api: { success, fail },
-} = Chan.helper;
-
 let config = Chan.config;
-
 
 class PdfController {
   // 登录
