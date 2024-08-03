@@ -10,7 +10,8 @@ module.exports = (opt) => {
     },
     app,
   } = opt;
-
+  
+  //版本信息，是否需要更新
   router.use(adapter(),info());
 
   // 首页模板
