@@ -7,7 +7,7 @@ module.exports = (opt) => {
     modules: { 'plus-pdf':{controller}},
     app
   } = opt;
-  console.log("plus-pdf-->",controller);
+
   //版本信息，是否需要更新
   router.use(info());
   router.get("/pdf", controller.pdf.pdf);

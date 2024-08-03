@@ -252,6 +252,7 @@ class ArticleService  {
     try {
       // 查询文章
       const data = await knex(ArticleService.model).where("id", "=", id).select();
+     
       //兼容mysql错误
       if (!data[0] || !data[0].cid) {
         return false;
@@ -274,9 +275,11 @@ class ArticleService  {
         field = await knex.raw(`SELECT * FROM ${tableName[0][0].table_name} WHERE aid=? LIMIT 0,1`, [
           id,
         ]);
-
+       
       }
-      return { ...data[0], field: field[0][0] || {} };
+
+      
+      return { ...data[0], field: field.length>0?field[0][0]:{} };
     } catch (err) {
       console.error(err)
       return err;

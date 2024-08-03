@@ -49,6 +49,6 @@ package-lock.json
 /server/app/public/document
 
 
-/plugins/plus-member
+
 /client/plus-member
 /server/app/plugins/plus-member

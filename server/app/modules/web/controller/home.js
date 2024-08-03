@@ -128,7 +128,7 @@ class HomeController {
 
       // 文章列表
       const article = await ArticleService.detail(id);
-      console.log('article--id-->',article);
+
       if (!article) {
         res.redirect("/404.html");
         return;
