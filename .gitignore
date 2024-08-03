@@ -52,3 +52,4 @@ package-lock.json
 
 /client/plus-member
 /server/app/plugins/plus-member
+/data/chancms.sql
