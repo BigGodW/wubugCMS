@@ -1,17 +1,17 @@
 # <center>ChanCMS内容管理系统</center>
 
-ChanCMS是一款基于Express和MySQL研发的高质量实用型CMS管理系统。它具备多种类型网站开发，易扩展、基于模块化和插件化开发模式，适用于商用企业级程序开发。
+ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CMS系统。轻量、灵活、稳定、高性能、易扩展，让开发更简单。
 
 ## 🌈系统特色
 
-* 自研chanjs轻量级mvc框架实现，轻量、灵活、稳定、高性能。
+* 自研。自研chanjs轻量级mvc框架实现，轻量、灵活、稳定、高性能、可持续。
 * SEO。专注于`seo`,伪静态`html`和拼音导航，灵活设置关键词和描述。
 * 安全。基于`knex`,高防`sql`注入，接口权限校验，为安全提供保障。
 * 灵活。碎片功能，支持零碎文案配置，方便各类灵活文案配置。
 * 高扩展。支持扩展模型，字段配置，可动态生成表，超强扩展。
 * 模块化。一切模块相互独立，互不干扰。
 * 插件化。灵活开发，支持完整功能模块。
-* 支持无头cms，为多端提供接口支持。
+* 无头cms，为多端提供接口支持。
 
 ## 🚧功能介绍
 
@@ -67,22 +67,35 @@ server 部署代码
     |- extend 
     |- middleware 
     |- modules
-      |-api 
+      |-api 后台api
         |-- controller
         |-- service
+        |-- middleware(可选)
         |-- router.js
-      |-home 
+      |-home 模板渲染
         |-- controller
-        |-- middleware
+        |-- middleware(可选)
         |-- service
         |-- view
         |-- router.js
-    |- plugin 
-        |- open
+      |-common 通用api，提供给h5 app 小程序等调用
+        |-- controller
+        |-- middleware(可选)
+        |-- service
+        |-- view
+        |-- router.js
+    |- plugins 
+        |- plus-pdf 插件——pdf按需加载
           |-- controller
-          |-- service
-          |-- view
+          |-- service(可选)
+          |-- middleware(可选)
           |-- router.js
+        |- plus-wechat 插件——微信小程序登录
+          |-- controller
+          |-- service(可选)
+          |-- middleware(可选)
+          |-- router.js
+        ***  
     |- public
     |- utils
     |- router.js
