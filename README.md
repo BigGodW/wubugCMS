@@ -48,7 +48,7 @@ ChanCMS是一款基于Express和MySQL研发的高质量实用型CMS管理系统�
   
 **服务端技术栈**
 
-* nodejs v18.14.2+
+* nodejs v20.16.0+
 * express 4.18+
 * mysql v5.7.26
 * knex (sql操作)

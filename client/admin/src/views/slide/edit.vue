@@ -15,7 +15,7 @@
         <el-input v-model="params.title"></el-input>
       </el-form-item>
 
-      <el-form-item class="row" label="轮播图">
+      <el-form-item class="flex" label="轮播图">
         <el-upload
           class="avatar-uploader"
           :http-request="upload"

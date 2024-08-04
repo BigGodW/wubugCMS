@@ -91,7 +91,7 @@ import IconLanguage from "@/components/icons/IconLanguage.vue";
 import IconSun from "@/components/icons/IconSun.vue";
 import IconMoon from "@/components/icons/IconMoon.vue";
 import IconBell from "@/components/icons/IconBell.vue";
-import IconFullscreen from "@/components/icons/IconFullscreen.vue";
+import IconFullscreen from "@/components/icons/IconFullScreen.vue";
 import IconLaunch from "@/components/icons/IconLaunch.vue";
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";

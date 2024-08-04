@@ -29,7 +29,7 @@
           },
         ]"
       >
-        <div class="row w-p100">
+        <div class="flex w-p100">
           <el-input class="flex-1" v-model="params.targetUrl"></el-input>
         </div>
       </el-form-item>
@@ -45,7 +45,7 @@
           },
         ]"
       >
-        <div class="row w-p100">
+        <div class="flex w-p100">
           <el-input
             class="flex-1"
             type="textarea"

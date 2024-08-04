@@ -23,8 +23,8 @@
     <div class="main-container">
       <!-- 顶部 -->
       <div class="header">
-        <div class="navbar row justify-between align-c">
-          <div class="row align-c">
+        <div class="navbar flex justify-between align-c">
+          <div class="flex align-c">
             <el-icon class="ico-collapse" @click="switchCollapse">
               <Expand v-if="isCollapse == true" />
               <Fold v-else />
@@ -64,7 +64,7 @@
 
 <script name="LayOut">
 import { defineComponent } from "vue";
-import SideBar from "./components/sidebar/index.vue";
+import SideBar from "./components/Sidebar/index.vue";
 import NavBar from "./components/navbar/index.vue";
 import TagView from "./components/tagsview/index.vue";
 import BreadCrumb from "./components/breadcrumb/index.vue";

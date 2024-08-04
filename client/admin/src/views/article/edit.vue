@@ -91,7 +91,7 @@
             </el-col>
 
             <el-col :sm="24" :md="12">
-              <el-form-item class="row" label="缩略图">
+              <el-form-item class="flex" label="缩略图">
                 <el-upload
                   class="avatar-uploader"
                   :http-request="upload"
@@ -326,11 +326,11 @@
               <!-- 多图上传 -->
               <el-form-item
                 :label="item.field_cname"
-                class="row flex align-c justify-center"
+                class="flex align-c justify-center"
                 v-else-if="item.field_type === '8'"
               >
                 <!-- 图片显示 -->
-                <div class="cover row align-center">
+                <div class="cover flex align-center">
                   <div
                     class="pos-r img-item"
                     v-for="(item, index) of item.field_values"

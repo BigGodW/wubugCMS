@@ -2,7 +2,7 @@
   <div class="content-wrap">
     <!-- 搜索区域 -->
     <div
-      class="search row justify-between align-c pt-10 pl-20 pr-20 pb-20 mb-20"
+      class="search flex justify-between align-c pt-10 pl-20 pr-20 pb-20 mb-20"
     >
       <el-form :inline="true" :model="params">
         <el-form-item class="mt-10" label="名称" prop="keywords">

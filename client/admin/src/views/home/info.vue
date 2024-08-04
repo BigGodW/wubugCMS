@@ -1,9 +1,9 @@
 <template>
   <el-row :gutter="20">
     <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
-      <div class="bg-fff pd-20 radius-6 row justify-around mb-20">
+      <div class="bg-fff pd-20 radius-6 flex justify-around mb-20">
         <router-link class="c-1d2129" to="/article">
-          <div class="row flex-col align-c">
+          <div class="flex flex-col align-c">
             <div class="tj-img">
               <img src="@/assets/img/ico-article.svg" />
             </div>
@@ -15,7 +15,7 @@
         </router-link>
 
         <router-link class="c-1d2129" to="/tag">
-          <div class="row flex-col align-c">
+          <div class="flex flex-col align-c">
             <div class="tj-img">
               <img src="@/assets/img/ico-will.svg" />
             </div>
@@ -48,10 +48,10 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="flex">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <div class="bg-fff pd-20 radius-6 mb-20 row chart">
+            <div class="bg-fff pd-20 radius-6 mb-20 flex chart">
               <qiun-vue-ucharts
                 type="ring"
                 :opts="opts"
@@ -111,7 +111,7 @@
 
       <div class="bg-fff pd-20 radius-6 mb-20">
         <div class="mb-12 f-16 c-1d2129 bold">技术服务</div>
-        <p class="f-13 mb-6 c-4e5969 row justify-around">
+        <p class="f-13 mb-6 c-4e5969 flex justify-around">
           <span class="c-1d2129 col-12 mb-10">企业建站</span>
           <span class="c-1d2129 col-12 mb-10">模板开发</span>
           <span class="c-1d2129 col-12 mb-10">模板仿站</span>

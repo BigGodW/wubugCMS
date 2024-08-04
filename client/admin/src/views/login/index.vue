@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="login">
-      <h1 class="title row align-c">
+      <h1 class="title flex align-c">
         <IconLogo class="icon"></IconLogo>
         ChanCMS后台管理系统
       </h1>

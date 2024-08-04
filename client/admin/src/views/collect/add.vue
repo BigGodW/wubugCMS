@@ -31,7 +31,7 @@
               },
             ]"
           >
-            <div class="row w-p100">
+            <div class="flex w-p100">
               <el-input
                 class="flex-1"
                 v-model="params.targetUrl"
@@ -68,7 +68,7 @@
               },
             ]"
           >
-            <div class="row w-p100">
+            <div class="flex w-p100">
               <el-input
                 class="flex-1"
                 v-model="params.listTag"
@@ -81,7 +81,7 @@
           </el-form-item>
 
           <el-form-item label="开始页面">
-            <div class="row w-p100">
+            <div class="flex w-p100">
               <el-input class="flex-1" v-model="params.startNum"></el-input>
               <span class="ml-5 mr-5">至</span>
               <el-input class="flex-1" v-model="params.endNum"></el-input>
@@ -160,7 +160,7 @@
           },
         ]"
       >
-        <div class="row w-p100">
+        <div class="flex w-p100">
           <el-input
             class="flex-1"
             type="textarea"
@@ -178,7 +178,7 @@
           </el-button>
         </div>
       </el-form-item>
-        
+
           <el-form-item class="show" label="文章结果">
             <p>标题：{{ article.title }}</p>
             <p>内容：</p>
