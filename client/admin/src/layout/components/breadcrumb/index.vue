@@ -1,6 +1,5 @@
 <template>
   <el-breadcrumb class="breadcrumb" separator="/">
-    <transition-group name="breadcrumb">
       <el-breadcrumb-item
         v-for="(item, index) in breadcrumbData"
         :key="item.path"
@@ -14,7 +13,6 @@
           item.meta.title
         }}</a>
       </el-breadcrumb-item>
-    </transition-group>
   </el-breadcrumb>
 </template>
 
@@ -70,7 +68,6 @@ const onLinkClick = (item) => {
   display: inline-block;
   font-size: 14px;
   line-height: 50px;
-  margin-left: 8px;
 
   .no-redirect {
     cursor: text;
