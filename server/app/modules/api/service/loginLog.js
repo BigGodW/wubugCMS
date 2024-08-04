@@ -2,15 +2,14 @@ const Chan = require("chanjs");
 let knex = Chan.knex;
 
 class LoginLogService {
-  static model = 'login_log';
+  static model = "login_log";
   // 增加
   static async create(body) {
     try {
-      const result = await knex(LoginLogService.model)
-      .insert(body);
-      return result ? 'success' : 'fail';
+      const result = await knex(LoginLogService.model).insert(body);
+      return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return err;
     }
   }
@@ -18,21 +17,21 @@ class LoginLogService {
   // 删除100条之外的数据
   static async delete() {
     try {
-     // 获取最新的100条记录的ID
-    const recentLogIds = await knex(LoginLogService.model)
-    .select('id')
-    .orderBy('createdAt', 'desc')
-    .limit(100);
+      // 获取最新的100条记录的ID
+      const recentLogIds = await knex(LoginLogService.model)
+        .select("id")
+        .orderBy("createdAt", "desc")
+        .limit(100);
 
-  // 将ID数组转换为可以用于IN子句的格式
-  const idsToKeep = recentLogIds.map(row => row.id);
+      // 将ID数组转换为可以用于IN子句的格式
+      const idsToKeep = recentLogIds.map((row) => row.id);
 
-  // 删除不在这些ID中的所有记录
-  const result = await knex(LoginLogService.model)
-    .whereNotIn('id', idsToKeep)
-    .del();
+      // 删除不在这些ID中的所有记录
+      const result = await knex(LoginLogService.model)
+        .whereNotIn("id", idsToKeep)
+        .del();
 
-  return result >= 0 ? 'success' : 'fail';
+      return result >= 0 ? "success" : "fail";
     } catch (err) {
       console.error(err);
       return err;
@@ -43,14 +42,16 @@ class LoginLogService {
   static async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = await knex(LoginLogService.model).count('id', { as: 'count' });
+      const total = await knex(LoginLogService.model).count("id", {
+        as: "count",
+      });
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex(LoginLogService.model)
-        .leftJoin('sys_user', 'login_log.uid', 'sys_user.id')
-        .select('login_log.*', 'sys_user.username')
+        .leftJoin("sys_user", "login_log.uid", "sys_user.id")
+        .select("login_log.*", "sys_user.username")
         .offset(offset)
         .limit(pageSize)
-        .orderBy('createdAt', 'desc')
+        .orderBy("createdAt", "desc");
 
       const count = total[0].count || 1;
       return {

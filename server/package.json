@@ -1,6 +1,6 @@
 {
   "name": "chancms",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "\"A lightweight and high-quality CMS management system based on express+MySQL\"",
   "main": "app.js",
   "scripts": {
