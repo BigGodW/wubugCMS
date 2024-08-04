@@ -179,7 +179,7 @@ export default defineComponent({
     font-family: "chanyue";
   }
   .login-cont {
-    max-width: 500px;
+    width: 410px;
     background-color: #fff;
     border-radius: 6px;
     padding: 20px;

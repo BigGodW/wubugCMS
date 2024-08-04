@@ -31,7 +31,7 @@
               },
             ]"
           >
-            <div class="flex w-p100">
+            <div class="flex w-full">
               <el-input
                 class="flex-1"
                 v-model="params.targetUrl"
@@ -68,7 +68,7 @@
               },
             ]"
           >
-            <div class="flex w-p100">
+            <div class="flex w-full">
               <el-input
                 class="flex-1"
                 v-model="params.listTag"
@@ -81,7 +81,7 @@
           </el-form-item>
 
           <el-form-item label="开始页面">
-            <div class="flex w-p100">
+            <div class="flex w-full">
               <el-input class="flex-1" v-model="params.startNum"></el-input>
               <span class="ml-5 mr-5">至</span>
               <el-input class="flex-1" v-model="params.endNum"></el-input>
@@ -160,7 +160,7 @@
           },
         ]"
       >
-        <div class="flex w-p100">
+        <div class="flex w-full">
           <el-input
             class="flex-1"
             type="textarea"

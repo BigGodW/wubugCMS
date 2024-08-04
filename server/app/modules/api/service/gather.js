@@ -63,7 +63,7 @@ class GatherService {
       'taskName',
       'targetUrl',
       'parseData',
-      'status','cid'])
+      'status','cid','updatedAt'])
         .from(GatherService.model)
         .limit(pageSize)
         .offset(offset)

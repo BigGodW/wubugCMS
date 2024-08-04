@@ -93,9 +93,9 @@ class GatherController {
       const cur = req.query.cur;
       const pageSize = 10;
       let data = await gather.list(cur, pageSize);
-      // data.list.forEach((ele) => {
-      //   ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");
-      // });
+      data.list.forEach(ele => {
+        ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm');
+      });
       res.json({ ...success, data: data });
     } catch (err) {
       next(err);

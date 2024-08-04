@@ -22,8 +22,7 @@
           scope.row.status == 1 ? "草稿" : "发布"
         }}</template>
       </el-table-column>
-      <el-table-column prop="createdAt" label="发布时间">
-        <template #default="scope">{{ scope.row.createdAt }}</template>
+      <el-table-column prop="updatedAt" label="发布时间">
       </el-table-column>
       <el-table-column fixed="right" width="222" label="操作">
         <template #default="scope">

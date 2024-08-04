@@ -111,7 +111,7 @@
 
       <div class="bg-fff pd-20 radius-6 mb-20">
         <div class="mb-12 f-16 c-1d2129 bold">技术服务</div>
-        <p class="f-13 mb-6 c-4e5969 flex justify-around">
+        <p class="f-13 mb-6 c-4e5969 flex-wrap flex justify-around">
           <span class="c-1d2129 col-12 mb-10">企业建站</span>
           <span class="c-1d2129 col-12 mb-10">模板开发</span>
           <span class="c-1d2129 col-12 mb-10">模板仿站</span>

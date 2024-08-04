@@ -53,7 +53,7 @@
 
 <script>
 import { create } from "@/api/frag.js";
-import Vue3Tinymce from "@/components/Vue3Tinymce/src/main.vue";
+import Vue3Tinymce from "@/components/Vue3Tinymce/src/Main.vue";
 import { tinymceSet } from "@/config/tinymce.js";
 import { pinyin } from "pinyin-pro";
 import { uploadUrl } from "@/api/upload.js";

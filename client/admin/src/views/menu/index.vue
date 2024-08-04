@@ -4,7 +4,7 @@
       <el-form-item label="菜单配置">
         <JsonEditorVue
           :debounce="100"
-          class="w-p100 vjs-tree"
+          class="w-full vjs-tree"
           :show-btns="false"
           lang="zh"
           :mode="'text'"

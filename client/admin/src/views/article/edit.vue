@@ -375,7 +375,7 @@ import { find } from "@/api/category.js";
 import { update, detail, findField, delfile } from "@/api/article.js";
 import { search } from "@/api/tag.js";
 import { upload } from "@/api/upload.js";
-import Vue3Tinymce from "@/components/Vue3Tinymce/src/main.vue";
+import Vue3Tinymce from "@/components/Vue3Tinymce/src/Main.vue";
 import { tinymceSet } from "@/config/tinymce.js";
 import { htmlDecode } from "@/utils/tool.js";
 import { uploadUrl } from "@/api/upload.js";
