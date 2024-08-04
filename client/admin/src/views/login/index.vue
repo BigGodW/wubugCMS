@@ -73,7 +73,7 @@ import { defineComponent } from "vue";
 import { userStore } from "@/stores/user";
 import { setCookie } from "@/utils/tool.js";
 import IconLogo from "@/components/icons/IconLogo.vue";
-import { create } from "@/api/login_log.js";
+import { create ,getIp,del} from "@/api/login_log.js";
 export default defineComponent({
   components: { IconLogo, Vcode },
   data() {
@@ -83,8 +83,17 @@ export default defineComponent({
         password: "",
       },
       isShow: false,
+      position:{
+        ip: '',
+        country: '',
+        prov:"",
+        city: '',
+        district: '',
+        isp:'',
+        lat:'',
+        lng:''
+      },
       imgs: [
-        "/public/cover/06.jpg",
         "/public/cover/sea/01.png",
         "/public/cover/sea/02.png",
         "/public/cover/sea/03.png",
@@ -95,13 +104,36 @@ export default defineComponent({
       ],
     };
   },
-  created() {},
+  created() {
+    this.getIp()
+  },
   methods: {
     onSuccess() {
       this.toLogin();
     },
     onFail(e) {
       console.log(e);
+    },
+
+    async getIp() {
+     try {
+      let res = await getIp();
+      if(res.code == 'Success'){
+        const {country,prov,district,city,isp,lat,lng} = res.data;
+        this.position = {
+          ip: res.ip || 'localhost',
+          country,
+          prov,
+          city,
+          district,
+          isp,
+          lat,
+          lng
+        }
+      }
+     } catch (error) {
+        console.log(error)
+     }
     },
 
     //登录日志
@@ -130,9 +162,10 @@ export default defineComponent({
           this.isShow = false;
           return false;
         }
-
+        //清理超过100条登录日志
+        await del();
         //添加登录日志
-        await create();
+        await create(this.position);
         // eslint-disable-next-line no-undef
         ElNotification({
           title: "提示",

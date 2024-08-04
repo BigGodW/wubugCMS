@@ -11,16 +11,21 @@
       <el-table-column prop="id" width="100" label="编号"></el-table-column>
       <el-table-column prop="username" label="登录用户"></el-table-column>
       <el-table-column prop="ip" label="登录IP"></el-table-column>
-
+      <el-table-column prop="isp" label="网络"></el-table-column>
+      <el-table-column prop="country" label="地理位置">
+        <template #default="scope">
+          {{ scope.row.lat }}
+          {{ scope.row.lng }}
+        </template>
+      </el-table-column>
       <el-table-column prop="country" label="登录地点">
         <template #default="scope">
-          {{ scope.row.country }}
+          {{ scope.row.prov }}
           {{ scope.row.city }}
-          {{ scope.row.region }}
+          {{ scope.row.district }}
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" label="登录日期">
-        <template #default="scope">{{ scope.row.createdAt }}</template>
       </el-table-column>
     </el-table>
 

@@ -10,17 +10,31 @@ export let list = (cur) => {
 };
 
 //增
-export let create = () => {
+export let create = (opt) => {
   return http({
     url: `${API.BASE_API}/api/loginLog/create`,
     method: "post",
+    data: opt,
   });
 };
 
-//删
-export let del = (id) => {
+//超过100条自动删除
+export let del = () => {
   return http({
-    url: `${API.BASE_API}/api/loginLog/delete?id=${id}`,
+    url: `${API.BASE_API}/api/loginLog/delete`,
     method: "get",
+  });
+};
+
+//获取ip
+export let getIp = () => {
+  return http({
+    url: `https://qifu-api.baidubce.com/ip/local/geo/v1/district`,
+    method: "get",
+    withCredentials: false, // 添加这一行
+    headers: {
+      Origin:false,
+      Referer: false,
+    },
   });
 };

@@ -2,7 +2,7 @@ const dayjs = require("dayjs");
 
 const Chan = require("chanjs");
 let {utils: { getIp, getToken},api: { success }} = Chan.helper;
-const geoip = require('geoip-lite');
+
 const {
   api: {
     service: { loginLog },
@@ -17,15 +17,9 @@ class LoginLogController {
       const {config} = req.app.locals;
       const token = req.cookies.token;
       const user = await getToken(token, config.token.KEY);
-      const ip = getIp(req) || '127.0.0.1';
-      const geo = geoip.lookup(ip); // 获取ip地址
-      const { city='', region='', country='' } = geo || {};
       let body = {
         uid:user.uid,
-        ip: getIp(req),
-        city,
-        region,
-        country,
+        ...req.body
       };
       const data = await loginLog.create(body);
       res.json({ ...success, data: data });
