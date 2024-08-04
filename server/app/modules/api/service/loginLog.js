@@ -18,14 +18,23 @@ class LoginLogService {
   // 删除100条之外的数据
   static async delete() {
     try {
-      const result = knex(LoginLogService.model)
-      .whereNotIn('id', function() {
-        this.select('id').from(LoginLogService.model).orderBy('createdAt', 'desc').limit(100).as('recent_logs');
-      })
-      .del();
-      return result ? 'success' : 'fail';
+     // 获取最新的100条记录的ID
+    const recentLogIds = await knex(LoginLogService.model)
+    .select('id')
+    .orderBy('createdAt', 'desc')
+    .limit(100);
+
+  // 将ID数组转换为可以用于IN子句的格式
+  const idsToKeep = recentLogIds.map(row => row.id);
+
+  // 删除不在这些ID中的所有记录
+  const result = await knex(LoginLogService.model)
+    .whereNotIn('id', idsToKeep)
+    .del();
+
+  return result >= 0 ? 'success' : 'fail';
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return err;
     }
   }
