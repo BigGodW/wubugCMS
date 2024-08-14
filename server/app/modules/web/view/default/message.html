@@ -10,12 +10,6 @@
     <title>{{site.title}}-{{site.name}}</title>
     {{include './common/meta.html'}}
     <link rel="stylesheet" href="/public/template/default/css/slidercaptcha.min.css">
-    <style>
-        /* #captcha {
-            height： 202px;
-            margin： 0px !important;
-        } */
-    </style>
 
 <body class="bg-f8f8f8 pos-r">
     <!-- 头部 -->
@@ -73,6 +67,11 @@
                                 <label class="col-6 justify-end" for="wechat">微信：</label>
                                 <input type="text" class="w-full" id="wechat" name="wechat">
                             </div>
+							
+							 <div class="flex mb-10">
+                                <label class="col-6 justify-end" for="wechat">公司：</label>
+                                <input type="text" class="w-full" id="wechat" name="company">
+                            </div>
 
                             <div class="flex mb-10">
                                 <label class="require col-6 justify-end" for="content">描述：</label>
@@ -86,7 +85,7 @@
 
                         </form>
 
-                        <div id="captcha"></div>
+
                     </article>
                 </div>
             </article>
@@ -97,10 +96,8 @@
     {{include './common/footer.html'}}
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
-    <script src="/public/template/default/js/slider-min.js"></script>
-    <script>
-        
 
+    <script>
         function submitForm() {
             const form = document.getElementById('feedbackForm');
             const formData = new FormData(form);
@@ -140,79 +137,6 @@
                     alert('提交失败，请稍后再试！');
                 });
         }
-
-
-        // 开始验证
-function captcha(){
-	// 根据 poster 获取验证参数
-	// 以下注释为请求接口返回数据，可自行替换自己的请求方法是
-	Slider = new langSlider({
-		title: '滑块安全验证', 
-		start: async function(Slider) {
-			Slider.sliderRefresh({
-					sliderBg: '/public/template/default/img/01.jpg', 
-					sliderKey: '1212', 
-					sliderY: 46
-				})
-		},
-		check: async function(sliderKey, sliderX, Slider) {
-
-			// await request({
-			// 	type:'post',
-			// 	url: 'http://localhost:8990/check',
-			// 	data: {key:sliderKey, x:sliderX},
-			// 	success: async function(res){
-			// 		if (res.code === 200) {
-			// 		    Slider.sliderSuccess()
-			// 		} else {
-			// 			// 错误调用该方法
-			// 			// 模拟调用获取验证参数接口
-			// 			const res = await getSlider()
-			// 			Slider.sliderError({
-			// 				sliderBg: res.img, 
-			// 				sliderKey: res.key, 
-			// 				sliderY: res.y,
-			// 			})
-			// 		}
-			// 	},
-			// 	error: function(err) {
-			// 		console.log(err)
-			// 	}
-			// })
-
-			// 模拟调用验证接口
-			const check = () => {
-				const leeway = 5 // 误差值
-				const value = 208 // 正确值
-				if(value >= (sliderX - leeway) && value <= (sliderX + leeway)){
-					// 成功调用该方法
-					Slider.sliderSuccess()
-				} else {
-					// 错误调用该方法
-					// 模拟调用获取验证参数接口
-					Slider.sliderRefresh({
-					sliderBg: '/public/template/default/img/01.jpg', 
-					sliderKey: '1212', 
-					sliderY: 46
-				})
-				}
-			}
-
-			setTimeout(function(){
-				check()
-			}, 1000)
-
-		},
-		refresh: async function(Slider){
-				Slider.sliderRefresh({
-					sliderBg: '/public/template/default/img/01.jpg', 
-					sliderKey: '1212', 
-					sliderY: 46
-				})
-		
-		},
-	})
-}
     </script>
 
 </body>
