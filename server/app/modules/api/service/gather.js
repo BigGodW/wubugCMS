@@ -59,15 +59,31 @@ class GatherService {
       // 查询个数
       const total = await knex(GatherService.model).count('id', { as: 'count' });
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex.select(['id', 
-      'taskName',
-      'targetUrl',
-      'parseData',
-      'status','cid','updatedAt'])
-        .from(GatherService.model)
+      // const list = await knex.select(['id', 
+      // 'taskName',
+      // 'targetUrl',
+      // 'parseData',
+      // 'status','cid','updatedAt'])
+      //   .from(GatherService.model)
+      //   .limit(pageSize)
+      //   .offset(offset)
+      //   .orderBy('id', 'desc');
+
+        const list = await knex(GatherService.model)
+        .select('gather.id', 
+                'gather.taskName', 
+                'gather.targetUrl', 
+                'gather.parseData',
+                'gather.status',
+                'gather.cid',
+                'gather.updatedAt', 
+                'category.name as category')
+        .innerJoin('category', 'gather.cid', 'category.id')
         .limit(pageSize)
         .offset(offset)
-        .orderBy('id', 'desc');
+        .orderBy('gather.id', 'desc');
+        
+        
       const count = total[0].count || 1;
       return {
         count: count,

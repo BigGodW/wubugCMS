@@ -15,8 +15,8 @@
     {{include './common/header.html'}}
 
     <!-- 头条文章 -->
-    <main class="bg-f2f2f2 pt-10 pb-20 row">
-        <div class="main center mt-10 row gap-20">
+    <main class="bg-f2f2f2 pt-10 pb-20 flex">
+        <div class="main center mt-10 flex gap-20">
             <!-- 最新文章 -->
             <article class="article-index">
                 <div class="bg-fff pd-15 mb-1 f-14 c-999 radius-6">
@@ -29,8 +29,8 @@
                     {{if data.list.length>0}}
                     <ul>
                         {{each data.list}}
-                        <li class="row border-dashed pt-20 pb-20">
-                            <figure class="row justify-between mt-10 ">
+                        <li class="flex border-dashed pt-20 pb-20">
+                            <figure class="flex justify-between mt-10 ">
                                 {{if $value.img}}
                                 <div class="thumb-120 mb-10">
                                     <img class="w-p100" src="{{$value.img}}" alt="{{$value.title}}"
@@ -43,7 +43,7 @@
                                             title="{{$value.title}}">{{$value.title}}</a>
                                             
                                     </h3>
-                                    <p class="f-12 mb-8 row">
+                                    <p class="f-12 mb-8 flex">
                                         <a class="el-tag mr-5 mb-5">{{path}}</a>
 
                                         <span class="c-bfbfbf">
@@ -76,7 +76,7 @@
                     {{/if}}
                 </div>
 
-                <div class="page mt-1 bg-fff pd-25 row justify-center  radius-6" id="app">
+                <div class="page mt-1 bg-fff pd-25 flex justify-center  radius-6" id="app">
                     <ul class="overflow-h center" id="page">
                       {{@ pageHtml}}
                     </ul> 
@@ -87,7 +87,7 @@
             <aside class="flex-1">
                 <!-- tag标签 -->
                 <section class="notices pd-20 mb-20 bg-fff">
-                    <h3 class="m-title border-dashed f-16 row justify-between">tag标签</h3>
+                    <h3 class="m-title border-dashed f-16 flex justify-between">tag标签</h3>
                     <p class="mt-10">
                         {{each tag}}
                         <a class="el-tag mr-5 mb-5" href="/tags/{{$value.name}}.html"

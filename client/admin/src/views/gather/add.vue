@@ -51,18 +51,16 @@
             type="textarea"
             :rows="13"
             v-model="params.parseData"
-            placeholder="例：.content h4 a"
+            placeholder="如果不做任何处理，直接返回data。拿到的文本是变量是data,可以直接js函数可以处理成需要的数据，最终需要返回data。例：
+            data.title = data.title;
+            data.article = data.data.news;
+            return data;
+            "
           ></el-input>
           <el-button class="ml-5" type="primary" @click="getArticle">
             测试
           </el-button>
         </div>
-      </el-form-item>
-
-      <el-form-item class="show" label="测试结果">
-        <p>标题：{{ article.title }}</p>
-        <p>内容：</p>
-        <div v-html="article.content"></div>
       </el-form-item>
 
       <el-form-item
@@ -76,7 +74,13 @@
           },
         ]"
       >
-        <el-input v-model="params.cid" placeholder="例：cid"></el-input>
+        <el-cascader
+          :props="categoryProps"
+          :show-all-levels="false"
+          v-model="categorySelected"
+          :options="category"
+          @change="handleChange"
+        ></el-cascader>
       </el-form-item>
 
       <el-form-item
@@ -85,7 +89,7 @@
         :rules="[
           {
             required: true,
-            message: '请选择字符集',
+            message: '请选择发布状态',
             trigger: 'blur',
           },
         ]"
@@ -96,6 +100,18 @@
         </el-radio-group>
       </el-form-item>
 
+      <el-form-item v-if="article.title" label="采集结果">
+        <el-card class="w-full" shadow="never">
+          <template #header>
+            <p class="f-15">
+              <span class="c-999">标题：</span>{{ article.title }}
+            </p>
+          </template>
+          <p class="f-15"><span class="c-999">内容：</span></p>
+          <div class="f-15 article" v-html="article.article"></div>
+        </el-card>
+      </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="submit('params')">保存</el-button>
       </el-form-item>
@@ -104,13 +120,25 @@
 </template>
 
 <script>
+import { find } from "@/api/category.js";
 import { create, getArticle } from "@/api/gather.js";
+import {
+  addLabelValue,
+  getImgUrlFromStr,
+  filterHtml,
+  tree,
+} from "@/utils/tool.js";
 
 export default {
   name: "gather-add",
   data: () => {
     return {
       activeName: "list",
+
+      categorySelected: [], //-1默认选中顶级栏目
+      categoryProps: { checkStrictly: true },
+      category: [], //当前所有栏目
+
       params: {
         taskName: "",
         targetUrl: "",
@@ -121,14 +149,38 @@ export default {
       listPages: [],
       article: {
         title: "",
-        content: "",
+        article: "",
       },
     };
   },
   computed: {},
   mounted() {},
-  async created() {},
+  async created() {
+    this.query();
+  },
   methods: {
+    //查询
+    async query() {
+      try {
+        let res = await find();
+        if (res.code === 200) {
+          let dataTree = addLabelValue(tree(res.data));
+          let data = addLabelValue(res.data);
+          this.cateList = data;
+          this.category = [...dataTree];
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //选择栏目
+    handleChange(e) {
+      console.log(e);
+      if (e[0] != -1) {
+        this.params.cid = e[e.length - 1];
+      }
+    },
+
     handleAttr(e) {
       console.log("e-->", e);
     },

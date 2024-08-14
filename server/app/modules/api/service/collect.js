@@ -65,19 +65,35 @@ class CollectService {
       // 查询个数
       const total = await knex(CollectService.model).count('id', { as: 'count' });
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex.select(['id', 
-      'taskName', 
-      'pages', 
-      'updatedAt', 
-      'charset', 
-      'titleTag',
-      'articleTag',
-      'parseData',
-      'status','cid'])
-        .from(CollectService.model)
-        .limit(pageSize)
-        .offset(offset)
-        .orderBy('id', 'desc');
+      const list = await knex(CollectService.model)
+                  .select('collect.id', 
+                          'collect.taskName', 
+                          'collect.pages', 
+                          'collect.updatedAt', 
+                          'collect.charset', 
+                          'collect.titleTag',
+                          'collect.articleTag',
+                          'collect.parseData',
+                          'collect.status',
+                          'collect.cid',
+                          'category.name as category')
+                  .innerJoin('category', 'collect.cid', 'category.id')
+                  .limit(pageSize)
+                  .offset(offset)
+                  .orderBy('collect.id', 'desc');
+      // const list = await knex.select(['id', 
+      // 'taskName', 
+      // 'pages', 
+      // 'updatedAt', 
+      // 'charset', 
+      // 'titleTag',
+      // 'articleTag',
+      // 'parseData',
+      // 'status','cid'])
+      //   .from(CollectService.model)
+      //   .limit(pageSize)
+      //   .offset(offset)
+      //   .orderBy('id', 'desc');
       const count = total[0].count || 1;
       return {
         count: count,

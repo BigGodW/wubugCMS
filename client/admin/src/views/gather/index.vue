@@ -16,6 +16,7 @@
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="id" width="60" label="编号"></el-table-column>
       <el-table-column prop="taskName" label="任务名称"> </el-table-column>
+      <el-table-column prop="category" label="所属栏目"> </el-table-column>
       <el-table-column prop="targetUrl" label="接口链接"> </el-table-column>
       <el-table-column prop="status" label="状态">
         <template #default="scope">{{

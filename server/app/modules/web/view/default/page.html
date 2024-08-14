@@ -17,13 +17,13 @@
     {{include './common/header.html'}}
 
     <!-- 头条文章 -->
-    <main class="bg-f2f2f2 pt-10 pb-20 row">
+    <main class="bg-f2f2f2 pt-10 pb-20 flex">
 
-        <div class="main center mt-10 row gap-20">
+        <div class="main center mt-10 flex gap-20">
             <aside class="flex-1">
                   <!-- tag标签 -->
                   <section class="notices pd-20 mb-20 bg-fff">
-                    <h3 class="m-title border-dashed f-16 row justify-between">tag标签</h3>
+                    <h3 class="m-title border-dashed f-16 flex justify-between">tag标签</h3>
                     <p class="mt-10">
                         {{each tag}}
                         <a class="el-tag mr-5 mb-5" href="/tags/{{$value.name}}.html"
@@ -41,11 +41,11 @@
 
                 <!-- 单页栏目 -->
                 <section class="notices pos-s pd-20 mb-20 bg-fff" style="top:80px;z-index: 2;">
-                    <h3 class="m-title border-dashed f-16 row justify-between bold">{{navSub.cate.name}}</h3>
+                    <h3 class="m-title border-dashed f-16 flex justify-between bold">{{navSub.cate.name}}</h3>
                     {{if data && data.length>0}}
                     <ul class="mt-10">
                         {{each data}}
-                        <li class="f-16 pt-4 pb-4 row bold  pl-10">
+                        <li class="f-16 pt-4 pb-4 flex bold  pl-10">
                             <a href="{{$value.path}}/page-{{$value.id}}.html"  title="{{$value.title}}">{{$value.title}}</a>
                         </li>
                         {{/each}}

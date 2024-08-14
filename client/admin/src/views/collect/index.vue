@@ -16,6 +16,7 @@
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="id" width="60" label="编号"></el-table-column>
       <el-table-column prop="taskName" label="任务名称"> </el-table-column>
+      <el-table-column prop="category" label="所属栏目"> </el-table-column>
       <el-table-column prop="charset" label="编码">
         <template #default="scope">{{
           scope.row.charset == 1 ? "UTF-8" : "GB2312"

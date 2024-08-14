@@ -989,7 +989,95 @@ iframe {
     display: none;
 }
 
+label{
+   display: inline-flex;
+   align-items: center;
+   height: 32px;
+   position: relative;
+}
 
+label.require::before{
+    content: '*';
+    color: red;
+    margin-right: 5px;
+    display: inline-block;
+    line-height: 1;
+    font-family:SimSun,sans-serif;
+    margin-left:5px;
+    font-size: 12px;
+}
+
+
+
+input{
+    transition: all 0.2s;
+    border: 1px solid rgb(217,217,217);
+    font-size: 14px;
+    padding: 4px 11px;
+    height: 32px;
+    border-radius: 6px;
+    
+}
+input:focus,select:focus,textarea:focus{
+    border: 1px solid rgb(36, 126, 252);
+    box-shadow: 0 0 0 1px rgb(0 123 255 / 25%);
+}
+input:hover{
+    border: 1px solid rgb(64, 150, 255);
+    /* box-shadow: 0 0 0 1px rgb(0 123 255 / 25%); */
+}
+textarea{
+    transition: all 0.2s;
+    border: 1px solid rgb(217,217,217);
+    font-size: 14px;
+    padding: 4px 11px;
+    border-radius: 6px;
+    font-family: 'Microsoft YaHei', sans-serif;
+    resize: none;
+    height: 100px;
+}
+/* 基础样式 */
+select {
+    transition: all 0.2s;
+    border: 1px solid rgb(217,217,217);
+    font-size: 14px;
+    padding: 4px 11px;
+    height: 32px;
+    border-radius: 6px;
+    position: relative;
+}
+select::after {
+    content: "\25BC"; /* 必须要有content属性 */
+    position: absolute;
+    top: 50%; /* 将箭头垂直居中 */
+    right: 10px; /* 距离右侧边缘的距离 */
+    transform: translateY(-50%); /* 垂直居中调整 */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 4px 0 4px; /* 上下左右的边框宽度 */
+    border-color: #000 transparent transparent transparent; /* 边框颜色 */
+}
+
+  
+  select:hover::before {
+    color: #666;
+  }
+
+  button{
+    height: 32px;
+    border-radius: 6px;
+    background-color: rgb(64, 150, 255);
+    color: #fff;
+    font-size: 14px;
+    padding: 0 11px;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;;
+  }
+  button:hover{
+    background-color: rgb(37, 131, 247);
+  }
 /* 返回顶部 */
 .backtop {
     position: fixed;

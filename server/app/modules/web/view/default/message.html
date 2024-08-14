@@ -4,32 +4,33 @@
 <head>
     <meta charset="utf-8">
     <meta name="description" content="{{site.description}}">
-    <meta name="keywords" content="{{site.keywords}}"/>
-    <meta property="og:title" content="{{site.title}}" />
-    <meta property="og:description" content="{{site.description}}" />
+    <meta name="keywords" content="{{site.keywords}}" />
+    <meta property="og：title" content="{{site.title}}" />
+    <meta property="og：description" content="{{site.description}}" />
     <title>{{site.title}}-{{site.name}}</title>
     {{include './common/meta.html'}}
-<style>
-    #captcha {
-        height: 202px;
-        margin: 0px !important;
-    }
-</style>
+    <link rel="stylesheet" href="/public/template/default/css/slidercaptcha.min.css">
+    <style>
+        /* #captcha {
+            height： 202px;
+            margin： 0px !important;
+        } */
+    </style>
 
 <body class="bg-f8f8f8 pos-r">
     <!-- 头部 -->
     {{include './common/header.html'}}
 
     <!-- 头条文章 -->
-    <main class="bg-f2f2f2 pt-10 pb-20 row">
-        <div class="main center mt-10 row gap-20">
+    <main class="bg-f2f2f2 pt-10 pb-20 flex">
+        <div class="main center mt-10 flex gap-20">
             <aside class="flex-1">
                 <!-- tag标签 -->
-                <section class="notices pos-s pd-20 mb-20 bg-fff" style="top:80px;z-index: 2;">
-                    <h3 class="m-title border-dashed f-16 row justify-between">「ABOUT」关于我们</h3>
+                <section class="notices pos-s pd-20 mb-20 bg-fff" style="top：80px;z-index： 2;">
+                    <h3 class="m-title border-dashed f-16 flex justify-between">「ABOUT」关于我们</h3>
                     <ul class="mt-10">
-                        <li class="f-16 pt-4 pb-4 row bold  pl-10"><a href="" title="">关于作者</a></li>
-                        <li class="f-16 pt-4 pb-4 row bold pl-10"><a href="" title="">最新动态</a></li>
+                        <li class="f-16 pt-4 pb-4 flex bold  pl-10"><a href="" title="">关于作者</a></li>
+                        <li class="f-16 pt-4 pb-4 flex bold pl-10"><a href="" title="">最新动态</a></li>
                     </ul>
                 </section>
             </aside>
@@ -41,81 +42,179 @@
                         <h2 class="f-26 c-252933  bold mt-10">「ONLINE」在线留言</h2>
                     </header>
                     <article class="article-cont f-17 lh-35" id="app">
-                        <el-form ref="message" :model="message" label-width="84px">
-                            <el-form-item label="留言标题" prop="title" :rules="[
-                                {
-                                  required: true,
-                                  message: '请输入留言标题',
-                                  trigger: 'blur',
-                                },
-                                {
-                                  min: 2,
-                                  max: 20,
-                                  message: '长度在 2 到 20 个字符',
-                                  trigger: 'blur',
-                                },
-                              ]">
-                                <el-input v-model="message.title"></el-input>
-                            </el-form-item>
+                        <form id="feedbackForm">
 
-                            <el-form-item label="联系微信" prop="wx" :rules="[
-                            {
-                              required: true,
-                              message: '请输入微信',
-                              trigger: 'blur',
-                            },
-                            {
-                              min: 2,
-                              max: 20,
-                              message: '长度在 2 到 20 个字符',
-                              trigger: 'blur',
-                            },
-                          ]">
-                                <el-input v-model="message.wx"></el-input>
-                            </el-form-item>
+                            <div class="flex mb-10">
+                                <label class="col-6 justify-end" for="category">分类：</label>
+                                <select id="category" class="w-full" name="category">
+                                    <option value="1">咨询</option>
+                                    <option value="2">建议</option>
+                                    <option value="3">投诉</option>
+                                    <option value="4">其他</option>
+                                </select>
+                            </div>
 
-                            <el-form-item label="联系电话" prop="tel" :rules="[
-                            { type: 'number', message: '手机号必须是数字' },
-                          ]">
-                                <el-input v-model.number="message.tel" type="number"></el-input>
-                            </el-form-item>
+                            <div class="flex mb-10">
+                                <label class="require col-6 justify-end" for="title">标题：</label>
+                                <input type="text" class="w-full" id="title" required name="title">
+                            </div>
 
-                            <el-form-item label="问题描述" prop="description" :rules="[
-                            {
-                                required: true,
-                                message: '不写问题，你玩呢？',
-                                trigger: 'blur',
-                              },
-                                {
-                                  min: 2,
-                                  max: 255,
-                                  message: '字数限制255',
-                                  trigger: 'blur',
-                                },
-                              ]">
-                                <el-input type="textarea" :rows="3" class="textarea"
-                                    v-model="message.description"></el-input>
-                            </el-form-item>
+                            <div class="flex mb-10">
+                                <label class="require col-6 justify-end" for="name">姓名：</label>
+                                <input type="text" class="w-full" id="name" required name="name">
+                            </div>
 
+                            <div class="flex mb-10">
+                                <label class="require col-6 justify-end" for="tel">电话：</label>
+                                <input type="tel" class="w-full" id="tel" submitForm name="tel">
+                            </div>
 
-                            <el-form-item label="图片验证">
-                                <div id="captcha" style="height:202px;margin:0!important"></div>
-                            </el-form-item>
+                            <div class="flex mb-10">
+                                <label class="col-6 justify-end" for="wechat">微信：</label>
+                                <input type="text" class="w-full" id="wechat" name="wechat">
+                            </div>
 
-                            <el-form-item>
-                                <el-button type="primary" @click="submitSeo('message')">提交</el-button>
-                            </el-form-item>
-                        </el-form>
+                            <div class="flex mb-10">
+                                <label class="require col-6 justify-end" for="content">描述：</label>
+                                <textarea id="content" class="w-full" submitForm name="content"></textarea>
+                            </div>
+
+                            <div class="flex">
+                                <label class="col-6 justify-end"></label>
+                                <div class="w-full"><button type="button" onclick="captcha()">提交</button></div>
+                            </div>
+
+                        </form>
+
+                        <div id="captcha"></div>
                     </article>
                 </div>
             </article>
         </div>
     </main>
 
-   <!-- footer -->
-   {{include './common/footer.html'}}
-   <!-- 移动端导航 -->
-   {{include './common/wap-nav.html'}}
+    <!-- footer -->
+    {{include './common/footer.html'}}
+    <!-- 移动端导航 -->
+    {{include './common/wap-nav.html'}}
+    <script src="/public/template/default/js/slider-min.js"></script>
+    <script>
+        
+
+        function submitForm() {
+            const form = document.getElementById('feedbackForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            const jsonData = JSON.stringify(data);
+
+            // 直接在JSON数据上进行校验
+            if (!data.title || !data.name || !data.tel || !data.content || !data.category) {
+                alert('请确保所有必填字段都已填写。');
+                return;
+            }
+
+            // 更复杂的校验，例如电话号码格式
+            const telPattern = /^\d{11}$/; // 假设手机号码是11位数字
+            if (!telPattern.test(data.tel)) {
+                alert('请输入有效的电话号码。');
+                return;
+            }
+
+            // 如果所有校验都通过，再执行fetch请求
+            fetch('/api/message/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: jsonData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('您的反馈已成功提交！');
+                    // 在这里清空表单
+                    form.reset();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('提交失败，请稍后再试！');
+                });
+        }
+
+
+        // 开始验证
+function captcha(){
+	// 根据 poster 获取验证参数
+	// 以下注释为请求接口返回数据，可自行替换自己的请求方法是
+	Slider = new langSlider({
+		title: '滑块安全验证', 
+		start: async function(Slider) {
+			Slider.sliderRefresh({
+					sliderBg: '/public/template/default/img/01.jpg', 
+					sliderKey: '1212', 
+					sliderY: 46
+				})
+		},
+		check: async function(sliderKey, sliderX, Slider) {
+
+			// await request({
+			// 	type:'post',
+			// 	url: 'http://localhost:8990/check',
+			// 	data: {key:sliderKey, x:sliderX},
+			// 	success: async function(res){
+			// 		if (res.code === 200) {
+			// 		    Slider.sliderSuccess()
+			// 		} else {
+			// 			// 错误调用该方法
+			// 			// 模拟调用获取验证参数接口
+			// 			const res = await getSlider()
+			// 			Slider.sliderError({
+			// 				sliderBg: res.img, 
+			// 				sliderKey: res.key, 
+			// 				sliderY: res.y,
+			// 			})
+			// 		}
+			// 	},
+			// 	error: function(err) {
+			// 		console.log(err)
+			// 	}
+			// })
+
+			// 模拟调用验证接口
+			const check = () => {
+				const leeway = 5 // 误差值
+				const value = 208 // 正确值
+				if(value >= (sliderX - leeway) && value <= (sliderX + leeway)){
+					// 成功调用该方法
+					Slider.sliderSuccess()
+				} else {
+					// 错误调用该方法
+					// 模拟调用获取验证参数接口
+					Slider.sliderRefresh({
+					sliderBg: '/public/template/default/img/01.jpg', 
+					sliderKey: '1212', 
+					sliderY: 46
+				})
+				}
+			}
+
+			setTimeout(function(){
+				check()
+			}, 1000)
+
+		},
+		refresh: async function(Slider){
+				Slider.sliderRefresh({
+					sliderBg: '/public/template/default/img/01.jpg', 
+					sliderKey: '1212', 
+					sliderY: 46
+				})
+		
+		},
+	})
+}
+    </script>
+
 </body>
 
 </html>

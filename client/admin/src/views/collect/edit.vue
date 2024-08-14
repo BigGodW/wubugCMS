@@ -151,39 +151,45 @@
           </el-form-item>
 
           <el-form-item
-        label="处理函数"
-        prop="parseData"
-        :rules="[
-          {
-            required: true,
-            message: '如果无特殊处理，请直接填写  return data;',
-            trigger: 'blur',
-          },
-        ]"
-      >
-        <div class="flex w-full">
-          <el-input
-            class="flex-1"
-            type="textarea"
-            :rows="13"
-            v-model="params.parseData"
-            placeholder="如果不做任何处理，直接返回data。拿到的文本是变量是data,可以直接js函数可以处理成需要的数据，最终需要返回data。例：
+            label="处理函数"
+            prop="parseData"
+            :rules="[
+              {
+                required: true,
+                message: '如果无特殊处理，请直接填写  return data;',
+                trigger: 'blur',
+              },
+            ]"
+          >
+            <div class="flex w-full">
+              <el-input
+                class="flex-1"
+                type="textarea"
+                :rows="13"
+                v-model="params.parseData"
+                placeholder="如果不做任何处理，直接返回data。拿到的文本是变量是data,可以直接js函数可以处理成需要的数据，最终需要返回data。例：
             data = data.replaceAll('<BR>','<br/>');
             return data;
             //或
             return data;
             "
-          ></el-input>
-          <el-button class="ml-5" type="primary" @click="getArticle">
-            测试
-          </el-button>
-        </div>
-      </el-form-item>
+              ></el-input>
+              <el-button class="ml-5" type="primary" @click="getArticle">
+                测试
+              </el-button>
+            </div>
+          </el-form-item>
 
-          <el-form-item class="show" label="文章结果">
-            <p>标题：{{ article.title }}</p>
-            <p>内容：</p>
-            <div v-html="article.article"></div>
+          <el-form-item v-if="article.title" label="采集结果">
+            <el-card class="w-full" shadow="never">
+              <template #header>
+                <p class="f-15">
+                  <span class="c-999">标题：</span>{{ article.title }}
+                </p>
+              </template>
+              <p class="f-15"><span class="c-999">内容：</span></p>
+              <div class="f-15 article" v-html="article.article"></div>
+            </el-card>
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="保存配置" name="save">
@@ -198,7 +204,13 @@
               },
             ]"
           >
-            <el-input v-model="params.cid" placeholder="例：cid"></el-input>
+            <el-cascader
+              :props="categoryProps"
+              :show-all-levels="false"
+              v-model="categorySelected"
+              :options="category"
+              @change="handleChange"
+            ></el-cascader>
           </el-form-item>
 
           <el-form-item
@@ -228,13 +240,26 @@
 </template>
 
 <script>
+import { find } from "@/api/category.js";
 import { getPages, getArticle, detail, update } from "@/api/collect.js";
-
+import {
+  getImgUrlFromStr,
+  filterHtml,
+  filterAndReplaceImgSrc,
+  addLabelValue,
+  treeById,
+  tree,
+} from "@/utils/tool.js";
 export default {
   name: "collect-edit",
   data: () => {
     return {
       activeName: "list",
+
+      categorySelected: [], //-1默认选中顶级栏目
+      categoryProps: { checkStrictly: true },
+      category: [], //当前所有栏目
+
       params: {
         taskName: "",
         targetUrl: "",
@@ -246,9 +271,9 @@ export default {
         titleTag: "",
         articleTag: "",
         charset: "1", //utf-8
-        parseData: "",
+        parseData: "return data;",
         status: "1", //是否限制
-        cid: 1,
+        cid: 0,
       },
       listPages: [],
       article: {},
@@ -259,8 +284,31 @@ export default {
   async created() {
     this.params.id = this.$route.params.id;
     await this.detail();
+    await this.query();
   },
   methods: {
+    //查询
+    async query() {
+      try {
+        let res = await find();
+        if (res.code === 200) {
+          let data = res.data;
+          let ids = treeById(this.params.cid, data);
+          this.categorySelected = ids;
+          let end = addLabelValue(tree(data));
+          this.cateList = addLabelValue(data);
+          this.category = [...end];
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //选择栏目
+    handleChange(e) {
+      if (e[0] != -1) {
+        this.params.cid = e[e.length - 1];
+      }
+    },
     // 文章详情
     async detail() {
       try {
@@ -336,13 +384,7 @@ export default {
 
     async getArticle() {
       try {
-        let {
-          taskUrl,
-          titleTag,
-          articleTag,
-          parseData,
-          charset,
-        } = this.params;
+        let { taskUrl, titleTag, articleTag, parseData, charset } = this.params;
 
         taskUrl = this.params.pages[0] || "";
         let res = await getArticle({
@@ -403,5 +445,8 @@ export default {
 :deep(.show .el-form-item__content) {
   flex-direction: column;
   align-items: start;
+}
+.article p {
+  margin-bottom: 10px;
 }
 </style>
