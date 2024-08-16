@@ -52,8 +52,7 @@ chancms留言模块，可以很好地基于vue和element-ui中的form表单进�
 在项目中引入chancms留言模块的js文件，然后在需要使用的地方调用`CHAN.message('#message',null)`即可。
 
 ```html
-<script src="Chan.umd.js"></script>
-<link rel="stylesheet" href="Chan.css"/>
+<script src="chan.umd.js"></script>
 <script>
   CHAN.message('#message',null);
 </script>
