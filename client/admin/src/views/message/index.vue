@@ -14,7 +14,16 @@
     >
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="id" width="80" label="编号"></el-table-column>
-      <el-table-column prop="name" width="300" label="联系人"></el-table-column>
+      <el-table-column prop="title" width="300" label="标题"></el-table-column>
+      <el-table-column prop="type"  label="留言类型">
+        <template #default="scope">
+          <span v-if="scope.row.type == 1">咨询</span>
+          <span v-else-if="scope.row.type == 2">建议</span>
+          <span v-else-if="scope.row.type == 3">投诉</span>
+          <span v-else>其它</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="name"  label="联系人"></el-table-column>
       <el-table-column prop="tel" label="手机号"></el-table-column>
       <el-table-column prop="company" label="公司单位"></el-table-column>
       <el-table-column prop="createdAt" label="发布时间">

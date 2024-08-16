@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 04/08/2024 21:15:17
+ Date: 14/08/2024 23:03:53
 */
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ CREATE TABLE `article`  (
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES (80, 8, '', '关于作者：明空', '', '', '', '', '', '', '', '', '明空，ChanCMS开发作者。', '', '<p>明空，<strong>ChanCMS</strong>开发作者。</p>\n<p>拥有逾十年实战经验的前端开发资深专家，始终保持一线开发的敏锐触觉与持续创新精神，紧跟技术潮流，与时俱进。</p>\n<p>2012年，大学毕业后即投身前端领域，在网页三剑客（Dreamweaver、Flash、Fireworks）盛行的时代，熟练掌握DW、FALSH、FW&amp;FL等工具，应对IE6、IE7、IE8等浏览器兼容问题游刃有余，奠定扎实的前端基础。</p>\n<p>2013年，随着Web技术的发展，适时拓宽技能栈，涉足后端领域，学习并精通PHP与MySQL，熟练运用DedeCMS、Discuz!等主流建站系统，亲历&ldquo;PHP是世界上最好的语言&rdquo;这一口号盛行的时期。</p>\n<p>2015年，随着前后端分离理念的普及与Ajax技术的广泛应用，迅速响应行业变革，投身微信小程序的早期开发浪潮，成为<strong>首批微信小程序生态的开发者</strong>。</p>\n<p>2016年，面对Node.js的崛起，明空深入研究并掌握了Express与Koa2等Node.js框架，深入mysql数据库设计，成为<strong>首批nodejs生态全栈开发者。</strong></p>\n<p>2017年，前端工程化趋势日益明显，React与Vue两大框架崭露头角，Grunt、Gulp、Webpack等构建工具百花齐放。紧跟潮流，熟练驾驭这些现代工具与框架，为项目构建高效、规范的开发流程。</p>\n<p>2018年，Vue2体系趋于成熟，深耕细作，以苦干实干的精神投入到大量项目的实际开发中，积累了丰富的实战经验，成为Vue阵营中的坚实砥柱。</p>\n<p>2019年，着眼未来，明空进一步拓宽技术视野，涉足小游戏开发领域，精研Canvas与3D技术，深度探索动画效果实现，为丰富交互体验贡献卓越技术力量。</p>\n<p>2021年，Vue3横空出世，迅速掌握React其新特性与设计理念，积极参与到新一代前端框架的应用实践中，见证并推动Vue/react生态的双峰并立格局形成。</p>\n<p>2024年，面对席卷行业的&ldquo;卷文化&rdquo;，以积极态度应对竞争压力，不断提升自我，卷入技术深度与广度的双重修炼中，力求在日益激烈的前端市场中稳扎稳打，以高效、优质的搬砖精神应对行业挑战，持续为项目增效赋能。</p>', 0, 50, '', '2024-03-31 20:30:35', '2024-08-04 15:14:10');
+INSERT INTO `article` VALUES (80, 8, '', '关于作者：明空', '', '', '', '', '', '', '', '', '明空，ChanCMS开发作者。', '', '<p>明空，<strong>ChanCMS</strong>开发作者。</p>\n<p>拥有逾十年实战经验的前端开发资深专家，始终保持一线开发的敏锐触觉与持续创新精神，紧跟技术潮流，与时俱进。</p>\n<p>2012年，大学毕业后即投身前端领域，在网页三剑客（Dreamweaver、Flash、Fireworks）盛行的时代，熟练掌握DW、FALSH、FW&amp;FL等工具，应对IE6、IE7、IE8等浏览器兼容问题游刃有余，奠定扎实的前端基础。</p>\n<p>2013年，随着Web技术的发展，适时拓宽技能栈，涉足后端领域，学习并精通PHP与MySQL，熟练运用DedeCMS、Discuz!等主流建站系统，亲历&ldquo;PHP是世界上最好的语言&rdquo;这一口号盛行的时期。</p>\n<p>2015年，随着前后端分离理念的普及与Ajax技术的广泛应用，迅速响应行业变革，投身微信小程序的早期开发浪潮，成为<strong>首批微信小程序生态的开发者</strong>。</p>\n<p>2016年，面对Node.js的崛起，明空深入研究并掌握了Express与Koa2等Node.js框架，深入mysql数据库设计，成为<strong>首批nodejs生态全栈开发者。</strong></p>\n<p>2017年，前端工程化趋势日益明显，React与Vue两大框架崭露头角，Grunt、Gulp、Webpack等构建工具百花齐放。紧跟潮流，熟练驾驭这些现代工具与框架，为项目构建高效、规范的开发流程。</p>\n<p>2018年，Vue2体系趋于成熟，深耕细作，以苦干实干的精神投入到大量项目的实际开发中，积累了丰富的实战经验，成为Vue阵营中的坚实砥柱。</p>\n<p>2019年，着眼未来，明空进一步拓宽技术视野，涉足小游戏开发领域，精研Canvas与3D技术，深度探索动画效果实现，为丰富交互体验贡献卓越技术力量。</p>\n<p>2021年，Vue3横空出世，迅速掌握React其新特性与设计理念，积极参与到新一代前端框架的应用实践中，见证并推动Vue/react生态的双峰并立格局形成。</p>\n<p>2024年，面对席卷行业的&ldquo;卷文化&rdquo;，以积极态度应对竞争压力，不断提升自我，卷入技术深度与广度的双重修炼中，力求在日益激烈的前端市场中稳扎稳打，以高效、优质的搬砖精神应对行业挑战，持续为项目增效赋能。</p>', 0, 54, '', '2024-03-31 20:30:35', '2024-08-14 22:54:19');
 INSERT INTO `article` VALUES (81, 3, '', 'ChanCMS快速入门', '', '1,6', '', '', '', '', '', '', 'ChanCMS快速入门，启动项目。', '', '<h2>环境配置​</h2>\n<p>前置条件：安装node.js mysql 和 mysql可视化工具。本地开发推荐用phpStudy。</p>\n<p><span style=\"color: rgb(230, 126, 35);\">WARNING</span></p>\n<p>注意：版本有要求</p>\n<pre class=\"language-markup\"><code>nodejs v18.14.2+\nmysql v5.7.26(兼容v5.6)</code></pre>\n<h2>获取项目​</h2>\n<p>下载地址</p>\n<pre class=\"language-markup\"><code>https://gitee.com/yanyutao0402/chanyue-cms</code></pre>\n<h2>框架结构</h2>\n<pre class=\"language-markup\"><code>|- client (后台管理界面源码，二次开发使用，不需要部署到服务器)\n      |- admin 后台管理\n|- data \n      |- chanyue.sql 数据库文件\n|- server 源码(重点部署到服务器)\n      |- app\n      |- config 配置\n      |- extend 扩展功能\n      |- middleware 中间件\n      |- modules 模块\n            |-api   模块\n                 |-- controller\n                 |-- service\n                 |-- router.js\n            |-home 模块\n                 |-- controller\n                 |-- service\n                 |-- view\n                 |-- router.js\n             |-common 模块\n                 |-- controller\n                 |-- service\n                 |-- view\n                 |-- router.js\n            ...\n       |- plugin 插件\n       |- public 静态资源\n       |- utils 工具\n       |- router.js 总路由\n       |-app.js 应用入口\n       |-pm2.json pm2管理</code></pre>\n<h2>安装运行​</h2>\n<p>1 导入数据库文件</p>\n<pre class=\"language-markup\"><code>data/chanyue.sql</code></pre>\n<p>2 修改数据库配置文件</p>\n<pre class=\"language-markup\"><code>server/config/config.dev.js //开发环境\nserver/config/config.prd.js //生产环境</code></pre>\n<p>3 设置npm源安装依赖，切换新镜像源</p>\n<pre class=\"language-markup\"><code>npm config set registry https://registry.npmmirror.com </code></pre>\n<p>4.安装依赖运行</p>\n<pre class=\"language-markup\"><code>npm i\nnpm run dev</code></pre>\n<p>前台后访问 http://localhost:81 ，完成网站启动。</p>\n<p>5.后台管理​</p>\n<p>访问地址</p>\n<pre class=\"language-markup\"><code>http://localhost:81/public/admin/index.html</code></pre>\n<p>默认账号密码：</p>\n<pre class=\"language-markup\"><code>chanyue 123456</code></pre>', 0, 12, '', '2024-04-03 20:28:41', '2024-08-04 15:03:50');
 INSERT INTO `article` VALUES (82, 3, '', 'ChanCMS模块介绍', '', '1,6', '', '', '', '', '', '', 'ChanCms作为一款内容管理系统，其核心模块被划分为三个主要部分：api模块、common模块和home模块。', '', '<p>ChanCms作为一款内容管理系统，其核心模块被划分为三个主要部分：api模块、common模块和home模块。这些模块各司其职，共同构成了系统的核心功能架构。针对您的要求，我对原有描述进行了文案优化如下：</p>\n<h2>API模块</h2>\n<p>API模块专为后台操作设计，构建了一套完备的接口服务体系。此模块面向后台管理系统及可能涉及的外部应用，提供安全、高效的数据交互通道。通过标准化的RESTful API接口，它实现了对内容管理、用户权限、系统设置等关键业务逻辑的远程调用支持。无论是执行数据增删改查、获取统计报表，还是进行复杂的后台配置与管理任务，API模块均能确保后台操作的无缝集成与流畅执行，为后台管理人员提供便捷、可控的操作环境。</p>\n<h2>Common模块</h2>\n<p>Common模块作为系统的通用接口中枢，专注于为无头CMS（Headless CMS）应用场景提供强有力的支持。它无缝衔接各类前端框架与平台，确保内容能在PC端SSR（Server-Side Rendering）环境、移动端WAP站点以及各类小程序中顺畅展现。此模块精心封装了一系列与平台无关的接口服务，兼顾灵活性与适应性，使得内容能够在多渠道、多设备间实现统一的内容分发与呈现，极大地简化了跨平台内容部署与更新的工作流程，助力企业轻松构建现代化、响应式的跨终端内容体验。</p>\n<h2>Home模块</h2>\n<p>Home模块专注于打造以搜索引擎优化（SEO）为核心的网站前端。它采用传统的服务端模板渲染技术，精心生成符合SEO最佳实践的HTML静态页面，确保网站内容能够被搜索引擎快速、准确地抓取、理解和排名。此模块不仅提供丰富的模板体系和高度定制化的页面布局选项，还兼顾用户体验，确保访问者在各类浏览器环境下都能获得快速加载、易于导航的优质内容浏览体验。Home模块是构建高搜索引擎可见度、提升自然流量与用户黏性的基石，尤其适用于对SEO效果有严格要求的网站建设项目。</p>\n<pre class=\"language-markup\"><code> |- modules 模块\n       |-api  模块\n            |-- controller\n            |-- service\n            |-- router.js\n       |-home 模块\n             |-- controller\n             |-- service\n             |-- view\n             |-- router.js\n        |-common 模块\n              |-- controller\n              |-- service\n              |-- view\n              |-- router.js</code></pre>', 0, 3, '', '2024-04-03 20:54:44', '2024-05-23 22:08:07');
 INSERT INTO `article` VALUES (83, 3, '', 'ChanCMS内容管理系统', '', '1,6', '2', '', '', '', '', '', 'ChanCMS是一款基于Express和MySQL研发的高质量实用型CMS管理系统。它具备多种类型网站开发，易扩展、基于模块化和插件化开发模式，适用于商用企业级程序开发。', '', '<p>ChanCMS是一款基于Express和MySQL构建的轻量级、高质量实用型内容管理系统（CMS）。以下是对这款CMS系统可能具备的特性和功能的概述：</p>\n<ol>\n<li>\n<p><strong>轻量化架构</strong>：ChanCMS采用自研chanjs轻量级mvc框架实现，轻量、灵活、稳定、高性能，且可持续。用Express作为底层框架，以其简洁、灵活、高效的特性实现快速响应的API开发。结合MySQL数据库，提供稳定、高效的数据存储与查询能力。整体设计注重性能优化和资源高效利用，确保系统在有限的硬件资源下仍能保持良好的运行效率。</p>\n</li>\n<li>\n<p><strong>模块化设计</strong>：系统采用模块化架构，各功能模块如用户管理、权限控制、内容发布、媒体管理、模板引擎等独立且可扩展，便于开发者根据实际需求进行定制和二次开发。</p>\n</li>\n<li>\n<p><strong>内容管理</strong>：提供便捷的内容编辑、分类、标签管理功能，支持富文本编辑器，方便用户创建、编辑和发布各类图文、视频等内容。满足不同内容管理场景需求。</p>\n</li>\n<li>\n<p><strong>用户与权限管理</strong>：内置完善的用户注册、登录、角色分配及权限控制系统。支持多用户协作，可根据角色设定不同的操作权限，确保系统数据安全。</p>\n</li>\n<li>\n<p><strong>SEO友好</strong>：内置SEO优化机制，支持自定义页面标题、描述、关键词等SEO元素，生成利于搜索引擎收录的URL结构，提升网站在搜索引擎中的排名。</p>\n</li>\n<li>\n<p><strong>模板与主题系统</strong>：采用灵活的模板引擎，支持自定义前端主题和布局，允许用户或设计师根据品牌风格轻松调整网站外观，无需深入代码即可实现界面个性化。</p>\n</li>\n<li>\n<p><strong>插件与扩展</strong>：提供插件接口，用户或开发者可以开发并安装各种功能插件，如评论系统、统计分析、社交媒体集成等，以扩展系统的功能，满足多样化需求。</p>\n</li>\n<li>\n<p><strong>API支持</strong>：提供RESTful API接口，方便与其他系统（如移动应用、第三方服务等）进行数据交互和集成。</p>\n</li>\n<li>\n<p><strong>文档与社区支持</strong>：提供详尽的用户手册、开发者文档以及活跃的技术社区支持，帮助用户快速上手、解决问题并持续学习。</p>\n</li>\n</ol>\n<p data-spm-anchor-id=\"5176.28103460.0.i5.297c3f99fjQmkZ\">综上所述，ChanCMS作为一款基于Express+MySQL的轻量级CMS管理系统，以其灵活、易用、可扩展的特性，<span>它具备多种类型网站开发，公司，企业，学校，政府，图片，下载，产品等各类型商用网站建设。</span></p>\n<h2>核心功能模块</h2>\n<ul>\n<li>网站信息</li>\n<li>站点管理</li>\n<li>栏目管理</li>\n<li>文章模块</li>\n<li>标签管理</li>\n<li>碎片管理 (广告，碎片文案，公司地址、电话、名称，微信等万能模块)</li>\n<li>扩展模型</li>\n<li>文章采集</li>\n<li>用户管理</li>\n<li>菜单管理</li>\n<li>登录日志</li>\n<li>在线留言</li>\n<li>本地上传&七牛云上传</li>\n<li>日志功能</li>\n</ul>\n<h2>默认插件</h2>\n<ul>\n<li>中英切换(js插件)</li>\n<li>语音播报(js插件)</li>\n<li>pdf预览(按需加载)</li>\n<li>代码展示</li>\n</ul>', 0, 9, '', '2024-04-03 21:18:44', '2024-08-04 15:14:04');
@@ -116,7 +116,7 @@ INSERT INTO `category` VALUES (3, 0, '', '', '', '文档', 'wendang', '/wendang'
 INSERT INTO `category` VALUES (5, 0, '', '', '', '案例', 'anli', '/anli', '', '1', '', 5, '0', '0', '0', 'list.html', 'chanyue.html', '2023-11-25 12:52:03', '2024-05-31 21:17:40');
 INSERT INTO `category` VALUES (6, 2, '', '', '', 'express', 'express', '/nodejs/express', '', '0', '', 7, '0', '0', '0', 'list.html', 'article.html', '2023-11-25 12:52:03', '2024-05-31 21:30:02');
 INSERT INTO `category` VALUES (7, 2, '', '', '', 'mysql', 'mysql', '/mysql', '', '0', '', 8, '0', '0', '0', 'list.html', 'article.html', '2023-11-25 12:52:03', '2024-05-31 21:30:11');
-INSERT INTO `category` VALUES (8, 0, '', '', '', '作者', 'about', '/about', '', '1', '', 6, '0', '0', '0', 'list.html', 'page.html', '2023-11-25 12:52:03', '2024-05-31 21:17:46');
+INSERT INTO `category` VALUES (8, 0, '', '', '', '作者', 'about', '/about', '', '1', '', 6, '0', '0', '0', 'list.html', 'message.html', '2023-11-25 12:52:03', '2024-08-14 22:51:09');
 INSERT INTO `category` VALUES (9, 0, '', '', '', '首页', 'home', '/home', '', '1', '', 1, '0', '0', '0', 'index.html', 'index.html', '2024-05-31 21:16:39', '2024-06-09 19:49:23');
 
 -- ----------------------------
@@ -146,7 +146,7 @@ CREATE TABLE `collect`  (
 -- ----------------------------
 -- Records of collect
 -- ----------------------------
-INSERT INTO `collect` VALUES (1, '草堂札记', 'http://www.tangnet.cn/lists/31.html?page=${page}', '.news-list h5 a', 1, 1, '1', '.title h1', '.content', '1', 'http://www.tangnet.cn/news/46.html,http://www.tangnet.cn/news/44.html,http://www.tangnet.cn/news/43.html,http://www.tangnet.cn/news/42.html,http://www.tangnet.cn/news/37.html,http://www.tangnet.cn/news/27.html,http://www.tangnet.cn/news/28.html,http://www.tangnet.cn/news/31.html,http://www.tangnet.cn/news/26.html,http://www.tangnet.cn/news/24.html', '', 15, '2', '2023-09-29 19:33:57', '2023-12-10 19:34:42');
+INSERT INTO `collect` VALUES (1, '草堂札记', 'http://www.news.cn/', '#headline h1 a', 1, 1, '1', '.head-line h1', '#detail', '1', 'http://www.news.cn/politics/xxjxs/20240810/e3701f953af54eb796a3fbd278748366/c.html', '// 你的目标URL前缀\nvar urlPrefix = \"http://www.news.cn/politics/xxjxs/20240810/e3701f953af54eb796a3fbd278748366/\";\n// 使用正则表达式进行全局匹配和替换\ndata = data.replaceAll(/(<img[^>]*src=[\"\'])([^\"\']*)(\".*>)/g, function(match, p1, p2, p3) {\n    return p1 + urlPrefix + p2 + p3;\n});\n\n// 移除所有 <span> 标签\ndata = data.replace(/<span[^>]*>(.*?)<\\/span>/g, \'$1\');\n// 移除所有 class 属性\ndata = data.replace(/ class\\s*=\\s*[\"\\\']([^\"\\\']*)[\"\\\']/g, \'\');\n// 移除所有内联样式 style 属性\ndata = data.replace(/ style\\s*=\\s*[\"\\\']([^\"\\\']*)[\"\\\']/g, \'\');\n// 使用replace函数删除匹配的部分\ndata= data.replace(/<div[^>]+id\\s*=\\s*[\'\"]articleEdit[\'\"][^>]*>[\\s\\S]*<\\/div>/g, \'\');\n// 移除多余空格，注意保留 <p> 标签内的空格\ndata = data.replace(/>\\s+</g, \'> <\'); // 移除标签间的空格\ndata = data.replace(/\\s{2,}/g, \' \');  // 移除两个或以上的空格\n// 移除首尾空格\ndata = data.trim();\nreturn data;', 15, '1', '2023-09-29 19:33:57', '2024-08-11 18:09:56');
 
 -- ----------------------------
 -- Table structure for down
@@ -272,15 +272,11 @@ CREATE TABLE `login_log`  (
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `uid`(`uid`, `createdAt`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 109 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 113 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of login_log
 -- ----------------------------
-INSERT INTO `login_log` VALUES (8, 1, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-01 22:11:51');
-INSERT INTO `login_log` VALUES (9, 2, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-01 22:13:49');
-INSERT INTO `login_log` VALUES (10, 3, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-01 22:14:09');
-INSERT INTO `login_log` VALUES (11, 2, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-05 21:39:45');
 INSERT INTO `login_log` VALUES (12, 2, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-05 23:18:19');
 INSERT INTO `login_log` VALUES (13, 1, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-05 23:19:20');
 INSERT INTO `login_log` VALUES (14, 2, '127.0.0.1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-05 23:41:48');
@@ -378,6 +374,10 @@ INSERT INTO `login_log` VALUES (105, 2, '122.96.121.194', '中国', '江苏省',
 INSERT INTO `login_log` VALUES (106, 2, '122.96.121.194', '中国', '江苏省', '南京市', '秦淮区', '中国联通', '32.003749', '118.805657', '2024-08-04 15:10:01');
 INSERT INTO `login_log` VALUES (107, 2, '122.96.121.194', '中国', '江苏省', '南京市', '秦淮区', '中国联通', '32.003749', '118.805657', '2024-08-04 15:12:35');
 INSERT INTO `login_log` VALUES (108, 2, '122.96.121.194', '中国', '江苏省', '南京市', '秦淮区', '中国联通', '32.003749', '118.805657', '2024-08-04 20:54:37');
+INSERT INTO `login_log` VALUES (109, 2, '122.96.42.123', '中国', '江苏省', '', '', '中国联通', '', '', '2024-08-11 17:11:00');
+INSERT INTO `login_log` VALUES (110, 3, '122.96.121.194', '中国', '江苏省', '南京市', '秦淮区', '中国联通', '32.003749', '118.805657', '2024-08-14 22:24:23');
+INSERT INTO `login_log` VALUES (111, 3, '122.96.121.194', '中国', '江苏省', '南京市', '秦淮区', '中国联通', '32.003749', '118.805657', '2024-08-14 22:26:18');
+INSERT INTO `login_log` VALUES (112, 2, '122.96.121.194', '中国', '江苏省', '南京市', '秦淮区', '中国联通', '32.003749', '118.805657', '2024-08-14 22:26:27');
 
 -- ----------------------------
 -- Table structure for message
@@ -385,19 +385,24 @@ INSERT INTO `login_log` VALUES (108, 2, '122.96.121.194', '中国', '江苏省',
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` enum('1','2','3','4') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '留言分类 1->咨询 2->建议 3->投诉 4->其它',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '留言标题',
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `tel` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '电话',
+  `wechat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信',
   `company` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '公司名称',
   `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '留言内容',
   `createdAt` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updatedAt` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '留言' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '留言' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of message
 -- ----------------------------
-INSERT INTO `message` VALUES (1, '闫宇韬', '13366826071', '天山派', '仰天大笑出门去，我辈岂是蓬蒿人！', '2023-11-25 12:42:23', '2023-11-25 12:42:23');
+INSERT INTO `message` VALUES (1, '1', NULL, '闫宇韬', '13366826071', NULL, '天山派', '仰天大笑出门去，我辈岂是蓬蒿人！', '2023-11-25 12:42:23', '2024-08-14 22:22:34');
+INSERT INTO `message` VALUES (5, '1', '今年是龙年', 'yanyutao', '13366826071', 'yanyutao2024', NULL, '今年是龙年，明年是蛇？', '2024-08-14 18:57:05', '2024-08-14 18:57:05');
+INSERT INTO `message` VALUES (6, '3', 'I no money', 'misss yan', '13366826071', '13366826071', 'nanjing tec', 'I open my pakct no coin, wuwu wu wu...', '2024-08-14 22:47:33', '2024-08-14 22:47:33');
 
 -- ----------------------------
 -- Table structure for model
@@ -458,7 +463,7 @@ CREATE TABLE `slide`  (
   `createdAt` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updatedAt` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '轮播图' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of slide
