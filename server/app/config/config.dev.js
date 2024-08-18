@@ -10,7 +10,10 @@ config.database = {
   database: "chanyue",
   // charset: "utf8mb4",
 };
-
+//cors
+config.cors = {
+  origin: "*",//或者['http://localhost:8080', 'http://localhost:8081']
+}
 //sql debug
 config.debug = false;
 config.env = "dev";
