@@ -1,6 +1,5 @@
 const BaseService = require("./base");
-const Chan = require("chanjs");
-const knex = Chan.knex;
+const {knex} = require('chanjs');
 
 class SysUserService {
   static model = 'sys_user';

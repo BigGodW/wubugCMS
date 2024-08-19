@@ -1,12 +1,15 @@
 
 const Chan = require("chanjs");
-let {api: { success}} = Chan.helper;
-
 const {
-  api: {
-    service: { menu },
+  modules: {
+    api: {
+      service: { menu },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success },
+  },
+} = Chan;
 
 class MenuController  {
 

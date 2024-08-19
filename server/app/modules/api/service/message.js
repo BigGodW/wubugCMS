@@ -1,5 +1,4 @@
-const Chan = require("chanjs");
-let knex = Chan.knex;
+const {knex} = require('chanjs');
 
 class MessageService  {
   static model = "message";

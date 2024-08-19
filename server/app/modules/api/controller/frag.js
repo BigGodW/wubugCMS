@@ -1,13 +1,17 @@
 
 const dayjs = require('dayjs');
 const Chan = require("chanjs");
-let {api: { success}} = Chan.helper;
 
 const {
-  api: {
-    service: { frag },
+  modules: {
+    api: {
+      service: { frag },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success },
+  },
+} = Chan;
 
 class FragController  {
 
@@ -25,7 +29,7 @@ class FragController  {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await frag.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -57,7 +61,7 @@ class FragController  {
   // 查
   static async detail(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await frag.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -68,7 +72,7 @@ class FragController  {
   // 查子栏目
   static async findSubId(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await frag.findSubId(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -93,8 +97,7 @@ class FragController  {
   // 列表
   static async list(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const pageSize = 10;
+      const {cur,pageSize=10} = req.query;
       const data = await frag.list(cur, pageSize);
       data.list.forEach(ele => {
         ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:mm');

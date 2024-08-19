@@ -1,16 +1,4 @@
-const Chan = require("chanjs");
-let {
-  utils: { filterFields, formatDay },
-} = Chan.helper;
-let knex = Chan.knex;
-const {
-  api: {
-    service: { site, frag, tag, friendlink, article },
-  },
-  common: {
-    service: { chancms },
-  },
-} = Chan.modules;
+const {knex} = require("chanjs");
 
 class ChancmsService {
   constructor() {}

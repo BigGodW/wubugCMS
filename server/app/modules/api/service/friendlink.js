@@ -1,6 +1,4 @@
-
-const Chan = require("chanjs");
-let knex = Chan.knex;
+const {knex} = require('chanjs');
 
 class FriendlinkService {
   static model = "friendlink";

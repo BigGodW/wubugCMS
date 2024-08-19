@@ -1,11 +1,14 @@
 const Chan = require("chanjs");
-let {api: { success }} = Chan.helper;
-
 const {
-  api: {
-    service: { tag },
+  modules: {
+    api: {
+      service: { tag },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success },
+  },
+} = Chan;
 
 class tagController  {
 
@@ -23,7 +26,7 @@ class tagController  {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await tag.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -45,7 +48,7 @@ class tagController  {
   // 查
   static async detail(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await tag.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -56,8 +59,7 @@ class tagController  {
   // 列表
   static async list(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const pageSize = 50;
+      const {cur,pageSize=50} = req.query;
       const data = await tag.list(cur, pageSize);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -68,7 +70,7 @@ class tagController  {
 
   static async has(req, res, next) {
     try {
-      const path = req.query.path;
+      const {path} = req.query;
       const data = await tag.has(path);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -79,11 +81,8 @@ class tagController  {
   // 搜索
   static async search(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const key = req.query.keyword;
-      const pageSize = req.query.pageSize || 10;
-      const data = await tag.search(key, cur, pageSize);
-      
+      const {cur,keyword,pageSize=10} = req.query;
+      const data = await tag.search(keyword, cur, pageSize);
       res.json({ ...success, data: data });
     } catch (err) {
       next(err);

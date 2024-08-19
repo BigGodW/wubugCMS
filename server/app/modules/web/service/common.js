@@ -1,8 +1,12 @@
 const Chan = require("chanjs");
-let {
-  utils: { filterFields, formatDay },
-} = Chan.helper;
-let knex = Chan.knex;
+
+
+const {
+  knex,
+  helper: {
+    utils: { filterFields, formatDay },
+  },
+} = Chan;
 
 class CommonService {
   constructor() {}

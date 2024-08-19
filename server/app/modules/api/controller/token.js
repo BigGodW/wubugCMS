@@ -1,11 +1,11 @@
 const Chan = require("chanjs");
-let {
-  utils: { setToken, getToken },
-  api: { success },
-} = Chan.helper;
 const {
-  token: { KEY, TIME },
-} = Chan.config;
+  config: { token: { KEY, TIME } },
+  helper: {
+    api: { success },
+    utils: { setToken, getToken },
+  },
+} = Chan;
 
 class TokenController {
   // 更新token时间
@@ -14,7 +14,6 @@ class TokenController {
       const username = req.locals.username;
       const uid = req.locals.uid;
       const token = setToken({ username, uid }, KEY, TIME);
-
       res.json({ ...success, data: { token } });
     } catch (err) {
       next(err);

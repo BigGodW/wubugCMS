@@ -1,17 +1,18 @@
 
 const dayjs = require('dayjs');
 const Chan = require("chanjs");
-let {api: { success}} = Chan.helper;
-
 const {
-  api: {
-    service: { slide },
+  modules: {
+    api: {
+      service: { slide },
+    },
   },
-} = Chan.modules;
-
+  helper: {
+    api: { success },
+  },
+} = Chan;
 
 class SlideController {
-
   // 增
   static async create(req, res, next) {
     try {
@@ -26,7 +27,7 @@ class SlideController {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await slide.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -48,7 +49,7 @@ class SlideController {
   // 查
   static async detail(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await slide.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -59,11 +60,8 @@ class SlideController {
   // 搜索
   static async search(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const key = req.query.keyword;
-      const cid = req.query.cid || 0; // 所属栏目
-      const pageSize = req.query.pageSize || 10;
-      const data = await slide.search(key, cur, pageSize, +cid);
+      const {cur,keyword,cid=0,pageSize=10} = req.query;
+      const data = await slide.search(keyword, cur, pageSize, +cid);
       data.list.forEach(ele => {
         ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');
       });
@@ -77,9 +75,7 @@ class SlideController {
   // 列表
   static async list(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const cid = req.query.cid;
-      const pageSize = 10;
+      const {cur,cid=0,pageSize=10} = req.query;
       const data = await slide.list(cur, pageSize, cid);
       data.list.forEach(ele => {
         ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');

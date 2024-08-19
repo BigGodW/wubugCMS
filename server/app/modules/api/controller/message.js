@@ -1,12 +1,17 @@
 
 const dayjs = require('dayjs');
 const Chan = require("chanjs");
-let {api: { success}} = Chan.helper;
+
 const {
-  api: {
-    service: { message },
+  modules: {
+    api: {
+      service: { message },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success },
+  },
+} = Chan;
 
 class MessageController  {
 
@@ -25,7 +30,7 @@ class MessageController  {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await message.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -48,7 +53,7 @@ class MessageController  {
   // 查
   static async find(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await message.find(id);
       data.createdAt = dayjs(data.createdAt).format('YYYY-MM-DD HH:mm:ss');
       res.json({ ...success, data: data });
@@ -61,7 +66,7 @@ class MessageController  {
   // 查
   static async detail(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await message.detail(id);
       data.createdAt = dayjs(data.createdAt).format('YYYY-MM-DD HH:mm:ss');
       res.json({ ...success, data: data });
@@ -75,9 +80,8 @@ class MessageController  {
   // 搜索
   static async search(req, res, next) {
     try {
-
       const {cur,keyword,pageSize=20} = req.query;
-      const data = await message.search(key, cur, pageSize);
+      const data = await message.search(keyword, cur, pageSize);
       data.list.forEach(ele => {
         ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:mm');
       });

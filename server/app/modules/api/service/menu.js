@@ -1,6 +1,5 @@
 const BaseService = require("./base");
-const Chan = require("chanjs");
-let knex = Chan.knex;
+const {knex} = require('chanjs');
 
 class MenuService  {
   static model = "sys_menu";

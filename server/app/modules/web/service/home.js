@@ -1,9 +1,12 @@
 const Chan = require("chanjs");
-let {
-  utils: { filterFields, formatDay },
-} = Chan.helper;
-
 const CommonService = require("./common.js");
+
+let {
+  helper: {
+    utils: { filterFields, formatDay },
+  },
+} = Chan;
+
 class HomeService {
   constructor() {}
   // 首页

@@ -2,8 +2,12 @@
 const path = require("path");
 
 const Chan = require("chanjs");
-let {utils: { filterImgFromStr, delImg}} = Chan.helper;
-let knex = Chan.knex;
+const {
+  knex,
+  helper: {
+    utils: { filterImgFromStr, delImg}
+  },
+} = Chan;
 
 
 async function getImgsByArticleId(id, arr) {

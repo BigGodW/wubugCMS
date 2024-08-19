@@ -2,16 +2,19 @@ const dayjs = require("dayjs");
 const Chan = require("chanjs");
 
 const {
-  utils: { pages },
-} = Chan.helper;
-const {
-  web: {
-    service: { common, home },
+  modules: {
+    web: {
+      service: { common, home },
+    },
+    api: {
+      service: { article },
+    },
   },
-  api: {
-    service: { article },
+  helper: {
+    utils: { pages },
   },
-} = Chan.modules;
+} = Chan;
+
 
 const ArticleService = article;
 

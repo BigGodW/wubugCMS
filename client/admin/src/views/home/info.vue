@@ -61,32 +61,31 @@
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <div class="bg-fff pd-20 radius-6 mb-20">
-              <div class="mb-12 f-16 c-1d2129 bold">系统特色</div>
+              <div class="mb-12 f-16 c-1d2129 fw-500">系统特色</div>
               <p class="f-13 mb-6 c-4e5969">
-                ChanCMS是一款基于Express和MySQL研发的高质量实用型CMS管理系统。它具备多种类型网站开发，易扩展、基于模块化和插件化开发模式，适用于商用企业级程序开发。
-              </p>
-              <p class="f-13 mb-6 c-4e5969">轻量、灵活、稳定、高性能。</p>
-              <p class="f-13 mb-6 c-4e5969">
-                <strong>SEO。</strong
-                >专注于seo,伪静态html和拼音导航，灵活设置关键词和描述。
+                ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CMS系统。轻量、灵活、稳定、高性能、易扩展，让开发更简单。
               </p>
               <p class="f-13 mb-6 c-4e5969">
-                <strong>安全。</strong
-                >基于knex,高防sql注入，接口权限校验，为安全提供保障。
+                <strong class="mr-10">自研</strong
+                >基于自研chanjs轻量级mvc框架实现，轻量、灵活、稳定、高性能、可持续。
               </p>
               <p class="f-13 mb-6 c-4e5969">
-                <strong>灵活</strong
-                >。碎片功能，支持零碎文案配置，方便各类灵活文案配置。
+                <strong class="mr-10">SEO</strong
+                >专注于seo,自定义导航，灵活设置关键词和描述。
               </p>
               <p class="f-13 mb-6 c-4e5969">
-                <strong>高扩展。</strong
-                >支持扩展模型，字段配置，可动态生成表，超强扩展。
+                <strong class="mr-10">安全</strong
+                >基于knex,防注入，接口权限校验，为安全提供保障。
               </p>
               <p class="f-13 mb-6 c-4e5969">
-                <strong>模块化。</strong>一切模块相互独立，互不干扰。
+                <strong class="mr-10">灵活</strong
+                >碎片功能，支持零碎文案配置，方便各类灵活文案配置。
+              </p>
+              <p class="f-13 mb-6 c-4e5969">
+                <strong class="mr-10">API</strong>为多端提供接口支持。
               </p>
               <p class="f-13 c-4e5969">
-                <strong>插件化。</strong>灵活开发，支持完整功能模块。
+                <strong class="mr-10">插件化</strong>灵活开发，支持完整功能模块。
               </p>
             </div>
           </el-col>
@@ -141,7 +140,7 @@ export default {
         message: 0,
         tag: 0,
         article: 0,
-        version: "v.1.6.0",
+        version: "",
         appName: "ChanCMS",
         port: "",
         versionTime: "",
@@ -283,13 +282,13 @@ export default {
 
 .chart {
   max-width: calc(50vw - 45px);
-  height: 330px;
+  height: 300px;
 }
 
 @media only screen and (max-width: 992px) {
   .chart {
     max-width: calc(100vw - 45px);
-    height: 320px;
+    height: 300px;
   }
 }
 </style>

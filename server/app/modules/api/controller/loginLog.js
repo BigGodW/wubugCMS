@@ -1,13 +1,17 @@
 const dayjs = require("dayjs");
-
 const Chan = require("chanjs");
-let {utils: { getIp, getToken},api: { success }} = Chan.helper;
 
 const {
-  api: {
-    service: { loginLog },
+  modules: {
+    api: {
+      service: { loginLog },
+    },
   },
-} = Chan.modules;
+  helper: {
+    utils: { getToken},
+    api: { success },
+  },
+} = Chan;
 
 
 class LoginLogController {

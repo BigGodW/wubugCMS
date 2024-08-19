@@ -1,4 +1,4 @@
-const info = require("./middleware/info.js");
+const info = require("../../middleware/info.js");
 module.exports = (opt) => {
   const {
     router,

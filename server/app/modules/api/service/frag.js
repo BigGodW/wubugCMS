@@ -1,6 +1,10 @@
 const Chan = require("chanjs");
-let {utils: { convertArrayToObject }} = Chan.helper;
-let knex = Chan.knex;
+const {
+  knex,
+  helper: {
+    utils: { convertArrayToObject}
+  },
+} = Chan;
 
 class FragService  {
   static model = 'frag';

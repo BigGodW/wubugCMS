@@ -1,11 +1,15 @@
 const Chan = require("chanjs");
-let {api: { success, fail }} = Chan.helper;
 
 const {
-  api: {
-    service: { field },
+  modules: {
+    api: {
+      service: { field },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success,fail },
+  },
+} = Chan;
 
 class FieldController  {
 
@@ -28,7 +32,7 @@ class FieldController  {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await field.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -51,7 +55,7 @@ class FieldController  {
   // 查
   static async detail(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await field.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -62,9 +66,7 @@ class FieldController  {
   // 列表 
   static async list(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const model_id = req.query.model_id;
-      const pageSize = 10;
+      const {cur,model_id,pageSize=10} = req.query;
       const data = await field.list(model_id, cur, pageSize);
       res.json({ ...success, data: data });
     } catch (err) {

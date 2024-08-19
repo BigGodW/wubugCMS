@@ -25,8 +25,6 @@ export const userStore = defineStore("user", {
 
     async getUserInfo() {
       try {
-        // let uid = getCookie("uid");
-        // alert(uid);
         const res = await Login.userInfo();
         if (res.code == 200 && res.data) {
           let role = res.data.value;

@@ -1,5 +1,5 @@
-const Chan = require('chanjs');
-const knex = Chan.knex;
+const {knex} = require('chanjs');
+
 class BaseService {
 	constructor() {
 	}

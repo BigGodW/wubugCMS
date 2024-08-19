@@ -1,18 +1,18 @@
 const dayjs = require("dayjs");
-
 const Chan = require("chanjs");
-let {
-  utils: { setToken, getToken, md5 },
-  api: { success, fail },
-} = Chan.helper;
-
-let config = Chan.config;
 
 const {
-  api: {
-    service: { sysUser },
+  config,
+  modules: {
+    api: {
+      service: { sysUser },
+    },
   },
-} = Chan.modules;
+  helper: {
+    utils: { setToken, getToken, md5 },
+  api: { success, fail },
+  },
+} = Chan;
 
 class SysUserController {
   // 登录
@@ -56,7 +56,7 @@ class SysUserController {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await sysUser.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -98,10 +98,8 @@ class SysUserController {
   // 搜索
   static async search(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const key = req.query.keyword;
-      const pageSize = 10;
-      const data = await sysUser.search(key, cur, pageSize);
+      const {cur,keyword,pageSize=10} = req.query;
+      const data = await sysUser.search(keyword, cur, pageSize);
       data.list.forEach((ele) => {
         ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");
       });
@@ -114,8 +112,7 @@ class SysUserController {
   // 列表
   static async list(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const pageSize = 10;
+      const {cur,pageSize=10} = req.query;
       let data = await sysUser.list(cur, pageSize);
       data.list.forEach((ele) => {
         ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");

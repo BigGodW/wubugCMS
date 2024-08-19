@@ -1,5 +1,5 @@
 const Chan = require("chanjs");
-const { appName, version } = Chan.config;
+const { config:{ appName, version } } = Chan;
 
 //获取版本
 module.exports = () => {

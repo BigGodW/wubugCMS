@@ -1,17 +1,19 @@
 const dayjs = require("dayjs");
 const Chan = require("chanjs");
 const {
-  utils: { success, tree },
-} = Chan.helper;
+  modules: {
+    api: {
+      service: { site, frag, tag, friendlink, article },
+    },
+    common: {
+      service: { chancms },
+    },
+  },
+  helper: {
+    utils: { success, tree },
+  },
+} = Chan;
 
-const {
-  api: {
-    service: { site, frag, tag, friendlink, article },
-  },
-  common: {
-    service: { chancms },
-  },
-} = Chan.modules;
 
 class ChancmsController {
   // 获取站点信息

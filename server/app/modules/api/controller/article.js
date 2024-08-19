@@ -1,19 +1,19 @@
 const dayjs = require("dayjs");
 const path = require("path");
 const Chan = require("chanjs");
-let {
-  utils: { filterBody, delImg },
-  api: { success },
-} = Chan.helper;
-let { APP_PATH } = Chan.config;
 
 const {
-  api: {
-    service: { article },
+  modules: {
+    api: {
+      service: { article },
+    },
   },
-} = Chan.modules;
-
-
+  config: { APP_PATH },
+  helper: {
+    utils: { filterBody, delImg },
+    api: { success },
+  },
+} = Chan;
 
 class ArticleController {
   // 增
@@ -37,7 +37,7 @@ class ArticleController {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await article.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -72,7 +72,7 @@ class ArticleController {
   // 查
   static async detail(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await article.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -83,7 +83,7 @@ class ArticleController {
   // 查子栏目
   static async findSubId(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await article.findSubId(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -108,9 +108,7 @@ class ArticleController {
   // 列表
   static async list(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const cid = req.query.cid;
-      const pageSize = 10;
+      const {cur,cid,pageSize=10} = req.query;
       const data = await article.list(cur, pageSize, cid);
       data.list.forEach((ele) => {
         ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm:ss");
@@ -125,7 +123,6 @@ class ArticleController {
   static async upload(req, res, next) {
     try {
       let file = req.files;
-      console.log("files-->", file);
       const { originalname, filename, path } = file[0];
       res.json({
         ...success,
@@ -144,7 +141,7 @@ class ArticleController {
 
   static async findField(req, res, next) {
     try {
-      const cid = req.query.cid;
+      const {cid} = req.query;
       const data = await article.findField(cid);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -169,7 +166,7 @@ class ArticleController {
 
   static async delfile(req, res, next) {
     try {
-      let url = req.query.url;
+      const {url} = req.query;
       let filePath = path.join(APP_PATH, url);
       let data = delImg(filePath);
       res.json({ ...success, data });

@@ -141,6 +141,11 @@ html {
 .header-wrap .nav {
 
 }
+.search{
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    height: 34px;
+}
 
 .search-input {
     background-color: transparent;
@@ -988,6 +993,7 @@ iframe {
 .api {
     display: none;
 }
+
 
 /* 返回顶部 */
 .backtop {

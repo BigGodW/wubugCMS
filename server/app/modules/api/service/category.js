@@ -1,7 +1,5 @@
+const {knex} = require('chanjs');
 const BaseService = require("./base");
-
-const Chan = require("chanjs");
-let knex = Chan.knex;
 
 class CategoryService  {
   static model = "category";

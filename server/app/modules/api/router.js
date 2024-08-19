@@ -1,8 +1,9 @@
 
 const Chan = require("chanjs");
 const auth = require("../../middleware/auth.js");
-let { upload } = Chan.helper.upload;
-const info = require("./middleware/info.js");
+const info = require("../../middleware/info.js");
+const { upload } = Chan.helper.upload;
+
 module.exports = (opt) => {
   const {
     router,

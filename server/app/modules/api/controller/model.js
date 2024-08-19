@@ -1,14 +1,17 @@
 
 
 const Chan = require("chanjs");
-let {api: { success }} = Chan.helper;
-
 
 const {
-  api: {
-    service: { model },
+  modules: {
+    api: {
+      service: { model },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success },
+  },
+} = Chan;
 
 class ModelController  {
   // 增
@@ -52,7 +55,7 @@ class ModelController  {
   // 查
   static async detail(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await model.detail(id);
       res.json({ ...success, data: data});
     } catch (err) {
@@ -64,7 +67,7 @@ class ModelController  {
   // 是否被使用
   static async hasUse(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await model.hasUse(id);
       res.json({ ...success, data:data[0] });
     } catch (err) {
@@ -75,8 +78,7 @@ class ModelController  {
   // 列表
   static async list(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const pageSize = 10;
+      const {cur,pageSize=10} = req.query;
       const data = await model.list(cur, pageSize);
       res.json({ ...success, data });
     } catch (err) {

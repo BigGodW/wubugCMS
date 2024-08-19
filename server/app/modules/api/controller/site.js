@@ -1,14 +1,16 @@
-const Chan = require("chanjs");
-let {api: { success }} = Chan.helper;
-
 const path = require('path');
-
+const Chan = require("chanjs");
 
 const {
-  api: {
-    service: { site },
+  modules: {
+    api: {
+      service: { site },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success },
+  },
+} = Chan;
 
 class SiteController  {
 
@@ -37,7 +39,7 @@ class SiteController  {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await site.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -69,7 +71,7 @@ class SiteController  {
   // 查
   static async findId(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await site.find(id);
       res.json({ ...success, data: data });
     } catch (err) {

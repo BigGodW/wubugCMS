@@ -1,13 +1,17 @@
 
 const dayjs = require('dayjs');
 const Chan = require("chanjs");
-let {api: { success}} = Chan.helper;
 
 const {
-  api: {
-    service: { friendlink },
+  modules: {
+    api: {
+      service: { friendlink },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success },
+  },
+} = Chan;
 
 
 class FriendlinkController  {
@@ -27,7 +31,7 @@ class FriendlinkController  {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await friendlink.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -50,7 +54,7 @@ class FriendlinkController  {
   // 查
   static async find(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await friendlink.find(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -61,7 +65,7 @@ class FriendlinkController  {
   // 查
   static async detail(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await friendlink.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -72,10 +76,8 @@ class FriendlinkController  {
   // 搜索
   static async search(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const key = req.query.keyword;
-      const pageSize = req.query.pageSize || 10;
-      const data = await friendlink.search(key, cur, pageSize);
+      const {cur,keyword,pageSize=10} = req.query;
+      const data = await friendlink.search(keyword, cur, pageSize);
       data.forEach(ele => {
         ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:mm');
       });

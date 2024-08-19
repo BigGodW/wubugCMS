@@ -1,6 +1,6 @@
 const init = require("./middleware/init.js");
 const adapter = require("./middleware/adapter.js");
-const info = require("./middleware/info.js");
+const info = require("../../middleware/info.js");
 
 module.exports = (opt) => {
   const {

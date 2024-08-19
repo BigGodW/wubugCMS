@@ -1,16 +1,16 @@
-const Chan = require("chanjs");
-let {
-  utils: { getHtmlFilesSync },
-  api: { success },
-} = Chan.helper;
-
 const path = require("path");
-
+const Chan = require("chanjs");
 const {
-  api: {
-    service: { sysApp },
+  modules: {
+    api: {
+      service: { sysApp },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success },
+    utils: { getHtmlFilesSync },
+  },
+} = Chan;
 
 class SysAppController {
   // 查

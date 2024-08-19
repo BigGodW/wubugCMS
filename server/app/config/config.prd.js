@@ -1,6 +1,7 @@
-const configBase = require("./config.base.js");
-const config = { ...configBase };
+const base = require("./config.base.js");
+const config = { ...base };
 
+//mysql配置
 config.database = {
   // client: "mysql2", 默认mysql
   host: "localhost",
@@ -13,6 +14,18 @@ config.database = {
 
 //sql debug
 config.debug = false;
+
+// jwt 配置
+config.token = {
+  KEY: "chanyue-cms",
+  TIME: "1d",
+};
+
+// md5 加盐
+config.secretcms = {
+  key: "chanyue-cms",
+};
+
 config.env = "prd";
 
 config.logger = {

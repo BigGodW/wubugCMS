@@ -1,10 +1,14 @@
 const Chan = require("chanjs");
-let {api: { success}} = Chan.helper;
 const {
-  api: {
-    service: { sysRole },
+  modules: {
+    api: {
+      service: { sysRole },
+    },
   },
-} = Chan.modules;
+  helper: {
+    api: { success },
+  },
+} = Chan;
 
 class SysRoleController {
   // 增
@@ -21,7 +25,7 @@ class SysRoleController {
   // 删除
   static async delete(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await sysRole.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -43,7 +47,7 @@ class SysRoleController {
   // 查
   static async detail(req, res, next) {
     try {
-      const id = req.query.id;
+      const {id} = req.query;
       const data = await sysRole.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -54,8 +58,7 @@ class SysRoleController {
   // 列表
   static async list(req, res, next) {
     try {
-      const cur = req.query.cur;
-      const pageSize = 10;
+      const {cur,pageSize=10} = req.query;
       const data = await sysRole.list(cur, pageSize);
       res.json({ ...success, data: data });
     } catch (err) {

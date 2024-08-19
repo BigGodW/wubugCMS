@@ -1,14 +1,15 @@
-const Chan = require("chanjs");
-let {api: { success, fail }} = Chan.helper;
-
-const {
-  api: {
-    service: { qiniu },
-  },
-} = Chan.modules;
-
-
 const fs = require("fs");
+const Chan = require("chanjs");
+const {
+  modules: {
+    api: {
+      service: { qiniu },
+    },
+  },
+  helper: {
+    api: { success, fail  },
+  },
+} = Chan;
 
 class QiniuController  {
   

@@ -1,5 +1,4 @@
-const Chan = require("chanjs");
-let config = Chan.config;
+const {config} = require("chanjs");
 
 class PdfController {
   // 登录

@@ -1,6 +1,6 @@
 
-const Chan = require("chanjs");
-let knex = Chan.knex;
+const {knex} = require('chanjs');
+
 const BaseService = require('./base');
 class GatherService {
   static model = 'gather';
