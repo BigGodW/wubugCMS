@@ -1,4 +1,4 @@
-const info = require("../../middleware/info.js");
+
 module.exports = (opt) => {
   const {
     router,
@@ -8,8 +8,7 @@ module.exports = (opt) => {
     app,
   } = opt;
  
-  //版本信息，是否需要更新
-  router.use(info());
+
   router.get("/site", controller.chancms.site);
   router.get("/frag", controller.chancms.frag);
   router.get("/tag", controller.chancms.tag);

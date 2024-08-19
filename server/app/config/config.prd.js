@@ -17,7 +17,7 @@ config.debug = false;
 
 // jwt 配置
 config.token = {
-  KEY: "chanyue-cms",
+  KEY: "ChanCMS",
   TIME: "1d",
 };
 

@@ -1,6 +1,6 @@
 const init = require("./middleware/init.js");
 const adapter = require("./middleware/adapter.js");
-const info = require("../../middleware/info.js");
+
 
 module.exports = (opt) => {
   const {
@@ -11,8 +11,8 @@ module.exports = (opt) => {
     app,
   } = opt;
   
-  //版本信息，是否需要更新
-  router.use(adapter(),info());
+
+  router.use(adapter());
 
   // 首页模板
   router.get("/", init(), controller.home.index);

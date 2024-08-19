@@ -1,7 +1,7 @@
 
 const Chan = require("chanjs");
 const auth = require("../../middleware/auth.js");
-const info = require("../../middleware/info.js");
+
 const { upload } = Chan.helper.upload;
 
 module.exports = (opt) => {
@@ -11,8 +11,7 @@ module.exports = (opt) => {
     app
   } = opt;
 
-  //版本信息，是否需要更新
-  router.use(info());
+
   // 登录
   router.post("/sysUser/login", controller.sysUser.login);
   router.get("/sysUser/list", controller.sysUser.list);
