@@ -934,12 +934,12 @@ iframe {
         padding: 10px;
     }
 
-    .drawer .nav .row {
+    .drawer .nav .flex {
         display: block;
     }
 
     .drawer .nav-item {
-        padding: 3px 10px;
+        padding: 6px 10px;
     }
 
     .drawer .nav-item a {

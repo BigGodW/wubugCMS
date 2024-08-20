@@ -20,7 +20,7 @@
         <div class="main center mt-10 flex gap-20">
             <!-- 最新文章 -->
             <article class="article-index">
-                <section class="flex justify-between gap-10  mb-20" >
+                <section class="flex flex-wrap justify-between gap-10  mb-20" >
                     {{ if banner&&banner.length>0}}
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
@@ -63,7 +63,7 @@
                     </div>
                    
                 </section>
-                <section class="flex justify-between gap-10">
+                <section class="flex flex-wrap justify-between gap-10">
                     {{each article}}
                     <div class="w-460 bg-fff pd-20">
                         <h3 class="m-title f-16 flex justify-between border-dashed mb-10">{{$value.category.name}}<span

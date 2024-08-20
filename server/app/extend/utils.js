@@ -226,6 +226,9 @@ exports.formatDay = (data, time = true, format = "MM-DD") => {
 exports.pages = function (current, total, pageSize, href) {
   let pageTemp = [];
   let totalPage = Math.ceil(total / pageSize);
+  if(totalPage<=1){
+    return '';
+  }
   let pageStr = `<p>共${total}条记录，共${totalPage},当前${current}</p>`;
   //上一页
   if (current == 1) {

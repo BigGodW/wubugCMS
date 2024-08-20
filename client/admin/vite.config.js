@@ -109,7 +109,7 @@ export default ({ mode }) => {
     server: {
       host: "0.0.0.0",
       port: "3001",
-      open: "index.html#/", // 浏览器自动打开 关闭false
+      open: false, // 浏览器自动打开 关闭false
       https: false, // 是否开启 https
       ssr: false, // 服务端渲染
       strictPort: true, //端口占用，自动尝试下一个端口
