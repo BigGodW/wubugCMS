@@ -24,7 +24,6 @@ class SiteController  {
     }
   }
 
-
   // 增 
   static async create(req, res, next) {
     try {
@@ -48,20 +47,10 @@ class SiteController  {
   }
 
   // 改
-  static async updateInfo(req, res, next) {
+  static async update(req, res, next) {
     try {
       const body = req.body;
-      const data = await site.updateInfo(body);
-      res.json({ ...success, data: data });
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  static async updateSeo(req, res, next) {
-    try {
-      const body = req.body;
-      const data = await site.updateSeo(body);
+      const data = await site.update(body);
       res.json({ ...success, data: data });
     } catch (err) {
       next(err);

@@ -23,8 +23,7 @@ module.exports = (opt) => {
 
   // 站点信息
   router.get("/site/find", auth(), controller.site.find);
-  router.post("/site/updateInfo", auth(), controller.site.updateInfo);
-  router.post("/site/updateSeo", auth(), controller.site.updateSeo);
+  router.post("/site/update", auth(), controller.site.update);
   router.get("/site/runEnv", controller.site.runEnv);
   router.get("/sysApp/find", controller.sysApp.find);
   router.get("/sysApp/views", controller.sysApp.getViews);

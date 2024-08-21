@@ -4,23 +4,19 @@
       <!-- 基本设置 -->
       <el-tab-pane label="基本设置" class="mt-20" name="first">
         <el-form ref="info" :model="info" label-width="84px">
-          <el-form-item
-            label="网站名称"
-            prop="name"
-            :rules="[
-              {
-                required: true,
-                message: '请输入网站名称',
-                trigger: 'blur',
-              },
-              {
-                min: 2,
-                max: 20,
-                message: '长度在 2 到 20 个字符',
-                trigger: 'blur',
-              },
-            ]"
-          >
+          <el-form-item label="网站名称" prop="name" :rules="[
+      {
+        required: true,
+        message: '请输入网站名称',
+        trigger: 'blur',
+      },
+      {
+        min: 2,
+        max: 20,
+        message: '长度在 2 到 20 个字符',
+        trigger: 'blur',
+      },
+    ]">
             <el-input v-model="info.name"></el-input>
           </el-form-item>
 
@@ -29,16 +25,13 @@
           </el-form-item>
 
           <el-form-item prop="email" label="站长邮箱">
-            <el-input
-              v-model="info.email"
-              :rules="[
-                {
-                  type: 'email',
-                  message: '请输入正确的邮箱',
-                  trigger: ['blur', 'change'],
-                },
-              ]"
-            ></el-input>
+            <el-input v-model="info.email" :rules="[
+      {
+        type: 'email',
+        message: '请输入正确的邮箱',
+        trigger: ['blur', 'change'],
+      },
+    ]"></el-input>
           </el-form-item>
 
           <el-form-item prop="icp" label="ICP备案号">
@@ -46,29 +39,11 @@
           </el-form-item>
 
           <el-form-item prop="code" label="统计代码">
-            <el-input
-              type="textarea"
-              prop="textarea"
-              class="textarea"
-              :rows="3"
-              v-model="info.code"
-            ></el-input>
-          </el-form-item>
-
-          <el-form-item prop="json" label="其他配置">
-            <el-input
-              type="textarea"
-              prop="textarea"
-              class="textarea"
-              :rows="3"
-              v-model="info.json"
-            ></el-input>
+            <el-input type="textarea" prop="textarea" class="textarea" :rows="3" v-model="info.code"></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" @click="submitInfo('info')"
-              >保存</el-button
-            >
+            <el-button type="primary" @click="submit('info')">保存</el-button>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -76,23 +51,19 @@
       <!-- seo设置 -->
       <el-tab-pane label="SEO设置" class="mt-20" name="second">
         <el-form ref="seo" :model="seo" label-width="84px">
-          <el-form-item
-            label="标题"
-            prop="title"
-            :rules="[
-              {
-                required: true,
-                message: '请输入网站标题',
-                trigger: 'blur',
-              },
-              {
-                min: 2,
-                max: 20,
-                message: '长度在 2 到 20 个字符',
-                trigger: 'blur',
-              },
-            ]"
-          >
+          <el-form-item label="标题" prop="title" :rules="[
+      {
+        required: true,
+        message: '请输入网站标题',
+        trigger: 'blur',
+      },
+      {
+        min: 2,
+        max: 20,
+        message: '长度在 2 到 20 个字符',
+        trigger: 'blur',
+      },
+    ]">
             <el-input v-model="seo.title"></el-input>
           </el-form-item>
 
@@ -100,28 +71,19 @@
             <el-input v-model="seo.keywords"></el-input>
           </el-form-item>
 
-          <el-form-item
-            label="描述"
-            prop="description"
-            :rules="[
-              {
-                min: 2,
-                max: 255,
-                message: '字数限制255',
-                trigger: 'blur',
-              },
-            ]"
-          >
-            <el-input
-              type="textarea"
-              :rows="3"
-              class="textarea"
-              v-model="seo.description"
-            ></el-input>
+          <el-form-item label="描述" prop="description" :rules="[
+      {
+        min: 2,
+        max: 255,
+        message: '字数限制255',
+        trigger: 'blur',
+      },
+    ]">
+            <el-input type="textarea" :rows="3" class="textarea" v-model="seo.description"></el-input>
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" @click="submitSeo('seo')">保存</el-button>
+            <el-button type="primary" @click="submit('seo')">保存</el-button>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -134,7 +96,7 @@
 </template>
 
 <script>
-import { siteInfo, updateInfo, updateSeo } from "@/api/site.js";
+import { siteInfo, update } from "@/api/site.js";
 import ConfigSet from "./components/config.vue";
 import QiNiu from "./components/qiniu.vue";
 import WeChat from "./components/wechat.vue";
@@ -152,7 +114,6 @@ export default {
         domain: "",
         email: "",
         icp: "",
-        json: "",
         code: "",
       },
       seo: {
@@ -208,7 +169,6 @@ export default {
             icp,
             police,
             copyright,
-            json,
             code,
             title,
             keywords,
@@ -223,7 +183,7 @@ export default {
             police,
             copyright,
             code,
-            json,
+
           };
           this.seo = { id, title, keywords, description };
         } else {
@@ -238,9 +198,9 @@ export default {
     },
 
     //更新基本信息
-    async updateInfo() {
+    async update(data) {
       try {
-        let res = await updateInfo(this.info);
+        let res = await update(data);
         if (res.code === 200) {
           this.$message({
             message: "更新成功^_^",
@@ -258,42 +218,15 @@ export default {
       }
     },
 
-    //更新SEO信息
-    async updateSeo() {
-      try {
-        let res = await updateSeo(this.seo);
-        if (res.code === 200) {
-          this.$message({
-            message: "更新成功^_^",
-            type: "success",
-          });
-          this.query();
-        } else {
-          this.$message({
-            message: res.msg,
-            type: "success",
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    submitInfo(formName) {
+    submit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.updateInfo();
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
+          let data = {
+            'info': this.info,
+            'seo': this.seo
+          }
+          this.update(data[formName]);
 
-    submitSeo(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.updateSeo();
         } else {
           console.log("error submit!!");
           return false;

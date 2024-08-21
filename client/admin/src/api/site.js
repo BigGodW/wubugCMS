@@ -12,47 +12,11 @@ export let siteInfo = () => {
 };
 
 //更新基本信息
-export let updateInfo = ({
-  id,
-  name,
-  domain,
-  email,
-  icp,
-  police,
-  address,
-  copyright,
-  code,
-  json,
-}) => {
+export let update = (data) => {
   return http({
-    url: `${API.BASE_API}/api/site/updateInfo`,
+    url: `${API.BASE_API}/api/site/update`,
     method: "post",
-    data: {
-      id,
-      name,
-      domain,
-      email,
-      icp,
-      police,
-      address,
-      copyright,
-      code,
-      json,
-    },
-  });
-};
-
-//更新seo
-export let updateSeo = ({ id, title, keywords, description }) => {
-  return http({
-    url: `${API.BASE_API}/api/site/updateSeo`,
-    method: "post",
-    data: {
-      id,
-      title,
-      keywords,
-      description,
-    },
+    data,
   });
 };
 

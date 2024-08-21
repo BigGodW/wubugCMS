@@ -17,7 +17,7 @@ class SiteService  {
   }
 
   // 更新基本信息
-  static async updateInfo(body) {
+  static async update(body) {
     const { id } = body;
     delete body.id;
 
@@ -37,25 +37,7 @@ class SiteService  {
     }
   }
 
-  //  更新seo
-  static async updateSeo(body) {
-    const { id } = body;
-    delete body.id;
-    try {
-      if (id) {
-        const result = await knex(SiteService.model)
-          .where("id", "=", id)
-          .update(body);
-        return result ? "success" : "fail";
-      } else {
-        const result = await BaseService.insert(SiteService.model,body);
-        return result ? "success" : "fail";
-      }
-    } catch (err) {
-      console.error(err)
-      return err;
-    }
-  }
+ 
 }
 
 module.exports = SiteService;
