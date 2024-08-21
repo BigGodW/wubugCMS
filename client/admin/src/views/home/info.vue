@@ -51,12 +51,8 @@
       <div class="flex">
         <el-row :gutter="20">
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <div class="bg-fff pd-20 radius-6 mb-20 flex chart">
-              <qiun-vue-ucharts
-                type="ring"
-                :opts="opts"
-                :chartData="chartData"
-              />
+            <div class="bg-fff pd-20 radius-6 mb-20 flex chart align-c justify-center">
+              <ChanEcharts :option="option" />
             </div>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
@@ -85,7 +81,8 @@
                 <strong class="mr-10">API</strong>为多端提供接口支持。
               </p>
               <p class="f-13 c-4e5969">
-                <strong class="mr-10">插件化</strong>灵活开发，支持完整功能模块。
+                <strong class="mr-10">插件化</strong
+                >灵活开发，支持完整功能模块。
               </p>
             </div>
           </el-col>
@@ -126,12 +123,13 @@
 <script>
 import { tongji } from "@/api/article.js";
 import { runEnv } from "@/api/site.js";
-import qiunVueUcharts from "@qiun/vue-ucharts";
+import ChanEcharts from "@/components/ChanEcharts/index.vue";
 import { setCookie } from "@/utils/tool";
+
 export default {
   name: "home-info",
   components: {
-    qiunVueUcharts,
+    ChanEcharts,
   },
   data: () => {
     return {
@@ -149,55 +147,77 @@ export default {
       dirname: "",
       loading: true,
       chartData: {},
-      opts: {
-        rotate: false,
-        rotateLock: false,
-        color: [
-          "#FADC19",
-          "#9FDB1D",
-          "#00B42A",
-          "#3491FA",
-          "#165DFF",
-          "#722ED1",
-        ],
-        padding: [5, 5, 5, 5],
-        dataLabel: true,
-        enableScroll: false,
-        legend: {
-          show: true,
-          position: "right",
-          lineHeight: 25,
-        },
+
+      option: {
         title: {
-          name: "ChanCMS",
-          fontSize: 15,
-          color: "#666666",
+          text: "ChanCMS架构",
+          left: "center",
         },
-        subtitle: {
-          name: "架构",
-          fontSize: 25,
-          color: "#7cb5ec",
-        },
-        extra: {
-          ring: {
-            ringWidth: 60,
-            activeOpacity: 0.5,
-            activeRadius: 10,
-            offsetAngle: 0,
-            labelWidth: 15,
-            border: true,
-            borderWidth: 3,
-            borderColor: "#FFFFFF",
+        tooltip: {
+          trigger: "item",
+          borderWidth: 0,
+          backgroundColor: "#fff",
+          textStyle: {
+            color: "#000",
           },
         },
+        legend: {
+          bottom: "bottom",
+          icon: "circle",
+          left: "center",
+        },
+        toolbox:{
+          x:'right',
+          y:'bottom',
+        },
+        series: [
+          {
+            name: "技术占比",
+            type: "pie",
+            radius: ["40%", "70%"],
+            avoidLabelOverlap: false,
+            padAngle: 5,
+            color: [
+              "#FADC19",
+              "#9FDB1D",
+              "#00B42A",
+              "#3491FA",
+              "#165DFF",
+              "#722ED1",
+            ],
+            itemStyle: {
+              borderRadius: 10,
+              borderWidth:0
+            },
+            label: {
+              show: false,
+              position: "center",
+            },
+            emphasis: {
+              label: {
+                show: false,
+                fontSize: 20,
+                fontWeight: "bold",
+              },
+            },
+            labelLine: {
+              show: true,
+            },
+            data: [
+              { value: 40, name: "nodejs" },
+              { value: 10, name: "mysql" },
+              { value: 40, name: "vue3" },
+              { value: 90, name: "javascript" },
+              { value: 10, name: "css3" },
+              { value: 10, name: "html5" },
+            ],
+          },
+        ],
       },
-      //您可以通过修改 config-ucharts.js 文件中下标为 ['ring'] 的节点来配置全局默认参数，如都是默认参数，此处可以不传 opts 。实际应用过程中 opts 只需传入与全局默认参数中不一致的【某一个属性】即可实现同类型的图表显示不同的样式，达到页面简洁的需求。
     };
   },
   computed: {},
-  created() {
-    this.chart();
-  },
+  created() {},
   mounted() {
     this.tongji();
     this.runEnv();
@@ -237,24 +257,6 @@ export default {
         console.log(error);
       }
     },
-
-    chart() {
-      let res = {
-        series: [
-          {
-            data: [
-              { name: "nodejs", value: 40 },
-              { name: "mysql", value: 10 },
-              { name: "vue3", value: 40 },
-              { name: "javascript", value: 90 },
-              { name: "css3", value: 10 },
-              { name: "html5", value: 10 },
-            ],
-          },
-        ],
-      };
-      this.chartData = JSON.parse(JSON.stringify(res));
-    },
   },
 };
 </script>
@@ -281,7 +283,7 @@ export default {
 }
 
 .chart {
-  max-width: calc(50vw - 45px);
+  /* max-width: calc(50vw - 45px); */
   height: 300px;
 }
 
