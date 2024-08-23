@@ -278,15 +278,9 @@ exports.pages = function (current, total, pageSize, href) {
   return pageTemp.join("");
 };
 
-exports.success = {
-  code: 200,
-  msg: "success",
-};
 
-exports.fail = {
-  code: 500,
-  msg: "error",
-};
+
+
 
 /**
  * @description 获取模板文件

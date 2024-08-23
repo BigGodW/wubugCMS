@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="{{cate.seo_description || site.description}}">
-    <meta name="keywords" content="{{cate.seo_keywords || site.keywords}}" />
-    <meta property="og:title" content="{{cate.seo_title || cate.name}}-{{site.name}}" />
+    <meta name="description" content="{{cate.seoDescription || site.description}}">
+    <meta name="keywords" content="{{cate.seoKeywords || site.keywords}}" />
+    <meta property="og:title" content="{{cate.seoTitle || cate.name}}-{{site.name}}" />
     <meta property="og:description" content="{{site.description}}" />
     <title>{{article.title || cate.name}}-{{site.name}}</title>
     {{include './common/meta.html'}}
@@ -86,7 +86,7 @@
                             <p>灯火阑珊处，</p>
                             <p>文章一点无！</p>
                         </div>
-                        <div class="el-empty__description">
+                        <div class="el-empty_Description">
                             <p><a href="https://www.chancms.top" target="_blank">ChanCMS</p>
                         </div>
                     </div>

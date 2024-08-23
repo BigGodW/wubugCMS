@@ -1,7 +1,7 @@
 const {knex} = require('chanjs');
 
 class TagService  {
-  static model = "tag";
+  static model = "cms_tag";
   
   // 新增
   static async create(body) {
@@ -21,11 +21,11 @@ class TagService  {
     return result.length > 0;
   }
 
-  // 删除tag ,需要删除article_map_tag.js 里面的tid
+  // 删除tag ,需要删除cms_articleTag.js 里面的tid
   static async delete(id) {
     try {
       const has = await knex.raw(
-        `SELECT tid FROM article_map_tag WHERE tid = ${id}`
+        `SELECT tid FROM cms_articleTag WHERE tid = ${id}`
       );
       if (has[0].length > 0) {
         return false;

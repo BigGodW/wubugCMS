@@ -7,24 +7,24 @@ class ChancmsService {
   static async category() {
     try {
       
-      let res = await knex("category")
+      let res = await knex("cms_category")
         .select([
           "id",
           "pid",
           "name",
           "pinyin",
           "path",
-          "sort",
+          "orderBy",
           "target",
           "status",
-          "list_view",
-          "article_view",
-          "seo_title",
-          "seo_keywords",
-          "seo_description",
+          "listView",
+          "articleView",
+          "seoTitle",
+          "seoKeywords",
+          "seoDescription",
           "type",
         ])
-        .orderBy("sort", "ASC");
+        .orderBy("orderBy", "ASC");
       return res;
     } catch (err) {
       console.error(err);
@@ -44,7 +44,7 @@ class ChancmsService {
       const columns = [
         "a.id",
         "a.title",
-        "a.short_title",
+        "a.shortTitle",
         "a.img",
         "a.createdAt",
         "a.description",
@@ -56,8 +56,8 @@ class ChancmsService {
 
       const query = knex
         .select(columns)
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .where("a.status", 0)
         .orderBy("a.createdAt", "DESC")
         .limit(len)
@@ -85,7 +85,7 @@ class ChancmsService {
   static async getArticleListByCid(cid, len = 5, attr = "") {
     try {
       // 获取所有id
-      const res = await knex.select("id").from("category").where("pid", cid);
+      const res = await knex.select("id").from("cms_category").where("pid", cid);
 
       const ids = [cid, ...res.map((item) => item.id)];
       // 构建查询条件
@@ -93,7 +93,7 @@ class ChancmsService {
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.createdAt",
           "a.description",
@@ -101,8 +101,8 @@ class ChancmsService {
           "c.name",
           "c.path"
         )
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .whereIn("a.cid", ids)
         .where("a.status", 0)
         .orderBy("createdAt", "DESC")
@@ -129,9 +129,9 @@ class ChancmsService {
   static async getArticleTag(id) {
     try {
       // 执行查询
-      const result = await knex("article AS a")
+      const result = await knex("cms_article AS a")
         .select("a.cid", "t.id", "t.name", "t.path")
-        .rightJoin("tag AS t", "t.id", "=", "a.tag_id")
+        .rightJoin("cms_tag AS t", "t.id", "=", "a.tagId")
         .where("a.id", id)
         .where("a.status", 0)
         .limit(10)
@@ -149,14 +149,14 @@ class ChancmsService {
    */
   static async getAllParentCategory(idArray = []) {
     try {
-      const result = await knex("category")
+      const result = await knex("cms_category")
         .select([
           "id",
           "pid",
           "name",
           "pinyin",
           "path",
-          "sort",
+          "orderBy",
           "target",
           "status",
           "type",
@@ -164,7 +164,7 @@ class ChancmsService {
         .where("pid", 0)
         .where("type", 0)
         .where((builder) => !idArray.length || builder.whereIn("id", idArray))
-        .orderBy("sort", "ASC");
+        .orderBy("orderBy", "ASC");
       return result;
     } catch (err) {
       console.error(err);
@@ -180,9 +180,9 @@ class ChancmsService {
   static async getTagsById(id) {
     try {
       // 执行查询
-      const result = await knex("article AS a")
+      const result = await knex("cms_article AS a")
         .select("a.cid", "t.id", "t.name", "t.path")
-        .rightJoin("tag AS t", "t.id", "=", "a.tag_id")
+        .rightJoin("cms_tag AS t", "t.id", "=", "a.tagId")
         .where("a.id", id)
         .where("a.status", 0)
         .limit(10)
@@ -206,7 +206,7 @@ class ChancmsService {
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.createdAt",
           "a.description",
@@ -214,12 +214,12 @@ class ChancmsService {
           "c.name",
           "c.path"
         )
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .where("a.status", 0);
 
       if (id) {
-        const ids = await knex("category")
+        const ids = await knex("cms_category")
           .select("id")
           .where("pid", id)
 
@@ -251,7 +251,7 @@ class ChancmsService {
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.createdAt",
           "a.description",
@@ -259,13 +259,13 @@ class ChancmsService {
           "c.name",
           "c.path"
         )
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .where("a.img", "!=", "")
         .where("a.status", 0);
 
       if (id) {
-        const ids = await knex("category")
+        const ids = await knex("cms_category")
           .select("id")
           .where("pid", id)
           .pluck("id");
@@ -300,14 +300,14 @@ class ChancmsService {
 
       // 获取所有id
       let ids = [id];
-      const res = await knex("category").select("id").where("pid", id);
+      const res = await knex("cms_category").select("id").where("pid", id);
 
       res.forEach((item) => {
         ids.push(item.id);
       });
 
       // 查询个数
-      const total = await knex("article")
+      const total = await knex("cms_article")
         .count("id as count")
         .whereIn("cid", ids)
         .where("status", 0)
@@ -320,7 +320,7 @@ class ChancmsService {
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.description",
           "a.createdAt",
@@ -330,8 +330,8 @@ class ChancmsService {
           "c.name",
           "c.path"
         )
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .whereIn("a.cid", ids)
         .where("a.status", 0)
         .orderBy("a.createdAt", "DESC")
@@ -361,22 +361,22 @@ class ChancmsService {
       const start = (current - 1) * pageSize;
 
       // 查询个数
-      const total = await knex("article as a")
-        .join("category as c", "a.cid", "c.id")
+      const total = await knex("cms_article as a")
+        .join("cms_category as c", "a.cid", "c.id")
         .whereExists(function () {
           this.select(1)
-            .from("tag as t")
-            .whereRaw("FIND_IN_SET(t.id, a.tag_id) > 0")
+            .from("cms_tag as t")
+            .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0")
             .andWhere("t.name", name);
         })
         .count("* as total");
 
       // 查询文章列表
-      const result = await knex("article as a")
+      const result = await knex("cms_article as a")
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.description",
           "a.createdAt",
@@ -386,11 +386,11 @@ class ChancmsService {
           "c.name",
           "c.path"
         )
-        .join("category as c", "a.cid", "c.id")
+        .join("cms_category as c", "a.cid", "c.id")
         .whereExists(function () {
           this.select(1)
-            .from("tag as t")
-            .whereRaw("FIND_IN_SET(t.id, a.tag_id) > 0")
+            .from("cms_tag as t")
+            .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0")
             .andWhere("t.name", name);
         })
         .where("a.status", 0)
@@ -420,8 +420,8 @@ class ChancmsService {
     try {
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
-        .select(["id", "title", "img_url", "link_url"])
-        .from("slide")
+        .select(["id", "title", "imgUrl", "linkUrl"])
+        .from("cms_slide")
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
@@ -436,14 +436,14 @@ class ChancmsService {
   static async article(id) {
     try {
       // 查询文章
-      const data = await knex("article").where("id", "=", id).select();
+      const data = await knex("cms_article").where("id", "=", id).select();
       //兼容mysql错误
       if (!data[0] || !data[0].cid) {
         return false;
       }
       // 通过栏目id查找模型id
       const modId = await knex.raw(
-        `SELECT mid FROM category WHERE id=? LIMIT 0,1`,
+        `SELECT mid FROM cms_category WHERE id=? LIMIT 0,1`,
         [data[0].cid]
       );
 
@@ -451,12 +451,12 @@ class ChancmsService {
       if (modId[0].length > 0 && modId[0][0].mid !== "0") {
         // 通过模型查找表名
         const tableName = await knex.raw(
-          `SELECT table_name FROM model WHERE id=?`,
+          `SELECT tableName FROM cms_model WHERE id=?`,
           [modId[0][0].mid]
         );
         // 通过表名查找文章
         field = await knex.raw(`SELECT * FROM ? WHERE aid=? LIMIT 0,1`, [
-          tableName[0][0].table_name,
+          tableName[0][0].tableName,
           id,
         ]);
       }
@@ -471,7 +471,7 @@ class ChancmsService {
   static async prev({ id, cid }) {
     try {
       const result = await knex.raw(
-        `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`,
+        `SELECT a.id,a.title,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`,
         [id, cid]
       );
       return result[0];
@@ -485,7 +485,7 @@ class ChancmsService {
   static async next({ id, cid }) {
     try {
       const result = await knex.raw(
-        `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`,
+        `SELECT a.id,a.title,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`,
         [id, cid]
       );
       return result[0];
@@ -500,7 +500,7 @@ class ChancmsService {
     try {
       // 查询个数
       let sql;
-      const countSql = `SELECT COUNT(*) as count FROM  article a LEFT JOIN category c ON a.cid=c.id`;
+      const countSql = `SELECT COUNT(*) as count FROM  cms_article a LEFT JOIN cms_category c ON a.cid=c.id`;
       const keyStr = ` WHERE a.title LIKE \'%${key}%\'`;
       const cidStr = `  AND c.id=?`;
 
@@ -513,7 +513,7 @@ class ChancmsService {
       // 翻页
       const offset = parseInt((cur - 1) * pageSize);
       let sql_list = "";
-      const listStart = `SELECT a.id,a.title,a.attr,a.tag_id,a.description,a.cid,a.pv,a.createdAt,a.status,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.title LIKE  \'%${key}%\' `;
+      const listStart = `SELECT a.id,a.title,a.attr,a.tagId,a.description,a.cid,a.pv,a.createdAt,a.status,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.title LIKE  \'%${key}%\' `;
       const listEnd = `ORDER BY a.id desc LIMIT ${offset},${parseInt(
         pageSize
       )}`;
@@ -542,7 +542,7 @@ class ChancmsService {
   static async pvadd(id) {
     try {
       const result = await knex.raw(
-        `UPDATE article SET pv=pv+1 WHERE id=? LIMIT 1`,
+        `UPDATE cms_article SET pv=pv+1 WHERE id=? LIMIT 1`,
         [id]
       );
       return result[0].affectedRows ? "更新成功" : "更新失败或id不存在";

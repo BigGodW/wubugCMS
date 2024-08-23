@@ -1,19 +1,19 @@
 const {knex} = require('chanjs');
 
 class ModelService  {
-  static model = 'model';
+  static model = 'cms_model';
 
   // 增
   static async create(body) {
     try {
-      const { model_name, table_name, status } = body;
+      const { model, tableName, status } = body;
       await knex.transaction(async trx => {
         // 新建表
-        const sql_create = `CREATE TABLE ${table_name} (aid int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8`;
+        const sql_create = `CREATE TABLE ${tableName} (aid int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8`;
         const createTableStatus = await knex.raw(sql_create, []).transacting(trx);
         // 新增内容
-        const sql_insert = `INSERT INTO ${ModelService.model} (model_name,table_name,status) VALUES(?,?,?)`;
-        const result = await knex.raw(sql_insert, [model_name, table_name, status]).transacting(trx);
+        const sql_insert = `INSERT INTO ${ModelService.model} (model,tableName,status) VALUES(?,?,?)`;
+        const result = await knex.raw(sql_insert, [model, tableName, status]).transacting(trx);
         return {
           insertStatus: result[0],
           createTableStatus: createTableStatus[0],
@@ -28,7 +28,7 @@ class ModelService  {
   static async hasUse(id) {
     try {
       // 新增内容
-      const hasStr = `SELECT COUNT(*) as count FROM  article a LEFT JOIN category c ON c.mid=${id} WHERE a.cid=c.id LIMIT 0,1`;
+      const hasStr = `SELECT COUNT(*) as count FROM  cms_article a LEFT JOIN cms_category c ON c.mid=${id} WHERE a.cid=c.id LIMIT 0,1`;
       const has = await knex.raw(hasStr)
       return has[0]
     } catch (err) {
@@ -40,14 +40,14 @@ class ModelService  {
   // 删
   static async delete(body) {
     try {
-      const {id, table_name} = body;
+      const {id, tableName} = body;
       await knex.transaction(async trx => {
         // 删除模型
         const result = await knex(ModelService.model).where('id', '=', id).del().transacting(trx);
         // 删除模型下对应得字段数据
-        const delField = await knex('field').where('model_id', '=', id).del().transacting(trx);
+        const delField = await knex('cms_field').where('mid', '=', id).del().transacting(trx);
         // 删除模型对应的表
-        const delTable = await knex.raw(`drop table ${table_name}`).transacting(trx);
+        const delTable = await knex.raw(`drop table ${tableName}`).transacting(trx);
         return {
           delModel: result === 1,
           delField: delField === 1,
@@ -63,12 +63,12 @@ class ModelService  {
 
   // 改
   static async update(body) {
-    const {id,old_table_name,table_name,model_name,status} = body;
+    const {id,old_tableName,tableName,model,status} = body;
     try {
       await knex.transaction(async trx => {
-        const renameTable = await knex.raw(`alter table ${old_table_name} rename to ${table_name}`).transacting(trx);
+        const renameTable = await knex.raw(`alter table ${old_tableName} rename to ${tableName}`).transacting(trx);
 
-        const result = await knex(ModelService.model).where('id', '=', id).update({ table_name, model_name, status }).transacting(trx);
+        const result = await knex(ModelService.model).where('id', '=', id).update({ tableName, model, status }).transacting(trx);
 
         return {
           renameStatus: renameTable,
@@ -83,9 +83,9 @@ class ModelService  {
 
 
   // 查询是否已存在模型名称
-  static async findByName(model_name, table_name) {
+  static async findByName(model,tableName) {
     try {
-      const result = await knex.raw(`SELECT model_name,table_name from model WHERE model_name=? or table_name=? LIMIT 0,1`, [model_name, table_name]);
+      const result = await knex.raw(`SELECT model,tableName FROM cms_model WHERE model=? or tableName=? LIMIT 0,1`, [model, tableName]);
       return result[0];
     } catch (err) {
       console.error(err)
@@ -99,7 +99,7 @@ class ModelService  {
       const sql = `SELECT COUNT(id) as count FROM ${ModelService.model}`;
       const total = await knex.raw(sql);
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex.select(['id', 'model_name', 'table_name', 'status'])
+      const list = await knex.select(['id', 'model', 'tableName', 'status'])
         .from(ModelService.model)
         .limit(pageSize)
         .offset(offset)

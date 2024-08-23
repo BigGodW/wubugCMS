@@ -2,7 +2,7 @@ const {knex} = require('chanjs');
 const BaseService = require("./base");
 
 class CategoryService  {
-  static model = "category";
+  static model = "cms_category";
   // 增
   static async create(body) {
     try {
@@ -45,7 +45,7 @@ class CategoryService  {
   // 查全部栏目
   static async find() {
     try {
-      const result = await BaseService.all(CategoryService.model).orderBy("sort", "asc" );
+      const result = await BaseService.all(CategoryService.model).orderBy("orderBy", "asc" );
       return result;
     } catch (err) {
       console.error(err)
@@ -58,7 +58,7 @@ class CategoryService  {
     try {
       const data = await knex(CategoryService.model)
         .where("id", "=", id)
-        .select(['id','pid','seo_title','seo_keywords','seo_description','name','pinyin','path','description','type','url','sort','target','status','mid','list_view','article_view']);
+        .select(['id','pid','seoTitle','seoKeywords','seoDescription','name','pinyin','path','description','type','url','orderBy','target','status','mid','listView','articleView']);
       return data[0];
     } catch (err) {
       console.error(err)
@@ -85,9 +85,9 @@ class CategoryService  {
       const result = key
         ? await knex(CategoryService.model)
         .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
-        .orderBy("sort", "asc" )
+        .orderBy("orderBy", "asc" )
         : await knex(CategoryService.model)
-        .orderBy("sort", "asc");
+        .orderBy("orderBy", "asc");
       return result;
     } catch (err) {
       console.error(err)

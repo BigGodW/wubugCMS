@@ -9,7 +9,7 @@ const {
     },
   },
   helper: {
-    api: { success },
+    api: { success ,fail},
   },
 } = Chan;
 
@@ -18,9 +18,9 @@ class ModelController  {
   static async create(req, res, next) {
     try {
       const body = req.body;
-      const has = await model.findByName(body.model_name, body.table_name);
+      const has = await model.findByName(body.model, body.tableName);
       if (has.length > 0) {
-        this.fail({ msg: '模型命名已重复' });
+        res.json({ ...fail, msg: '模型命名已重复'});
         return;
       }
       const data = await model.create(body);

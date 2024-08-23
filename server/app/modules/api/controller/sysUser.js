@@ -33,7 +33,7 @@ class SysUserController {
         const data = { status, username, token };
         res.json({ ...success, data: data });
       } else {
-        res.json({ ...fail, data: null, msg: "登录失败" });
+        res.json({ ...fail,msg: "登录失败" });
       }
     } catch (err) {
       console.log(err);
@@ -83,7 +83,7 @@ class SysUserController {
       if(!uid){
         const token = req.cookies.token;
         if(!token){
-          return res.json({ ...fail, data: null, msg: "请先登录" });
+          return res.json({ ...fail, msg: "请先登录" });
         }
         const user = await getToken(token, config.token.KEY);
         uid = user.uid;

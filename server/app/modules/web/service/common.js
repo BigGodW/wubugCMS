@@ -14,24 +14,24 @@ class CommonService {
   // 网站栏目
   static async category() {
     try {
-      let res = await knex("category")
+      let res = await knex("cms_category")
         .select([
           "id",
           "pid",
           "name",
           "pinyin",
           "path",
-          "sort",
+          "orderBy",
           "target",
           "status",
-          "list_view",
-          "article_view",
-          "seo_title",
-          "seo_keywords",
-          "seo_description",
+          "listView",
+          "articleView",
+          "seoTitle",
+          "seoKeywords",
+          "seoDescription",
           "type",
         ])
-        .orderBy("sort", "ASC");
+        .orderBy("orderBy", "ASC");
       return res;
     } catch (err) {
       console.error(err);
@@ -51,7 +51,7 @@ class CommonService {
       const columns = [
         "a.id",
         "a.title",
-        "a.short_title",
+        "a.shortTitle",
         "a.img",
         "a.createdAt",
         "a.description",
@@ -63,8 +63,8 @@ class CommonService {
 
       const query = knex
         .select(columns)
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .where("a.status", 0)
         .orderBy("a.createdAt", "DESC")
         .limit(len)
@@ -90,14 +90,14 @@ class CommonService {
   static async getArticleListByCid(cid, len = 5, attr = "") {
     try {
       // 获取所有id
-      const res = await knex.select("id").from("category").where("pid", cid);
+      const res = await knex.select("id").from("cms_category").where("pid", cid);
       const ids = [cid, ...res.map((item) => item.id)];
       // 构建查询条件
       let queryBuilder = knex
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.createdAt",
           "a.description",
@@ -105,8 +105,8 @@ class CommonService {
           "c.name",
           "c.path"
         )
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .whereIn("a.cid", ids)
         .where("a.status", 0)
         .orderBy("createdAt", "DESC")
@@ -131,9 +131,9 @@ class CommonService {
   static async getTagsFromArticleByAid(aid) {
     try {
       // 执行查询
-      const result = await knex("article AS a")
+      const result = await knex("cms_article AS a")
         .select("a.cid", "t.id", "t.name", "t.path")
-        .rightJoin("tag AS t", "t.id", "=", "a.tag_id")
+        .rightJoin("cms_tag AS t", "t.id", "=", "a.tagId")
         .where("a.id", aid)
         .where("a.status", 0)
         .limit(10)
@@ -152,14 +152,14 @@ class CommonService {
    */
   static async getAllParentCategory(idArray = []) {
     try {
-      const result = await knex("category")
+      const result = await knex("cms_category")
         .select([
           "id",
           "pid",
           "name",
           "pinyin",
           "path",
-          "sort",
+          "orderBy",
           "target",
           "status",
           "type",
@@ -167,7 +167,7 @@ class CommonService {
         .where("pid", 0)
         .where("type", 0)
         .where((builder) => !idArray.length || builder.whereIn("id", idArray))
-        .orderBy("sort", "ASC");
+        .orderBy("orderBy", "ASC");
       return result;
     } catch (err) {
       console.error(err);
@@ -236,7 +236,7 @@ class CommonService {
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.createdAt",
           "a.description",
@@ -244,12 +244,12 @@ class CommonService {
           "c.name",
           "c.path"
         )
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .where("a.status", 0);
 
       if (id) {
-        const ids = await knex("category")
+        const ids = await knex("cms_category")
           .select("id")
           .where("pid", id)
 
@@ -281,7 +281,7 @@ class CommonService {
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.createdAt",
           "a.description",
@@ -289,13 +289,13 @@ class CommonService {
           "c.name",
           "c.path"
         )
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .where("a.img", "!=", "")
         .where("a.status", 0);
 
       if (id) {
-        const ids = await knex("category")
+        const ids = await knex("cms_category")
           .select("id")
           .where("pid", id)
           .pluck("id");
@@ -330,14 +330,14 @@ class CommonService {
 
       // 获取所有id
       let ids = [id];
-      const res = await knex("category").select("id").where("pid", id);
+      const res = await knex("cms_category").select("id").where("pid", id);
 
       res.forEach((item) => {
         ids.push(item.id);
       });
 
       // 查询个数
-      const total = await knex("article")
+      const total = await knex("cms_article")
         .count("id as count")
         .whereIn("cid", ids)
         .where("status", 0)
@@ -350,7 +350,7 @@ class CommonService {
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.description",
           "a.createdAt",
@@ -360,8 +360,8 @@ class CommonService {
           "c.name",
           "c.path"
         )
-        .from("article AS a")
-        .leftJoin("category AS c", "a.cid", "c.id")
+        .from("cms_article AS a")
+        .leftJoin("cms_category AS c", "a.cid", "c.id")
         .whereIn("a.cid", ids)
         .where("a.status", 0)
         .orderBy("a.createdAt", "DESC")
@@ -392,22 +392,22 @@ class CommonService {
       const start = (current - 1) * pageSize;
 
       // 查询个数
-      const total = await knex("article as a")
-        .join("category as c", "a.cid", "c.id")
+      const total = await knex("cms_article as a")
+        .join("cms_category as c", "a.cid", "c.id")
         .whereExists(function () {
           this.select(1)
-            .from("tag as t")
-            .whereRaw("FIND_IN_SET(t.id, a.tag_id) > 0")
+            .from("cms_tag as t")
+            .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0")
             .andWhere("t.name", name);
         })
         .count("* as total");
 
       // 查询文章列表
-      const result = await knex("article as a")
+      const result = await knex("cms_article as a")
         .select(
           "a.id",
           "a.title",
-          "a.short_title",
+          "a.shortTitle",
           "a.img",
           "a.description",
           "a.createdAt",
@@ -417,11 +417,11 @@ class CommonService {
           "c.name",
           "c.path"
         )
-        .join("category as c", "a.cid", "c.id")
+        .join("cms_category as c", "a.cid", "c.id")
         .whereExists(function () {
           this.select(1)
-            .from("tag as t")
-            .whereRaw("FIND_IN_SET(t.id, a.tag_id) > 0")
+            .from("cms_tag as t")
+            .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0")
             .andWhere("t.name", name);
         })
         .where("a.status", 0)
@@ -453,13 +453,13 @@ class CommonService {
    */
   static async fetchTagsByArticleId(articleId) {
     try {
-      const tags = await knex("tag")
-        .select("tag.id", "tag.path", "tag.name")
+      const tags = await knex("cms_tag")
+        .select("cms_tag.id", "cms_tag.path", "cms_tag.name")
         .join(
-          "article",
-          knex.raw(`article.tag_id LIKE CONCAT('%', tag.id, '%')`)
+          "cms_article",
+          knex.raw(`cms_article.tagId LIKE CONCAT('%', cms_tag.id, '%')`)
         )
-        .where("article.id", articleId)
+        .where("cms_article.id", articleId)
         .limit(10);
       return tags;
     } catch (err) {
@@ -473,11 +473,12 @@ class CommonService {
     try {
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
-        .select(["id", "title", "img_url", "link_url"])
-        .from("slide")
+        .select(["id", "title", "imgUrl", "linkUrl"])
+        .from("cms_slide")
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
+        console.log('----',list);
       return list;
     } catch (err) {
       console.error(err);

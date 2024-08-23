@@ -1,7 +1,7 @@
 const {knex} = require('chanjs');
 
 class MessageService  {
-  static model = "message";
+  static model = "cms_message";
   
   // 新增
   static async create(body) {

@@ -1,7 +1,7 @@
 const {knex} = require('chanjs');
 
 class SlideService  {
-  static model = "slide";
+  static model = "cms_slide";
 
   // 新增
   static async create(body) {

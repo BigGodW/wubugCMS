@@ -17,7 +17,7 @@ class FieldController  {
   static async create(req, res, next) {
     try {
       const body = req.body;
-      const has = await field.findByName(body.field_cname, body.field_ename);
+      const has = await field.findByName(body.cname, body.ename);
       if (has.length > 0) {
         res.json({ ...fail, msg: '字段命名已重复' });
         return;
@@ -66,8 +66,8 @@ class FieldController  {
   // 列表 
   static async list(req, res, next) {
     try {
-      const {cur,model_id,pageSize=10} = req.query;
-      const data = await field.list(model_id, cur, pageSize);
+      const {cur,mid,pageSize=10} = req.query;
+      const data = await field.list(mid, cur, pageSize);
       res.json({ ...success, data: data });
     } catch (err) {
       next(err);

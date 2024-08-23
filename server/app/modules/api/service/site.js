@@ -3,7 +3,7 @@ const BaseService = require("./base");
 const {knex} = require('chanjs');
 
 class SiteService  {
-  static model = "site";
+  static model = "cms_site";
   
   // 基本信息
   static async find() {

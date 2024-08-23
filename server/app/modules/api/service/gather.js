@@ -3,7 +3,7 @@ const {knex} = require('chanjs');
 
 const BaseService = require('./base');
 class GatherService {
-  static model = 'gather';
+  static model = 'plus_gather';
 
   static async common(url) {
     try {
@@ -70,18 +70,18 @@ class GatherService {
       //   .orderBy('id', 'desc');
 
         const list = await knex(GatherService.model)
-        .select('gather.id', 
-                'gather.taskName', 
-                'gather.targetUrl', 
-                'gather.parseData',
-                'gather.status',
-                'gather.cid',
-                'gather.updatedAt', 
-                'category.name as category')
-        .innerJoin('category', 'gather.cid', 'category.id')
+        .select('plus_gather.id', 
+                'plus_gather.taskName', 
+                'plus_gather.targetUrl', 
+                'plus_gather.parseData',
+                'plus_gather.status',
+                'plus_gather.cid',
+                'plus_gather.updatedAt', 
+                'cms_category.name as category')
+        .innerJoin('cms_category', 'plus_gather.cid', 'cms_category.id')
         .limit(pageSize)
         .offset(offset)
-        .orderBy('gather.id', 'desc');
+        .orderBy('plus_gather.id', 'desc');
         
         
       const count = total[0].count || 1;

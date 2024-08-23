@@ -7,7 +7,7 @@ const {
 } = Chan;
 
 class FragService  {
-  static model = 'frag';
+  static model = 'cms_frag';
   
   // 新增
   static async create(body) {

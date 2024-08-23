@@ -1,139 +1,204 @@
-const {knex} = require('chanjs');
+const { knex } = require("chanjs");
 
 class FieldService {
-  static model = 'field';
+  static model = "cms_field";
 
   // 增
   static async create(body) {
     try {
       // 新增字的同时需要新增表
-      const { model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort,field_length } = body;
-      await knex.transaction(async trx => {
+      const { mid, cname, ename, type, val, defaultVal, orderBy, length } =
+        body;
+      await knex.transaction(async (trx) => {
         // 查询模块名称
-        let table_name = await knex.raw('SELECT table_name FROM model WHERE id=?', [model_id]).transacting(trx);;
-        table_name = table_name[0][0].table_name;
-        const result = await knex(FieldService.model).insert({ model_id, field_cname, field_ename, field_type, field_values, field_default, field_sort,field_length }).transacting(trx);
+        let table = await knex
+          .raw("SELECT tableName FROM cms_model WHERE id=?", [mid])
+          .transacting(trx);
+        table = table[0][0].tableName;
+        const result = await knex(FieldService.model)
+          .insert({ mid, cname, ename, type, val, defaultVal, orderBy, length })
+          .transacting(trx);
 
         // result 返回是新增[id]
-        let len = field_length || 250
-        let sql = '';
+        let len = length || 250;
+        let sql = "";
         if (result[0]) {
           // 1单行文本（varchar）
-          if (field_type === '1') {
+          if (type === "1") {
             sql = `varchar(${len})  default \'\'`;
           }
-          // 2.多行文本 text 
-          if (field_type === '2') {
+          // 2.多行文本 text
+          if (type === "2") {
             sql = `text`;
           }
-          // 3.下拉菜单 text 
-          if (field_type === '3') {
+          // 3.下拉菜单 text
+          if (type === "3") {
             sql = `text`;
           }
-          // 4.单选 text 
-          if (field_type === '4') {
+          // 4.单选 text
+          if (type === "4") {
             sql = `text`;
           }
           // 5.多选 text
-          if (field_type === '5') {
+          if (type === "5") {
             sql = `text`;
           }
-          // 6.时间和日期 
-          if (field_type === '6') {
+          // 6.时间和日期
+          if (type === "6") {
             sql = `datetime default null`;
           }
-          // 7.s数字 
-          if (field_type === '7') {
+          // 7.s数字
+          if (type === "7") {
             sql = `varchar(${len})  default \'\'`;
           }
-          // 8.图片上传 
-          if (field_type === '8') {
+          // 8.图片上传
+          if (type === "8") {
             sql = `text`;
           }
           // 9富文本
-          if (field_type === '9') {
+          if (type === "9") {
             sql = `longtext`;
           }
         }
 
-        const res = await knex.raw(`alter table ${table_name} add ${field_ename} ${sql}`).transacting(trx);
-        return res ? 'success' : 'fail';
+        const res = await knex
+          .raw(`alter table ${table} add ${ename} ${sql}`)
+          .transacting(trx);
+        return res ? "success" : "fail";
       });
-
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return err;
     }
-
   }
 
   // 删 先删除field数据表中的数据 在删除对应表中的字段名称 2020-10-08
-  // "alter table ${table_name} drop column ${fieldName}"
+  // "alter table ${table} drop column ${fieldName}"
 
-  static async delete(id, table_name) {
+  static async delete(id, table) {
     try {
-      await knex.transaction(async trx => {
+      await knex.transaction(async (trx) => {
         // 查询需要删除的字段
-        const field = await knex.raw('SELECT model_id,field_ename FROM field WHERE id=?', [id]).transacting(trx);
-        const { field_ename, model_id } = field[0][0];
+        const field = await knex
+          .raw("SELECT mid,ename FROM cms_field WHERE id=?", [id])
+          .transacting(trx);
+        const { ename, mid } = field[0][0];
         // 查询模型表名
-        const table = await knex.raw('SELECT table_name FROM model WHERE id=?', [model_id]).transacting(trx);
-        table_name = table[0][0].table_name;
+        const table = await knex
+          .raw("SELECT tableName FROM cms_model WHERE id=?", [mid])
+          .transacting(trx);
+        table = table[0][0].table;
         // 删除数据
-        const result = await knex(FieldService.model).where('id', '=', id).del().transacting(trx);
+        const result = await knex(FieldService.model)
+          .where("id", "=", id)
+          .del()
+          .transacting(trx);
         // 删除对应模型表中的字段
         if (result > 0) {
-          const res = await knex.raw(`alter table ${table_name} drop column ${field_ename}`).transacting(trx);
+          const res = await knex
+            .raw(`alter table ${table} drop column ${ename}`)
+            .transacting(trx);
         }
-        return result ? 'success' : 'fail';
+        return result ? "success" : "fail";
       });
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return err;
     }
   }
 
   // 改
   static async update(body) {
-    const { id } = body;
+    const { id, length } = body;
     delete body.id;
     try {
-      const result = await knex(FieldService.model).where('id', '=', id).update(body)
-      return result ? 'success' : 'fail';
+      // 开始事务
+      await knex.transaction(async (trx) => {
+        // 更新记录
+        const result = await knex(FieldService.model)
+          .where("id", "=", id)
+          .update(body)
+          .transacting(trx);
+
+        if (result) {
+          // 查询 cms_model 表来获取 tableName
+          const modelInfo = await knex
+            .raw("SELECT tableName FROM cms_model WHERE id = ?", [body.mid])
+            .transacting(trx);
+          const [[{ tableName }]] = modelInfo;
+          if (!tableName) {
+            throw new Error("找不到模型表格");
+          }
+
+          // 定义一个对象来存储不同类型的SQL字段定义
+          const fieldTypeMap = {
+            1: `varchar(${length || 255}) `, // 如果没有提供长度，默认为255
+            2: "text",
+            3: "text",
+            4: "text",
+            5: "text",
+            6: `datetime NOT NULL DEFAULT NULL`,
+            7: `varchar(${length || 255}) `, // 如果没有提供长度，默认为255
+            8: "text",
+            9: "longtext",
+          };
+
+          // 获取对应的SQL字段定义
+          let sqlType = fieldTypeMap[body.type];
+          const sql = `ALTER TABLE ${tableName} MODIFY COLUMN ${body.ename} ${sqlType}`;
+          // 执行SQL语句
+          const alterResult = await knex.raw(sql).transacting(trx);
+
+          // 检查 alterResult 是否成功
+          if (!alterResult) {
+            throw new Error("Failed to modify field type");
+          }
+        }
+      });
+
+      return "success";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return err;
     }
   }
 
   // 查询是否存在重复字段名
 
-  static async findByName(field_cname, field_ename) {
+  static async findByName(cname, ename) {
     try {
-      const result = await knex.raw('SELECT field_cname,field_ename from field WHERE field_cname=? or field_ename=? LIMIT 0,1', [field_cname, field_ename]);
+      const result = await knex.raw(
+        "SELECT cname,ename FROM cms_field WHERE cname=? or ename=? LIMIT 0,1",
+        [cname, ename]
+      );
       return result[0];
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return err;
     }
   }
 
   // 文章列表
-  static async list(model_id, cur = 1, pageSize = 10) {
+  static async list(mid, cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const sql = `SELECT COUNT(id) as count FROM ${FieldService.model}`;
       const total = await knex.raw(sql);
       // 列表
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex.select(['id', 'field_cname', 'field_ename', 'field_sort'])
-        .from(FieldService.model).where('model_id', '=', model_id)
+      const list = await knex
+        .select(["id", "cname", "ename", "orderBy"])
+        .from(FieldService.model)
+        .where("mid", "=", mid)
         .limit(pageSize)
         .offset(offset)
-        .orderBy('id', 'desc');
+        .orderBy("id", "desc");
 
       // 查询模块名称
-      const model = await knex.raw('SELECT model_name,table_name FROM model WHERE id=?', [model_id]);
+      const model = await knex.raw(
+        "SELECT model,tableName FROM cms_model WHERE id=?",
+        [mid]
+      );
       const count = total[0].count || 1;
       return {
         count: count,
@@ -144,21 +209,19 @@ class FieldService {
       };
     } catch (err) {
       console.error(err);
-
     }
   }
 
   // 查
   static async detail(id) {
     try {
-      const data = await knex(FieldService.model).where('id', '=', id).select()
+      const data = await knex(FieldService.model).where("id", "=", id).select();
       return data[0];
     } catch (err) {
-      console.error(err)
+      console.error(err);
       return err;
     }
   }
-
 }
 
 module.exports = FieldService;

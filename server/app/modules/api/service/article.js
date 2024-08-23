@@ -11,7 +11,7 @@ const {
 
 
 async function getImgsByArticleId(id, arr) {
-  const imgStr = ` SELECT img,content FROM article WHERE id=${id}`;
+  const imgStr = ` SELECT img,content FROM cms_article WHERE id=${id}`;
   const img = await knex.raw(imgStr, []);
 
   if (img[0].length > 0) {
@@ -25,7 +25,7 @@ async function getImgsByArticleId(id, arr) {
   }
 }
 class ArticleService  {
-  static model = "article";
+  static model = "cms_article";
   // 增
   static async create(body) {
     try {
@@ -42,18 +42,18 @@ class ArticleService  {
           const { id, cid } = lastId[0][0];
 
           // 通过栏目id查找模型id
-          const modIdStr = `SELECT mid FROM category WHERE id=${cid} LIMIT 0,1`;
+          const modIdStr = `SELECT mid FROM cms_category WHERE id=${cid} LIMIT 0,1`;
           const modId = await knex.raw(modIdStr, []).transacting(trx);
 
           // 通过模型查找表名
           if(modId[0].length>0){
-            const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0][0].mid} LIMIT 0,1`;
+            const tableNameStr = `SELECT tableName FROM cms_model WHERE id=${modId[0][0].mid} LIMIT 0,1`;
             const tableName = await knex.raw(tableNameStr, []).transacting(trx);
   
             // 新增模型文章
             if (tableName[0].length > 0) {
               const fields = { ...fieldParams, aid: id };
-              res = await knex(`${tableName[0][0].table_name}`)
+              res = await knex(`${tableName[0][0].tableName}`)
                 .insert(fields)
                 .transacting(trx);
             }
@@ -61,7 +61,7 @@ class ArticleService  {
          
 
           // 新增文章和标签关联
-          const tags = defaultParams.tag_id
+          const tags = defaultParams.tagId
             .split(",")
             .map((item) => Number(item));
           const tagsql = [];
@@ -71,7 +71,7 @@ class ArticleService  {
           if (tags) {
             mapTag = await knex
               .raw(
-                "INSERT INTO article_map_tag(aid,tid) VALUES " +
+                "INSERT INTO cms_articleTag(aid,tid) VALUES " +
                   tagsql.join(","),
                 []
               )
@@ -100,24 +100,24 @@ class ArticleService  {
           item = ids[i];
 
           // 通过文章id,找栏目id
-          const categoryStr = `SELECT cid FROM article WHERE id=${item} LIMIT 0,1`;
+          const categoryStr = `SELECT cid FROM cms_article WHERE id=${item} LIMIT 0,1`;
           const category = await knex.raw(categoryStr, []).transacting(trx);
 
           // 通过栏目id查找模型id
           if (category[0].length > 0) {
-            const modIdStr = `SELECT mid FROM category WHERE id=${category[0][0].cid} LIMIT 0,1`;
+            const modIdStr = `SELECT mid FROM cms_category WHERE id=${category[0][0].cid} LIMIT 0,1`;
             const modId = await knex.raw(modIdStr, []).transacting(trx);
 
             // 通过模型查找表名
             if (modId[0].length > 0) {
-              const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0][0].mid} LIMIT 0,1`;
+              const tableNameStr = `SELECT tableName FROM cms_model WHERE id=${modId[0][0].mid} LIMIT 0,1`;
               const tableName = await knex
                 .raw(tableNameStr, [])
                 .transacting(trx);
 
               if (tableName[0].length > 0) {
                 // 删除模型文章
-                const delModelStr = `DELETE FROM ${tableName[0][0].table_name} WHERE aid IN(${item})`;
+                const delModelStr = `DELETE FROM ${tableName[0][0].tableName} WHERE aid IN(${item})`;
                 await knex.raw(delModelStr, []).transacting(trx);
               }
             }
@@ -144,7 +144,7 @@ class ArticleService  {
         const delArticle = await knex.raw(delArticleStr, []).transacting(trx);
 
         // 删除关联的 tag
-        const delMapTagStr = `DELETE FROM article_map_tag WHERE aid IN(${id})`;
+        const delMapTagStr = `DELETE FROM cms_articleTag WHERE aid IN(${id})`;
         await knex.raw(delMapTagStr, []).transacting(trx);
         return delArticle[0].affectedRows > 0 ? "success" : "fail";
       });
@@ -162,30 +162,30 @@ class ArticleService  {
       delete body.field;
       await knex.transaction(async (trx) => {
         // 通过栏目id查找模型id
-        const modIdStr = `SELECT mid FROM category WHERE id=${body.cid} LIMIT 0,1`;
+        const modIdStr = `SELECT mid FROM cms_category WHERE id=${body.cid} LIMIT 0,1`;
         const modId = await knex.raw(modIdStr, []).transacting(trx);
         // 通过模型查找表名
-        const tableNameStr = `SELECT table_name FROM model WHERE id=${modId[0][0].mid} LIMIT 0,1`;
+        const tableNameStr = `SELECT tableName FROM cms_model WHERE id=${modId[0][0].mid} LIMIT 0,1`;
         const tableName = await knex.raw(tableNameStr, []).transacting(trx);
 
         if (tableName[0].length > 0) {
-          await knex(`${tableName[0][0].table_name}`)
+          await knex(`${tableName[0][0].tableName}`)
             .where("aid", "=", id)
             .update(field)
             .transacting(trx);
         }
         // 修改标签，要先全部删除关联的tag，然后再添加，因为修改标签有删除，新增等方式
-        const delMapTagStr = `DELETE FROM article_map_tag WHERE aid IN(${id})`;
+        const delMapTagStr = `DELETE FROM cms_articleTag WHERE aid IN(${id})`;
         await knex.raw(delMapTagStr, []).transacting(trx);
         // 新增文章和标签关联
-        const tags = body.tag_id.split(",").map((item) => +item);
+        const tags = body.tagId.split(",").map((item) => +item);
         const tagsql = [];
         tags.forEach((item) => {
           tagsql.push(`(${id},${item})`);
         });
         await knex
           .raw(
-            "INSERT INTO article_map_tag(aid,tid) VALUES " + tagsql.join(",")
+            "INSERT INTO cms_articleTag(aid,tid) VALUES " + tagsql.join(",")
           )
           .transacting(trx);
         const result = await knex(ArticleService.model)
@@ -263,7 +263,7 @@ class ArticleService  {
       }
       // 通过栏目id查找模型id
       const modId = await knex.raw(
-        `SELECT mid FROM category WHERE id=? LIMIT 0,1`,
+        `SELECT mid FROM cms_category WHERE id=? LIMIT 0,1`,
         [data[0].cid]
       );
 
@@ -271,12 +271,12 @@ class ArticleService  {
       if (modId[0].length > 0 && modId[0][0].mid !== "0") {
         // 通过模型查找表名
         const tableName = await knex.raw(
-          `SELECT table_name FROM model WHERE id=?`,
+          `SELECT tableName FROM cms_model WHERE id=?`,
           [modId[0][0].mid]
         );
         console.log(tableName)
         // 通过表名查找文章
-        field = await knex.raw(`SELECT * FROM ${tableName[0][0].table_name} WHERE aid=? LIMIT 0,1`, [
+        field = await knex.raw(`SELECT * FROM ${tableName[0][0].tableName} WHERE aid=? LIMIT 0,1`, [
           id,
         ]);
        
@@ -295,7 +295,7 @@ class ArticleService  {
     try {
       // 查询个数
       let sql;
-      const countSql = `SELECT COUNT(*) as count FROM  article a LEFT JOIN category c ON a.cid=c.id`;
+      const countSql = `SELECT COUNT(*) as count FROM  cms_article a LEFT JOIN cms_category c ON a.cid=c.id`;
       const keyStr = ` WHERE a.title LIKE \'%${key}%\'`;
       const cidStr = `  AND c.id=?`;
 
@@ -309,7 +309,7 @@ class ArticleService  {
       // 翻页
       const offset = parseInt((cur - 1) * pageSize);
       let sql_list = "";
-      const listStart = `SELECT a.id,a.title,a.attr,a.tag_id,a.description,a.cid,a.pv,a.createdAt,a.status,c.name,c.path,c.type FROM ${this.model} a LEFT JOIN category c ON a.cid=c.id WHERE a.title LIKE  \'%${key}%\' `;
+      const listStart = `SELECT a.id,a.title,a.attr,a.tagId,a.description,a.cid,a.pv,a.createdAt,a.status,c.name,c.path,c.type FROM ${this.model} a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.title LIKE  \'%${key}%\' `;
       const listEnd = `ORDER BY a.id desc LIMIT ${offset},${parseInt(
         pageSize
       )}`;
@@ -339,7 +339,7 @@ class ArticleService  {
   static async count(id) {
     try {
       const result = await knex.raw(
-        `UPDATE article SET pv=pv+1 WHERE id=? LIMIT 1`,
+        `UPDATE cms_article SET pv=pv+1 WHERE id=? LIMIT 1`,
         [id]
       );
       return result[0].affectedRows ? "success" : "fail";
@@ -353,7 +353,7 @@ class ArticleService  {
   static async pre(id, cid) {
     try {
       const result = await knex.raw(
-        `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`,
+        `SELECT a.id,a.title,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`,
         [id, cid]
       );
       return result[0][0];
@@ -367,7 +367,7 @@ class ArticleService  {
   static async next(id, cid) {
     try {
       const result = await knex.raw(
-        `SELECT a.id,a.title,c.name,c.path FROM article a LEFT JOIN category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`,
+        `SELECT a.id,a.title,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`,
         [id, cid]
       );
       return result[0][0];
@@ -381,11 +381,11 @@ class ArticleService  {
   static async findField(cid) {
     try {
       // 查询个数
-      const mid = `SELECT mid FROM category WHERE id=${cid} AND mid IS NOT NULL`;
+      const mid = `SELECT mid FROM cms_category WHERE id=${cid} AND mid IS NOT NULL`;
       const _mid = await knex.raw(mid);
       let res = [];
       if (_mid[0].length > 0) {
-        const field = `SELECT field_cname,field_ename,field_type,field_values,field_default,field_sort FROM field WHERE model_id=${_mid[0][0].mid} LIMIT 0,12`;
+        const field = `SELECT cname,ename,type,val,defaultVal,orderBy FROM cms_field WHERE mid=${_mid[0][0].mid} LIMIT 0,12`;
         res = await knex.raw(field);
       }
       return {
@@ -401,44 +401,44 @@ class ArticleService  {
     try {
       // 昨天
       // const yesterdayStr =
-      //   "select count(*) AS count from article where TO_DAYS(NOW())-TO_DAYS(updatedAt)<=1";
+      //   "select count(*) AS count from cms_article where TO_DAYS(NOW())-TO_DAYS(updatedAt)<=1";
       // const yesterday = await knex.raw(yesterdayStr);
 
       // // 今天
       // const todayStr =
-      //   "select count(*) AS count from article where TO_DAYS(NOW())=TO_DAYS(NOW())";
+      //   "select count(*) AS count from cms_article where TO_DAYS(NOW())=TO_DAYS(NOW())";
       // const today = await knex.raw(todayStr);
 
       // 7天
       const weekStr =
-        "SELECT COUNT(*) AS count from article where DATE_SUB(CURDATE(),INTERVAL 7 DAY)<=DATE(updatedAt)";
+        "SELECT COUNT(*) AS count from cms_article where DATE_SUB(CURDATE(),INTERVAL 7 DAY)<=DATE(updatedAt)";
       const week = await knex.raw(weekStr);
 
       // 30天
       // const monthStr =
-      //   "SELECT COUNT(*) AS count from article where DATE_SUB(CURDATE(),INTERVAL 30 DAY)<=DATE(updatedAt)";
+      //   "SELECT COUNT(*) AS count from cms_article where DATE_SUB(CURDATE(),INTERVAL 30 DAY)<=DATE(updatedAt)";
       // const month = await knex.raw(monthStr);
 
       // // 季度
       // const quarterStr =
-      //   "SELECT COUNT(*) AS count from article where QUARTER(createdAt)=QUARTER(NOW())";
+      //   "SELECT COUNT(*) AS count from cms_article where QUARTER(createdAt)=QUARTER(NOW())";
       // const quarter = await knex.raw(quarterStr);
 
       // // 年
       // const yearStr =
-      //   "SELECT COUNT(*) AS count from article where YEAR(createdAt)=YEAR(NOW())";
+      //   "SELECT COUNT(*) AS count from cms_article where YEAR(createdAt)=YEAR(NOW())";
       // const year = await knex.raw(yearStr);
 
       // 留言数
-      const messageStr = "SELECT COUNT(id) AS count FROM message LIMIT 0,1";
+      const messageStr = "SELECT COUNT(id) AS count FROM cms_message LIMIT 0,1";
       const message = await knex.raw(messageStr);
 
        // tag
-       const tagStr = "SELECT COUNT(id) AS count FROM tag LIMIT 0,1";
+       const tagStr = "SELECT COUNT(id) AS count FROM cms_tag LIMIT 0,1";
        const tag = await knex.raw(tagStr);
 
         // tag
-        const articleStr = "SELECT COUNT(id) AS count FROM article LIMIT 0,1";
+        const articleStr = "SELECT COUNT(id) AS count FROM cms_article LIMIT 0,1";
         const article = await knex.raw(articleStr);
 
       return {

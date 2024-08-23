@@ -16,25 +16,28 @@
 
     <!-- 头条文章 -->
     <main class="bg-f2f2f2 pt-10 pb-20 flex">
+
         <div class="main center mt-10 flex gap-20">
             <!-- 最新文章 -->
-            <article class="flex-1">
+            <article class="w-full">
                 <div class="bg-fff radius-6 pd-15 mb-1 f-14 c-999">
                     <i class="ico-20 ico-home pos-r t-3"></i>
                     <a class="" href="/">首页</a> /
                     {{each position}}
                         {{if $index < position.length-1}} 
-                        <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
+                            <a href="{{$value.path}}/index.html">{{$value.name}}</a> /
                         {{else}}
-                        <a class="c-666" href="{{$value.path}}/index.html">{{$value.name}}</a>
+                            <a class="c-666" href="{{$value.path}}/index.html">{{$value.name}}</a>
                         {{/if}}
                     {{/each}}
                 </div>
+
                 <div class="bg-fff radius-6 pd-25">
                     <header class="border-b pos-r">
-                        <h2 class="f-26 c-252933  bold mt-10">{{article.title}}</h2>
+                        <h2 class="f-26 c-252933  bold mt-10">
+                            <!-- <i class="ico-20 ico-speech pos-r t-4 ml-4 mr-4" id="audio"></i> -->
+                            {{article.title}}</h2>
                         <p class="f-12 mt-5 mb-26 flex">
-
                             <span class="c-999 ">
                                 <i class="ico-20 ico-time pos-r t-4"></i> {{article.updatedAt}}
                                 <i class="ico-20 ico-admin pos-r t-4 ml-4"></i> {{article.author}}
@@ -54,8 +57,15 @@
                         「导读」{{@ article.description}}
                     </section>
                     {{/if}}
+
+                    <div class="f-18 mb-20 lh-25">
+                        <p class="mb-10">书名：{{article?.field?.bookName}}</p>
+                        <p class="mb-10">作者：{{article?.field?.bookAuthor}}</p>
+                        <p class="mb-10">年代：{{article?.field?.bookCreateYear}}</p>
+                    </div>
                     <article id="article" class="article-cont f-17 lh-35">
-                        <p><iframe id="iframe" width="100%" height="800" src=""></iframe></p>
+                        {{@ article.content}}
+
                     </article>
 
                 </div>
@@ -80,29 +90,53 @@
                         {{/if}}
                     </p>
                 </footer>
+
             </article>
         </div>
     </main>
 
     <!-- footer -->
     {{include './common/footer.html'}}
+
     <!-- 移动端导航 -->
     {{include './common/wap-nav.html'}}
-    {{include './common/js.html'}}
-    <script>
-        var pdfurl = '{{@ article.content}}'
-        const regex = /<p>(.*?)<\/p>/;
-        const match = pdfurl.match(regex);
-        if (match && match.length > 1) {
-            const content = match[1];
-            let url = '/public/pdfjs/web/viewer.html?file='+encodeURIComponent(`${content}`)
-            var iframe = document.getElementById("iframe");
-            if (iframe) {
-                iframe.src = url
-            }
-        }
-    </script>
     
+    <div class="ignore api mb-20 mt-20 pd-20 bg-f2f2f2">
+        <h1>ChanCMS 当前页面数据：</h1>
+        <p class="mb-20">site-> {{site}} </p>
+        <p class="mb-20">nav-> {{nav}} </p>
+        <p class="mb-20">category-> {{category}}</p>
+        <p class="mb-20">friendlink-> {{friendlink}}</p>
+        <p class="mb-20">base_url-> {{base_url}}</p>
+        <p class="mb-20">frag--->{{frag}}</p>
+        <p class="mb-20">tag--->{{tag}}</p>
+        <p class="mb-20">position------>{{position}}</p>
+        <p class="mb-20">navSub------>{{navSub}}</p>
+        <p class="mb-20">article------>{{article}}</p>
+        <p class="mb-20">article.tags------>{{article.tags}}</p>
+        <p class="mb-20">news------>{{news}}</p>
+        <p class="mb-20">hot------>{{hot}}</p>
+        <p class="mb-20">imgs------>{{imgs}}</p>
+        <p class="mb-20">pre------>{{pre}}</p>
+        <p class="mb-20">next------>{{next}}</p>
+    </div>
+    {{include './common/js.html'}}
+    <script src="{{base_url}}/js/katelog.min.js"></script>
+    <script>
+        const katelogIns = new katelog({
+            contentEl: 'article',
+            catelogEl: 'article-outline',
+            linkClass: 'k-catelog-link',
+            linkActiveClass: 'k-catelog-link-active',
+            selector: ['h2', 'h3', 'h4', 'h5', 'h6'],
+            supplyTop: 20,
+            active: function (el) {
+            }
+        });
+    // const html = '<h2>动态添加的标题</h2>'
+    // katelogIns.contentEl.insertAdjacentHTML('afterBegin', html);
+    // katelogIns.rebuild();
+    </script>
 </body>
 
 </html>

@@ -4,7 +4,7 @@ const iconv = require('iconv-lite');
 const BaseService = require('./base');
 
 class CollectService {
-  static model = 'collect';
+  static model = 'plus_collect';
 
   static async common(url, charset) {
     try {
@@ -64,21 +64,21 @@ class CollectService {
       const total = await knex(CollectService.model).count('id', { as: 'count' });
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex(CollectService.model)
-                  .select('collect.id', 
-                          'collect.taskName', 
-                          'collect.pages', 
-                          'collect.updatedAt', 
-                          'collect.charset', 
-                          'collect.titleTag',
-                          'collect.articleTag',
-                          'collect.parseData',
-                          'collect.status',
-                          'collect.cid',
-                          'category.name as category')
-                  .innerJoin('category', 'collect.cid', 'category.id')
+                  .select('plus_collect.id', 
+                          'plus_collect.taskName', 
+                          'plus_collect.pages', 
+                          'plus_collect.updatedAt', 
+                          'plus_collect.charset', 
+                          'plus_collect.titleTag',
+                          'plus_collect.articleTag',
+                          'plus_collect.parseData',
+                          'plus_collect.status',
+                          'plus_collect.cid',
+                          'cms_category.name as category')
+                  .innerJoin('cms_category', 'plus_collect.cid', 'cms_category.id')
                   .limit(pageSize)
                   .offset(offset)
-                  .orderBy('collect.id', 'desc');
+                  .orderBy('plus_collect.id', 'desc');
       // const list = await knex.select(['id', 
       // 'taskName', 
       // 'pages', 

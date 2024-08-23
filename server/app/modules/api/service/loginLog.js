@@ -1,7 +1,7 @@
 const {knex} = require('chanjs');
 
 class LoginLogService {
-  static model = "login_log";
+  static model = "sys_loginlog";
   // 增加
   static async create(body) {
     try {
@@ -46,8 +46,8 @@ class LoginLogService {
       });
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex(LoginLogService.model)
-        .leftJoin("sys_user", "login_log.uid", "sys_user.id")
-        .select("login_log.*", "sys_user.username")
+        .leftJoin("sys_user", "sys_loginlog.uid", "sys_user.id")
+        .select("sys_loginlog.*", "sys_user.username")
         .offset(offset)
         .limit(pageSize)
         .orderBy("createdAt", "desc");

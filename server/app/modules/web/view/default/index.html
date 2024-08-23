@@ -26,8 +26,8 @@
                         <div class="swiper-wrapper">
                             {{each banner}}
                             <div class="swiper-slide">
-                                <a href="{{$value.link_url}}" title="{{$value.title}}">
-                                    <img src="{{$value.img_url}}" title="{{$value.title}}" alt="{{$value.title}}">
+                                <a href="{{$value.linkUrl}}" title="{{$value.title}}">
+                                    <img src="{{$value.imgUrl}}" title="{{$value.title}}" alt="{{$value.title}}">
                                 </a>
                             </div>
                             {{/each}}
@@ -195,13 +195,13 @@
         <h1>ChanCMS 当前页面数据：</h1>
         <p class="mb-20">site-> {{site}} </p>
         <p class="mb-20">frag-> {{frag}} </p>
-        <p class="mb-20">bannerSlide->  {{bannerSlide}}</p>
+        <p class="mb-20">banner->  {{banner}}</p>
         <p class="mb-20">site-> {{site}} </p>
         <p class="mb-20">111-->{{site.json.siteSubtitle}}</p>
         <p class="mb-20">nav-> {{nav}} </p>
         <p class="mb-20">category-> {{category}}</p>
         <p class="mb-20">friendlink-> {{friendlink}}</p>
-        <p class="mb-20">base_url-> {{base_url}}</p>
+        <p class="mb-20">baseUrl-> {{baseUrl}}</p>
         <p class="mb-20">tag--->{{tag}}</p>
         <p class="mb-20">slide--->{{slide}}</p>
         <p class="mb-20">topnews--->{{topnews}}</p>
