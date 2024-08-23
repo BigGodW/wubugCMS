@@ -38,7 +38,7 @@
         </el-upload>
 
         <el-popover
-          v-if="params.img_url"
+          v-if="params.imgUrl"
           placement="right"
           :width="600"
           trigger="hover"
@@ -46,17 +46,17 @@
           <template #reference>
             <el-image
               class="avatar-uploader-icon pointer ml-10"
-              :src="params.img_url"
+              :src="params.imgUrl"
             />
           </template>
-          <el-image style="width: 100%" :src="params.img_url" />
+          <el-image style="width: 100%" :src="params.imgUrl" />
         </el-popover>
 
-        <el-input class="ml-10 flex-1" v-model="params.img_url"></el-input>
+        <el-input class="ml-10 flex-1" v-model="params.imgUrl"></el-input>
       </el-form-item>
 
       <el-form-item label="轮播链接">
-        <el-input v-model="params.link_url"></el-input>
+        <el-input v-model="params.linkUrl"></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -75,8 +75,8 @@ export default {
     return {
       params: {
         title: "",
-        img_url: "",
-        link_url: "",
+        imgUrl: "",
+        linkUrl: "",
       },
     };
   },
@@ -109,7 +109,7 @@ export default {
       fd.append("file", file.file);
       let res = await upload(fd);
       if (res.code === 200) {
-        this.params.img_url = res.data.path;
+        this.params.imgUrl = res.data.path;
       }
     },
 

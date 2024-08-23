@@ -48,46 +48,49 @@
         </div>
       </div>
 
-      <div class="flex">
-        <el-row :gutter="20">
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <div class="bg-fff pd-20 radius-6 mb-20 flex chart align-c justify-center">
-              <ChanEcharts :option="option" />
-            </div>
-          </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <div class="bg-fff pd-20 radius-6 mb-20">
-              <div class="mb-12 f-16 c-1d2129 fw-500">系统特色</div>
-              <p class="f-13 mb-6 c-4e5969">
-                ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CMS系统。轻量、灵活、稳定、高性能、易扩展，让开发更简单。
-              </p>
-              <p class="f-13 mb-6 c-4e5969">
-                <strong class="mr-10">自研</strong>基于自研chanjs轻量级mvc框架实现，轻量、灵活、稳定、高性能、可持续。
-              </p>
-              <p class="f-13 mb-6 c-4e5969">
-                <strong class="mr-10">SEO</strong>专注于seo,自定义导航，灵活设置关键词和描述。
-              </p>
-              <p class="f-13 mb-6 c-4e5969">
-                <strong class="mr-10">安全</strong>基于knex,防注入，接口权限校验，为安全提供保障。
-              </p>
-              <p class="f-13 mb-6 c-4e5969">
-                <strong class="mr-10">灵活</strong>碎片功能，支持零碎文案配置，方便各类灵活文案配置。
-              </p>
-              <p class="f-13 mb-6 c-4e5969">
-                <strong class="mr-10">API</strong>为多端提供接口支持。
-              </p>
-              <p class="f-13 c-4e5969">
-                <strong class="mr-10">插件化</strong>灵活开发，支持完整功能模块。
-              </p>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
+      <el-row :gutter="20">
+        <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+          <div class="bg-fff pt-20 radius-6 w-full h-230">
+            <ChanEcharts :option="option" />
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+          <div class="bg-fff pd-20 radius-6 mb-20">
+            <div class="mb-12 f-16 c-000 fw-500">系统特色</div>
+            <p class="f-15 c-4e5969 mb-16">
+              ChanCMS基于Node、Express、MySQL、Vue3研发的高质量实用型CMS系统。轻量、灵活、易用、安全。
+            </p>
+            <p class="f-13 mb-7 c-4e5969">
+              <strong class="mr-10">自研</strong
+              >自研chanjs轻量级mvc框架实现，长久可持续。
+            </p>
+            <p class="f-13 mb-7 c-4e5969">
+              <strong class="mr-10">模块</strong>支持模块化、插件化、扩展模型、前后端分离架构。
+            </p>
+            <p class="f-13 mb-7 c-4e5969">
+              <strong class="mr-10">API</strong> 支持wap、微信小程序、app等多端提供接口支持。
+            </p>
+            <p class="f-13 mb-7 c-4e5969">
+              <strong class="mr-10">SEO</strong
+              >专注于seo，灵活设置路由、关键词和描述。
+            </p>
+            <p class="f-13 mb-7 c-4e5969">
+              <strong class="mr-10">安全</strong
+              >基于knex防注入，接口权限校验，为安全提供保障。
+            </p>
+            <p class="f-13 mb-7 c-4e5969">
+              <strong class="mr-10">灵活</strong
+              >碎片功能，是全局变量，灵活配置使用。
+            </p>
+            
+          </div>
+        </el-col>
+      </el-row>
     </el-col>
 
     <el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6">
       <div class="bg-fff pd-20 radius-6 mb-20">
-        <div class="mb-12 f-16 c-1d2129 bold">技术架构</div>
+        <div class="mb-12 f-16 c-000 bold">技术架构</div>
         <p class="f-13 mb-6 c-4e5969">
           <span class="c-333">服务架构：</span>nodejs express mysql
         </p>
@@ -146,7 +149,12 @@ export default {
       option: {
         title: {
           text: "ChanCMS架构",
-          left: "center",
+          left: "20",
+          textStyle: { // 这里是文本样式的配置
+            fontSize: 16, // 字体大小
+            fontWeight: "normal", // 字体粗细
+            color: "#000" // 字体颜色
+          }
         },
         tooltip: {
           trigger: "item",
@@ -157,13 +165,14 @@ export default {
           },
         },
         legend: {
-          bottom: "bottom",
+          orient:"vertical",
+          right: "20",
           icon: "circle",
-          left: "center",
+          top: 'middle', 
         },
         toolbox: {
-          x: 'right',
-          y: 'bottom',
+          x: "right",
+          y: "bottom",
         },
         series: [
           {
@@ -182,7 +191,7 @@ export default {
             ],
             itemStyle: {
               borderRadius: 10,
-              borderWidth: 0
+              borderWidth: 0,
             },
             label: {
               show: false,
@@ -191,7 +200,7 @@ export default {
             emphasis: {
               label: {
                 show: false,
-                fontSize: 20,
+                fontSize: 10,
                 fontWeight: "bold",
               },
             },
@@ -212,7 +221,7 @@ export default {
     };
   },
   computed: {},
-  created() { },
+  created() {},
   mounted() {
     this.tongji();
     this.runEnv();
@@ -256,6 +265,11 @@ export default {
 };
 </script>
 <style scoped>
+
+.h-230{
+  height: 310px;
+}
+
 .radius-6 {
   border-radius: 6px;
 }
@@ -278,7 +292,7 @@ export default {
 }
 
 .chart {
-  /* max-width: calc(50vw - 45px); */
+  max-width: calc(50vw - 45px);
   height: 300px;
 }
 

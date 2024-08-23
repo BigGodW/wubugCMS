@@ -51,7 +51,7 @@
           </el-form-item>
 
           <el-form-item label="列表模板">
-            <el-select v-model="params.list_view" placeholder="Select">
+            <el-select v-model="params.listView" placeholder="Select">
               <el-option
                 v-for="item in views"
                 :key="item.value"
@@ -62,7 +62,7 @@
           </el-form-item>
 
           <el-form-item label="内容模板">
-            <el-select v-model="params.article_view" placeholder="Select">
+            <el-select v-model="params.articleView" placeholder="Select">
               <el-option
                 v-for="item in views"
                 :key="item.value"
@@ -99,7 +99,7 @@
                 v-for="(item, index) of modList"
                 :key="index"
                 :value="item.id"
-                >{{ item.model_name }}</el-radio
+                >{{ item.model }}</el-radio
               >
             </el-radio-group>
           </el-form-item>
@@ -110,19 +110,19 @@
           </el-form-item>
 
           <el-form-item label="栏目排序">
-            <el-input v-model="params.sort"></el-input>
+            <el-input v-model="params.orderBy"></el-input>
           </el-form-item>
 
           <el-form-item label="seo标题">
-            <el-input v-model="params.seo_title"></el-input>
+            <el-input v-model="params.seoTitle"></el-input>
           </el-form-item>
 
           <el-form-item label="seo关键词">
-            <el-input v-model="params.seo_keywords"></el-input>
+            <el-input v-model="params.seoKeywords"></el-input>
           </el-form-item>
 
           <el-form-item label="seo描述">
-            <el-input v-model="params.seo_description"></el-input>
+            <el-input v-model="params.seoDescription"></el-input>
           </el-form-item>
         </div>
         <el-form-item>
@@ -134,7 +134,7 @@
 </template>
 
 <script>
-import { views } from "@/api/sys_app.js";
+import { views } from "@/api/sys_config.js";
 
 import { find, create } from "@/api/category.js";
 import { addLabelValue, tree } from "@/utils/tool.js";
@@ -155,21 +155,21 @@ export default {
       params: {
         //接口入参
         pid: 0,
-        seo_title: "",
-        seo_keywords: "",
-        seo_description: "",
+        seoTitle: "",
+        seoKeywords: "",
+        seoDescription: "",
         name: "",
         path: "",
         pinyin: "",
         mid: "0",
         description: "",
         url: "",
-        sort: 0,
+        orderBy: 0,
         type: "0",
         target: "0",
         status: "0",
-        article_view: "article.html",
-        list_view: "list.html",
+        articleView: "article.html",
+        listView: "list.html",
       },
     };
   },

@@ -3,15 +3,30 @@
     <el-form
       ref="params"
       :model="params"
-      :rules="paramsRules"
       label-width="100px"
       class="mt-20"
     >
-      <el-form-item label="模型名称" prop="model_name">
-        <el-input v-model="params.model_name"></el-input>
+    <el-form-item label="模型名称" prop="model">
+        <el-input v-model="params.model" placeholder="请输入模型名称" :rules="[
+                {
+                  required: true,
+                  message: '请输入模型名称',
+                  trigger: 'blur'
+                }
+              ]"></el-input>
       </el-form-item>
-      <el-form-item label="新增表名" prop="table_name">
-        <el-input v-model="params.table_name" :disabled="disable"></el-input>
+      <el-form-item label="新增表名" prop="tableName">
+        <el-input v-model="params.tableName"  placeholder="表名称必须ext_开头" :rules="[
+                {
+                  required: true,
+                  message: '请输入表名',
+                  trigger: 'blur'
+                },
+                {
+                  validator: validateTableName,
+                  trigger: 'blur'
+                }
+              ]"></el-input>
       </el-form-item>
       <el-form-item label="是否启用">
         <el-radio v-model="params.status" value="1">开启</el-radio>
@@ -36,33 +51,13 @@ export default {
       params: {
         //接口入参
         id: 0,
-        old_table_name: "", //未修改之前的表名称
-        model_name: "",
-        table_name: "",
+        old_table: "", //未修改之前的表名称
+        model: "",
+        table: "",
         status: "1",
       },
       disable: false,
-      paramsRules: {
-        //校验规则
-        model_name: [
-          { required: true, message: "模型名称", trigger: "blur" },
-          {
-            min: 2,
-            max: 80,
-            message: "名称长度在 2 到 80 个字符之间",
-            trigger: "blur",
-          },
-        ],
-        table_name: [
-          { required: true, message: "新增表名", trigger: "blur" },
-          {
-            min: 2,
-            max: 80,
-            message: "名称长度在 2 到 80 个字符之间",
-            trigger: "blur",
-          },
-        ],
-      },
+     
     };
   },
   computed: {},
@@ -74,6 +69,13 @@ export default {
     await this.hasUse(id);
   },
   methods: {
+    validateTableName(rule, value, callback) {
+      if (!value.startsWith('ext_')) {
+        callback(new Error('表名必须以 ext_ 开头'));
+      } else {
+        callback();
+      }
+    },
     // 文章详情
     async detail() {
       try {
@@ -81,7 +83,7 @@ export default {
         if (res.code === 200) {
           let data = res.data;
           //记老的表名，改新表名称
-          this.params = { ...data, old_table_name: data.table_name };
+          this.params = { ...data, old_table: data.table };
         } else {
           this.$message({
             message: res.msg,

@@ -44,8 +44,8 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="sort" align="center" label="排序">
-        <template #default="scope">{{ scope.row.sort }}</template>
+      <el-table-column prop="orderBy" align="center" label="排序">
+        <template #default="scope">{{ scope.row.orderBy }}</template>
       </el-table-column>
 
       <el-table-column prop="status" label="状态">

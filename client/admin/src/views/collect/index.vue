@@ -90,12 +90,12 @@ export default {
         //接口入参
         cid: 0,
         title: "",
-        short_title: "",
-        tag_id: "",
+        shortTitle: "",
+        tagId: "",
         attr: [],
-        seo_title: "",
-        seo_keywords: "",
-        seo_description: "",
+        seoTitle: "",
+        seoKeywords: "",
+        seoDescription: "",
         source: "",
         author: "",
         description: "",
@@ -186,7 +186,7 @@ export default {
       try {
         let params = { ...this.params };
         params.attr = params.attr.toString();
-        params.tag_id = params.tag_id.toString();
+        params.tagId = params.tagId.toString();
         console.log(params);
         //提取255字符作为文章描述
         if (!params.description && params.content) {

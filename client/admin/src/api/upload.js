@@ -1,6 +1,6 @@
 import http from "../utils/http.js";
 import API from "../config/index.js";
-import { find } from "./sys_app.js";
+import { find } from "./sys_config.js";
 //上传
 // let formData = new FormData();
 // formData.append('file', file);

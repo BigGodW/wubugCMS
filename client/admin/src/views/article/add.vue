@@ -53,7 +53,7 @@
             <el-col :sm="24" :md="12">
               <el-form-item label="tag标签">
                 <el-select-v2
-                  v-model="params.tag_id"
+                  v-model="params.tagId"
                   :options="taglist"
                   placeholder="请选择标签"
                   style="width: 240px"
@@ -153,9 +153,9 @@
           </el-row>
 
           <!--
-          field_cname   中文名称 varchar 60
-          field_ename   英文名称 varchar 60
-          field_type
+          cname   中文名称 varchar 60
+          ename   英文名称 varchar 60
+          type
           from表单类型
           1单行文本（varchar）
           2.多行文本
@@ -163,9 +163,9 @@
           text 4.单选
           text 5.多选
           6.时间和日期
-          field_default  字段配置 男 女
-          field_values   默认值可选 255
-          field_sort     字段顺序
+          default  字段配置 男 女
+          values   默认值可选 255
+          orderBy     字段顺序
           -->
           <el-form-item label="内容摘要">
             <el-input
@@ -219,25 +219,25 @@
           <el-row :gutter="20">
             <el-col :sm="24" :md="12">
               <el-form-item label="短标题" prop="name">
-                <el-input v-model="params.short_title"></el-input>
+                <el-input v-model="params.shortTitle"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :sm="24" :md="12">
               <el-form-item label="SEO标题">
-                <el-input v-model="params.seo_title"></el-input>
+                <el-input v-model="params.seoTitle"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :sm="24" :md="12">
               <el-form-item label="SEO关键词">
-                <el-input v-model="params.seo_keywords"></el-input>
+                <el-input v-model="params.seoKeywords"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :sm="24" :md="12">
               <el-form-item label="SEO描述">
-                <el-input v-model="params.seo_description"></el-input>
+                <el-input v-model="params.seoDescription"></el-input>
               </el-form-item>
             </el-col>
 
@@ -269,18 +269,18 @@
         <div v-show="(activeIndex == 2) & (field.length > 0)">
           <el-row :gutter="20">
             <!--
-            field_cname   中文名称 varchar 60
-            field_ename   英文名称 varchar 60
-            field_type
+            cname   中文名称 varchar 60
+            ename   英文名称 varchar 60
+            type
             from表单类型 1单行文本（varchar）
             2.多行文本
             text 3.下拉菜单
             text 4.单选
             text 5.多选
             6.时间和日期
-            field_values  默认值可选 255
-            field_default   字段配置 男 女
-            field_sort     字段顺序
+            values  默认值可选 255
+            default   字段配置 男 女
+            orderBy     字段顺序
             -->
             <el-col
               v-for="(item, index) of field"
@@ -291,36 +291,36 @@
             >
               <!-- 单行文本 -->
               <el-form-item
-                :label="item.field_cname"
-                v-if="['1','7'].includes(item.field_type)"
+                :label="item.cname"
+                v-if="['1','7'].includes(item.type)"
               >
-                <el-input v-model="item.field_values" max="120"></el-input>
+                <el-input v-model="item.values" max="120"></el-input>
               </el-form-item>
 
               <!-- 多行文本 -->
               <el-form-item
-                :label="item.field_cname"
-                v-else-if="['2','9'].includes(item.field_type)"
+                :label="item.cname"
+                v-else-if="['2','9'].includes(item.type)"
               >
                 <el-input
                   type="textarea"
                   :rows="4"
                   placeholder="请输入内容"
-                  v-model="item.field_values"
+                  v-model="item.values"
                 ></el-input>
               </el-form-item>
 
               <!-- 下拉菜单 -->
               <el-form-item
-                :label="item.field_cname"
-                v-else-if="['3','4','5'].includes(item.field_type)"
+                :label="item.cname"
+                v-else-if="['3','4','5'].includes(item.type)"
               >
                 <el-select
-                  v-model="item.field_values"
+                  v-model="item.values"
                   placeholder="请选择"
                 >
                   <el-option
-                    v-for="item in item.field_default"
+                    v-for="item in item.default"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
@@ -329,9 +329,9 @@
               </el-form-item>
 
               <!-- 时间日期 -->
-              <el-form-item   :label="item.field_cname" v-else-if="item.field_type === '6'">
+              <el-form-item   :label="item.cname" v-else-if="item.type === '6'">
                 <el-date-picker
-                v-model="item.field_values"
+                v-model="item.values"
                   :default-value="new Date()"
                   type="datetime"
                   placeholder="请选择"
@@ -341,15 +341,15 @@
 
               <!-- 多图上传 -->
               <el-form-item
-                :label="item.field_cname"
+                :label="item.cname"
                 class="flex align-c justify-center"
-                v-else-if="item.field_type === '8'"
+                v-else-if="item.type === '8'"
               >
                 <!-- 图片显示 -->
                 <div class="cover flex align-center">
                   <div
                     class="pos-r img-item"
-                    v-for="(item, index) of item.field_values"
+                    v-for="(item, index) of item.values"
                   >
                     <el-image :key="index" :src="item.url" fit="cover" />
                     <div class="imgs-btn">
@@ -425,12 +425,12 @@ export default {
         //接口入参
         cid: 0,
         title: "",
-        short_title: "",
-        tag_id: "",
+        shortTitle: "",
+        tagId: "",
         attr: [],
-        seo_title: "",
-        seo_keywords: "",
-        seo_description: "",
+        seoTitle: "",
+        seoKeywords: "",
+        seoDescription: "",
         source: "",
         author: "",
         description: "",
@@ -581,13 +581,13 @@ export default {
       if (res.code === 200) {
         const { filename, path } = res.data;
 
-        if (Array.isArray(this.field[index].field_values)) {
-          this.field[index].field_values.push({
+        if (Array.isArray(this.field[index].values)) {
+          this.field[index].values.push({
             name: filename,
             url: path,
           });
         } else {
-          this.field[index].field_values = [
+          this.field[index].values = [
             {
               name: filename,
               url: path,
@@ -607,11 +607,11 @@ export default {
     //删除
     async handleRemove(items) {
       this.field.forEach((item, index) => {
-        if (Array.isArray(item.field_values)) {
-          item.field_values.forEach((item2, index2) => {
+        if (Array.isArray(item.values)) {
+          item.values.forEach((item2, index2) => {
             if (item2.url == items.url) {
               this.delfile(items.url);
-              item.field_values.splice(index2, 1);
+              item.values.splice(index2, 1);
             }
           });
         }
@@ -634,18 +634,18 @@ export default {
           res.data.fields.forEach((item) => {
             //单选 多选
             if (
-              item.field_default &&
-              item.field_default.includes("[{") &&
-              item.field_default.includes("options")
+              item.default &&
+              item.default.includes("[{") &&
+              item.default.includes("options")
             ) {
-              let field = item.field_default;
-              let s = JSON.parse(item.field_default);
+              let field = item.default;
+              let s = JSON.parse(item.default);
               console.log("--->", s.options);
-              item.field_default = s.options || [];
+              item.default = s.options || [];
             }
             // 图片
-            if (item.field_type == "8") {
-              item.field_values = [];
+            if (item.type == "8") {
+              item.values = [];
             }
           });
           this.field = res.data.fields;
@@ -659,7 +659,7 @@ export default {
       try {
         let params = { ...this.params };
         params.attr = params.attr.toString();
-        params.tag_id = params.tag_id.toString();
+        params.tagId = params.tagId.toString();
 
         //判断是否有缩略图
         if (!params.img && this.autoImg) {
@@ -672,10 +672,10 @@ export default {
         //处理模型字段信息
         let fieldParams = {};
         this.field.map((item) => {
-          fieldParams[item.field_ename] =
-            typeof item.field_values == "object"
-              ? JSON.stringify(item.field_values)
-              : item.field_values;
+          fieldParams[item.ename] =
+            typeof item.values == "object"
+              ? JSON.stringify(item.values)
+              : item.values;
         });
 
         let res = await create({

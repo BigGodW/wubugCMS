@@ -16,8 +16,8 @@
     >
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="id" width="60" label="编号"></el-table-column>
-      <el-table-column prop="model_name" label="模型名称"></el-table-column>
-      <el-table-column prop="table_name" label="模型对应的表"></el-table-column>
+      <el-table-column prop="model" label="模型名称"></el-table-column>
+      <el-table-column prop="tableName" label="模型对应的表"></el-table-column>
       <el-table-column prop="status" label="状态">
         <template #default="scope">{{
           scope.row.status == 1 ? "启用" : "禁用"
@@ -140,12 +140,12 @@ export default {
 
     //删除文章
     async handleDel(e) {
-      const { id, table_name } = e;
+      const { id, table } = e;
       try {
         let res = await this.hasUse(id);
         if (res.code == 200) {
           if (res.data.count == 0) {
-            let res = await del(id, table_name);
+            let res = await del(id, table);
             if (res.code === 200) {
               this.$message({
                 message: "删除成功 ^_^",

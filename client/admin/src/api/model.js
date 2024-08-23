@@ -19,13 +19,13 @@ export let create = (opt) => {
 };
 
 //删
-export let del = (id, table_name) => {
+export let del = (id, table) => {
   return http({
     url: `${API.BASE_API}/api/model/delete`,
     method: "post",
     data: {
       id,
-      table_name,
+      table,
     },
   });
 };

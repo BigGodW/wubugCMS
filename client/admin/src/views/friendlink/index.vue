@@ -17,7 +17,7 @@
       <el-table-column prop="id" width="60" label="编号"></el-table-column>
       <el-table-column prop="title" width="120" label="标题"></el-table-column>
       <el-table-column prop="link" width="260" label="链接"></el-table-column>
-      <el-table-column prop="sort" label="排序"></el-table-column>
+      <el-table-column prop="orderBy" label="排序"></el-table-column>
       <el-table-column prop="createdAt" label="发布时间">
         <template #default="scope">{{ scope.row.createdAt }}</template>
       </el-table-column>

@@ -3,20 +3,31 @@
     <el-form
       ref="params"
       :model="params"
-      :rules="paramsRules"
       label-width="100px"
       class="mt-20"
     >
-      <el-form-item label="字段备注" prop="field_cname">
-        <el-input v-model="params.field_cname"></el-input>
+      <el-form-item label="中文名称" prop="cname" :rules="[{
+            required: true,
+            message: '请输入中文名称',
+            trigger: 'blur',
+          }]">
+        <el-input v-model="params.cname" placeholder="请输入字段中文名称"></el-input>
       </el-form-item>
 
-      <el-form-item label="字段名称" prop="field_ename">
-        <el-input v-model="params.field_ename"></el-input>
+      <el-form-item label="字段名称" prop="ename" :rules="[{
+            required: true,
+            message: '请输入英文名称',
+            trigger: 'blur',
+          }]">
+        <el-input v-model="params.ename" placeholder="请输入英文小驼峰方式，例：bookName"></el-input>
       </el-form-item>
 
-      <el-form-item label="字段类型">
-        <el-select v-model="params.field_type" placeholder="请选择">
+      <el-form-item label="字段类型" :rules="[{
+            required: true,
+            message: '请选择类型',
+            trigger: 'blur',
+          }]">
+        <el-select v-model="params.type" placeholder="请选择">
           <el-option
             v-for="item in type"
             :key="item.value"
@@ -29,7 +40,7 @@
 
       <el-form-item label="字段选项">
         <el-input
-          v-model="params.field_default"
+          v-model="params.defaultVal"
           :rows="2"
           type="textarea"
            placeholder="单选、多选、下拉框，请填写json格式。"
@@ -38,15 +49,15 @@
       </el-form-item>
 
       <el-form-item label="默认值">
-        <el-input v-model="params.field_values"></el-input>
+        <el-input v-model="params.val"></el-input>
       </el-form-item>
 
       <el-form-item label="排序">
-        <el-input v-model="params.field_sort"></el-input>
+        <el-input v-model="params.orderBy"></el-input>
       </el-form-item>
 
       <el-form-item label="字段长度">
-        <el-input v-model="params.field_length"></el-input>
+        <el-input v-model="params.length"></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -65,14 +76,14 @@ export default {
     return {
       params: {
         //接口入参
-        model_id: "",
-        field_cname: "",
-        field_ename: "",
-        field_type: "",
-        field_values: "",
-        field_default: "",
-        field_length: "",
-        field_sort: "0",
+        mid: "",
+        cname: "",
+        ename: "",
+        type: "",
+        val: "",
+        defaultVal: "",
+        length: "",
+        orderBy: "0",
       },
       type: [
         {
@@ -115,37 +126,16 @@ export default {
         },
       ],
       value: "",
-      paramsRules: {
-        //校验规则
-        field_cname: [
-          { required: true, message: "字段名称", trigger: "blur" },
-          {
-            min: 2,
-            max: 80,
-            message: "名称长度在 2 到 80 个字符之间",
-            trigger: "blur",
-          },
-        ],
-        table_name: [
-          { required: true, message: "新增表名", trigger: "blur" },
-          {
-            min: 2,
-            max: 80,
-            message: "名称长度在 2 到 80 个字符之间",
-            trigger: "blur",
-          },
-        ],
-        field_length:[{ required: true, message: "字段长度", trigger: "blur" }]
-      },
+     
     };
   },
   computed: {},
   mounted() {},
   async created() {
-    const { model_name, mid, table_name } = this.$route.query;
-    this.params.model_id = mid;
-    this.params.table_name = table_name;
-    this.model_name = model_name;
+    const { model, mid, tableName } = this.$route.query;
+    this.params.mid = mid;
+    this.params.tableName = tableName;
+    this.model = model;
   },
   methods: {
     handleAttr(e) {

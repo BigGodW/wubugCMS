@@ -15,10 +15,10 @@
       <el-table-column type="selection"></el-table-column>
       <el-table-column prop="id" label="编号"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
-      <el-table-column prop="img_url" label="图片链接">
+      <el-table-column prop="imgUrl" label="图片链接">
         <template #default="scope">
           <el-popover
-            v-if="scope.row.img_url"
+            v-if="scope.row.imgUrl"
             placement="right"
             :width="600"
             trigger="hover"
@@ -26,14 +26,14 @@
             <template #reference>
               <el-image
                 class="avatar-uploader-icon pointer ml-10"
-                :src="scope.row.img_url"
+                :src="scope.row.imgUrl"
               />
             </template>
-            <el-image style="width: 100%" :src="scope.row.img_url" />
+            <el-image style="width: 100%" :src="scope.row.imgUrl" />
           </el-popover>
         </template>
       </el-table-column>
-      <el-table-column prop="link_url" label="跳转链接"> </el-table-column>
+      <el-table-column prop="linkUrl" label="跳转链接"> </el-table-column>
 
       <el-table-column fixed="right" width="100" label="操作">
         <template #default="scope">

@@ -2,9 +2,9 @@ import http from "../utils/http.js";
 import API from "../config/index.js";
 
 //文章列表
-export let list = (model_id, cur = 1) => {
+export let list = (mid, cur = 1) => {
   return http({
-    url: `${API.BASE_API}/api/field/list?cur=${cur}&model_id=${model_id}`,
+    url: `${API.BASE_API}/api/field/list?cur=${cur}&mid=${mid}`,
     method: "get",
   });
 };

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { find, update } from "@/api/sys_app.js";
+import { find, update } from "@/api/sys_config.js";
 
 export default {
   name: "WeChat",

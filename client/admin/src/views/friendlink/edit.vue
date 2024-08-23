@@ -16,7 +16,7 @@
       </el-form-item>
 
       <el-form-item label="排序">
-        <el-input v-model="params.sort"></el-input>
+        <el-input v-model="params.orderBy"></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -38,7 +38,7 @@ export default {
         id: 0,
         title: "",
         link: "",
-        sort: 0,
+        orderBy: 0,
       },
 
       paramsRules: {

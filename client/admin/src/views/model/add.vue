@@ -1,17 +1,39 @@
 <template>
   <div class="mr-10 ml-10 mb-20 pd-20 content-wrap">
-    <el-form
-      ref="params"
-      :model="params"
-      :rules="paramsRules"
-      label-width="100px"
-      class="mt-20"
-    >
-      <el-form-item label="模型名称" prop="model_name">
-        <el-input v-model="params.model_name" @input="change"></el-input>
+    <el-form ref="params" :model="params" label-width="100px" class="mt-20">
+      <el-form-item
+        label="模型名称"
+        prop="model"
+        :rules="[{
+            required: true,
+            message: '请输入模型名称',
+            trigger: 'blur',
+          }]"
+      >
+        <el-input
+          v-model="params.model"
+          placeholder="请输入模型名称"
+        ></el-input>
       </el-form-item>
-      <el-form-item label="新增表名" prop="table_name">
-        <el-input v-model="params.table_name" disabled></el-input>
+      <el-form-item
+        label="新增表名"
+        prop="tableName"
+        :rules="[
+          {
+            required: true,
+            message: '请输入表名',
+            trigger: 'blur',
+          },
+          {
+            validator: validateTableName,
+            trigger: 'blur',
+          },
+        ]"
+      >
+        <el-input
+          v-model="params.tableName"
+          placeholder="表名称必须ext_开头"
+        ></el-input>
       </el-form-item>
       <el-form-item label="是否启用">
         <el-radio v-model="params.status" value="1">开启</el-radio>
@@ -33,31 +55,9 @@ export default {
     return {
       params: {
         //接口入参
-        model_name: "", //
-        table_name: "",
+        model: "", //
+        tableName: "",
         status: "1",
-      },
-
-      paramsRules: {
-        //校验规则
-        model_name: [
-          { required: true, message: "模型名称", trigger: "blur" },
-          {
-            min: 2,
-            max: 80,
-            message: "名称长度在 2 到 80 个字符之间",
-            trigger: "blur",
-          },
-        ],
-        table_name: [
-          { required: true, message: "新增表名", trigger: "blur" },
-          {
-            min: 2,
-            max: 80,
-            message: "名称长度在 2 到 80 个字符之间",
-            trigger: "blur",
-          },
-        ],
       },
     };
   },
@@ -67,13 +67,17 @@ export default {
   },
   created() {},
   methods: {
+    validateTableName(rule, value, callback) {
+      if (!value.startsWith("ext_")) {
+        callback(new Error("表名必须以 ext_ 开头"));
+      } else {
+        callback();
+      }
+    },
     handleAttr(e) {
       console.log("e-->", e);
     },
-    change(v) {
-      console.log(v);
-      this.params.table_name = v;
-    },
+
     //新增
     async create() {
       try {
