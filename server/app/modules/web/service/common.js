@@ -476,7 +476,6 @@ class CommonService {
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
-        console.log('----',list);
       return list;
     } catch (err) {
       console.error(err);
