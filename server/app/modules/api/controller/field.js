@@ -14,7 +14,7 @@ const {
 class FieldController  {
 
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const has = await field.findByName(body.cname, body.ename);
@@ -30,7 +30,7 @@ class FieldController  {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await field.delete(id);
@@ -41,7 +41,7 @@ class FieldController  {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await field.update(body);
@@ -53,7 +53,7 @@ class FieldController  {
 
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       const {id} = req.query;
       const data = await field.detail(id);
@@ -64,7 +64,7 @@ class FieldController  {
   }
 
   // 列表 
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,mid,pageSize=10} = req.query;
       const data = await field.list(mid, cur, pageSize);

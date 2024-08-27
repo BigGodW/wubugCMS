@@ -1,12 +1,12 @@
 const {knex} = require('chanjs');
 
 class SysRoleService {
-  static model = 'sys_role';
+  model = 'sys_role';
 
   // 新增
-  static async create(body) {
+  async create(body) {
     try {
-      const result = await knex(SysRoleService.model).insert(body);
+      const result = await knex(this.model).insert(body);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
@@ -15,9 +15,9 @@ class SysRoleService {
   }
 
   // 删
-  static async delete(id) {
+  async delete(id) {
     try {
-      const result = await knex(SysRoleService.model)
+      const result = await knex(this.model)
         .where("id", "=", id)
         .del();
       return result ? "success" : "fail";
@@ -28,11 +28,11 @@ class SysRoleService {
   }
 
   // 修改
-  static async update(body) {
+  async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(SysRoleService.model)
+      const result = await knex(this.model)
         .where("id", "=", id)
         .update(body);
       return result ? "success" : "fail";
@@ -43,16 +43,16 @@ class SysRoleService {
   }
 
   // 文章列表
-  static async list(cur = 1, pageSize = 10) {
+  async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = await knex(SysRoleService.model).count("id", {
+      const total = await knex(this.model).count("id", {
         as: "count",
       });
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
         .select("*")
-        .from(SysRoleService.model)
+        .from(this.model)
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "asc");
@@ -69,9 +69,9 @@ class SysRoleService {
   }
 
   // 查
-  static async detail(id) {
+  async detail(id) {
     try {
-      const data = await knex(SysRoleService.model)
+      const data = await knex(this.model)
         .where("id", "=", id)
         .select(['name','value','status']);
       return data[0];

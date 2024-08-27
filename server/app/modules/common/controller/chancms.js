@@ -17,7 +17,7 @@ const {
 
 class ChancmsController {
   // 获取站点信息
-  static async site(req, res, next) {
+  async site(req, res, next) {
     try {
       const data = await site.find();
       res.json({ ...success, data: data });
@@ -28,7 +28,7 @@ class ChancmsController {
   }
 
   //碎片
-  static async frag(req, res, next) {
+  async frag(req, res, next) {
     try {
       const data = await frag.list();
       res.json({ ...success, data: data });
@@ -39,7 +39,7 @@ class ChancmsController {
   }
 
   //Tag标签
-  static async tag(req, res, next) {
+  async tag(req, res, next) {
     try {
       const data = await tag.list();
       res.json({ ...success, data: data });
@@ -50,7 +50,7 @@ class ChancmsController {
   }
 
   //友情链接
-  static async friendlink(req, res, next) {
+  async friendlink(req, res, next) {
     try {
       const data = await friendlink.list();
       res.json({ ...success, data: data });
@@ -61,7 +61,7 @@ class ChancmsController {
   }
 
   //栏目
-  static async category(req, res, next) {
+  async category(req, res, next) {
     try {
       const category = await chancms.category();
       const nav = tree(category);
@@ -78,7 +78,7 @@ class ChancmsController {
    * @param {Object} start 开始
    * @returns
    */
-  static async getArticleList(req, res, next) {
+  async getArticleList(req, res, next) {
     try {
       const { attr, len, start } = req.query;
       let params = { attr, len: +len, start: +start };
@@ -96,7 +96,7 @@ class ChancmsController {
    * @param {Object} start 开始
    * @returns
    */
-  static async getArticleListByCid(req, res, next) {
+  async getArticleListByCid(req, res, next) {
     try {
       const { cid, attr, len } = req.query;
       let params = { cid, attr, len: +len };
@@ -112,7 +112,7 @@ class ChancmsController {
    * @description 通过文章id查找对应的tag标签
    * @param {Object} aid 文章id
    */
-  static async getArticleTag(req, res, next) {
+  async getArticleTag(req, res, next) {
     try {
       const { id } = req.query;
       const data = await chancms.getArticleTag(id);
@@ -129,7 +129,7 @@ class ChancmsController {
    * @param {Object} current 当前页面
    * @param {Object} pageSize = 10 每页显示条数
    */
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const { id, current = 1, pageSize = 10 } = req.query;
       const data = await chancms.list({ id, current, pageSize });
@@ -146,7 +146,7 @@ class ChancmsController {
    * @param {Object} current 当前页面
    * @param {Object} pageSize = 10 每页显示条数
    */
-  static async article(req, res, next) {
+  async article(req, res, next) {
     try {
       const { id } = req.query;
       const data = await chancms.article(id);
@@ -158,7 +158,7 @@ class ChancmsController {
   }
 
   //banner轮播
-  static async banner(req, res, next) {
+  async banner(req, res, next) {
     try {
       const { cur = 1, pageSize = 10 } = req.query;
       const data = await chancms.banner(cur, pageSize);
@@ -170,7 +170,7 @@ class ChancmsController {
   }
 
   //pv排行
-  static async pv(req, res, next) {
+  async pv(req, res, next) {
     try {
       const { id = 1, len = 10 } = req.query;
       const data = await chancms.pv(len, id);
@@ -187,7 +187,7 @@ class ChancmsController {
    * @param {Number} len 默认10条
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    */
-  static async articleImg(req, res, next) {
+  async articleImg(req, res, next) {
     try {
       const { id = "", attr = "", len = 10 } = req.query;
       const data = await chancms.articleImg({ len, id, attr });
@@ -199,7 +199,7 @@ class ChancmsController {
   }
 
   //tag列表
-  static async tagList(req, res, next) {
+  async tagList(req, res, next) {
     try {
       const { name = "", current = 1, pageSize = 10 } = req.query;
       const data = await chancms.tagList({ name, current, pageSize });
@@ -211,7 +211,7 @@ class ChancmsController {
   }
 
   //上一页
-  static async prev(req, res, next) {
+  async prev(req, res, next) {
     try {
       const { id, cid } = req.query;
       const data = await chancms.prev({ id, cid });
@@ -223,7 +223,7 @@ class ChancmsController {
   }
 
   //下一页
-  static async next(req, res, next) {
+  async next(req, res, next) {
     try {
       const { id, cid } = req.query;
       const data = await chancms.next({ id, cid });
@@ -238,7 +238,7 @@ class ChancmsController {
    * @description 当前文章tag
    * @param {Object} id 文章id
    */
-  static async getTagsById(req, res, next) {
+  async getTagsById(req, res, next) {
     try {
       const { id } = req.query;
       const data = await chancms.getTagsById(id);
@@ -256,7 +256,7 @@ class ChancmsController {
    * @param {Object} pageSize 每页显示条数
    * @param {Object} cid 栏目id
    */
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const { key, cur, pageSize, cid } = req.query;
       const data = await chancms.search(key, cur, pageSize, cid);
@@ -273,7 +273,7 @@ class ChancmsController {
    * @param {*} res
    * @param {*} next
    */
-  static async pvadd(req, res, next) {
+  async pvadd(req, res, next) {
     try {
       const { id } = req.query;
       const data = await chancms.pvadd(id);

@@ -14,7 +14,7 @@ const {
 
 class SysAppController {
   // 查
-  static async find(req, res, next) {
+  async find(req, res, next) {
     try {
       const data = await sysApp.find();
       res.json({ ...success, data: data });
@@ -24,7 +24,7 @@ class SysAppController {
   }
 
   // 查
-  static async getViews(req, res, next) {
+  async getViews(req, res, next) {
     try {
       const {
         config: { APP_PATH, template },
@@ -37,7 +37,7 @@ class SysAppController {
     }
   }
   // app配置
-  static async config(req, res, next) {
+  async config(req, res, next) {
     try {
       const data = await sysApp.config();
       res.json({ ...success, data: data });
@@ -47,7 +47,7 @@ class SysAppController {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await sysApp.update(body);

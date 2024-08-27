@@ -3,6 +3,7 @@ const {
   web: {service: { common }},
   api: {service: { site, frag, tag, friendlink }},
 } = Chan.modules;
+
 let api = { site, frag, tag, friendlink, common };
 
 module.exports = () => {

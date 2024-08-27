@@ -1,12 +1,12 @@
 const BaseService = require("./base");
 const {knex} = require('chanjs');
 
-class SysConfigService {
-  static model = "sys_config";
+class SysConfigService  extends BaseService {
+  model = "sys_config";
 
-  static async find() {
+  async find() {
     try {
-      let res = await BaseService.all(SysConfigService.model);
+      let res = await this.all(this.model);
       return res[0];
     } catch (err) {
       console.error(err);
@@ -14,11 +14,11 @@ class SysConfigService {
     }
   }
 
-  static async config() {
+  async config() {
     try {
       let res = await knex
         .select(["template", "uploadWay", "maxAge", "dataCache"])
-        .from(SysConfigService.model)
+        .from(this.model)
         .limit(1);
       return res[0];
     } catch (err) {
@@ -26,13 +26,13 @@ class SysConfigService {
     }
   }
 
-  static async update(body) {
+  async update(body) {
     const { id } = body;
     delete body.id;
     delete body.createdAt;
     delete body.updatedAt;
     try {
-      const result = await knex(SysConfigService.model)
+      const result = await knex(this.model)
         .where("id", "=", id)
         .update(body);
       return result ? "success" : "fail";

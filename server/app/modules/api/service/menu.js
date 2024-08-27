@@ -1,13 +1,13 @@
 const BaseService = require("./base");
 const {knex} = require('chanjs');
 
-class MenuService  {
-  static model = "sys_menu";
+class MenuService  extends BaseService{
+  model = "sys_menu";
   
   // 基本信息
-  static async find() {
+  async find() {
     try {
-      let res = await BaseService.all(MenuService.model);
+      let res = await this.all(this.model);
       return res[0];
     } catch (err) {
       console.error(err)
@@ -16,11 +16,11 @@ class MenuService  {
   }
 
   // 更新基本信息
-  static async update(body) {
+  async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(MenuService.model)
+      const result = await knex(this.model)
           .where("id", "=", id)
           .update(body);
         return result ? "success" : "fail";

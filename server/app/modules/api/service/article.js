@@ -25,19 +25,19 @@ async function getImgsByArticleId(id, arr) {
   }
 }
 class ArticleService  {
-  static model = "cms_article";
+  model = "cms_article";
   // 增
-  static async create(body) {
+  async create(body) {
     try {
       let res, mapTag;
       const { defaultParams, fieldParams } = body;
       await knex.transaction(async (trx) => {
-        const result = await knex(ArticleService.model)
+        const result = await knex(this.model)
           .insert(defaultParams)
           .transacting(trx);
         if (result[0]) {
           // 获取最后一个文章id和栏目id
-          const lastStr = `SELECT id,cid FROM ${ArticleService.model} ORDER BY id DESC LIMIT 1`;
+          const lastStr = `SELECT id,cid FROM ${this.model} ORDER BY id DESC LIMIT 1`;
           const lastId = await knex.raw(lastStr, []).transacting(trx);
           const { id, cid } = lastId[0][0];
 
@@ -88,7 +88,7 @@ class ArticleService  {
   }
 
   // 删
-  static async delete(id) {
+  async delete(id) {
     try {
       const ids = id.split(",");
 
@@ -140,7 +140,7 @@ class ArticleService  {
         }
 
         // 批量删除文章
-        const delArticleStr = `DELETE FROM ${ArticleService.model} WHERE id IN(${id})`;
+        const delArticleStr = `DELETE FROM ${this.model} WHERE id IN(${id})`;
         const delArticle = await knex.raw(delArticleStr, []).transacting(trx);
 
         // 删除关联的 tag
@@ -155,7 +155,7 @@ class ArticleService  {
   }
 
   // 改
-  static async update(body) {
+  async update(body) {
     try {
       const { id, field } = body;
       delete body.id;
@@ -188,7 +188,7 @@ class ArticleService  {
             "INSERT INTO cms_articleTag(aid,tid) VALUES " + tagsql.join(",")
           )
           .transacting(trx);
-        const result = await knex(ArticleService.model)
+        const result = await knex(this.model)
           .where("id", "=", id)
           .update(body)
           .transacting(trx);
@@ -201,14 +201,14 @@ class ArticleService  {
   }
 
   // 文章列表
-  static async list(cur = 1, pageSize = 10, id) {
+  async list(cur = 1, pageSize = 10, id) {
     try {
       // 查询个数
       let sql;
       if (id) {
-        sql = `SELECT COUNT(id) as count FROM ${ArticleService.model} WHERE cid IN (${id})`;
+        sql = `SELECT COUNT(id) as count FROM ${this.model} WHERE cid IN (${id})`;
       } else {
-        sql = `SELECT COUNT(id) as count FROM ${ArticleService.model}`;
+        sql = `SELECT COUNT(id) as count FROM ${this.model}`;
       }
       const total = await knex.raw(sql);
       const offset = parseInt((cur - 1) * pageSize);
@@ -225,7 +225,7 @@ class ArticleService  {
             "status",
             "img",
           ])
-          .from(ArticleService.model)
+          .from(this.model)
           .where("cid", "=", id)
           .limit(pageSize)
           .offset(offset)
@@ -233,7 +233,7 @@ class ArticleService  {
       } else {
         list = await knex
           .select(["id", "title", "attr", "pv", "createdAt", "status"])
-          .from(ArticleService.model)
+          .from(this.model)
           .limit(pageSize)
           .offset(offset)
           .orderBy("id", "desc");
@@ -252,10 +252,10 @@ class ArticleService  {
   }
 
   // 查
-  static async detail(id) {
+  async detail(id) {
     try {
       // 查询文章
-      const data = await knex(ArticleService.model).where("id", "=", id).select();
+      const data = await knex(this.model).where("id", "=", id).select();
      
       //兼容mysql错误
       if (!data[0] || !data[0].cid) {
@@ -291,7 +291,7 @@ class ArticleService  {
   }
 
   // 搜索
-  static async search(key = "", cur = 1, pageSize = 10, cid = 0) {
+  async search(key = "", cur = 1, pageSize = 10, cid = 0) {
     try {
       // 查询个数
       let sql;
@@ -336,7 +336,7 @@ class ArticleService  {
   }
 
   // 增加计数器
-  static async count(id) {
+  async count(id) {
     try {
       const result = await knex.raw(
         `UPDATE cms_article SET pv=pv+1 WHERE id=? LIMIT 1`,
@@ -350,7 +350,7 @@ class ArticleService  {
   }
 
   // 上一篇文章
-  static async pre(id, cid) {
+  async pre(id, cid) {
     try {
       const result = await knex.raw(
         `SELECT a.id,a.title,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`,
@@ -364,7 +364,7 @@ class ArticleService  {
   }
 
   // 下一篇文章
-  static async next(id, cid) {
+  async next(id, cid) {
     try {
       const result = await knex.raw(
         `SELECT a.id,a.title,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`,
@@ -378,7 +378,7 @@ class ArticleService  {
   }
 
   // 通过栏目id获取mid，通过mid获取模型对应字段
-  static async findField(cid) {
+  async findField(cid) {
     try {
       // 查询个数
       const mid = `SELECT mid FROM cms_category WHERE id=${cid} AND mid IS NOT NULL`;
@@ -397,7 +397,7 @@ class ArticleService  {
     }
   }
 
-  static async tongji() {
+  async tongji() {
     try {
       // 昨天
       // const yesterdayStr =

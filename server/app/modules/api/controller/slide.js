@@ -14,7 +14,7 @@ const {
 
 class SlideController {
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const data = await slide.create(body);
@@ -25,7 +25,7 @@ class SlideController {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await slide.delete(id);
@@ -36,7 +36,7 @@ class SlideController {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await slide.update(body);
@@ -47,7 +47,7 @@ class SlideController {
   }
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       const {id} = req.query;
       const data = await slide.detail(id);
@@ -58,7 +58,7 @@ class SlideController {
   }
 
   // 搜索
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const {cur,keyword,cid=0,pageSize=10} = req.query;
       const data = await slide.search(keyword, cur, pageSize, +cid);
@@ -73,7 +73,7 @@ class SlideController {
 
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,cid=0,pageSize=10} = req.query;
       const data = await slide.list(cur, pageSize, cid);
@@ -87,7 +87,7 @@ class SlideController {
   }
 
   // 上传图片
-  static async upload(req, res, next) {
+  async upload(req, res, next) {
     try {
       let file = req.files;
       const { originalname, filename, path } = file[0];

@@ -12,7 +12,7 @@ const {
 
 class SysRoleController {
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const data = await sysRole.create(body);
@@ -23,7 +23,7 @@ class SysRoleController {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await sysRole.delete(id);
@@ -34,7 +34,7 @@ class SysRoleController {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await sysRole.update(body);
@@ -45,7 +45,7 @@ class SysRoleController {
   }
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       const {id} = req.query;
       const data = await sysRole.detail(id);
@@ -56,7 +56,7 @@ class SysRoleController {
   }
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,pageSize=10} = req.query;
       const data = await sysRole.list(cur, pageSize);

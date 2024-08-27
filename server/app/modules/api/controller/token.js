@@ -9,7 +9,7 @@ const {
 
 class TokenController {
   // 更新token时间
-  static async update(res, req, next) {
+  async update(res, req, next) {
     try {
       const username = req.locals.username;
       const uid = req.locals.uid;
@@ -21,7 +21,7 @@ class TokenController {
   }
 
   // 校验token是否正确
-  static async check(req, res, next) {
+  async check(req, res, next) {
     try {
       const token = req.query.token;
       const res = await getToken(token, KEY);

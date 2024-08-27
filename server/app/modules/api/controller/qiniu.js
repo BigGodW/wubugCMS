@@ -14,7 +14,7 @@ const {
 class QiniuController  {
   
   // 获取七牛云上传token
-  static async getUploadToken(req, res, next) {
+  async getUploadToken(req, res, next) {
     try {
       const data = await qiniu.getUploadToken();
       res.json({ ...success, data: data });
@@ -24,7 +24,7 @@ class QiniuController  {
   }
 
   // 服务端直传七牛
-  static async upload(req, res, next) {
+  async upload(req, res, next) {
     try {
       const {config:{domain,bucket,secretKey,accessKey}} = req.app.locals;
       let file = req.file || req.files[0];

@@ -16,7 +16,7 @@ const {
 class FragController  {
 
   // 增
- static async create(req, res, next) {
+ async create(req, res, next) {
     try {
       const body = req.body;
       const data = await frag.create(body);
@@ -27,7 +27,7 @@ class FragController  {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await frag.delete(id);
@@ -38,7 +38,7 @@ class FragController  {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await frag.update(body);
@@ -49,7 +49,7 @@ class FragController  {
   }
 
   // 查
-  static async find(req, res, next) {
+  async find(req, res, next) {
     try {
       const data = await frag.find();
       res.json({ ...success, data: data });
@@ -59,7 +59,7 @@ class FragController  {
   }
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       const {id} = req.query;
       const data = await frag.detail(id);
@@ -70,7 +70,7 @@ class FragController  {
   }
 
   // 查子栏目
-  static async findSubId(req, res, next) {
+  async findSubId(req, res, next) {
     try {
       const {id} = req.query;
       const data = await frag.findSubId(id);
@@ -81,7 +81,7 @@ class FragController  {
   }
 
   // 搜索
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const {cur,keywords,pageSize= 20} = req.query
       const data = await frag.search(keywords, cur, pageSize);
@@ -95,7 +95,7 @@ class FragController  {
   }
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,pageSize=10} = req.query;
       const data = await frag.list(cur, pageSize);

@@ -14,9 +14,9 @@ const {
 } = Chan;
 
 class CollectController {
-  static model = "collect";
+  model = "collect";
 
-  static async getPages(req, res, next) {
+  async getPages(req, res, next) {
     try {
       let arr = [];
       const { targetUrl, listTag, charset } = req.body;
@@ -32,7 +32,7 @@ class CollectController {
   }
 
   //测试列表所有地址
-  static async getArticle(req, res, next) {
+  async getArticle(req, res, next) {
     try {
       const {
         taskUrl,
@@ -58,7 +58,7 @@ class CollectController {
   }
 
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const data = await collect.create(body);
@@ -69,7 +69,7 @@ class CollectController {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await collect.delete(id);
@@ -80,7 +80,7 @@ class CollectController {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await collect.update(body);
@@ -91,7 +91,7 @@ class CollectController {
   }
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       const {id} = req.query;
       const data = await collect.detail(id);
@@ -102,7 +102,7 @@ class CollectController {
   }
 
   // 搜索
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const {cur,keyword,pageSize=10} = req.query;
       const data = await collect.search(keyword, cur, pageSize);
@@ -116,7 +116,7 @@ class CollectController {
   }
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,pageSize=10} = req.query;
       let data = await collect.list(cur, pageSize);

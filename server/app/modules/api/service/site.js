@@ -2,13 +2,13 @@ const BaseService = require("./base");
 
 const {knex} = require('chanjs');
 
-class SiteService  {
-  static model = "cms_site";
+class SiteService  extends BaseService {
+  model = "cms_site";
   
   // 基本信息
-  static async find() {
+  async find() {
     try {
-      let res = await BaseService.all(SiteService.model);
+      let res = await this.all(this.model);
       return res[0];
     } catch (err) {
       console.error(err)
@@ -17,18 +17,18 @@ class SiteService  {
   }
 
   // 更新基本信息
-  static async update(body) {
+  async update(body) {
     const { id } = body;
     delete body.id;
 
     try {
       if (id) {
-        const result = await knex(SiteService.model)
+        const result = await knex(this.model)
           .where("id", "=", id)
           .update(body);
         return result ? "success" : "fail";
       } else {
-        const result = await BaseService.insert(SiteService.model,body);
+        const result = await this.insert(this.model,body);
         return result ? "success" : "fail";
       }
     } catch (err) {

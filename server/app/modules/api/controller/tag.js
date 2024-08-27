@@ -13,7 +13,7 @@ const {
 class tagController  {
 
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const data = await tag.create(body);
@@ -24,7 +24,7 @@ class tagController  {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await tag.delete(id);
@@ -35,7 +35,7 @@ class tagController  {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await tag.update(body);
@@ -46,7 +46,7 @@ class tagController  {
   }
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       const {id} = req.query;
       const data = await tag.detail(id);
@@ -57,7 +57,7 @@ class tagController  {
   }
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,pageSize=50} = req.query;
       const data = await tag.list(cur, pageSize);
@@ -68,7 +68,7 @@ class tagController  {
   }
 
 
-  static async has(req, res, next) {
+  async has(req, res, next) {
     try {
       const {path} = req.query;
       const data = await tag.has(path);
@@ -79,7 +79,7 @@ class tagController  {
   }
 
   // 搜索
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const {cur,keyword,pageSize=10} = req.query;
       const data = await tag.search(keyword, cur, pageSize);

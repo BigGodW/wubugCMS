@@ -2,7 +2,7 @@ const {config} = require("chanjs");
 
 class PdfController {
   // 登录
-  static async pdf(req, res, next) {
+  async pdf(req, res, next) {
     try {
      let file = req.query.file || '';
      const pdfPath = path.join(__dirname, `../../../${file}`); 

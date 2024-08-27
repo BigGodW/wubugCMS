@@ -3,7 +3,7 @@ const qiniu = require('qiniu');
 class QiniuService  {
 
   // 生成上传token
-  static async getUploadToken(config){
+  async getUploadToken(config){
     const {accessKey,secretKey,bucket} = config;
     let mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
     // 上传凭证
@@ -18,7 +18,7 @@ class QiniuService  {
   }
 
   // 获取上传token
-  // static async getUploadToken() {
+  // async getUploadToken() {
   //   try {
   //     const result = {
   //       "token":await this._getToken(),
@@ -31,7 +31,7 @@ class QiniuService  {
 
 
   //七牛云上传
-  static async upload(file,config){
+  async upload(file,config){
     let date= new Date();
     let year = date.getFullYear();
     let month = (date.getMonth()+1).toString().padStart(2,'0');

@@ -1,12 +1,12 @@
 const {knex} = require('chanjs');
 const BaseService = require("./base");
 
-class CategoryService  {
-  static model = "cms_category";
+class CategoryService extends BaseService {
+  model = "cms_category";
   // 增
-  static async create(body) {
+  async create(body) {
     try {
-      const result = await BaseService.insert(CategoryService.model, body);
+      const result = await this.insert(this.model, body);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
@@ -15,9 +15,9 @@ class CategoryService  {
   }
 
   // 删
-  static async delete(id) {
+  async delete(id) {
     try {
-      const result = await knex(CategoryService.model)
+      const result = await knex(this.model)
         .where("id", "=", id)
         .del();
       return result ? "success" : "fail";
@@ -28,11 +28,11 @@ class CategoryService  {
   }
 
   // 改
-  static async update(body) {
+  async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(CategoryService.model)
+      const result = await knex(this.model)
         .where("id", "=", id)
         .update(body);
       return result ? "success" : "fail";
@@ -43,9 +43,9 @@ class CategoryService  {
   }
 
   // 查全部栏目
-  static async find() {
+  async find() {
     try {
-      const result = await BaseService.all(CategoryService.model).orderBy("orderBy", "asc" );
+      const result = await this.all(this.model).orderBy("orderBy", "asc" );
       return result;
     } catch (err) {
       console.error(err)
@@ -54,9 +54,9 @@ class CategoryService  {
   }
 
   // 查栏目
-  static async findId(id) {
+  async findId(id) {
     try {
-      const data = await knex(CategoryService.model)
+      const data = await knex(this.model)
         .where("id", "=", id)
         .select(['id','pid','seoTitle','seoKeywords','seoDescription','name','pinyin','path','description','type','url','orderBy','target','status','mid','listView','articleView']);
       return data[0];
@@ -67,9 +67,9 @@ class CategoryService  {
   }
 
   // 查子栏目
-  static async findSubId(id) {
+  async findSubId(id) {
     try {
-      const result = await knex(CategoryService.model)
+      const result = await knex(this.model)
         .where("pid", "=", id)
         .select();
       return result;
@@ -80,13 +80,13 @@ class CategoryService  {
   }
 
   // 搜索栏目
-  static async search(key) {
+  async search(key) {
     try {
       const result = key
-        ? await knex(CategoryService.model)
+        ? await knex(this.model)
         .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
         .orderBy("orderBy", "asc" )
-        : await knex(CategoryService.model)
+        : await knex(this.model)
         .orderBy("orderBy", "asc");
       return result;
     } catch (err) {

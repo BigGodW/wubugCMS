@@ -1,12 +1,12 @@
 const {knex} = require('chanjs');
 
 class FriendlinkService {
-  static model = "cms_friendlink";
+  model = "cms_friendlink";
 
   // 新增
-  static async create(body) {
+  async create(body) {
     try {
-      const result = await knex(FriendlinkService.model).insert(body);
+      const result = await knex(this.model).insert(body);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err);
@@ -15,9 +15,9 @@ class FriendlinkService {
   }
 
   // 删
-  static async delete(id) {
+  async delete(id) {
     try {
-      const res = await knex(FriendlinkService.model)
+      const res = await knex(this.model)
         .where("id", "=", id)
         .del();
       return res ? "success" : "fail";
@@ -28,11 +28,11 @@ class FriendlinkService {
   }
 
   // 修改
-  static async update(body) {
+  async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(FriendlinkService.model)
+      const result = await knex(this.model)
         .where("id", "=", id)
         .update(body);
       return result ? "success" : "fail";
@@ -43,16 +43,16 @@ class FriendlinkService {
   }
 
   // 列表
-  static async list(cur = 1, pageSize = 10) {
+  async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = await knex(FriendlinkService.model).count("id", {
+      const total = await knex(this.model).count("id", {
         as: "count",
       });
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
         .select("*")
-        .from(FriendlinkService.model)
+        .from(this.model)
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
@@ -70,11 +70,11 @@ class FriendlinkService {
   }
 
   // 查
-  static async detail(id) {
+  async detail(id) {
     try {
       const data = await knex
         .select(["id", "link", "orderBy", "title"])
-        .from(FriendlinkService.model)
+        .from(this.model)
         .where("id", "=", id);
       return data[0];
     } catch (err) {
@@ -84,26 +84,26 @@ class FriendlinkService {
   }
 
   // 搜索
-  static async search(key = "", cur = 1, pageSize = 10) {
+  async search(key = "", cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const total = key
-        ? await knex(FriendlinkService.model).count("id", { as: "count" })
-        : await knex(FriendlinkService.model)
+        ? await knex(this.model).count("id", { as: "count" })
+        : await knex(this.model)
             .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .count("id", { as: "count" });
       const offset = parseInt((cur - 1) * pageSize);
       const list = key
         ? await knex
             .select(["id", "name", "mark"])
-            .from(FriendlinkService.model)
+            .from(this.model)
             .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .limit(pageSize)
             .offset(offset)
             .orderBy("id", "desc")
         : await knex
             .select(["id", "name", "mark"])
-            .from(FriendlinkService.model)
+            .from(this.model)
             .limit(pageSize)
             .offset(offset)
             .orderBy("id", "desc");

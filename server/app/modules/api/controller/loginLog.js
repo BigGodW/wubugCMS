@@ -16,7 +16,7 @@ const {
 
 class LoginLogController {
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const {config} = req.app.locals;
       const token = req.cookies.token;
@@ -33,7 +33,7 @@ class LoginLogController {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const data = await loginLog.delete();
       res.json({ ...success, data: data });
@@ -43,7 +43,7 @@ class LoginLogController {
   }
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const { pageSize, cur } = req.query;
       let data = await loginLog.list(cur, pageSize);

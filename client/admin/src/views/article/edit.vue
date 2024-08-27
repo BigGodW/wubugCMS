@@ -349,7 +349,7 @@
                 <!-- 上传 -->
                 <el-upload
                   multiple
-                  :http-request="uploadPics"
+                  :http-request="beforeUploadPics"
                   :data="{ ...item, index: index }"
                   :before-upload="beforeUpload"
                   :limit="10"
@@ -368,17 +368,19 @@
       </el-form>
     </div>
   </div>
+
+  <DialogCroper ref="dialogCrop" :img="img" :file="file" @crop="upload" />
 </template>
 
 <script>
 import { find } from "@/api/category.js";
 import { update, detail, findField, delfile } from "@/api/article.js";
 import { search } from "@/api/tag.js";
-import { upload } from "@/api/upload.js";
 import Vue3Tinymce from "@/components/Vue3Tinymce/src/Main.vue";
+import DialogCroper from "@/components/ChanDialogCrop/DialogCroper.vue";
 import { tinymceSet } from "@/config/tinymce.js";
 import { htmlDecode } from "@/utils/tool.js";
-import { uploadUrl } from "@/api/upload.js";
+import { upload,uploadUrl } from "@/api/upload.js";
 import {
   getImgUrlFromStr,
   filterHtml,
@@ -392,6 +394,7 @@ export default {
   name: "article-edit",
   components: {
     Vue3Tinymce,
+    DialogCroper
   },
   data: () => {
     return {
@@ -408,6 +411,9 @@ export default {
       autoDes: false,
       picNum: 1,
       taglist: [],
+
+      file: null,
+      img: '',
       params: {
         //接口入参
         id: 0,
@@ -552,7 +558,6 @@ export default {
             ) {
               let field = item.default;
               let s = JSON.parse(item.default);
-              console.log("--->", s.options);
               item.default = s.options || [];
             }
             // 图片
@@ -571,7 +576,6 @@ export default {
               item.values = this.fieldParams[item.ename];
             }
           });
-          console.log("end--->", this.field);
         }
       } catch (error) {
         console.log(error);
@@ -616,25 +620,51 @@ export default {
         this.$message("上传文件只能是图片格式");
         return false;
       }
-      if (rawFile.size / 1024 / 1024 > 0.2) {
+
+      this.file = rawFile;
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        let data;
+        if (typeof e.target.result === 'object') {
+          // 把Array Buffer转化为blob 如果是base64不需要
+          data = window.URL.createObjectURL(new Blob([e.target.result]));
+        } else {
+          data = e.target.result;
+        }
+        this.img = data;
+        this.$refs.dialogCrop.dialogFormVisible = true;
+      };
+       // 转化为blob
+       reader.readAsArrayBuffer(rawFile);
+      return false;
+    },
+    //上传缩略图
+    async upload(file = this.file) {
+      if (file.size / 1024 / 1024 > 0.2) {
         this.$message("上传图片必须小于200k");
         return false;
       }
-    },
-    //上传缩略图
-    async upload(file) {
       let fd = new FormData();
       //把上传文件的添加到 ForDate对象中
-      fd.append("file", file.file);
+      fd.append("file", file || this.file);
       let res = await upload(fd);
       if (res.code === 200) {
         this.params.img = res.data.path;
       }
     },
 
+    beforeUploadPics(rawFile) {
+      if (rawFile.type.indexOf("image") === -1) {
+        this.$message("上传文件只能是图片格式");
+        return false;
+      }
+      if (rawFile.size / 1024 / 1024 > 0.2) {
+        this.$message("上传图片必须小于200k");
+        return false;
+      }
+    },
     //上传缩略图
     async uploadPics(files) {
-      console.log("file-->", files);
       const {
         data: { index },
         file,
@@ -643,7 +673,6 @@ export default {
       //把上传文件的添加到 ForDate对象中
       fd.append("file", file);
       let res = await upload(fd);
-      console.log("--->", res);
       if (res.code === 200) {
         const { filename, path } = res.data;
 
@@ -660,7 +689,6 @@ export default {
             },
           ];
         }
-        console.log("this.field-->", this.field);
       }
     },
 
@@ -686,7 +714,6 @@ export default {
 
     async delfile(url) {
       try {
-        console.log("url----->", url);
         let res = await delfile(url);
       } catch (error) {
         console.log(error);

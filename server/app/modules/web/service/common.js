@@ -1,6 +1,4 @@
 const Chan = require("chanjs");
-
-
 const {
   knex,
   helper: {
@@ -12,7 +10,7 @@ class CommonService {
   constructor() {}
 
   // 网站栏目
-  static async category() {
+  async category() {
     try {
       let res = await knex("cms_category")
         .select([
@@ -46,7 +44,7 @@ class CommonService {
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    * @returns {Array}
    */
-  static async getArticleList(start = 0, len = 5, attr = "") {
+  async getArticleList(start = 0, len = 5, attr = "") {
     try {
       const columns = [
         "a.id",
@@ -87,7 +85,7 @@ class CommonService {
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    * @returns {Array}
    */
-  static async getArticleListByCid(cid, len = 5, attr = "") {
+  async getArticleListByCid(cid, len = 5, attr = "") {
     try {
       // 获取所有id
       const res = await knex.select("id").from("cms_category").where("pid", cid);
@@ -128,7 +126,7 @@ class CommonService {
    * @param {Number} aid 文章id
    * @returns {Array} 返回数组
    */
-  static async getTagsFromArticleByAid(aid) {
+  async getTagsFromArticleByAid(aid) {
     try {
       // 执行查询
       const result = await knex("cms_article AS a")
@@ -150,7 +148,7 @@ class CommonService {
    * @description 返回所有的根栏目
    * @returns {Array}
    */
-  static async getAllParentCategory(idArray = []) {
+  async getAllParentCategory(idArray = []) {
     try {
       const result = await knex("cms_category")
         .select([
@@ -180,7 +178,7 @@ class CommonService {
    * @param {Array} cids 栏目id
    * @returns {Array}
    */
-  static async getArticleListByCids(cids = []) {
+  async getArticleListByCids(cids = []) {
     try {
       //tag去重
       function uniqueByPath(arr) {
@@ -195,7 +193,7 @@ class CommonService {
       }
 
       //主栏目-图-文
-      let cate = await CommonService.getAllParentCategory(cids);
+      let cate = await this.getAllParentCategory(cids);
       cate = cate.filter((item) => item.path != "/home" && item.type == "0");
       const cateField = ["id", "name", "path", "pinyin"];
       cate = filterFields(cate, cateField);
@@ -204,14 +202,14 @@ class CommonService {
         let item = cate[i];
         let tags = [];
         // 推荐
-        let top = await CommonService.getArticleListByCid(item.id, 1, 2);
+        let top = await this.getArticleListByCid(item.id, 1, 2);
         // 最新
-        let list = await CommonService.getArticleListByCid(item.id, 4);
+        let list = await this.getArticleListByCid(item.id, 4);
         list = formatDay(list);
         // tag列表
         for (let j = 0, sub; j < list.length; j++) {
           sub = list[j];
-          let res = await CommonService.getTagsFromArticleByAid(sub.id);
+          let res = await this.getTagsFromArticleByAid(sub.id);
           tags.push(...res);
         }
         tags = uniqueByPath(tags);
@@ -230,7 +228,7 @@ class CommonService {
    * @param {Number} len 默认10条
    * @returns
    */
-  static async getArticlePvList(len = 10, id = "") {
+  async getArticlePvList(len = 10, id = "") {
     try {
       let query = knex
         .select(
@@ -275,7 +273,7 @@ class CommonService {
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    * @returns
    */
-  static async getNewImgList(len = 10, id = "", attr = "") {
+  async getNewImgList(len = 10, id = "", attr = "") {
     try {
       let query = knex
         .select(
@@ -324,7 +322,7 @@ class CommonService {
    * @param {Number} pageSize 默认10条
    * @returns {Array}
    */
-  static async list(id, current = 1, pageSize = 10) {
+  async list(id, current = 1, pageSize = 10) {
     try {
       const start = (current - 1) * pageSize;
 
@@ -387,7 +385,7 @@ class CommonService {
    * @param {Number} pageSize 默认10条
    * @returns {Array}
    */
-  static async tags(name, current = 1, pageSize = 10) {
+  async tags(name, current = 1, pageSize = 10) {
     try {
       const start = (current - 1) * pageSize;
 
@@ -451,7 +449,7 @@ class CommonService {
    * @param {*} articleId
    * @returns {Array} 返回数组
    */
-  static async fetchTagsByArticleId(articleId) {
+  async fetchTagsByArticleId(articleId) {
     try {
       const tags = await knex("cms_tag")
         .select("cms_tag.id", "cms_tag.path", "cms_tag.name")
@@ -469,7 +467,7 @@ class CommonService {
   }
 
   // banner轮播图
-  static async bannerSlide(cur = 1, pageSize = 10) {
+  async bannerSlide(cur = 1, pageSize = 10) {
     try {
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex

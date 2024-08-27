@@ -14,7 +14,7 @@ const {
 class MenuController  {
 
   // 查
-  static async find(req, res, next) {
+  async find(req, res, next) {
     try {
       const data = await menu.find();
       res.json({ ...success, data: data })
@@ -24,7 +24,7 @@ class MenuController  {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await menu.update(body);

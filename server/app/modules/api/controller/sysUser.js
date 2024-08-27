@@ -16,7 +16,7 @@ const {
 
 class SysUserController {
   // 登录
-  static async login(req, res, next) {
+  async login(req, res, next) {
     try {
       const { config } = req.app.locals;
       let { username, password } = req.body;
@@ -42,7 +42,7 @@ class SysUserController {
   }
 
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       body.password = md5(body.password + config.secretcms.key);
@@ -54,7 +54,7 @@ class SysUserController {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await sysUser.delete(id);
@@ -65,7 +65,7 @@ class SysUserController {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       body.password = md5(body.password + config.secretcms.key);
@@ -77,7 +77,7 @@ class SysUserController {
   }
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       let uid = req.query.id;
       if(!uid){
@@ -96,7 +96,7 @@ class SysUserController {
   }
 
   // 搜索
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const {cur,keyword,pageSize=10} = req.query;
       const data = await sysUser.search(keyword, cur, pageSize);
@@ -110,7 +110,7 @@ class SysUserController {
   }
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,pageSize=10} = req.query;
       let data = await sysUser.list(cur, pageSize);

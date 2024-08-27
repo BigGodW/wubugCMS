@@ -1,11 +1,11 @@
 const {knex} = require('chanjs');
 
 class LoginLogService {
-  static model = "sys_loginlog";
+  model = "sys_loginlog";
   // 增加
-  static async create(body) {
+  async create(body) {
     try {
-      const result = await knex(LoginLogService.model).insert(body);
+      const result = await knex(this.model).insert(body);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err);
@@ -14,10 +14,10 @@ class LoginLogService {
   }
 
   // 删除100条之外的数据
-  static async delete() {
+  async delete() {
     try {
       // 获取最新的100条记录的ID
-      const recentLogIds = await knex(LoginLogService.model)
+      const recentLogIds = await knex(this.model)
         .select("id")
         .orderBy("createdAt", "desc")
         .limit(100);
@@ -26,7 +26,7 @@ class LoginLogService {
       const idsToKeep = recentLogIds.map((row) => row.id);
 
       // 删除不在这些ID中的所有记录
-      const result = await knex(LoginLogService.model)
+      const result = await knex(this.model)
         .whereNotIn("id", idsToKeep)
         .del();
 
@@ -38,14 +38,14 @@ class LoginLogService {
   }
 
   // 列表
-  static async list(cur = 1, pageSize = 10) {
+  async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = await knex(LoginLogService.model).count("id", {
+      const total = await knex(this.model).count("id", {
         as: "count",
       });
       const offset = parseInt((cur - 1) * pageSize);
-      const list = await knex(LoginLogService.model)
+      const list = await knex(this.model)
         .leftJoin("sys_user", "sys_loginlog.uid", "sys_user.id")
         .select("sys_loginlog.*", "sys_user.username")
         .offset(offset)

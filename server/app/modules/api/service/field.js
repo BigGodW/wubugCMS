@@ -1,10 +1,10 @@
 const { knex } = require("chanjs");
 
 class FieldService {
-  static model = "cms_field";
+  model = "cms_field";
 
   // 增
-  static async create(body) {
+  async create(body) {
     try {
       // 新增字的同时需要新增表
       const { mid, cname, ename, type, val, defaultVal, orderBy, length } =
@@ -15,7 +15,7 @@ class FieldService {
           .raw("SELECT tableName FROM cms_model WHERE id=?", [mid])
           .transacting(trx);
         table = table[0][0].tableName;
-        const result = await knex(FieldService.model)
+        const result = await knex(this.model)
           .insert({ mid, cname, ename, type, val, defaultVal, orderBy, length })
           .transacting(trx);
 
@@ -75,7 +75,7 @@ class FieldService {
   // 删 先删除field数据表中的数据 在删除对应表中的字段名称 2020-10-08
   // "alter table ${table} drop column ${fieldName}"
 
-  static async delete(id, table) {
+  async delete(id, table) {
     try {
       await knex.transaction(async (trx) => {
         // 查询需要删除的字段
@@ -89,7 +89,7 @@ class FieldService {
           .transacting(trx);
         table = table[0][0].table;
         // 删除数据
-        const result = await knex(FieldService.model)
+        const result = await knex(this.model)
           .where("id", "=", id)
           .del()
           .transacting(trx);
@@ -108,14 +108,14 @@ class FieldService {
   }
 
   // 改
-  static async update(body) {
+  async update(body) {
     const { id, length } = body;
     delete body.id;
     try {
       // 开始事务
       await knex.transaction(async (trx) => {
         // 更新记录
-        const result = await knex(FieldService.model)
+        const result = await knex(this.model)
           .where("id", "=", id)
           .update(body)
           .transacting(trx);
@@ -165,7 +165,7 @@ class FieldService {
 
   // 查询是否存在重复字段名
 
-  static async findByName(cname, ename) {
+  async findByName(cname, ename) {
     try {
       const result = await knex.raw(
         "SELECT cname,ename FROM cms_field WHERE cname=? or ename=? LIMIT 0,1",
@@ -179,16 +179,16 @@ class FieldService {
   }
 
   // 文章列表
-  static async list(mid, cur = 1, pageSize = 10) {
+  async list(mid, cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const sql = `SELECT COUNT(id) as count FROM ${FieldService.model}`;
+      const sql = `SELECT COUNT(id) as count FROM ${this.model}`;
       const total = await knex.raw(sql);
       // 列表
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
         .select(["id", "cname", "ename", "orderBy"])
-        .from(FieldService.model)
+        .from(this.model)
         .where("mid", "=", mid)
         .limit(pageSize)
         .offset(offset)
@@ -213,9 +213,9 @@ class FieldService {
   }
 
   // 查
-  static async detail(id) {
+  async detail(id) {
     try {
-      const data = await knex(FieldService.model).where("id", "=", id).select();
+      const data = await knex(this.model).where("id", "=", id).select();
       return data[0];
     } catch (err) {
       console.error(err);

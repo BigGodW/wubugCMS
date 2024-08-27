@@ -14,7 +14,7 @@ const {
 class CategoryController {
 
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const data = await category.create(body);
@@ -25,7 +25,7 @@ class CategoryController {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await category.delete(id);
@@ -36,7 +36,7 @@ class CategoryController {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await category.update(body);
@@ -47,7 +47,7 @@ class CategoryController {
   }
 
   // 查
-  static async find(req, res, next) {
+  async find(req, res, next) {
     try {
       const data = await category.find();
       res.json({ ...success, data: data });
@@ -57,7 +57,7 @@ class CategoryController {
   }
 
   // 查
-  static async findId(req, res, next) {
+  async findId(req, res, next) {
     try {
       const {id} = req.query;
       const data = await category.findId(id);
@@ -68,7 +68,7 @@ class CategoryController {
   }
 
   // 查子栏目
-  static async findSubId(req, res, next) {
+  async findSubId(req, res, next) {
     try {
       const {id} = req.query;
       const data = await category.findSubId(id);
@@ -79,7 +79,7 @@ class CategoryController {
   }
 
   // 搜索栏目
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const {q} = req.query;
       const data = await category.search(q);

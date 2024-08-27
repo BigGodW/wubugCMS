@@ -42,18 +42,14 @@
     </el-form>
   </div>
 
-  <DialogCroper ref="dialogCrop" :img="img" :file="file" @crop="upload" />
+ 
 </template>
 
 <script>
 import { create } from "@/api/slide.js";
 import { upload } from "@/api/upload.js";
- import DialogCroper from "@/components/ChanDialogCrop/DialogCroper.vue"
 export default {
   name: "slide-add",
-  components: {
-    DialogCroper
-  },
   data: () => {
     return {
       file: null,
@@ -82,38 +78,16 @@ export default {
         this.$message("上传文件只能是图片格式");
         return false;
       }
-      console.log("rawFile-->", rawFile);
-      this.file = rawFile;
-
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-
-        let data;
-        if (typeof e.target.result === 'object') {
-          // 把Array Buffer转化为blob 如果是base64不需要
-          data = window.URL.createObjectURL(new Blob([e.target.result]));
-        } else {
-          data = e.target.result;
-        }
-        console.log("data-->", data)
-        this.img = data;
-        this.$refs.dialogCrop.dialogFormVisible = true;
-      };
-       // 转化为blob
-       reader.readAsArrayBuffer(rawFile);
-
-      return false;
-    },
-    //上传缩略图
-    async upload(file = this.file) {
-      console.log("file-->", file);
-      if (file.size / 1024 / 1024 > 0.2) {
+      if (rawFile.size / 1024 / 1024 > 0.2) {
         this.$message("上传图片必须小于200k");
         return false;
       }
+    },
+    //上传缩略图
+    async upload(file) {
       let fd = new FormData();
       //把上传文件的添加到 ForDate对象中
-      fd.append("file", file || this.file);
+      fd.append("file", file.file);
       let res = await upload(fd);
       if (res.code === 200) {
         this.params.imgUrl = res.data.path;

@@ -16,7 +16,7 @@ const {
 class MessageController  {
 
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const data = await message.create(body);
@@ -28,7 +28,7 @@ class MessageController  {
 
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await message.delete(id);
@@ -39,7 +39,7 @@ class MessageController  {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await message.update(body);
@@ -51,7 +51,7 @@ class MessageController  {
   
 
   // 查
-  static async find(req, res, next) {
+  async find(req, res, next) {
     try {
       const {id} = req.query;
       const data = await message.find(id);
@@ -64,7 +64,7 @@ class MessageController  {
  
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       const {id} = req.query;
       const data = await message.detail(id);
@@ -78,7 +78,7 @@ class MessageController  {
 
 
   // 搜索
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const {cur,keyword,pageSize=20} = req.query;
       const data = await message.search(keyword, cur, pageSize);
@@ -92,7 +92,7 @@ class MessageController  {
   }
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,pageSize=20} = req.query;
       const data = await message.list(cur, pageSize);

@@ -15,7 +15,7 @@ const {
 
 class ModelController  {
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const has = await model.findByName(body.model, body.tableName);
@@ -31,7 +31,7 @@ class ModelController  {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const body = req.body;
       const data = await model.delete(body);
@@ -42,7 +42,7 @@ class ModelController  {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await model.update(body);
@@ -53,7 +53,7 @@ class ModelController  {
   }
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       const {id} = req.query;
       const data = await model.detail(id);
@@ -65,7 +65,7 @@ class ModelController  {
 
 
   // 是否被使用
-  static async hasUse(req, res, next) {
+  async hasUse(req, res, next) {
     try {
       const {id} = req.query;
       const data = await model.hasUse(id);
@@ -76,7 +76,7 @@ class ModelController  {
   }
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,pageSize=10} = req.query;
       const data = await model.list(cur, pageSize);

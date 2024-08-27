@@ -1,219 +1,144 @@
 <template>
-  <el-dialog v-model="dialogFormVisible" title="图片裁剪" width="80%">
-
+  <el-dialog v-model="dialogFormVisible" title="图片裁剪" width="50%">
     <div class="model" v-show="model" @click="model = false">
       <div class="model-show">
-        <img :src="modelSrc" alt="">
+        <img :src="modelSrc" alt="" />
       </div>
     </div>
-    <div class="cut"  :style="{
-  'width': width + 'px',
-  'height': height + 'px'
-}">
+    <div
+      class="cut pos-r"
+      :style="{
+        width: width,
+        height: height,
+      }"
+    >
       <VueCropper
-      ref="cropper"
-      :img="option.img"
-      :output-size="option.size"
-      :output-type="option.outputType"
-        :info="true"
+        ref="cropper"
+        :img="option.img"
+        :output-size="option.size"
+        :output-type="option.outputType"
         :full="option.full"
-        :fixed="fixed"
-        :fixed-number="fixedNumber"
-        :can-move="option.canMove"
-        :can-move-box="option.canMoveBox"
-        :fixed-box="option.fixedBox"
-        :original="option.original"
-        :auto-crop="option.autoCrop"
-        :auto-crop-width="option.autoCropWidth"
-        :auto-crop-height="option.autoCropHeight"
-        :center-box="option.centerBox"
+        :auto-crop="true"
+        :auto-crop-width="120"
+        :auto-crop-height="120"
         @real-time="realTime"
-        :high="option.high"
         @img-load="imgLoad"
         mode="contain"
-        :max-img-size="option.max"
-         @crop-moving="cropMoving"
-         ></VueCropper>
-    </div>
-    <!-- <div class="show-preview"
-      :style="{ 'width': previews.w + 'px', 'height': previews.h + 'px', 'overflow': 'hidden', 'margin': '5px' }">
-      <div :style="previews.div">
-        <img :src="previews.url" :style="previews.img">
-      </div>
-    </div> -->
-    <div class="test-button">
-      <!-- <button @click="changeImg" class="btn">changeImg</button> -->
-      <label class="btn" for="uploads">upload</label>
-      <input type="file" id="uploads" style="position:absolute; clip:rect(0 0 0 0);"
-        accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadImg($event, 1)">
-      <!-- <button @click="startCrop" v-if="!crap" class="btn">start</button>
-      <button @click="stopCrop" v-else class="btn">stop</button>
-      <button @click="clearCrop" class="btn">clear</button> -->
-      <button @click="refreshCrop" class="btn">refresh</button>
-      <button @click="changeScale(1)" class="btn">+</button>
-      <button @click="changeScale(-1)" class="btn">-</button>
-      <button @click="rotateLeft" class="btn">rotateLeft</button>
-      <button @click="rotateRight" class="btn">rotateRight</button>
-      <!-- <button @click="finish('base64')" class="btn">preview(base64)</button>
-      <button @click="finish('blob')" class="btn">preview(blob)</button>
-      <a @click="down('base64')" class="btn">download(base64)</a>
-      <a @click="down('blob')" class="btn">download(blob)</a> -->
-      <a @click="() => option.img = ''" class="btn">清除图片</a>
+        @crop-moving="cropMoving"
+      ></VueCropper>
 
-      <input type="number" v-model="width">
-      <input type="number" v-model="height">
-      <!-- <div style="display:block; width: 100%;">
-        <label class="c-item">
-          <span>上传图片是否显示原始宽高 (针对大图 可以铺满)</span>
-          <input type="checkbox" v-model="option.original">
-          <span>original: {{ option.original }}</span>
-        </label>
-        <label class="c-item">
-          <span>能否拖动图片</span>
-          <input type="checkbox" v-model="option.canMove">
-        </label>
-        <label class="c-item">
-          <span>能否拖动截图框</span>
-          <input type="checkbox" v-model="option.canMoveBox">
-          <span>canMoveBox: {{ option.canMoveBox }}</span>
-        </label>
-        <label class="c-item">
-          <span>截图框固定大小</span>
-          <input type="checkbox" v-model="option.fixedBox">
-          <span>fixedBox: {{ option.fixedBox }}</span>
-        </label>
-        <label class="c-item">
-          <span>是否输出原图比例的截图</span>
-          <input type="checkbox" v-model="option.full">
-          <span>full: {{ option.full }}</span>
-        </label>
-        <label class="c-item">
-          <span>是否自动生成截图框</span>
-          <input type="checkbox" v-model="option.autoCrop">
-          <span>autoCrop: {{ option.autoCrop }}</span>
-        </label>
-        <label class="c-item">
-          <span>是否根据dpr生成适合屏幕的高清图片</span>
-          <input type="checkbox" v-model="option.high">
-          <span>high: {{ option.high }}</span>
-        </label>
-        <label class="c-item">
-          <span>截图框是否限制在图片里(只有在自动生成截图框时才能生效)</span>
-          <input type="checkbox" v-model="option.centerBox">
-          <span>centerBox: {{ option.centerBox }}</span>
-        </label>
-        <label class="c-item">
-          <p>输出图片格式</p>
-          <label>jpg
-            <input type="radio" name="type" value="jpeg" v-model="option.outputType">
-          </label>
-          <label>png
-            <input type="radio" name="type" value="png" v-model="option.outputType">
-          </label>
-          <label>webp
-            <input type="radio" name="type" value="webp" v-model="option.outputType">
-          </label>
-        </label>
-      </div> -->
+      <div class="flex items-start scroper-aside pt-6">
+        <el-button class="ml-6 mb-4">
+          <el-upload :http-request="uploadImg" :show-file-list="false">
+            <el-popover placement="top-start" title="上传">
+              <template #reference>
+                <el-icon><Upload /></el-icon>
+              </template>
+            </el-popover>
+          </el-upload>
+        </el-button>
+        <el-button class="ml-6 mb-4" @click="changeScale(1)"
+          ><el-icon><Plus /></el-icon
+        ></el-button>
+        <el-button class="ml-6 mb-4" @click="changeScale(-1)">
+          <el-icon><Minus /></el-icon
+        ></el-button>
+        <el-button class="ml-6 mb-4" @click="refreshCrop">
+          <el-icon><Refresh /></el-icon
+        ></el-button>
+        <el-button class="ml-6 mb-4" @click="rotateLeft">
+          <el-icon><RefreshLeft /></el-icon
+        ></el-button>
+        <el-button class="ml-6 mb-4" @click="rotateRight">
+          <el-icon><RefreshRight /></el-icon
+        ></el-button>
+        <el-button class="ml-6 mb-4" @click="() => (option.img = '')">
+          <el-icon><Close /></el-icon
+        ></el-button>
+
+        <div class="flex items-center mb-6 pr-10">
+          <el-input
+            class="ml-6 w-full"
+            v-model="width"
+            placeholder="Please input"
+          />
+          <span class="ml-3 mr-3">W</span>
+        </div>
+
+        <div class="flex items-center pr-10">
+          <el-input
+            class="ml-6 w-full"
+            v-model="height"
+            placeholder="Please input"
+          />
+          <span class="ml-3 mr-3">H</span>
+        </div>
+      </div>
     </div>
 
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="handlerCancel">取消</el-button>
+        <el-button class="mr-6" @click="handlerCancel">取消</el-button>
         <el-button type="primary" @click="handlerOk">确定</el-button>
       </span>
     </template>
-
   </el-dialog>
 </template>
 
 <script>
-import 'vue-cropper/dist/index.css'
-import { VueCropper }  from "vue-cropper";
+import "vue-cropper/dist/index.css";
+import { VueCropper } from "vue-cropper";
 
 export default {
-  name: 'DialogCropper',
+  name: "DialogCropper",
   components: {
-    VueCropper
+    VueCropper,
   },
   props: {
     file: {
       type: Object,
-      default: null
+      default: null,
     },
     img: {
       type: String,
-      default: '',
+      default: "",
     },
   },
 
   data() {
     return {
-      dialogFormVisible:false,
-      width:720,
-      height:350,
+      dialogFormVisible: false,
+      width: "100%",
+      height: "350px",
       model: false,
-      modelSrc: '',
+      modelSrc: "",
       crap: false,
       previews: {},
-
       option: {
         img: this.img,
-        size: 1,
-        full: true,
-        outputType: 'png',
-        canMove: true,
-        fixedBox: false,
-        original: true,
-        canMoveBox: true,
-        autoCrop: true,
-        // 只有自动截图开启 宽度高度才生效
-        autoCropWidth: 200,
-        autoCropHeight: 200,
+        size: 0.7,
+        full: false,
+        outputType: "png",
         centerBox: true,
-        high: true,
         max: 99999,
       },
       show: true,
       fixed: false,
       fixedNumber: [75, 34],
-    }
+    };
   },
   watch: {
     img: {
       handler(val) {
         this.option.img = val;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
 
-
-  mounted: function () {
-  },
+  mounted: function () {},
 
   methods: {
-    // changeImg() {
-    //   this.option.img = this.lists[~~(Math.random() * this.lists.length)].img;
-    // },
-    // startCrop() {
-    //   // start
-    //   this.crap = true;
-    //   this.$refs.cropper.startCrop();
-    // },
-    // stopCrop() {
-    //   //  stop
-    //   this.crap = false;
-    //   this.$refs.cropper.stopCrop();
-    // },
-    // clearCrop() {
-    //   // clear
-    //   this.$refs.cropper.clearCrop();
-    // },
-    // refreshCrop() {
-    //   // clear
-    //   this.$refs.cropper.refresh();
-    // },
     changeScale(num) {
       num = num || 1;
       this.$refs.cropper.changeScale(num);
@@ -224,75 +149,30 @@ export default {
     rotateRight() {
       this.$refs.cropper.rotateRight();
     },
-    // finish(type) {
-    //   // 输出
-    //   // var test = window.open('about:blank')
-    //   // test.document.body.innerHTML = '图片生成中..'
-    //   if (type === 'blob') {
-    //     this.$refs.cropper.getCropBlob((data) => {
-    //       console.log(data);
-    //       var img = window.URL.createObjectURL(data);
-    //       this.model = true;
-    //       this.modelSrc = img;
-    //     });
-    //   } else {
-    //     this.$refs.cropper.getCropData((data) => {
-    //       this.model = true;
-    //       this.modelSrc = data;
-    //     });
-    //   }
-    // },
+
     // 实时预览函数
     realTime(data) {
       this.previews = data;
       console.log(data);
     },
 
-    // down(type) {
-    //   // event.preventDefault()
-    //   var aLink = document.createElement('a');
-    //   aLink.download = 'demo';
-    //   // 输出
-    //   if (type === 'blob') {
-    //     this.$refs.cropper.getCropBlob((data) => {
-    //       this.downImg = window.URL.createObjectURL(data);
-    //       aLink.href = window.URL.createObjectURL(data);
-    //       aLink.click();
-    //     });
-    //   } else {
-    //     this.$refs.cropper.getCropData((data) => {
-    //       this.downImg = data;
-    //       aLink.href = data;
-    //       aLink.click();
-    //     });
-    //   }
-    // },
-
-    uploadImg(e, num) {
-      //上传图片
-      // this.option.img
-      var file = e.target.files[0];
-      if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
-        alert('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种');
+    uploadImg(data) {
+      let file = data.file;
+      if (file.type.indexOf("image") === -1) {
+        this.$message("上传文件只能是图片格式");
         return false;
       }
-      var reader = new FileReader();
-      reader.onload = (e) => {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
         let data;
-        if (typeof e.target.result === 'object') {
-          // 把Array Buffer转化为blob 如果是base64不需要
+        if (typeof e.target.result === "object") {
           data = window.URL.createObjectURL(new Blob([e.target.result]));
         } else {
           data = e.target.result;
         }
-        if (num === 1) {
-          this.option.img = data;
-        } else if (num === 2) {
-          this.example2.img = data;
-        }
+        this.option.img = data;
+        this.dialogFormVisible = true;
       };
-      // 转化为base64
-      // reader.readAsDataURL(file)
       // 转化为blob
       reader.readAsArrayBuffer(file);
     },
@@ -300,32 +180,55 @@ export default {
       console.log(msg);
     },
     cropMoving(data) {
-      console.log(data, '截图框当前坐标');
+      console.log(data, "截图框当前坐标");
     },
-    handlerCancel(){
-      this.$emit('crop');
+    handlerCancel() {
+      this.$emit("crop");
       this.dialogFormVisible = false;
     },
-    handlerOk(){
-      this.$refs.cropper.getCropBlob(blob => {
-        let file = new File([blob], this.file.name, { type: this.file.type});
-        this.$emit('crop', file);
+    handlerOk() {
+      this.$refs.cropper.getCropBlob((blob) => {
+        let file = new File([blob], this.file.name, { type: this.file.type });
+        this.$emit("crop", file);
         this.dialogFormVisible = false;
       });
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
+.ml-6 {
+  margin-left: 6px !important;
+}
 .cut {
   min-width: 100px;
   min-height: 100px;
-  margin:0 auto;
-  overflow: auto;;
+  margin: 0 auto;
+  overflow: auto;
 }
 
+.scroper-aside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 92px;
+  height: 100%;
+  flex-direction: column;
+}
 
+.scroper-main {
+  width: 90%;
+  height: 100%;
+  overflow: auto;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .content {
   margin: auto;
   max-width: 1200px;
@@ -339,29 +242,6 @@ export default {
   justify-content: center;
 }
 
-.btn {
-  display: inline-block;
-  line-height: 1;
-  white-space: nowrap;
-  cursor: pointer;
-  background: #fff;
-  border: 1px solid #c0ccda;
-  color: #1f2d3d;
-  text-align: center;
-  box-sizing: border-box;
-  outline: none;
-  margin: 20px 10px 0px 0px;
-  padding: 9px 15px;
-  font-size: 14px;
-  border-radius: 4px;
-  color: #fff;
-  background-color: #50bfff;
-  border-color: #50bfff;
-  transition: all .2s ease;
-  text-decoration: none;
-  user-select: none;
-}
-
 .des {
   line-height: 30px;
 }
@@ -373,7 +253,8 @@ code.language-html {
   background-color: #333;
   color: #fff;
   overflow-x: auto;
-  font-family: Consolas, Monaco, Droid, Sans, Mono, Source, Code, Pro, Menlo, Lucida, Sans, Type, Writer, Ubuntu, Mono;
+  font-family: Consolas, Monaco, Droid, Sans, Mono, Source, Code, Pro, Menlo,
+    Lucida, Sans, Type, Writer, Ubuntu, Mono;
   border-radius: 5px;
   white-space: pre;
 }
@@ -386,26 +267,31 @@ code.language-html {
   line-height: 50px;
 }
 
-/*.title, .title:hover, .title-focus, .title:visited {
-        color: black;
-      }*/
-
 .title {
   display: block;
   text-decoration: none;
   text-align: center;
   line-height: 1.5;
   margin: 20px 0px;
-  background-image: -webkit-linear-gradient(left, #3498db, #f47920 10%, #d71345 20%, #f7acbc 30%, #ffd400 40%, #3498db 50%, #f47920 60%, #d71345 70%, #f7acbc 80%, #ffd400 90%, #3498db);
+  background-image: -webkit-linear-gradient(
+    left,
+    #3498db,
+    #f47920 10%,
+    #d71345 20%,
+    #f7acbc 30%,
+    #ffd400 40%,
+    #3498db 50%,
+    #f47920 60%,
+    #d71345 70%,
+    #f7acbc 80%,
+    #ffd400 90%,
+    #3498db
+  );
   color: transparent;
   -webkit-background-clip: text;
   background-size: 200% 100%;
   animation: slide 5s infinite linear;
   font-size: 40px;
-}
-
-.test {
-  height: 500px;
 }
 
 .model {
@@ -432,9 +318,19 @@ code.language-html {
   margin: auto;
   max-width: 80%;
   user-select: none;
-  background-position: 0px 0px, 10px 10px;
+  background-position:
+    0px 0px,
+    10px 10px;
   background-size: 20px 20px;
-  background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%), linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
+  background-image: linear-gradient(
+      45deg,
+      #eee 25%,
+      transparent 25%,
+      transparent 75%,
+      #eee 75%,
+      #eee 100%
+    ),
+    linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
 }
 
 .c-item {

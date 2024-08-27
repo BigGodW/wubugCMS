@@ -2,10 +2,10 @@
 const {knex} = require('chanjs');
 
 const BaseService = require('./base');
-class GatherService {
-  static model = 'plus_gather';
+class GatherService  extends BaseService {
+  model = 'plus_gather';
 
-  static async common(url) {
+  async common(url) {
     try {
       if (global.fetch) {
         const result = await fetch(url);
@@ -19,9 +19,9 @@ class GatherService {
   }
 
   // 增加
-  static async create(body) {
+  async create(body) {
     try {
-      const result = await BaseService.insert(GatherService.model, body);
+      const result = await this.insert(this.model, body);
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
@@ -30,9 +30,9 @@ class GatherService {
   }
 
   // 删
-  static async delete(id) {
+  async delete(id) {
     try {
-      const result = await knex(GatherService.model).where('id', '=', id).del()
+      const result = await knex(this.model).where('id', '=', id).del()
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
@@ -41,11 +41,11 @@ class GatherService {
   }
 
   // 修改
-  static async update(body) {
+  async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(GatherService.model).where('id', '=', id).update(body)
+      const result = await knex(this.model).where('id', '=', id).update(body)
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
@@ -54,22 +54,22 @@ class GatherService {
   }
 
   // 列表
-  static async list(cur = 1, pageSize = 10) {
+  async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = await knex(GatherService.model).count('id', { as: 'count' });
+      const total = await knex(this.model).count('id', { as: 'count' });
       const offset = parseInt((cur - 1) * pageSize);
       // const list = await knex.select(['id', 
       // 'taskName',
       // 'targetUrl',
       // 'parseData',
       // 'status','cid','updatedAt'])
-      //   .from(GatherService.model)
+      //   .from(this.model)
       //   .limit(pageSize)
       //   .offset(offset)
       //   .orderBy('id', 'desc');
 
-        const list = await knex(GatherService.model)
+        const list = await knex(this.model)
         .select('plus_gather.id', 
                 'plus_gather.taskName', 
                 'plus_gather.targetUrl', 
@@ -99,9 +99,9 @@ class GatherService {
 
 
   // 查
-  static async detail(id) {
+  async detail(id) {
     try {
-      const data = await knex(GatherService.model)
+      const data = await knex(this.model)
       .where('id', '=', id)
       .select(['id', 'taskName', 'targetUrl', 
       'parseData','status','cid'])
@@ -112,15 +112,15 @@ class GatherService {
   }
 
   // 搜索
-  static async search(key = '', cur = 1, pageSize = 10) {
+  async search(key = '', cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const sql = `SELECT COUNT(id) as count FROM ? p  WHERE p.name LIKE '%${key}%'`;
-      const total = await knex.raw(sql, [GatherService.model]);
+      const total = await knex.raw(sql, [this.model]);
       // 翻页
       const offset = parseInt((cur - 1) * pageSize);
       const sql_list = `SELECT p.id,p.taskName,p.targetUrl,p.updatedAt,p.status FROM ? p WHERE p.taskName LIKE '%${key}%' ORDER BY id DESC LIMIT ?,?`;
-      const list = await knex.raw(sql_list, [GatherService.model, offset, parseInt(pageSize)]);
+      const list = await knex.raw(sql_list, [this.model, offset, parseInt(pageSize)]);
       const count = total[0].count || 1;
       return {
         count: count,

@@ -11,7 +11,6 @@ module.exports = (opt) => {
     app
   } = opt;
 
-
   // 登录
   router.post("/sysUser/login", controller.sysUser.login);
   router.get("/sysUser/list", controller.sysUser.list);

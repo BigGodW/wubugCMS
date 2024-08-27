@@ -15,7 +15,7 @@ const {
 class SiteController  {
 
   // 查
-  static async find(req, res, next) {
+  async find(req, res, next) {
     try {
       const data = await site.find();
       res.json({ ...success, data: data })
@@ -25,7 +25,7 @@ class SiteController  {
   }
 
   // 增 
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const data = await site.create(body);
@@ -36,7 +36,7 @@ class SiteController  {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await site.delete(id);
@@ -47,7 +47,7 @@ class SiteController  {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       const data = await site.update(body);
@@ -58,7 +58,7 @@ class SiteController  {
   }
 
   // 查
-  static async findId(req, res, next) {
+  async findId(req, res, next) {
     try {
       const {id} = req.query;
       const data = await site.find(id);
@@ -69,7 +69,7 @@ class SiteController  {
   }
 
   // 获取磁盘信息
-  static async runEnv(req, res, next) {
+  async runEnv(req, res, next) {
     try {
       const dirname = path.join(__dirname, '../../../../');
       res.json({ ...success, data:{dirname: dirname} });

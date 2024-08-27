@@ -17,7 +17,7 @@ const {
 
 class ArticleController {
   // 增
-  static async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       body.defaultParams.createdAt = dayjs(body.defaultParams.createdAt).format(
@@ -35,7 +35,7 @@ class ArticleController {
   }
 
   // 删除
-  static async delete(req, res, next) {
+  async delete(req, res, next) {
     try {
       const {id} = req.query;
       const data = await article.delete(id);
@@ -46,7 +46,7 @@ class ArticleController {
   }
 
   // 改
-  static async update(req, res, next) {
+  async update(req, res, next) {
     try {
       const body = req.body;
       body.createdAt = dayjs(body.createdAt).format("YYYY-MM-DD HH:mm:ss");
@@ -60,7 +60,7 @@ class ArticleController {
   }
 
   // 查
-  static async find(req, res, next) {
+  async find(req, res, next) {
     try {
       const data = await article.find();
       res.json({ ...success, data: data });
@@ -70,7 +70,7 @@ class ArticleController {
   }
 
   // 查
-  static async detail(req, res, next) {
+  async detail(req, res, next) {
     try {
       const {id} = req.query;
       const data = await article.detail(id);
@@ -81,7 +81,7 @@ class ArticleController {
   }
 
   // 查子栏目
-  static async findSubId(req, res, next) {
+  async findSubId(req, res, next) {
     try {
       const {id} = req.query;
       const data = await article.findSubId(id);
@@ -92,7 +92,7 @@ class ArticleController {
   }
 
   // 搜索
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const { cur, keyword, cid = 0, pageSize = 20 } = req.query;
       const data = await article.search(keyword, cur, pageSize, +cid);
@@ -106,7 +106,7 @@ class ArticleController {
   }
 
   // 列表
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {cur,cid,pageSize=10} = req.query;
       const data = await article.list(cur, pageSize, cid);
@@ -120,7 +120,7 @@ class ArticleController {
   }
 
   // 上传图片
-  static async upload(req, res, next) {
+  async upload(req, res, next) {
     try {
       let file = req.files;
       const { originalname, filename, path } = file[0];
@@ -139,7 +139,7 @@ class ArticleController {
     }
   }
 
-  static async findField(req, res, next) {
+  async findField(req, res, next) {
     try {
       const {cid} = req.query;
       const data = await article.findField(cid);
@@ -149,7 +149,7 @@ class ArticleController {
     }
   }
 
-  static async tongji(req, res, next) {
+  async tongji(req, res, next) {
     try {
       const {
         config: { version, appName, port, versionTime, author },
@@ -164,7 +164,7 @@ class ArticleController {
     }
   }
 
-  static async delfile(req, res, next) {
+  async delfile(req, res, next) {
     try {
       const {url} = req.query;
       let filePath = path.join(APP_PATH, url);

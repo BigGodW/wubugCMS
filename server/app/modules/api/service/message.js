@@ -1,12 +1,12 @@
 const {knex} = require('chanjs');
 
 class MessageService  {
-  static model = "cms_message";
+  model = "cms_message";
   
   // 新增
-  static async create(body) {
+  async create(body) {
     try {
-      const result = await knex(MessageService.model).insert(body);
+      const result = await knex(this.model).insert(body);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
@@ -15,9 +15,9 @@ class MessageService  {
   }
 
   // 删
-  static async delete(id) {
+  async delete(id) {
     try {
-      const result = await knex(MessageService.model)
+      const result = await knex(this.model)
         .where("id", "=", id)
         .del();
       return result ? "success" : "fail";
@@ -28,11 +28,11 @@ class MessageService  {
   }
 
   // 修改
-  static async update(body) {
+  async update(body) {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(MessageService.model)
+      const result = await knex(this.model)
         .where("id", "=", id)
         .update(body);
       return result ? "success" : "fail";
@@ -43,16 +43,16 @@ class MessageService  {
   }
 
   // 文章列表
-  static async list(cur = 1, pageSize = 10) {
+  async list(cur = 1, pageSize = 10) {
     try {
       // 查询个数
-      const total = await knex(MessageService.model).count("id", {
+      const total = await knex(this.model).count("id", {
         as: "count",
       });
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
         .select("*")
-        .from(MessageService.model)
+        .from(this.model)
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
@@ -69,9 +69,9 @@ class MessageService  {
   }
 
   // 查
-  static async detail(id) {
+  async detail(id) {
     try {
-      const data = await knex(MessageService.model)
+      const data = await knex(this.model)
         .where("id", "=", id)
         .select();
       return data[0];
@@ -82,12 +82,12 @@ class MessageService  {
   }
 
   // 搜索
-  static async search(key = "", cur = 1, pageSize = 10) {
+  async search(key = "", cur = 1, pageSize = 10) {
     try {
       // 查询个数
       const total = key
-        ? await knex(MessageService.model).count("id", { as: "count" })
-        : await knex(MessageService.model)
+        ? await knex(this.model).count("id", { as: "count" })
+        : await knex(this.model)
             .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .count("id", { as: "count" });
       // 查询个数
@@ -95,7 +95,7 @@ class MessageService  {
       const list = key
         ? await knex
             .select(["id", "name", "mark"])
-            .from(MessageService.model)
+            .from(this.model)
             .whereRaw("name COLLATE utf8mb4_general_ci LIKE ?", [`%${key}%`])
             .limit(pageSize)
             .offset(offset)

@@ -6,7 +6,7 @@ const {config,helper: {api:{success}}} = require('chanjs');
 class WechatController {
  
   //微信小程序登录
-  static async login(req, res, next) {
+  async login(req, res, next) {
     try {
       const { code, userInfo } = req.body;
       const { appid, secret } = config.weixin;

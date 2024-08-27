@@ -20,7 +20,7 @@ const ArticleService = article;
 
 class HomeController {
   // 首页
-  static async index(req, res, next) {
+  async index(req, res, next) {
     try {
       const {
         nav,
@@ -52,7 +52,7 @@ class HomeController {
   }
 
   // 列表页
-  static async list(req, res, next) {
+  async list(req, res, next) {
     try {
       const {
         config: { template },
@@ -111,7 +111,7 @@ class HomeController {
   }
 
   // 详情页
-  static async article(req, res, next) {
+  async article(req, res, next) {
     try {
       const {
         config: { template },
@@ -188,7 +188,7 @@ class HomeController {
   }
 
   // 单页
-  static async page(req, res, next) {
+  async page(req, res, next) {
     try {
       const {
         config: { template },
@@ -270,7 +270,7 @@ class HomeController {
   }
 
   // 搜索页
-  static async search(req, res, next) {
+  async search(req, res, next) {
     try {
       const {
         config: { template },
@@ -304,7 +304,7 @@ class HomeController {
   }
 
   // tag
-  static async tag(req, res, next) {
+  async tag(req, res, next) {
     try {
       const {
         config: { template },
