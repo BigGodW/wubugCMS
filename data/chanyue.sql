@@ -1,7 +1,7 @@
 /*
- Navicat Premium Dump SQL
+ Navicat Premium Data Transfer
 
- Source Server         : 本地
+ Source Server         : localhost_3306
  Source Server Type    : MySQL
  Source Server Version : 50726 (5.7.26)
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 28/08/2024 18:04:16
+ Date: 28/08/2024 20:14:56
 */
 
 SET NAMES utf8mb4;
@@ -353,7 +353,7 @@ CREATE TABLE `ext_book`  (
   `bookAuthor` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   `bookCreateYear` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `bookAvator` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ext_book
