@@ -239,7 +239,7 @@
 
 <script>
 import { find } from "@/api/category.js";
-import { create, getPages, getArticle } from "@/api/collect.js";
+import { create, getPages, getArticle,showErrors } from "@/api/collect.js";
 import {
   addLabelValue,
   getImgUrlFromStr,
@@ -410,10 +410,11 @@ export default {
     },
 
     submit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid,invalidFields) => {
         if (valid) {
           this.create();
         } else {
+          showErrors(invalidFields);
           return false;
         }
       });

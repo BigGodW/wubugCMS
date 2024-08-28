@@ -388,6 +388,7 @@ import {
   addLabelValue,
   treeById,
   tree,
+  showErrors
 } from "@/utils/tool.js";
 
 export default {
@@ -763,7 +764,7 @@ export default {
     },
 
     submit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid,invalidFields) => {
         if (valid) {
           if (this.params.cid == 0) {
             this.$message({
@@ -772,10 +773,9 @@ export default {
             });
             return;
           }
-
           this.update();
         } else {
-          console.log("error submit!!");
+          showErrors(invalidFields);
           return false;
         }
       });

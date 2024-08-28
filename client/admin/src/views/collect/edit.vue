@@ -248,7 +248,7 @@ import {
   filterAndReplaceImgSrc,
   addLabelValue,
   treeById,
-  tree,
+  tree,showErrors
 } from "@/utils/tool.js";
 export default {
   name: "collect-edit",
@@ -430,10 +430,11 @@ export default {
     },
 
     submit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid,invalidFields) => {
         if (valid) {
           this.update();
         } else {
+          showErrors(invalidFields);
           return false;
         }
       });

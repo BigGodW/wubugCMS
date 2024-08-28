@@ -2,13 +2,11 @@ const path = require("path");
 
 /**
  * @description 处理路由
- * @param {*} app 
- * @param {*} router 
+ * @param {*} app
+ * @param {*} router
  */
-const routers = (app, router) => {
-  const {
-    config: { template = "default", APP_PATH },
-  } = app;
+const routers = (app, router, config) => {
+  const { template = "default", APP_PATH } = config;
 
   //机器人抓取
   router.get("/robots.txt", function (req, res, next) {

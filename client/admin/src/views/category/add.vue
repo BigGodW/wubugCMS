@@ -137,7 +137,7 @@
 import { views } from "@/api/sys_config.js";
 
 import { find, create } from "@/api/category.js";
-import { addLabelValue, tree } from "@/utils/tool.js";
+import { addLabelValue, tree,showErrors } from "@/utils/tool.js";
 import { list } from "@/api/model.js";
 import { pinyin } from "pinyin-pro";
 export default {
@@ -288,11 +288,11 @@ export default {
     },
 
     submit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid,invalidFields) => {
         if (valid) {
           this.categoryAdd();
         } else {
-          console.log("error submit!!");
+          showErrors(invalidFields);
           return false;
         }
       });

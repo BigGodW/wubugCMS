@@ -1,42 +1,64 @@
 <template>
   <div class="mr-10 ml-10 mb-20 pd-20 content-wrap">
     <el-form ref="params" :model="params" label-width="84px" class="mt-20">
-
-      <el-form-item label="留言类型" :rules="[{
-        required: true,
-        message: '请选择类型',
-        trigger: 'blur',
-      }]" prop="type">
+      <el-form-item
+        label="留言类型"
+        :rules="[
+          {
+            required: true,
+            message: '请选择类型',
+            trigger: 'blur',
+          },
+        ]"
+        prop="type"
+      >
         <el-select v-model="params.type" placeholder="请选择类型">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
         </el-select>
       </el-form-item>
 
-      <el-form-item label="留言标题" :rules="[
-      {
-        required: true,
-        message: '请输入标题',
-        trigger: 'blur',
-      },
-    ]" prop="title">
+      <el-form-item
+        label="留言标题"
+        :rules="[
+          {
+            required: true,
+            message: '请输入标题',
+            trigger: 'blur',
+          },
+        ]"
+        prop="title"
+      >
         <el-input v-model="params.title"></el-input>
       </el-form-item>
-      <el-form-item label="姓名" prop="name" :rules="[
-      {
-        required: true,
-        message: '请输入内容',
-        trigger: 'blur',
-      },
-    ]">
+      <el-form-item
+        label="姓名"
+        prop="name"
+        :rules="[
+          {
+            required: true,
+            message: '请输入内容',
+            trigger: 'blur',
+          },
+        ]"
+      >
         <el-input v-model="params.name"></el-input>
       </el-form-item>
-      <el-form-item label="手机号" prop="tel" :rules="[
-      {
-        required: true,
-        message: '请输入内容',
-        trigger: 'blur',
-      },
-    ]">
+      <el-form-item
+        label="手机号"
+        prop="tel"
+        :rules="[
+          {
+            required: true,
+            message: '请输入内容',
+            trigger: 'blur',
+          },
+        ]"
+      >
         <el-input v-model="params.tel"></el-input>
       </el-form-item>
 
@@ -48,14 +70,23 @@
         <el-input v-model="params.wechat"></el-input>
       </el-form-item>
 
-      <el-form-item label="留言内容" prop="content" :rules="[
-      {
-        required: true,
-        message: '请输入内容',
-        trigger: 'blur',
-      },
-    ]">
-        <el-input type="textarea" :rows="3" placeholder="请输入内容" v-model="params.content">
+      <el-form-item
+        label="留言内容"
+        prop="content"
+        :rules="[
+          {
+            required: true,
+            message: '请输入内容',
+            trigger: 'blur',
+          },
+        ]"
+      >
+        <el-input
+          type="textarea"
+          :rows="3"
+          placeholder="请输入内容"
+          v-model="params.content"
+        >
         </el-input>
       </el-form-item>
 
@@ -89,7 +120,7 @@ export default {
         {
           label: "其他",
           value: "4",
-        }
+        },
       ],
 
       params: {},
@@ -109,8 +140,8 @@ export default {
     };
   },
   computed: {},
-  mounted() { },
-  async created() { },
+  mounted() {},
+  async created() {},
   methods: {
     handleAttr(e) {
       console.log("e-->", e);

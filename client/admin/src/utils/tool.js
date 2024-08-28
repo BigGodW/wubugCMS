@@ -146,3 +146,17 @@ export let htmlDecode = (str) => {
   s = s.replace(/&quot;/g, '"');
   return s;
 };
+
+
+export let showErrors = (invalidFields) => {
+  Object.keys(invalidFields).forEach((field) => {
+    const errors = invalidFields[field].map((err) => err.message);
+    ElMessage.success({
+      message: `${errors.join(', ')}`,
+      type: 'success',
+      duration: 2000
+    });
+  });
+};
+
+

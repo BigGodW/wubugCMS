@@ -151,7 +151,7 @@ import { views } from "@/api/sys_config.js";
 
 import { find, findId, update } from "@/api/category.js";
 import { search } from "@/api/article.js";
-import { addLabelValue, treeById, tree } from "@/utils/tool.js";
+import { addLabelValue, treeById, tree,showErrors } from "@/utils/tool.js";
 import { list } from "@/api/model.js";
 import { pinyin } from "pinyin-pro";
 export default {
@@ -354,11 +354,11 @@ export default {
     },
 
     submit(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid,invalidFields) => {
         if (valid) {
           this.update();
         } else {
-          console.log("error submit!!");
+          showErrors(invalidFields);
           return false;
         }
       });
