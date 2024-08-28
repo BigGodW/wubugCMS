@@ -18,7 +18,7 @@ class CollectService extends BaseService {
       })
       return charset == 1 ? data : iconv.decode(data, 'gb2312')
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 
@@ -29,7 +29,7 @@ class CollectService extends BaseService {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -40,7 +40,7 @@ class CollectService extends BaseService {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -53,7 +53,7 @@ class CollectService extends BaseService {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -101,7 +101,7 @@ class CollectService extends BaseService {
       };
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -116,7 +116,7 @@ class CollectService extends BaseService {
       'titleTag','articleTag','charset','parseData','status','cid'])
       return data[0];
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 
@@ -138,7 +138,7 @@ class CollectService extends BaseService {
         list: list[0],
       };
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 

@@ -14,7 +14,7 @@ class GatherService  extends BaseService {
       }
       return '当前node版本不支持fetch';
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 
@@ -25,7 +25,7 @@ class GatherService  extends BaseService {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -36,7 +36,7 @@ class GatherService  extends BaseService {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -49,7 +49,7 @@ class GatherService  extends BaseService {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -93,7 +93,7 @@ class GatherService  extends BaseService {
       };
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -107,7 +107,7 @@ class GatherService  extends BaseService {
       'parseData','status','cid'])
       return data[0];
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 
@@ -129,7 +129,7 @@ class GatherService  extends BaseService {
         list: list[0],
       };
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 

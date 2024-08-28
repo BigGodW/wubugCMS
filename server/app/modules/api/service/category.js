@@ -10,7 +10,7 @@ class CategoryService extends BaseService {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -23,7 +23,7 @@ class CategoryService extends BaseService {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -38,7 +38,7 @@ class CategoryService extends BaseService {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -49,7 +49,7 @@ class CategoryService extends BaseService {
       return result;
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -62,7 +62,7 @@ class CategoryService extends BaseService {
       return data[0];
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -75,7 +75,7 @@ class CategoryService extends BaseService {
       return result;
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -91,7 +91,7 @@ class CategoryService extends BaseService {
       return result;
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 }

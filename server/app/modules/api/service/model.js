@@ -21,7 +21,7 @@ class ModelService  {
       });
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -33,7 +33,7 @@ class ModelService  {
       return has[0]
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -56,7 +56,7 @@ class ModelService  {
       });
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
 
   }
@@ -77,7 +77,7 @@ class ModelService  {
       })
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -89,7 +89,7 @@ class ModelService  {
       return result[0];
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -113,7 +113,7 @@ class ModelService  {
       };
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -124,7 +124,7 @@ class ModelService  {
       return data[0];
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 

@@ -10,7 +10,7 @@ class SlideService  {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -23,7 +23,7 @@ class SlideService  {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -38,7 +38,7 @@ class SlideService  {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -64,7 +64,7 @@ class SlideService  {
       };
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -77,7 +77,7 @@ class SlideService  {
       return data[0];
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -115,7 +115,7 @@ class SlideService  {
       };
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 }

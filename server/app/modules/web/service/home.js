@@ -59,7 +59,7 @@ class HomeService {
       return { banner, slide, topnews, imgs, recommend, recommendImgs, hot };
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -80,7 +80,7 @@ class HomeService {
       return { data, recommend, hot, imgs };
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
   // 文章页
@@ -97,7 +97,7 @@ class HomeService {
       return { news, hot, imgs };
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -109,7 +109,7 @@ class HomeService {
       return data;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 }

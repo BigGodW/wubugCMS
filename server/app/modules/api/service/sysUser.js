@@ -14,7 +14,7 @@ class SysUserService extends BaseService {
       return res[0];
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -25,7 +25,7 @@ class SysUserService extends BaseService {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -36,7 +36,7 @@ class SysUserService extends BaseService {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -49,7 +49,7 @@ class SysUserService extends BaseService {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -74,7 +74,7 @@ class SysUserService extends BaseService {
       };
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -87,7 +87,7 @@ class SysUserService extends BaseService {
       .where('u.id', id)
       return data[0];
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 
@@ -109,7 +109,7 @@ class SysUserService extends BaseService {
         list: list[0],
       };
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 

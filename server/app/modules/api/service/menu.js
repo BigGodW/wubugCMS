@@ -11,7 +11,7 @@ class MenuService  extends BaseService{
       return res[0];
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -26,7 +26,7 @@ class MenuService  extends BaseService{
         return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 

@@ -28,7 +28,7 @@ class ChancmsService {
       return res;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -71,7 +71,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -117,7 +117,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(`cid->${cid} attr-> ${attr} len->${len}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -139,7 +139,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(`aid->${id}`, err);
-      return err;
+      throw err;
     }
   }
   /**
@@ -168,7 +168,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -190,7 +190,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(`aid->${id}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -234,7 +234,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(`id->${id} len->${len}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -283,7 +283,7 @@ class ChancmsService {
       return result;
     } catch (err) {
       console.error(`id->${id} len->${len}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -346,7 +346,7 @@ class ChancmsService {
       };
     } catch (err) {
       console.error(`id->${id} current->${current} pageSize->${pageSize}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -411,7 +411,7 @@ class ChancmsService {
         `id->${path} current->${current} pageSize->${pageSize}`,
         err
       );
-      return err;
+      throw err;
     }
   }
 
@@ -428,7 +428,7 @@ class ChancmsService {
       return list;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -463,7 +463,7 @@ class ChancmsService {
       return { ...data[0], field: field[0] || {} };
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -477,7 +477,7 @@ class ChancmsService {
       return result[0];
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -491,7 +491,7 @@ class ChancmsService {
       return result[0];
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -534,7 +534,7 @@ class ChancmsService {
       };
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -548,7 +548,7 @@ class ChancmsService {
       return result[0].affectedRows ? "更新成功" : "更新失败或id不存在";
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 }

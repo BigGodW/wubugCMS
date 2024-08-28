@@ -12,7 +12,7 @@ class ArticleTagService extends BaseService{
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -23,7 +23,7 @@ class ArticleTagService extends BaseService{
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -36,7 +36,7 @@ class ArticleTagService extends BaseService{
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -61,7 +61,7 @@ class ArticleTagService extends BaseService{
       };
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -72,7 +72,7 @@ class ArticleTagService extends BaseService{
       return data[0];
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -110,7 +110,7 @@ class ArticleTagService extends BaseService{
       };
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 }

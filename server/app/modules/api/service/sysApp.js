@@ -10,7 +10,7 @@ class SysConfigService  extends BaseService {
       return res[0];
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -22,7 +22,7 @@ class SysConfigService  extends BaseService {
         .limit(1);
       return res[0];
     } catch (err) {
-      return err;
+      throw err;
     }
   }
 
@@ -38,7 +38,7 @@ class SysConfigService  extends BaseService {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 }

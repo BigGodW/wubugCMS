@@ -10,7 +10,7 @@ class TagService  {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -35,7 +35,7 @@ class TagService  {
       return res ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -50,7 +50,7 @@ class TagService  {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -64,7 +64,7 @@ class TagService  {
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -90,7 +90,7 @@ class TagService  {
       // };
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -138,7 +138,7 @@ class TagService  {
       };
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 }

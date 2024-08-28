@@ -33,7 +33,7 @@ class CommonService {
       return res;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -74,7 +74,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -117,7 +117,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(`cid->${cid} attr-> ${attr} len->${len}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -139,7 +139,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(`aid->${aid}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -169,7 +169,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -218,7 +218,7 @@ class CommonService {
       return article;
     } catch (error) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -262,7 +262,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(`id->${id} len->${len}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -311,7 +311,7 @@ class CommonService {
       return result;
     } catch (err) {
       console.error(`id->${id} len->${len}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -374,7 +374,7 @@ class CommonService {
       };
     } catch (err) {
       console.error(`id->${id} current->${current} pageSize->${pageSize}`, err);
-      return err;
+      throw err;
     }
   }
 
@@ -440,7 +440,7 @@ class CommonService {
         `id->${path} current->${current} pageSize->${pageSize}`,
         err
       );
-      return err;
+      throw err;
     }
   }
 
@@ -462,7 +462,7 @@ class CommonService {
       return tags;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 
@@ -479,7 +479,7 @@ class CommonService {
       return list;
     } catch (err) {
       console.error(err);
-      return err;
+      throw err;
     }
   }
 }

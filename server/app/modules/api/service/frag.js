@@ -16,7 +16,7 @@ class FragService  {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -27,7 +27,7 @@ class FragService  {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -40,7 +40,7 @@ class FragService  {
       return result ? 'success' : 'fail';
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -68,7 +68,7 @@ class FragService  {
       // };
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -82,7 +82,7 @@ class FragService  {
       return data[0];
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -119,7 +119,7 @@ class FragService  {
       };
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 

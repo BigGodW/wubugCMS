@@ -12,7 +12,7 @@ class SiteService  extends BaseService {
       return res[0];
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
@@ -33,7 +33,7 @@ class SiteService  extends BaseService {
       }
     } catch (err) {
       console.error(err)
-      return err;
+      throw err;
     }
   }
 
