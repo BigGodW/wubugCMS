@@ -594,9 +594,12 @@ export default {
           params.subCid = params.subCid
             ? params.subCid.split(",").map((i) => Number(i))
             : [];
+          //旧
+          params.oldTagId = params.tagId;
           params.tagId = params.tagId
             ? params.tagId.split(",").map((i) => Number(i))
             : [];
+
           params.status = params.status.toString();
           params.updatedAt = new Date(params.createdAt);
           this.params = params;

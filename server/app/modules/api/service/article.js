@@ -79,7 +79,7 @@ class ArticleService {
             const updateSql = `
               UPDATE cms_tag
               SET count = count + 1
-              WHERE id IN (${tags.join(',')})
+              WHERE id IN (${tags.join(",")})
             `;
             await knex.raw(updateSql).transacting(trx);
           }
@@ -106,6 +106,8 @@ class ArticleService {
         // 批量删除模型文章
         for (let i = 0, item; i < ids.length; i++) {
           item = ids[i];
+
+          console.log("item-->", item);
 
           // 通过文章id,找栏目id
           const categoryStr = `SELECT cid FROM cms_article WHERE id=${item} LIMIT 0,1`;
@@ -145,16 +147,31 @@ class ArticleService {
               delImg(path.join(__dirname, "../../" + item));
             }
           }
+
+          // 批量删除文章
+          const delArticleStr = `DELETE FROM ${this.model} WHERE id IN(${item})`;
+          await knex.raw(delArticleStr, []).transacting(trx);
+
+          // 删除关联的 tag
+          const delMapTagStr = `DELETE FROM cms_articleTag WHERE aid IN(${item})`;
+          await knex.raw(delMapTagStr, []).transacting(trx);
+          // 更新旧的标签关联中的 count 字段减去 1
+
+          const oneRecord = await knex(this.model)
+            .where("id", item)
+            .select(["tagId"])
+            .first();
+
+          console.log("item,oneRecord", oneRecord);
+          const tagId = oneRecord.tagId.split(",").map((item) => +item);
+          const tagsSql = `
+            UPDATE cms_tag
+            SET count = GREATEST(0, count - 1)
+            WHERE id IN (${tagId.join(",")})
+            `;
+          await knex.raw(tagsSql).transacting(trx);
         }
-
-        // 批量删除文章
-        const delArticleStr = `DELETE FROM ${this.model} WHERE id IN(${id})`;
-        const delArticle = await knex.raw(delArticleStr, []).transacting(trx);
-
-        // 删除关联的 tag
-        const delMapTagStr = `DELETE FROM cms_articleTag WHERE aid IN(${id})`;
-        await knex.raw(delMapTagStr, []).transacting(trx);
-        return delArticle[0].affectedRows > 0 ? "success" : "fail";
+        return "success";
       });
     } catch (err) {
       console.error(err);
@@ -165,26 +182,38 @@ class ArticleService {
   // 改
   async update(body) {
     try {
-      const { id, field } = body;
+      const { id, field,oldTagId } = body;
       delete body.id;
       delete body.field;
+      delete body.oldTagId;
       await knex.transaction(async (trx) => {
         // 通过栏目id查找模型id
         const modIdStr = `SELECT mid FROM cms_category WHERE id=${body.cid} LIMIT 0,1`;
         const modId = await knex.raw(modIdStr, []).transacting(trx);
+
         // 通过模型查找表名
         const tableNameStr = `SELECT tableName FROM cms_model WHERE id=${modId[0][0].mid} LIMIT 0,1`;
         const tableName = await knex.raw(tableNameStr, []).transacting(trx);
-
         if (tableName[0].length > 0) {
           await knex(`${tableName[0][0].tableName}`)
             .where("aid", "=", id)
             .update(field)
             .transacting(trx);
         }
+
         // 修改标签，要先全部删除关联的tag，然后再添加，因为修改标签有删除，新增等方式
         const delMapTagStr = `DELETE FROM cms_articleTag WHERE aid IN(${id})`;
         await knex.raw(delMapTagStr, []).transacting(trx);
+
+        // 更新旧的标签关联中的 count 字段减去 1
+        let oldTagIds = oldTagId.split(",").map((item) => +item);
+        const oldTagsSql = `
+         UPDATE cms_tag
+         SET count = GREATEST(0, count - 1)
+         WHERE id IN (${oldTagIds.join(",")})
+         `;
+        await knex.raw(oldTagsSql).transacting(trx);
+
         // 新增文章和标签关联
         const tags = body.tagId.split(",").map((item) => +item);
         const tagsql = [];
@@ -194,6 +223,16 @@ class ArticleService {
         await knex
           .raw("INSERT INTO cms_articleTag(aid,tid) VALUES " + tagsql.join(","))
           .transacting(trx);
+
+        // 更新新的标签关联中的 count 字段加上 1
+        const newTagsSql = `
+        UPDATE cms_tag
+        SET count = count + 1
+        WHERE id IN (${tags.join(",")})
+        `;
+        await knex.raw(newTagsSql).transacting(trx);
+
+        // 修改文章
         const result = await knex(this.model)
           .where("id", "=", id)
           .update(body)
