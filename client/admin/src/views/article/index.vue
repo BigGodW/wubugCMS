@@ -92,11 +92,7 @@
             @click="handleClick(scope.row)"
           ></el-button>
           <el-button :icon="Edit" circle @click="toEdit(scope.row)"></el-button>
-          <el-button
-            :icon="Delete"
-            circle
-            @click="handleDel(scope.row)"
-          ></el-button>
+          <el-button :icon="Delete" circle @click="handleDel(scope.row)"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -302,19 +298,32 @@ export default {
 
     //删除文章
     async handleDel(e) {
-      let id = e.id;
-      try {
-        let res = await del(id);
-        if (res.code === 200) {
-          this.$message({
-            message: "文章删除成功 ^_^",
-            type: "success",
+      ElMessageBox.confirm("此操作将永久删除, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(async () => {
+          let id = e.id;
+          try {
+            let res = await del(id);
+            if (res.code === 200) {
+              this.$message({
+                message: "文章删除成功 ^_^",
+                type: "success",
+              });
+              this.search();
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        })
+        .catch(() => {
+          ElMessage({
+            type: "info",
+            message: "Delete canceled",
           });
-          this.search();
-        }
-      } catch (error) {
-        console.log(error);
-      }
+        });
     },
   },
   onBeforeUnmount() {},
