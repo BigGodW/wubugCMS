@@ -99,15 +99,12 @@ class ArticleService {
   async delete(id) {
     try {
       const ids = id.split(",");
-
       // 删除文章图片
       let arr = [];
       await knex.transaction(async (trx) => {
         // 批量删除模型文章
         for (let i = 0, item; i < ids.length; i++) {
           item = ids[i];
-
-          console.log("item-->", item);
 
           // 通过文章id,找栏目id
           const categoryStr = `SELECT cid FROM cms_article WHERE id=${item} LIMIT 0,1`;

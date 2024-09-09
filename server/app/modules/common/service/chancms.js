@@ -4,7 +4,7 @@ class ChancmsService {
   constructor() {}
 
   // 网站栏目
-  static async category() {
+  async category() {
     try {
       
       let res = await knex("cms_category")
@@ -39,7 +39,7 @@ class ChancmsService {
    * @param {Object} start 开始
    * @returns
    */
-  static async getArticleList({ start, len, attr }) {
+  async getArticleList({ start, len, attr }) {
     try {
       const columns = [
         "a.id",
@@ -82,7 +82,7 @@ class ChancmsService {
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    * @returns {Array}
    */
-  static async getArticleListByCid(cid, len = 5, attr = "") {
+  async getArticleListByCid(cid, len = 5, attr = "") {
     try {
       // 获取所有id
       const res = await knex.select("id").from("cms_category").where("pid", cid);
@@ -126,7 +126,7 @@ class ChancmsService {
    * @param {Number} aid 文章id
    * @returns {Array} 返回数组
    */
-  static async getArticleTag(id) {
+  async getArticleTag(id) {
     try {
       // 执行查询
       const result = await knex("cms_article AS a")
@@ -147,7 +147,7 @@ class ChancmsService {
    * @description 返回所有的根栏目
    * @returns {Array}
    */
-  static async getAllParentCategory(idArray = []) {
+  async getAllParentCategory(idArray = []) {
     try {
       const result = await knex("cms_category")
         .select([
@@ -177,7 +177,7 @@ class ChancmsService {
    * @param {Number} id 文章id
    * @returns {Array} 返回数组
    */
-  static async getTagsById(id) {
+  async getTagsById(id) {
     try {
       // 执行查询
       const result = await knex("cms_article AS a")
@@ -200,7 +200,7 @@ class ChancmsService {
    * @param {Number} len 默认10条
    * @returns
    */
-  static async pv(len = 10, id = "") {
+  async pv(len = 10, id = "") {
     try {
       let query = knex
         .select(
@@ -245,7 +245,7 @@ class ChancmsService {
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    * @returns
    */
-  static async articleImg({ len, id, attr }) {
+  async articleImg({ len, id, attr }) {
     try {
       let query = knex
         .select(
@@ -294,7 +294,7 @@ class ChancmsService {
    * @param {Number} pageSize 默认10条
    * @returns {Array}
    */
-  static async list({ id, current, pageSize }) {
+  async list({ id, current, pageSize }) {
     try {
       const start = (current - 1) * pageSize;
 
@@ -356,7 +356,7 @@ class ChancmsService {
    * @param {Number|String} current 当前页面
    * @param {Number} pageSize 默认10条
    */
-  static async tagList({ name, current, pageSize }) {
+  async tagList({ name, current, pageSize }) {
     try {
       const start = (current - 1) * pageSize;
 
@@ -416,7 +416,7 @@ class ChancmsService {
   }
 
   // banner轮播图
-  static async banner(cur = 1, pageSize = 10) {
+  async banner(cur = 1, pageSize = 10) {
     try {
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
@@ -433,7 +433,7 @@ class ChancmsService {
   }
 
   // 查
-  static async article(id) {
+  async article(id) {
     try {
       // 查询文章
       const data = await knex("cms_article").where("id", "=", id).select();
@@ -468,7 +468,7 @@ class ChancmsService {
   }
 
   // 上一篇文章
-  static async prev({ id, cid }) {
+  async prev({ id, cid }) {
     try {
       const result = await knex.raw(
         `SELECT a.id,a.title,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id  WHERE a.id<? AND a.cid=? ORDER BY id DESC LIMIT 1`,
@@ -482,7 +482,7 @@ class ChancmsService {
   }
 
   // 下一篇文章
-  static async next({ id, cid }) {
+  async next({ id, cid }) {
     try {
       const result = await knex.raw(
         `SELECT a.id,a.title,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.id>? AND a.cid=? LIMIT 1`,
@@ -496,7 +496,7 @@ class ChancmsService {
   }
 
   // 搜索
-  static async search(key = "", cur = 1, pageSize = 10, cid = 0) {
+  async search(key = "", cur = 1, pageSize = 10, cid = 0) {
     try {
       // 查询个数
       let sql;
@@ -539,7 +539,7 @@ class ChancmsService {
   }
 
   // 浏览pv增加
-  static async pvadd(id) {
+  async pvadd(id) {
     try {
       const result = await knex.raw(
         `UPDATE cms_article SET pv=pv+1 WHERE id=? LIMIT 1`,

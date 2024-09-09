@@ -248,7 +248,8 @@ import {
   filterAndReplaceImgSrc,
   addLabelValue,
   treeById,
-  tree,showErrors
+  tree,
+  showErrors
 } from "@/utils/tool.js";
 export default {
   name: "collect-edit",

@@ -239,12 +239,13 @@
 
 <script>
 import { find } from "@/api/category.js";
-import { create, getPages, getArticle,showErrors } from "@/api/collect.js";
+import { create, getPages, getArticle } from "@/api/collect.js";
 import {
   addLabelValue,
   getImgUrlFromStr,
   filterHtml,
   tree,
+  showErrors
 } from "@/utils/tool.js";
 
 export default {
