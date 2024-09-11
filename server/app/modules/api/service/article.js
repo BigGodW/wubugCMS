@@ -183,6 +183,7 @@ class ArticleService {
       delete body.id;
       delete body.field;
       delete body.oldTagId;
+     
       await knex.transaction(async (trx) => {
         // 通过栏目id查找模型id
         const modIdStr = `SELECT mid FROM cms_category WHERE id=${body.cid} LIMIT 0,1`;

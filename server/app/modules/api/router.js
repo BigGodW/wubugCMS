@@ -26,6 +26,7 @@ module.exports = (opt) => {
   router.get("/site/runEnv", controller.site.runEnv);
   router.get("/sysApp/find", controller.sysApp.find);
   router.get("/sysApp/views", controller.sysApp.getViews);
+  router.get("/sysApp/folder", controller.sysApp.folder);
   router.get("/sysApp/config", controller.sysApp.config);
   router.post("/sysApp/update", auth(), controller.sysApp.update);
 

@@ -33,7 +33,7 @@ class HomeController {
         result = await home.home();
         res.locals = { ...res.locals, ...result };
       }
-      console.log("res.locals", result);
+
       // 指定多栏目栏目获取文章列表
       // await common.getArticleListByCids([59,1,29,]) 不传入默认所有栏目
       let article = await common.getArticleListByCids();
@@ -171,7 +171,7 @@ class HomeController {
       //热门 推荐 图文
       const data = await home.article(cid);
       //获取模板
-      let view = navSub.cate.articleView;
+      let view = article.articleView || navSub.cate.articleView;
       await res.render(`${template}/${view}`, {
         ...data,
         cate: navSub.cate,

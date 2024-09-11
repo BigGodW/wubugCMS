@@ -4,9 +4,9 @@ const config = require("./app/middleware/config.js");
 chan.beforeStart(async () => {
   await config(chan.app);
 });
-chan.start(()=>{
+chan.start(() => {
   console.log("ChanCMS 启动成功");
-    // console.log(Chanjs.modules);
+  // console.log(Chanjs.modules);
   //  console.log(Chanjs.plugins);
 });
 chan.run();

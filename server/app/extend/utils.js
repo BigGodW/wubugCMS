@@ -279,9 +279,6 @@ exports.pages = function (current, total, pageSize, href) {
 };
 
 
-
-
-
 /**
  * @description 获取模板文件
  * @param {*} folderPath

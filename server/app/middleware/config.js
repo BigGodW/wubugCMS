@@ -5,7 +5,7 @@ module.exports = async function (app) {
   try {
     let config = Chan.config;
     let sysconfig = await sysApp.find();
-    if (sysconfig.errno) {
+    if (sysconfig?.errno) {
       app.use((req, res, next) => {
         next(sysconfig);
       });

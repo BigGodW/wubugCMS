@@ -93,9 +93,7 @@ export default {
         shortTitle: "",
         tagId: "",
         attr: [],
-        seoTitle: "",
-        seoKeywords: "",
-        seoDescription: "",
+     
         source: "",
         author: "",
         description: "",

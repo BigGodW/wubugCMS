@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const Chan = require("chanjs");
 const {
   modules: {
@@ -36,6 +37,21 @@ class SysAppController {
       next(err);
     }
   }
+
+  /**
+   * @description 获取模板文件
+   */
+  async folder(req,res,next){
+    try {
+      const { config: { APP_PATH }} = req.app.locals;
+      const dir = path.join(APP_PATH, `/modules/web/view/`);
+      const data = fs.readdirSync(dir);
+      res.json({ ...success, data: data });
+    } catch (err) {
+      next(err);
+    }
+  }
+
   // app配置
   async config(req, res, next) {
     try {

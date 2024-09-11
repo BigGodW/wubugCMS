@@ -210,21 +210,18 @@
             </el-col>
 
             <el-col :sm="24" :md="12">
-              <el-form-item label="SEO标题">
-                <el-input v-model="params.seoTitle"></el-input>
+              <el-form-item label="内容模板">
+                <el-select v-model="params.articleView" placeholder="请选择模板">
+                    <el-option
+                      v-for="item in views"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                </el-select>
               </el-form-item>
             </el-col>
-            <el-col :sm="24" :md="12">
-              <el-form-item label="SEO关键词">
-                <el-input v-model="params.seoKeywords"></el-input>
-              </el-form-item>
-            </el-col>
-
-            <el-col :sm="24" :md="12">
-              <el-form-item label="SEO描述">
-                <el-input v-model="params.seoDescription"></el-input>
-              </el-form-item>
-            </el-col>
+          
             <el-col :sm="24" :md="12">
               <el-form-item label="来源">
                 <el-input v-model="params.source"></el-input>
@@ -376,6 +373,8 @@
 import { find } from "@/api/category.js";
 import { update, detail, findField, delfile } from "@/api/article.js";
 import { search } from "@/api/tag.js";
+import { views } from "@/api/sys_config.js";
+
 import Vue3Tinymce from "@/components/Vue3Tinymce/src/Main.vue";
 import DialogCroper from "@/components/ChanDialogCrop/DialogCroper.vue";
 import { tinymceSet } from "@/config/tinymce.js";
@@ -408,6 +407,7 @@ export default {
       activeIndex: "0", //tab 内容默认显示第一个
       category: [], //当前所有栏目
       cateList: [], //所有栏目
+      views: [],
       autoImg: false,
       autoDes: false,
       picNum: 1,
@@ -424,9 +424,8 @@ export default {
         shortTitle: "",
         tagId: "",
         attr: [],
-        seoTitle: "",
-        seoKeywords: "",
-        seoDescription: "",
+        articleView:'',
+
         source: "",
         author: "",
         description: "",
@@ -481,9 +480,34 @@ export default {
     await this.detail(); // 文章详情
     await this.query(); //查询栏目
     this.searchTag();
+    this.getviews();
   },
   unmounted() {},
   methods: {
+
+    //查询模板
+    async getviews() {
+      try {
+        let res = await views();
+        if (res.code === 200) {
+          this.views = res.data
+            .filter((item) => {
+              if (item !== "404.html" && item !== "500.html") {
+                return true;
+              }
+            })
+            .map((item) => {
+              return {
+                label: item,
+                value: item,
+              };
+            });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     tinymce() {
       this.loading = false;
     },

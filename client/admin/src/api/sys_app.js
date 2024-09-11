@@ -15,6 +15,13 @@ export let views = () => {
   });
 };
 
+export let folder = () => {
+  return http({
+    url: `${API.BASE_API}/api/sysApp/folder`,
+    method: "get",
+  });
+}
+
 export let config = () => {
   return http({
     url: `${API.BASE_API}/api/sysApp/config`,

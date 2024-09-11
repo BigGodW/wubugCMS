@@ -4,10 +4,14 @@
     <el-tab-pane label="应用配置" class="mt-20" name="config">
       <el-form ref="set" :model="set" label-width="120px">
         <el-form-item prop="template" label="模板">
-          <el-input
-            v-model="set.template"
-            placeholder="默认模板default不用填写"
-          ></el-input>
+          <el-select v-model="set.template" placeholder="请选择模板">
+            <el-option
+              v-for="(item,index) in folderList"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
         </el-form-item>
 
         <el-form-item label="上传方式">
@@ -68,13 +72,15 @@
 </template>
 
 <script>
-import { find, update } from "@/api/sys_config.js";
+import { find, update} from "@/api/sys_config.js";
+import {folder} from "@/api/sys_app.js";
 
 export default {
   name: "ConfigSet",
   data: () => {
     return {
       loading: true,
+      folderList: [],
       set: {
         template: "default",
         maxAge: "1",
@@ -92,8 +98,26 @@ export default {
   computed: {},
   created() {
     this.query();
+    this.getFolder();
   },
   methods: {
+
+    async getFolder(){
+      try {
+        let res = await folder();
+        console.log('res--->',res);
+        if(res.code === 200){
+          res.data.forEach((item)=>{
+            this.folderList.push({
+              label: item,
+              value: item
+            })
+          })
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     //查询
     async query() {
       try {
