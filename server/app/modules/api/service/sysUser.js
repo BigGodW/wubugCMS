@@ -1,5 +1,5 @@
 const BaseService = require("./base");
-const {knex} = require('chanjs');
+const {knex} = Chan;
 
 class SysUserService extends BaseService {
   model = 'sys_user';

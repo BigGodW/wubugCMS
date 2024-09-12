@@ -1,4 +1,4 @@
-const {knex} = require('chanjs');
+const {knex} = Chan;
 const axios = require('axios')
 const iconv = require('iconv-lite');
 const BaseService = require('./base');

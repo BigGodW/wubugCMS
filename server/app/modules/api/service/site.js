@@ -1,6 +1,5 @@
 const BaseService = require("./base");
-
-const {knex} = require('chanjs');
+const {knex} = Chan;
 
 class SiteService  extends BaseService {
   model = "cms_site";

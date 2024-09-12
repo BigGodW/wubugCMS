@@ -1,6 +1,4 @@
 const path = require("path");
-
-const Chan = require("chanjs");
 const {
   knex,
   helper: {
@@ -453,7 +451,7 @@ class ArticleService {
 
       // 7天
       const weekStr =
-        "SELECT COUNT(*) AS count from cms_article where DATE_SUB(CURDATE(),INTERVAL 7 DAY)<=DATE(updatedAt)";
+        "SELECT COUNT(*) AS count from cms_article where DATE_SUB(CURDATE(),INTERVAL 7 DAY)<=DATE(createdAt)";
       const week = await knex.raw(weekStr);
 
       // 30天

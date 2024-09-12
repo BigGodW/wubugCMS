@@ -1,4 +1,4 @@
-const Chan = require("chanjs");
+
 let {
   utils: { getToken },
 } = Chan.helper;

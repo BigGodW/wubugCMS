@@ -1,6 +1,4 @@
 const dayjs = require("dayjs");
-const Chan = require("chanjs");
-
 const {
   modules: {
     web: {
@@ -14,7 +12,6 @@ const {
     utils: { pages },
   },
 } = Chan;
-
 
 const ArticleService = article;
 

@@ -1,5 +1,4 @@
-const {knex} = require('chanjs');
-
+const {knex} = Chan;
 class FriendlinkService {
   model = "cms_friendlink";
 

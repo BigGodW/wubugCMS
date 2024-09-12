@@ -1,8 +1,5 @@
-const Chan = require("chanjs");
 const CommonService = require("./common.js");
-
 let {
-
   modules: {
     web: {
       service: { common },
@@ -12,9 +9,6 @@ let {
     utils: { filterFields, formatDay },
   },
 } = Chan;
-
-
-
 
 class HomeService {
   constructor() {}

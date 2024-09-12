@@ -1,5 +1,5 @@
 const BaseService = require("./base");
-const {knex} = require("chanjs");
+const {knex} = Chan;
 
 class ArticleTagService extends BaseService{
 

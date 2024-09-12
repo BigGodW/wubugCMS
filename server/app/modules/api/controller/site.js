@@ -1,6 +1,4 @@
 const path = require('path');
-const Chan = require("chanjs");
-
 const {
   modules: {
     api: {

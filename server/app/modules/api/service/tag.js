@@ -1,15 +1,15 @@
-const {knex} = require('chanjs');
+const { knex } = Chan;
 
-class TagService  {
+class TagService {
   model = "cms_tag";
-  
+
   // 新增
   async create(body) {
     try {
       const result = await knex(this.model).insert(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -34,7 +34,7 @@ class TagService  {
       // res  返回值是 1
       return res ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -44,12 +44,10 @@ class TagService  {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .update(body);
+      const result = await knex(this.model).where("id", "=", id).update(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -58,38 +56,50 @@ class TagService  {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .update(body);
+      const result = await knex(this.model).where("id", "=", id).update(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
 
   // 文章列表
-  async list(cur = 1, pageSize = 100) {
+  async list(cur = 1, pageSize = 20) {
     try {
       // 查询个数
-     // const total = await knex(this.model).count("id", { as: "count" });
+      const total = await knex(this.model).count("id", { as: "count" });
       const offset = parseInt((cur - 1) * pageSize);
       const list = await knex
-        .select(['id','name','path'])
+        .select(["id", "name", "path"])
         .from(this.model)
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
-        return list;
-      // const count = total[0].count || 1;
-      // return {
-      //   count: count,
-      //   total: Math.ceil(count / pageSize),
-      //   current: +cur,
-      //   list: list,
-      // };
+      const count = total[0].count || 1;
+      return {
+        count: count,
+        total: Math.ceil(count / pageSize),
+        current: +cur,
+        list: list,
+      };
     } catch (err) {
-      console.error(err)
+      console.error(err);
+      throw err;
+    }
+  }
+
+  
+  async hot(size=20) {
+    try {
+      const list = await knex
+        .select(["id", "name", "path","count"])
+        .from(this.model)
+        .orderBy("count", "desc")
+        .limit(size);
+      return list;
+    } catch (err) {
+      console.error(err);
       throw err;
     }
   }
@@ -137,7 +147,7 @@ class TagService  {
         list: list,
       };
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }

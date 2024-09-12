@@ -1,6 +1,4 @@
-
-const {knex} = require('chanjs');
-
+const {knex} = Chan;
 const BaseService = require('./base');
 class GatherService  extends BaseService {
   model = 'plus_gather';

@@ -1,5 +1,4 @@
 const fs = require("fs");
-const Chan = require("chanjs");
 const {
   modules: {
     api: {

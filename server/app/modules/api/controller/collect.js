@@ -1,7 +1,5 @@
 const dayjs = require("dayjs");
 const cheerio = require("cheerio");
-const Chan = require("chanjs");
-
 const {
   modules: {
     api: {

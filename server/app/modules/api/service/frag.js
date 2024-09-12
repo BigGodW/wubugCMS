@@ -1,4 +1,3 @@
-const Chan = require("chanjs");
 const {
   knex,
   helper: {
@@ -45,16 +44,16 @@ class FragService  {
   }
 
 
-  // 获取全量frag，默认100个
-  async list(cur = 1, pageSize = 100) {
+  // 获取全量frag，默认100个cur = 1, 
+  async list(pageSize = 100) {
     try {
       // 查询个数
       // const total = await knex(this.model).count('id', { as: 'count' });
-     const offset = parseInt((cur - 1) * pageSize);
+    //  const offset = parseInt((cur - 1) * pageSize);
       const list = await knex.select([ 'name', 'mark','content'])
         .from(this.model)
         .limit(pageSize)
-        .offset(offset)
+        // .offset(offset)
         .orderBy('id', 'desc');
 
        const frags =  convertArrayToObject(list,'mark');

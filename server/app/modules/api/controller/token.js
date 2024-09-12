@@ -1,4 +1,3 @@
-const Chan = require("chanjs");
 const {
   config: { token: { KEY, TIME } },
   helper: {

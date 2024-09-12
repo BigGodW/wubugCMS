@@ -1,6 +1,5 @@
 const dayjs = require("dayjs");
 const path = require("path");
-const Chan = require("chanjs");
 
 const {
   modules: {

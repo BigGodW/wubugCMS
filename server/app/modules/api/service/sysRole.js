@@ -1,4 +1,4 @@
-const {knex} = require('chanjs');
+const {knex} = Chan;
 
 class SysRoleService {
   model = 'sys_role';

@@ -1,4 +1,4 @@
-const {knex} = require('chanjs');
+const {knex} = Chan;
 
 class BaseService {
 	model = null;

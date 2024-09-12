@@ -1,5 +1,5 @@
 
-const Chan = require("chanjs");
+
 const auth = require("../../middleware/auth.js");
 
 const { upload } = Chan.helper.upload;

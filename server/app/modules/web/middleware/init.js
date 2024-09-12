@@ -1,4 +1,3 @@
-const Chan = require("chanjs");
 const {
   web: {service: { common }},
   api: {service: { site, frag, tag, friendlink }},
@@ -27,10 +26,10 @@ module.exports = () => {
       friendlink = friendlink.list || [];
       //样式路径
       const base_url = `/public/template/${template}`;
-      //获取碎片 默认获取100条
+      //获取碎片 默认100条
       const frag = await api.frag.list();
-      //获取tag标签 默认100条
-      const tag = await api.tag.list();
+      //获取热门标签 默认20条
+      const tag = await api.tag.hot();
       req.app.locals = {
         ...req.app.locals,
         site,

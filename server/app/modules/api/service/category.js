@@ -1,4 +1,4 @@
-const {knex} = require('chanjs');
+const {knex} = Chan;
 const BaseService = require("./base");
 
 class CategoryService extends BaseService {

@@ -1,4 +1,4 @@
-const Chan = require("chanjs");
+
 const {api: {service: { sysApp }},} = Chan.modules;
 // 所有配置入口
 module.exports = async function (app) {

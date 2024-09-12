@@ -1,8 +1,7 @@
-const {knex} = require('chanjs');
+const {knex} = Chan;
 
 class SlideService  {
   model = "cms_slide";
-
   // 新增
   async create(body) {
     try {

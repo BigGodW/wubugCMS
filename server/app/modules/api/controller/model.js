@@ -1,7 +1,3 @@
-
-
-const Chan = require("chanjs");
-
 const {
   modules: {
     api: {
