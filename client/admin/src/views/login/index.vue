@@ -152,7 +152,7 @@ export default defineComponent({
       // 登录逻辑 当需要返回用await 不需要返回值，可以用then
       const { username, password } = this.loginForm;
       users.login({ username, password }).then(async (res) => {
-        if (res.code == 500) {
+        if (res.code == 201) {
           // eslint-disable-next-line no-undef
           ElNotification({
             title: "提示",

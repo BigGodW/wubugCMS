@@ -3,7 +3,7 @@ const {
   api: {service: { site, frag, tag, friendlink }},
 } = Chan.modules;
 
-let api = { site, frag, tag, friendlink, common };
+// let api = { site, frag, tag, friendlink, common };
 
 module.exports = () => {
   return async (req, res, next) => {
@@ -15,30 +15,29 @@ module.exports = () => {
         return;
       }
       // 站点
-      const site = await api.site.find();
-      site.json = site.json || "";
+      const siteData = await site.find();
       // 分类
-      const category = await api.common.category();
+      const categoryData = await common.category();
+      
       //导航
-      const nav = utils.tree(category);
+      const nav = utils.tree(categoryData);
       // 友情链接
-      let friendlink = await api.friendlink.list();
-      friendlink = friendlink.list || [];
+      let friendlinkData = await friendlink.list();
       //样式路径
       const base_url = `/public/template/${template}`;
       //获取碎片 默认100条
-      const frag = await api.frag.list();
+      const fragData = await frag.list();
       //获取热门标签 默认20条
-      const tag = await api.tag.hot();
+      const tagData = await tag.hot();
       req.app.locals = {
         ...req.app.locals,
-        site,
+        site:siteData,
         nav,
-        category,
-        friendlink,
+        category:categoryData,
+        friendlink:friendlinkData,
         base_url,
-        frag,
-        tag,
+        frag:fragData,
+        tag:tagData,
       };
       await next();
     } catch (error) {

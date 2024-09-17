@@ -156,8 +156,6 @@ class ArticleService {
             .where("id", item)
             .select(["tagId"])
             .first();
-
-          console.log("item,oneRecord", oneRecord);
           const tagId = oneRecord.tagId.split(",").map((item) => +item);
           const tagsSql = `
             UPDATE cms_tag
@@ -315,7 +313,6 @@ class ArticleService {
           `SELECT tableName FROM cms_model WHERE id=?`,
           [modId[0][0].mid]
         );
-        console.log(tableName);
         // 通过表名查找文章
         field = await knex.raw(
           `SELECT * FROM ${tableName[0][0].tableName} WHERE aid=? LIMIT 0,1`,
