@@ -68,10 +68,10 @@
             <el-col :sm="24" :md="12">
               <el-form-item label="内容属性">
                 <el-checkbox-group v-model="params.attr" @change="handleAttr">
-                  <el-checkbox label="1">头条</el-checkbox>
-                  <el-checkbox label="2">推荐</el-checkbox>
-                  <el-checkbox label="3">轮播</el-checkbox>
-                  <el-checkbox label="4">热门</el-checkbox>
+                  <el-checkbox label="1" value="1">头条</el-checkbox>
+                  <el-checkbox label="2" value="2">推荐</el-checkbox>
+                  <el-checkbox label="3" value="3">轮播</el-checkbox>
+                  <el-checkbox label="4" value="4">热门</el-checkbox>
                 </el-checkbox-group>
               </el-form-item>
             </el-col>
@@ -434,7 +434,7 @@ export default {
         shortTitle: "",
         tagId: "",
         attr: [],
- 
+
         articleView:'',
 
         source: "",
