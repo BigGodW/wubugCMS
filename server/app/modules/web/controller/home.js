@@ -25,7 +25,7 @@ class HomeController {
       } = req.app.locals;
 
       let result = {};
-    
+
       if (!("banner" in res.locals)) {
         result = await home.home();
         res.locals = { ...res.locals, ...result };
@@ -34,7 +34,7 @@ class HomeController {
       // 指定多栏目栏目获取文章列表
       // await common.getArticleListByCids([59,1,29,]) 不传入默认所有栏目
       let article = await common.getArticleListByCids();
-    
+
       //获取首页
       let defaultView = "index.html";
       if (nav.length > 0 && nav[0].pinyin == "home" && nav[0].listView) {
@@ -67,7 +67,7 @@ class HomeController {
       let navSub = getChildrenId(cate || cid, category);
       // const navSubField = ["id", "name", "path"];
       // navSub.cate.children = filterFields(navSub.cate.children, navSubField);
-      
+
       //获取栏目id
       const id = cid || navSub.cate.id || "";
       if (!id) {
@@ -150,8 +150,11 @@ class HomeController {
       );
       article.content = htmlDecode(article.content);
       // 扩展字段
-      Object.getOwnPropertyNames(article.field).forEach(function(key) {
-        if(typeof article.field[key]== 'string' && article.field[key].includes("{")){
+      Object.getOwnPropertyNames(article.field).forEach(function (key) {
+        if (
+          typeof article.field[key] == "string" &&
+          article.field[key].includes("{")
+        ) {
           article.field[key] = JSON.parse(article.field[key]);
         }
       });

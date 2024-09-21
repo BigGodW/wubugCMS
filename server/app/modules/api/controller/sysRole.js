@@ -24,7 +24,7 @@ class SysRoleController {
   // 删除
   async delete(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await sysRole.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -46,7 +46,7 @@ class SysRoleController {
   // 查
   async detail(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await sysRole.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -57,7 +57,7 @@ class SysRoleController {
   // 列表
   async list(req, res, next) {
     try {
-      const {cur,pageSize=10} = req.query;
+      const { cur, pageSize = 10 } = req.query;
       const data = await sysRole.list(cur, pageSize);
       res.json({ ...success, data: data });
     } catch (err) {

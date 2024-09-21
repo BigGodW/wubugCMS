@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 const {
   modules: {
     api: {
@@ -10,24 +10,23 @@ const {
   },
 } = Chan;
 
-class SiteController  {
-
+class SiteController {
   // 查
   async find(req, res, next) {
     try {
       const data = await site.find();
-      res.json({ ...success, data: data })
+      res.json({ ...success, data: data });
     } catch (err) {
       next(err);
     }
   }
 
-  // 增 
+  // 增
   async create(req, res, next) {
     try {
       const body = req.body;
       const data = await site.create(body);
-      res.json({ ...success, data: data })
+      res.json({ ...success, data: data });
     } catch (err) {
       next(err);
     }
@@ -36,7 +35,7 @@ class SiteController  {
   // 删除
   async delete(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await site.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -58,7 +57,7 @@ class SiteController  {
   // 查
   async findId(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await site.find(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -69,13 +68,12 @@ class SiteController  {
   // 获取磁盘信息
   async runEnv(req, res, next) {
     try {
-      const dirname = path.join(__dirname, '../../../../');
-      res.json({ ...success, data:{dirname: dirname} });
+      const dirname = path.join(__dirname, "../../../../");
+      res.json({ ...success, data: { dirname: dirname } });
     } catch (err) {
       next(err);
     }
   }
-
 }
 
 module.exports = SiteController;

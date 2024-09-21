@@ -9,13 +9,12 @@ const {
   },
 } = Chan;
 
-class MenuController  {
-
+class MenuController {
   // 查
   async find(req, res, next) {
     try {
       const data = await menu.find();
-      res.json({ ...success, data: data })
+      res.json({ ...success, data: data });
     } catch (err) {
       next(err);
     }
@@ -31,7 +30,6 @@ class MenuController  {
       next(err);
     }
   }
-
 }
 
 module.exports = MenuController;

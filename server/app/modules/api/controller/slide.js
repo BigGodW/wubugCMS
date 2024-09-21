@@ -1,4 +1,4 @@
-const dayjs = require('dayjs');
+const dayjs = require("dayjs");
 const {
   modules: {
     api: {
@@ -25,7 +25,7 @@ class SlideController {
   // 删除
   async delete(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await slide.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -47,7 +47,7 @@ class SlideController {
   // 查
   async detail(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await slide.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -58,10 +58,10 @@ class SlideController {
   // 搜索
   async search(req, res, next) {
     try {
-      const {cur,keyword,cid=0,pageSize=10} = req.query;
+      const { cur, keyword, cid = 0, pageSize = 10 } = req.query;
       const data = await slide.search(keyword, cur, pageSize, +cid);
-      data.list.forEach(ele => {
-        ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+      data.list.forEach((ele) => {
+        ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm:ss");
       });
       res.json({ ...success, data: data });
     } catch (err) {
@@ -69,14 +69,13 @@ class SlideController {
     }
   }
 
-
   // 列表
   async list(req, res, next) {
     try {
-      const {cur,cid=0,pageSize=10} = req.query;
+      const { cur, cid = 0, pageSize = 10 } = req.query;
       const data = await slide.list(cur, pageSize, cid);
-      data.list.forEach(ele => {
-        ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm:ss');
+      data.list.forEach((ele) => {
+        ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm:ss");
       });
       res.json({ ...success, data: data });
     } catch (err) {
@@ -90,19 +89,19 @@ class SlideController {
       let file = req.files;
       const { originalname, filename, path } = file[0];
       res.json({
-        ...success, data: {
-          link: path.replace('app', ''),
+        ...success,
+        data: {
+          link: path.replace("app", ""),
           domain: req.hostname,
           originalname,
           filename,
-          path: '/' + path.replace(/\\/g, "/").replace(/^app\//, "")
-        }
+          path: "/" + path.replace(/\\/g, "/").replace(/^app\//, ""),
+        },
       });
     } catch (err) {
       next(err);
     }
   }
-  
 }
 
 module.exports = SlideController;

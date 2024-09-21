@@ -1,5 +1,4 @@
 const dayjs = require("dayjs");
-
 const {
   modules: {
     api: {
@@ -7,22 +6,21 @@ const {
     },
   },
   helper: {
-    utils: { getToken},
+    utils: { getToken },
     api: { success },
   },
 } = Chan;
-
 
 class LoginLogController {
   // 增
   async create(req, res, next) {
     try {
-      const {config} = req.app.locals;
+      const { config } = req.app.locals;
       const token = req.cookies.token;
       const user = await getToken(token, config.token.KEY);
       let body = {
-        uid:user.uid,
-        ...req.body
+        uid: user.uid,
+        ...req.body,
       };
       const data = await loginLog.create(body);
       res.json({ ...success, data: data });

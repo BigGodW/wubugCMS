@@ -1,10 +1,10 @@
-
-
-
-const Chan = require('chanjs');
-const {config,helper: {api:{success}}} = require('chanjs');
+const {
+  config,
+  helper: {
+    api: { success },
+  },
+} = Chan;
 class WechatController {
- 
   //微信小程序登录
   async login(req, res, next) {
     try {

@@ -1,17 +1,16 @@
-
-const qiniu = require('qiniu');
-class QiniuService  {
-
+const qiniu = require("qiniu");
+class QiniuService {
   // 生成上传token
-  async getUploadToken(config){
-    const {accessKey,secretKey,bucket} = config;
+  async getUploadToken(config) {
+    const { accessKey, secretKey, bucket } = config;
     let mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
     // 上传凭证
     let options = {
-        scope: bucket,
-        // 超时时间
-        expires: 7200,
-        returnBody: '{"key":"$(key)","hash":"$(etag)","fsize":$(fsize),"bucket":"$(bucket)","name":"$(x:name)","age":$(x:age)}'
+      scope: bucket,
+      // 超时时间
+      expires: 7200,
+      returnBody:
+        '{"key":"$(key)","hash":"$(etag)","fsize":$(fsize),"bucket":"$(bucket)","name":"$(x:name)","age":$(x:age)}',
     };
     let putPolicy = new qiniu.rs.PutPolicy(options);
     return putPolicy.uploadToken(mac);
@@ -29,15 +28,16 @@ class QiniuService  {
   //   }
   // }
 
-
   //七牛云上传
-  async upload(file,config){
-    let date= new Date();
+  async upload(file, config) {
+    let date = new Date();
     let year = date.getFullYear();
-    let month = (date.getMonth()+1).toString().padStart(2,'0');
-    let day = date.getDate().toString().padStart(2,'0');
+    let month = (date.getMonth() + 1).toString().padStart(2, "0");
+    let day = date.getDate().toString().padStart(2, "0");
     // upload
-    let key = `uploads/${year}/${month}/${day}/${new Date().getTime()}_${file.originalname}`
+    let key = `uploads/${year}/${month}/${day}/${new Date().getTime()}_${
+      file.originalname
+    }`;
     //上传token
     let uploadToken = await this.getUploadToken(config);
     let _config = new qiniu.conf.Config();
@@ -47,22 +47,23 @@ class QiniuService  {
     putExtra.fname = file.filename;
     putExtra.metadata = {};
 
-    return new Promise(async resove=>{
+    return new Promise(async (resove) => {
       formUploader.putFile(
         uploadToken,
-        key, 
-        localFile, 
-        putExtra, 
-        function (err,res, resp) {
+        key,
+        localFile,
+        putExtra,
+        function (err, res, resp) {
           if (err) {
-              throw err;
+            throw err;
           }
           resove({
-            code:resp.statusCode ,
-            data:res
-          })
-      });
-    })
+            code: resp.statusCode,
+            data: res,
+          });
+        }
+      );
+    });
   }
 }
 

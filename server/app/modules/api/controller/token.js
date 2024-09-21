@@ -1,5 +1,7 @@
 const {
-  config: { token: { KEY, TIME } },
+  config: {
+    token: { KEY, TIME },
+  },
   helper: {
     api: { success },
     utils: { setToken, getToken },

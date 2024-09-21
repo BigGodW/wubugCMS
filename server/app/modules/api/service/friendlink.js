@@ -1,4 +1,4 @@
-const {knex} = Chan;
+const { knex } = Chan;
 class FriendlinkService {
   model = "cms_friendlink";
 
@@ -16,9 +16,7 @@ class FriendlinkService {
   // 删
   async delete(id) {
     try {
-      const res = await knex(this.model)
-        .where("id", "=", id)
-        .del();
+      const res = await knex(this.model).where("id", "=", id).del();
       return res ? "success" : "fail";
     } catch (err) {
       console.error(err);
@@ -31,9 +29,7 @@ class FriendlinkService {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .update(body);
+      const result = await knex(this.model).where("id", "=", id).update(body);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err);

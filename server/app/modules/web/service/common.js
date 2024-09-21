@@ -87,7 +87,10 @@ class CommonService {
   async getArticleListByCid(cid, len = 5, attr = "") {
     try {
       // 获取所有id
-      const res = await knex.select("id").from("cms_category").where("pid", cid);
+      const res = await knex
+        .select("id")
+        .from("cms_category")
+        .where("pid", cid);
       const ids = [cid, ...res.map((item) => item.id)];
       // 构建查询条件
       let queryBuilder = knex

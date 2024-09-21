@@ -1,5 +1,4 @@
 const dayjs = require("dayjs");
-
 const {
   modules: {
     api: {
@@ -16,14 +15,11 @@ class GatherController {
 
   async getArticle(req, res, next) {
     try {
-      const { targetUrl,parseData} = req.query;
+      const { targetUrl, parseData } = req.query;
       var data = await gather.common(targetUrl);
-      let run = new Function(
-        `data`,
-       parseData
-      );
+      let run = new Function(`data`, parseData);
       let dataend = run(data);
-      res.json({ ...success, source: data, data: dataend});
+      res.json({ ...success, source: data, data: dataend });
     } catch (error) {
       next(error);
     }
@@ -43,7 +39,7 @@ class GatherController {
   // 删除
   async delete(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await gather.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -65,7 +61,7 @@ class GatherController {
   // 查
   async detail(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await gather.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -76,7 +72,7 @@ class GatherController {
   // 搜索
   async search(req, res, next) {
     try {
-      const {cur,keyword,pageSize=10} = req.query;
+      const { cur, keyword, pageSize = 10 } = req.query;
       const data = await gather.search(keyword, cur, pageSize);
       data.list.forEach((ele) => {
         ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");
@@ -90,10 +86,10 @@ class GatherController {
   // 列表
   async list(req, res, next) {
     try {
-      const {cur,pageSize=10} = req.query;
+      const { cur, pageSize = 10 } = req.query;
       let data = await gather.list(cur, pageSize);
-      data.list.forEach(ele => {
-        ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm');
+      data.list.forEach((ele) => {
+        ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm");
       });
       res.json({ ...success, data: data });
     } catch (err) {

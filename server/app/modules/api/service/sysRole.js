@@ -1,7 +1,7 @@
-const {knex} = Chan;
+const { knex } = Chan;
 
 class SysRoleService {
-  model = 'sys_role';
+  model = "sys_role";
 
   // 新增
   async create(body) {
@@ -9,7 +9,7 @@ class SysRoleService {
       const result = await knex(this.model).insert(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -17,12 +17,10 @@ class SysRoleService {
   // 删
   async delete(id) {
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .del();
+      const result = await knex(this.model).where("id", "=", id).del();
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -32,12 +30,10 @@ class SysRoleService {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .update(body);
+      const result = await knex(this.model).where("id", "=", id).update(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -63,7 +59,7 @@ class SysRoleService {
         list: list,
       };
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -73,14 +69,13 @@ class SysRoleService {
     try {
       const data = await knex(this.model)
         .where("id", "=", id)
-        .select(['name','value','status']);
+        .select(["name", "value", "status"]);
       return data[0];
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
-
 }
 
 module.exports = SysRoleService;

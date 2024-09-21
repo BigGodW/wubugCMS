@@ -1,7 +1,7 @@
 const BaseService = require("./base");
-const {knex} = Chan;
+const { knex } = Chan;
 
-class SysConfigService  extends BaseService {
+class SysConfigService extends BaseService {
   model = "sys_config";
 
   async find() {
@@ -32,9 +32,7 @@ class SysConfigService  extends BaseService {
     delete body.createdAt;
     delete body.updatedAt;
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .update(body);
+      const result = await knex(this.model).where("id", "=", id).update(body);
       return result ? "success" : "fail";
     } catch (err) {
       console.error(err);

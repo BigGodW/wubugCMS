@@ -32,20 +32,11 @@ class CollectController {
   //测试列表所有地址
   async getArticle(req, res, next) {
     try {
-      const {
-        taskUrl,
-        titleTag,
-        articleTag,
-        parseData,
-        charset,
-      } = req.body;
+      const { taskUrl, titleTag, articleTag, parseData, charset } = req.body;
       const dataStr = await collect.common(taskUrl, charset);
       const $ = cheerio.load(dataStr.toString(), { decodeEntities: false });
       const title = $(`${titleTag}`).text().trim();
-      let run = new Function(
-        `data`,
-       parseData
-      );
+      let run = new Function(`data`, parseData);
 
       let data = $(`${articleTag}`).html();
       let dataend = run(data);
@@ -69,7 +60,7 @@ class CollectController {
   // 删除
   async delete(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await collect.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -91,7 +82,7 @@ class CollectController {
   // 查
   async detail(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await collect.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -102,7 +93,7 @@ class CollectController {
   // 搜索
   async search(req, res, next) {
     try {
-      const {cur,keyword,pageSize=10} = req.query;
+      const { cur, keyword, pageSize = 10 } = req.query;
       const data = await collect.search(keyword, cur, pageSize);
       data.list.forEach((ele) => {
         ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");
@@ -116,10 +107,10 @@ class CollectController {
   // 列表
   async list(req, res, next) {
     try {
-      const {cur,pageSize=10} = req.query;
+      const { cur, pageSize = 10 } = req.query;
       let data = await collect.list(cur, pageSize);
-      data.list.forEach(ele => {
-        ele.updatedAt = dayjs(ele.updatedAt).format('YYYY-MM-DD HH:mm');
+      data.list.forEach((ele) => {
+        ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm");
       });
       res.json({ ...success, data: data });
     } catch (err) {

@@ -5,19 +5,18 @@ const {
     },
   },
   helper: {
-    api: { success,fail },
+    api: { success, fail },
   },
 } = Chan;
 
-class FieldController  {
-
+class FieldController {
   // 增
   async create(req, res, next) {
     try {
       const body = req.body;
       const has = await field.findByName(body.cname, body.ename);
       if (has.length > 0) {
-        res.json({ ...fail, msg: '字段命名已重复' });
+        res.json({ ...fail, msg: "字段命名已重复" });
         return;
       }
       const data = await field.create(body);
@@ -30,7 +29,7 @@ class FieldController  {
   // 删除
   async delete(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await field.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -49,11 +48,10 @@ class FieldController  {
     }
   }
 
-
   // 查
   async detail(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await field.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -61,10 +59,10 @@ class FieldController  {
     }
   }
 
-  // 列表 
+  // 列表
   async list(req, res, next) {
     try {
-      const {cur,mid,pageSize=10} = req.query;
+      const { cur, mid, pageSize = 10 } = req.query;
       const data = await field.list(mid, cur, pageSize);
       res.json({ ...success, data: data });
     } catch (err) {

@@ -1,4 +1,4 @@
-const {knex} = Chan;
+const { knex } = Chan;
 
 class FieldService {
   model = "cms_field";

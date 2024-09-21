@@ -8,7 +8,7 @@ const {
   },
   helper: {
     utils: { setToken, getToken, md5 },
-  api: { success, fail },
+    api: { success, fail },
   },
 } = Chan;
 
@@ -31,7 +31,7 @@ class SysUserController {
         const data = { status, username, token };
         res.json({ ...success, data: data });
       } else {
-        res.json({ ...fail,msg: "登录失败" });
+        res.json({ ...fail, msg: "登录失败" });
       }
     } catch (err) {
       console.log(err);
@@ -54,7 +54,7 @@ class SysUserController {
   // 删除
   async delete(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await sysUser.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -78,9 +78,9 @@ class SysUserController {
   async detail(req, res, next) {
     try {
       let uid = req.query.id;
-      if(!uid){
+      if (!uid) {
         const token = req.cookies.token;
-        if(!token){
+        if (!token) {
           return res.json({ ...fail, msg: "请先登录" });
         }
         const user = await getToken(token, config.token.KEY);
@@ -96,7 +96,7 @@ class SysUserController {
   // 搜索
   async search(req, res, next) {
     try {
-      const {cur,keyword,pageSize=10} = req.query;
+      const { cur, keyword, pageSize = 10 } = req.query;
       const data = await sysUser.search(keyword, cur, pageSize);
       data.list.forEach((ele) => {
         ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");
@@ -110,7 +110,7 @@ class SysUserController {
   // 列表
   async list(req, res, next) {
     try {
-      const {cur,pageSize=10} = req.query;
+      const { cur, pageSize = 10 } = req.query;
       let data = await sysUser.list(cur, pageSize);
       data.list.forEach((ele) => {
         ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");
@@ -120,7 +120,6 @@ class SysUserController {
       next(err);
     }
   }
-
 }
 
 module.exports = SysUserController;

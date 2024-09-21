@@ -1,15 +1,19 @@
 const {
-  web: {service: { common }},
-  api: {service: { site, frag, tag, friendlink }},
+  web: {
+    service: { common },
+  },
+  api: {
+    service: { site, frag, tag, friendlink },
+  },
 } = Chan.modules;
-
-// let api = { site, frag, tag, friendlink, common };
 
 module.exports = () => {
   return async (req, res, next) => {
     try {
       let { utils } = Chan.helper;
-      let {config: { template, dataCache }} = req.app.locals;
+      let {
+        config: { template, dataCache },
+      } = req.app.locals;
       if ("site" in req.app.locals && dataCache == "1") {
         await next();
         return;
@@ -18,7 +22,6 @@ module.exports = () => {
       const siteData = await site.find();
       // 分类
       const categoryData = await common.category();
-      
       //导航
       const nav = utils.tree(categoryData);
       // 友情链接
@@ -31,13 +34,13 @@ module.exports = () => {
       const tagData = await tag.hot();
       req.app.locals = {
         ...req.app.locals,
-        site:siteData,
+        site: siteData,
         nav,
-        category:categoryData,
-        friendlink:friendlinkData,
+        category: categoryData,
+        friendlink: friendlinkData,
         base_url,
-        frag:fragData,
-        tag:tagData,
+        frag: fragData,
+        tag: tagData,
       };
       await next();
     } catch (error) {

@@ -1,5 +1,3 @@
-
-
 const auth = require("../../middleware/auth.js");
 
 const { upload } = Chan.helper.upload;
@@ -7,8 +5,10 @@ const { upload } = Chan.helper.upload;
 module.exports = (opt) => {
   const {
     router,
-    modules: { api:{controller}},
-    app
+    modules: {
+      api: { controller },
+    },
+    app,
   } = opt;
 
   // 登录
@@ -50,11 +50,11 @@ module.exports = (opt) => {
   router.post("/article/update", auth(), controller.article.update);
 
   //上传
-  router.post("/upload", auth(), upload.any(),controller.article.upload);
+  router.post("/upload", auth(), upload.any(), controller.article.upload);
   router.get("/article/delfile", auth(), controller.article.delfile);
   // 七牛云相关
   router.get("/qiniu/getUploadToken", controller.qiniu.getUploadToken);
-  router.post("/qiniu/upload", auth(), upload.any(),controller.qiniu.upload);
+  router.post("/qiniu/upload", auth(), upload.any(), controller.qiniu.upload);
 
   // 模型管理
   router.get("/model/list", controller.model.list);
@@ -129,7 +129,7 @@ module.exports = (opt) => {
   router.post("/gather/create", auth(), controller.gather.create);
   router.get("/gather/delete", auth(), controller.gather.delete);
   router.post("/gather/update", auth(), controller.gather.update);
-  
+
   //角色管理
   router.get("/sysRole/list", auth(), controller.sysRole.list);
   router.post("/sysRole/create", auth(), controller.sysRole.create);
@@ -147,6 +147,5 @@ module.exports = (opt) => {
   router.get("/loginLog/list", auth(), controller.loginLog.list);
 
   //配置前缀
-  app.use('/api',router)
+  app.use("/api", router);
 };
-

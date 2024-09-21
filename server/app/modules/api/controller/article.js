@@ -36,7 +36,7 @@ class ArticleController {
   // 删除
   async delete(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await article.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -71,7 +71,7 @@ class ArticleController {
   // 查
   async detail(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await article.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -82,7 +82,7 @@ class ArticleController {
   // 查子栏目
   async findSubId(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await article.findSubId(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -107,7 +107,7 @@ class ArticleController {
   // 列表
   async list(req, res, next) {
     try {
-      const {cur,cid,pageSize=10} = req.query;
+      const { cur, cid, pageSize = 10 } = req.query;
       const data = await article.list(cur, pageSize, cid);
       data.list.forEach((ele) => {
         ele.updatedAt = dayjs(ele.updatedAt).format("YYYY-MM-DD HH:mm:ss");
@@ -140,7 +140,7 @@ class ArticleController {
 
   async findField(req, res, next) {
     try {
-      const {cid} = req.query;
+      const { cid } = req.query;
       const data = await article.findField(cid);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -165,7 +165,7 @@ class ArticleController {
 
   async delfile(req, res, next) {
     try {
-      const {url} = req.query;
+      const { url } = req.query;
       let filePath = path.join(APP_PATH, url);
       let data = delImg(filePath);
       res.json({ ...success, data });

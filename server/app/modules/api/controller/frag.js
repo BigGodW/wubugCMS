@@ -1,4 +1,4 @@
-const dayjs = require('dayjs');
+const dayjs = require("dayjs");
 const {
   modules: {
     api: {
@@ -10,10 +10,9 @@ const {
   },
 } = Chan;
 
-class FragController  {
-
+class FragController {
   // 增
- async create(req, res, next) {
+  async create(req, res, next) {
     try {
       const body = req.body;
       const data = await frag.create(body);
@@ -26,7 +25,7 @@ class FragController  {
   // 删除
   async delete(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await frag.delete(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -58,7 +57,7 @@ class FragController  {
   // 查
   async detail(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await frag.detail(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -69,7 +68,7 @@ class FragController  {
   // 查子栏目
   async findSubId(req, res, next) {
     try {
-      const {id} = req.query;
+      const { id } = req.query;
       const data = await frag.findSubId(id);
       res.json({ ...success, data: data });
     } catch (err) {
@@ -80,10 +79,10 @@ class FragController  {
   // 搜索
   async search(req, res, next) {
     try {
-      const {cur,keywords,pageSize= 20} = req.query
+      const { cur, keywords, pageSize = 20 } = req.query;
       const data = await frag.search(keywords, cur, pageSize);
-      data.list.forEach(ele => {
-        ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:mm');
+      data.list.forEach((ele) => {
+        ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");
       });
       res.json({ ...success, data: data });
     } catch (err) {
@@ -94,17 +93,16 @@ class FragController  {
   // 列表
   async list(req, res, next) {
     try {
-      const {cur,pageSize=10} = req.query;
+      const { cur, pageSize = 10 } = req.query;
       const data = await frag.list(cur, pageSize);
-      data.list.forEach(ele => {
-        ele.createdAt = dayjs(ele.createdAt).format('YYYY-MM-DD HH:mm');
+      data.list.forEach((ele) => {
+        ele.createdAt = dayjs(ele.createdAt).format("YYYY-MM-DD HH:mm");
       });
       res.json({ ...success, data: data });
     } catch (err) {
       next(err);
     }
   }
-
 }
 
 module.exports = FragController;

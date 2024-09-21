@@ -89,11 +89,10 @@ class TagService {
     }
   }
 
-  
-  async hot(size=20) {
+  async hot(size = 20) {
     try {
       const list = await knex
-        .select(["id", "name", "path","count"])
+        .select(["id", "name", "path", "count"])
         .from(this.model)
         .orderBy("count", "desc")
         .limit(size);

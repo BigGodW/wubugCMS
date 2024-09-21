@@ -1,17 +1,16 @@
 const BaseService = require("./base");
-const {knex} = Chan;
+const { knex } = Chan;
 
 class ArticleMapTagService extends BaseService {
-
   model = "article_map_tag";
 
   // 新增
   async create(body) {
     try {
-      const result = await this.insert(this.model,body);
+      const result = await this.insert(this.model, body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -22,7 +21,7 @@ class ArticleMapTagService extends BaseService {
       const result = await knex(this.model).where("id", "=", id).del();
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -35,7 +34,7 @@ class ArticleMapTagService extends BaseService {
       const result = await knex(this.model).where("id", "=", id).update(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -52,7 +51,7 @@ class ArticleMapTagService extends BaseService {
         .limit(pageSize)
         .offset(offset)
         .orderBy("id", "desc");
-        const count = total[0].count || 1;
+      const count = total[0].count || 1;
       return {
         count: count,
         total: Math.ceil(count / pageSize),
@@ -60,7 +59,7 @@ class ArticleMapTagService extends BaseService {
         list: list,
       };
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -71,7 +70,7 @@ class ArticleMapTagService extends BaseService {
       const data = await knex(this.model).where("id", "=", id).select();
       return data[0];
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -101,7 +100,7 @@ class ArticleMapTagService extends BaseService {
             .limit(pageSize)
             .offset(offset)
             .orderBy("id", "desc");
-            const count = total[0].count || 1;
+      const count = total[0].count || 1;
       return {
         count: count,
         total: Math.ceil(count / pageSize),
@@ -109,7 +108,7 @@ class ArticleMapTagService extends BaseService {
         list: list,
       };
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }

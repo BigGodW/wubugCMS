@@ -13,7 +13,6 @@ const {
   },
 } = Chan;
 
-
 class ChancmsController {
   // 获取站点信息
   async site(req, res, next) {
@@ -282,7 +281,6 @@ class ChancmsController {
       next(error);
     }
   }
-
 }
 
 module.exports = ChancmsController;

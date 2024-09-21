@@ -1,6 +1,6 @@
-const {knex} = Chan;
+const { knex } = Chan;
 
-class SlideService  {
+class SlideService {
   model = "cms_slide";
   // 新增
   async create(body) {
@@ -8,7 +8,7 @@ class SlideService  {
       const result = await knex(this.model).insert(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -16,12 +16,10 @@ class SlideService  {
   // 删
   async delete(id) {
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .del();
+      const result = await knex(this.model).where("id", "=", id).del();
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -31,12 +29,10 @@ class SlideService  {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .update(body);
+      const result = await knex(this.model).where("id", "=", id).update(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -62,7 +58,7 @@ class SlideService  {
         list: list,
       };
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -70,12 +66,10 @@ class SlideService  {
   // 查
   async detail(id) {
     try {
-      const data = await knex(this.model)
-        .where("id", "=", id)
-        .select();
+      const data = await knex(this.model).where("id", "=", id).select();
       return data[0];
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -113,7 +107,7 @@ class SlideService  {
         list: list[0],
       };
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }

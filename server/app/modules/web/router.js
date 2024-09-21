@@ -1,7 +1,6 @@
 const init = require("./middleware/init.js");
 const adapter = require("./middleware/adapter.js");
 
-
 module.exports = (opt) => {
   const {
     router,
@@ -10,7 +9,6 @@ module.exports = (opt) => {
     },
     app,
   } = opt;
-  
 
   router.use(adapter());
 

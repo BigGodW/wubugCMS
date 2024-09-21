@@ -1,15 +1,15 @@
-const {knex} = Chan;
+const { knex } = Chan;
 
-class MessageService  {
+class MessageService {
   model = "cms_message";
-  
+
   // 新增
   async create(body) {
     try {
       const result = await knex(this.model).insert(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -17,12 +17,10 @@ class MessageService  {
   // 删
   async delete(id) {
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .del();
+      const result = await knex(this.model).where("id", "=", id).del();
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -32,12 +30,10 @@ class MessageService  {
     const { id } = body;
     delete body.id;
     try {
-      const result = await knex(this.model)
-        .where("id", "=", id)
-        .update(body);
+      const result = await knex(this.model).where("id", "=", id).update(body);
       return result ? "success" : "fail";
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -63,7 +59,7 @@ class MessageService  {
         list: list,
       };
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -71,12 +67,10 @@ class MessageService  {
   // 查
   async detail(id) {
     try {
-      const data = await knex(this.model)
-        .where("id", "=", id)
-        .select();
+      const data = await knex(this.model).where("id", "=", id).select();
       return data[0];
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }
@@ -114,7 +108,7 @@ class MessageService  {
         list: list[0],
       };
     } catch (err) {
-      console.error(err)
+      console.error(err);
       throw err;
     }
   }

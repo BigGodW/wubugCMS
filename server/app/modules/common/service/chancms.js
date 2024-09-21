@@ -1,4 +1,4 @@
-const {knex} = Chan;
+const { knex } = Chan;
 
 class ChancmsService {
   constructor() {}
@@ -6,7 +6,6 @@ class ChancmsService {
   // 网站栏目
   async category() {
     try {
-      
       let res = await knex("cms_category")
         .select([
           "id",
@@ -85,7 +84,10 @@ class ChancmsService {
   async getArticleListByCid(cid, len = 5, attr = "") {
     try {
       // 获取所有id
-      const res = await knex.select("id").from("cms_category").where("pid", cid);
+      const res = await knex
+        .select("id")
+        .from("cms_category")
+        .where("pid", cid);
 
       const ids = [cid, ...res.map((item) => item.id)];
       // 构建查询条件

@@ -40,9 +40,11 @@ class SysAppController {
   /**
    * @description 获取模板文件
    */
-  async folder(req,res,next){
+  async folder(req, res, next) {
     try {
-      const { config: { APP_PATH }} = req.app.locals;
+      const {
+        config: { APP_PATH },
+      } = req.app.locals;
       const dir = path.join(APP_PATH, `/modules/web/view/`);
       const data = fs.readdirSync(dir);
       res.json({ ...success, data: data });

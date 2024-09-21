@@ -1,4 +1,4 @@
-const {knex} = Chan;
+const { knex } = Chan;
 
 class LoginLogService {
   model = "sys_loginlog";
@@ -26,9 +26,7 @@ class LoginLogService {
       const idsToKeep = recentLogIds.map((row) => row.id);
 
       // 删除不在这些ID中的所有记录
-      const result = await knex(this.model)
-        .whereNotIn("id", idsToKeep)
-        .del();
+      const result = await knex(this.model).whereNotIn("id", idsToKeep).del();
 
       return result >= 0 ? "success" : "fail";
     } catch (err) {
