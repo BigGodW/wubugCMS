@@ -66,7 +66,7 @@ class ArticleService {
           if (tags.length > 0) {
             mapTag = await knex
               .raw(
-                `INSERT INTO cms_articleTag(aid, tid) VALUES ${tagsql.join(
+                `INSERT INTO cms_articletag(aid, tid) VALUES ${tagsql.join(
                   ","
                 )}`,
                 []
@@ -148,7 +148,7 @@ class ArticleService {
           await knex.raw(delArticleStr, []).transacting(trx);
 
           // 删除关联的 tag
-          const delMapTagStr = `DELETE FROM cms_articleTag WHERE aid IN(${item})`;
+          const delMapTagStr = `DELETE FROM cms_articletag WHERE aid IN(${item})`;
           await knex.raw(delMapTagStr, []).transacting(trx);
           // 更新旧的标签关联中的 count 字段减去 1
 
@@ -196,7 +196,7 @@ class ArticleService {
         }
 
         // 修改标签，要先全部删除关联的tag，然后再添加，因为修改标签有删除，新增等方式
-        const delMapTagStr = `DELETE FROM cms_articleTag WHERE aid IN(${id})`;
+        const delMapTagStr = `DELETE FROM cms_articletag WHERE aid IN(${id})`;
         await knex.raw(delMapTagStr, []).transacting(trx);
 
         // 更新旧的标签关联中的 count 字段减去 1
@@ -215,7 +215,7 @@ class ArticleService {
           tagsql.push(`(${id},${item})`);
         });
         await knex
-          .raw("INSERT INTO cms_articleTag(aid,tid) VALUES " + tagsql.join(","))
+          .raw("INSERT INTO cms_articletag(aid,tid) VALUES " + tagsql.join(","))
           .transacting(trx);
 
         // 更新新的标签关联中的 count 字段加上 1

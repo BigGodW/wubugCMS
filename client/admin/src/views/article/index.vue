@@ -58,7 +58,7 @@
             :href="
               scope.row.type == '0'
                 ? `${domain}/article-${scope.row.id}.html`
-                : `${domain}/${scope.row.path}/page-${scope.row.id}.html`
+                : `${domain}${scope.row.path}/page-${scope.row.id}.html`
             "
             target="_blank"
           >

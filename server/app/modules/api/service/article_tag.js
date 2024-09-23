@@ -2,7 +2,7 @@ const BaseService = require("./base");
 const { knex } = Chan;
 
 class ArticleTagService extends BaseService {
-  model = "cms_articleTag";
+  model = "cms_articletag";
 
   // 新增
   async create(body) {

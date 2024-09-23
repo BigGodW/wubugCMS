@@ -25,7 +25,7 @@ class TagService {
   async delete(id) {
     try {
       const has = await knex.raw(
-        `SELECT tid FROM cms_articleTag WHERE tid = ${id}`
+        `SELECT tid FROM cms_articletag WHERE tid = ${id}`
       );
       if (has[0].length > 0) {
         return false;
