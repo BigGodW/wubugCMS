@@ -77,11 +77,13 @@
                 </div>
 
                 <!-- 分页 -->
+                {{if pageHtml}}
                 <div class="page mt-1 bg-fff pd-25 flex justify-center  radius-6" id="app">
                      <ul class="overflow-h center list-none" id="page">
                        {{@ pageHtml}}
                      </ul> 
                 </div>
+                {{/if}}
             </article>
 
             <aside class="flex-1">

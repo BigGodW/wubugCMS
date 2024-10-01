@@ -254,7 +254,6 @@ class HomeController {
       }
 
       //获取模板
-
       let view = navSub?.cate?.articleView || "page.html";
       await res.render(`${template}/${view}`, {
         data: data.list,

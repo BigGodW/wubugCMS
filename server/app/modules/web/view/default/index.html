@@ -108,7 +108,7 @@
                 <!-- 书籍/图片/视频 pdf -->
                 <section class="mt-10">
                     <h3 class="m-title title-dashed f-16 flex justify-between">最新图文<span class="more">new</span></h3>
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 flex-wrap">
                         {{each imgs}}
                         <figure class="books-item  f-14  pd-16 bg-fff">
                             <a class="m-img" href="{{$value.path}}/article-{{$value.id}}.html" title="{{$value.title}}">
@@ -127,7 +127,7 @@
             <aside class="flex-1">
                 <!-- 介绍文本 -->
                 <section class="notices pd-20 mb-20 bg-fff">
-                    {{@ frag["chanyue-introduce"]}}
+                    {{@ frag["chancms"]}}
                 </section>
 
                 <!-- 通知 -->

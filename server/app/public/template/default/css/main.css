@@ -100,12 +100,15 @@ ul>li:last-child {
 html {
     scroll-behavior: smooth;
 }
-.w-1280{
+
+.w-1280 {
     width: 1280px;
 }
-.center{
+
+.center {
     margin: 0 auto;
 }
+
 /* 首页 */
 .header-wrap {
     position: sticky;
@@ -138,10 +141,9 @@ html {
     animation: ran 18s linear infinite;
 }
 
-.header-wrap .nav {
+.header-wrap .nav {}
 
-}
-.search{
+.search {
     border: 1px solid #ddd;
     border-radius: 6px;
     height: 34px;
@@ -449,26 +451,33 @@ html {
 }
 
 .list {
-    min-height: calc(100vh - 500px);
+    min-height: calc(100vh - 282px);
+}
+
+.content {
+    min-height: calc(100vh - 228px);
 }
 
 .page ul li {
     float: left;
     border: 1px solid #ede7e7;
-   
+
     margin-right: 10px;
     color: #666;
     cursor: pointer;
     transition: all 0.5s linear;
     border-radius: 5px;
 }
-.page ul li.disabled{
+
+.page ul li.disabled {
     padding: 8px 15px;
 }
-.page ul li a{
+
+.page ul li a {
     display: block;
     padding: 8px 15px;
 }
+
 .page ul li.current {
     background-color: #1e80ff;
     border: none;
@@ -476,7 +485,7 @@ html {
 
 .page ul li.current a {
     color: #fff;
-    
+
 }
 
 .page ul li:hover {
@@ -484,19 +493,38 @@ html {
 }
 
 /* list-img.html */
+.gap-7 {
+    gap: 7px;
+}
+
+.list-img-item {
+    width: 240px;
+    height: 180px;
+}
+
+.list-img-item .title {
+    position: absolute;
+    bottom: 0px;
+    color: #fff;
+    padding: 10px;
+}
+
 .list-img-item:hover .overlay {
     opacity: 1;
     cursor: pointer;
 }
-.overlay{
+
+.overlay {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3); /* 半透明灰色遮罩 */
+    background-color: rgba(0, 0, 0, 0.3);
+    /* 半透明灰色遮罩 */
     opacity: 0;
-    transition: opacity 0.3s ease-in-out; /* 平滑过渡 */
+    transition: opacity 0.3s ease-in-out;
+    /* 平滑过渡 */
 }
 
 /* article.html */
@@ -626,6 +654,7 @@ html {
     border-top: 1px solid #bbb;
     margin: 16px 0
 }
+
 .article-cont a {
     text-decoration: none;
     color: #198cff;
@@ -892,9 +921,11 @@ iframe {
     .drawer .search-wrap {
         display: flex;
     }
-    .drawer .search{
+
+    .drawer .search {
         flex: 1;
     }
+
     .search-input {
         width: 78%;
         background-color: transparent;
@@ -931,7 +962,7 @@ iframe {
         backdrop-filter: blur(4px);
     }
 
-    
+
 
     .drawer .sub-nav {
         display: block;
@@ -944,7 +975,7 @@ iframe {
         margin-left: 10px;
         margin-right: 10px;
 
-        background-color: rgba(255,255,255,0.7);
+        background-color: rgba(255, 255, 255, 0.7);
         border-radius: 6px;
         padding: 10px;
     }
@@ -984,7 +1015,7 @@ iframe {
         display: block;
     }
 
-  
+
 
     .books-item {
         width: calc((100% / 2) - 1px);
