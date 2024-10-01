@@ -35,9 +35,25 @@
           placeholder="表名称必须ext_开头"
         ></el-input>
       </el-form-item>
+
       <el-form-item label="是否启用">
         <el-radio v-model="params.status" value="1">开启</el-radio>
         <el-radio v-model="params.status" value="0">禁用</el-radio>
+      </el-form-item>
+
+      <el-form-item
+        label="备注"
+        prop="remark"
+        :rules="[{
+            required: true,
+            message: '请输入备注',
+            trigger: 'blur',
+          }]"
+      >
+        <el-input
+          v-model="params.remark"
+          placeholder="请输入备注"
+        ></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submit('params')">保存</el-button>
@@ -58,6 +74,7 @@ export default {
         model: "", //
         tableName: "",
         status: "1",
+        remark: "",
       },
     };
   },

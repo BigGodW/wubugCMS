@@ -35,6 +35,21 @@
         >
       </el-form-item>
 
+      <el-form-item
+        label="备注"
+        prop="remark"
+        :rules="[{
+            required: true,
+            message: '请输入备注',
+            trigger: 'blur',
+          }]"
+      >
+        <el-input
+          v-model="params.remark"
+          placeholder="请输入备注"
+        ></el-input>
+      </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="submit('params')">保存</el-button>
       </el-form-item>
@@ -54,10 +69,11 @@ export default {
         old_table: "", //未修改之前的表名称
         model: "",
         table: "",
+        remark: "",
         status: "1",
       },
       disable: false,
-     
+
     };
   },
   computed: {},

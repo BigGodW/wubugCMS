@@ -6,17 +6,25 @@ class ModelService {
   // 增
   async create(body) {
     try {
-      const { model, tableName, status } = body;
+      const { model, tableName, status,remark='' } = body;
       await knex.transaction(async (trx) => {
         // 新建表
-        const sql_create = `CREATE TABLE ${tableName} (aid int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8`;
+        const sql_create = `CREATE TABLE ${tableName} (
+              id INT(11) NOT NULL AUTO_INCREMENT,
+              aid INT(11) NOT NULL,
+              PRIMARY KEY (id)
+            ) ENGINE=InnoDB
+            DEFAULT CHARSET=utf8mb4
+            COLLATE=utf8mb4_general_ci
+            COMMENT='${remark}'`;
+
         const createTableStatus = await knex
           .raw(sql_create, [])
           .transacting(trx);
         // 新增内容
-        const sql_insert = `INSERT INTO ${this.model} (model,tableName,status) VALUES(?,?,?)`;
+        const sql_insert = `INSERT INTO ${this.model} (model,tableName,status,remark) VALUES(?,?,?,?)`;
         const result = await knex
-          .raw(sql_insert, [model, tableName, status])
+          .raw(sql_insert, [model, tableName, status ,remark])
           .transacting(trx);
         return {
           insertStatus: result[0],
