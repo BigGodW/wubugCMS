@@ -76,11 +76,13 @@
                     {{/if}}
                 </div>
 
+                {{if pageHtml}}
                 <div class="page mt-1 bg-fff pd-25 flex justify-center  radius-6" id="app">
                     <ul class="overflow-h center" id="page">
                       {{@ pageHtml}}
                     </ul> 
                </div>
+               {{/if}}
 
             </article>
 
@@ -97,9 +99,12 @@
                 </section>
 
                 <!-- 广告 -->
+                {{if frag.ad}}
                 <section class="ad mb-20 bg-fff">
                     {{@ frag.ad.content || ''}}
                 </section>
+                {{/if}}
+
             </aside>
         </div>
     </main>
