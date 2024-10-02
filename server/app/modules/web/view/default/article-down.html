@@ -58,14 +58,13 @@
                     </section>
                     {{/if}}
                     <article id="article" class="article-cont f-17 lh-35">
-                        <ul>
-                            <li>文件名称：{{field?.fileName}}</li>
-                            <li>文件版本：{{field?.fileVersion}}</li>
-                            <li>文件链接：{{field?.fileLink}}</li>
-                        </ul>
                         {{@ article.content}}
+                        <ul>
+                            <li>文件名称：{{article?.field?.fileName}}</li>
+                            <li>文件版本：{{article?.field?.fileVersion}}</li>
+                            <li>文件链接：<a href="{{article?.field?.fileLink}}" target="_blank">{{article?.field?.fileLink}}</a></li>
+                        </ul>
                     </article>
-
                 </div>
 
                 <footer class="pd-25 bg-fff radius-6 mt-1 f-14 c-333">
