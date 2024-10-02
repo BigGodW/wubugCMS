@@ -158,7 +158,7 @@
                 <section class="notices pd-20 mb-20 bg-fff">
                     <h3 class="m-title border-dashed f-16 flex justify-between">友情链接</h3>
                     <p class="mt-10">
-                        {{each friendlink}}
+                        {{each friendlink.list}}
                         <a class="el-tag mr-5 mb-5" href="{{$value.link}}">{{$value.title}}</a>
                         {{/each}}
                     </p>

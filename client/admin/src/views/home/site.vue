@@ -5,18 +5,18 @@
       <el-tab-pane label="基本设置" class="mt-20" name="first">
         <el-form ref="info" :model="info" label-width="84px">
           <el-form-item label="网站名称" prop="name" :rules="[
-      {
-        required: true,
-        message: '请输入网站名称',
-        trigger: 'blur',
-      },
-      {
-        min: 2,
-        max: 20,
-        message: '长度在 2 到 20 个字符',
-        trigger: 'blur',
-      },
-    ]">
+            {
+              required: true,
+              message: '请输入网站名称',
+              trigger: 'blur',
+            },
+            {
+              min: 2,
+              max: 20,
+              message: '长度在 2 到 20 个字符',
+              trigger: 'blur',
+            },
+          ]">
             <el-input v-model="info.name"></el-input>
           </el-form-item>
 
@@ -26,12 +26,12 @@
 
           <el-form-item prop="email" label="站长邮箱">
             <el-input v-model="info.email" :rules="[
-      {
-        type: 'email',
-        message: '请输入正确的邮箱',
-        trigger: ['blur', 'change'],
-      },
-    ]"></el-input>
+                {
+                  type: 'email',
+                  message: '请输入正确的邮箱',
+                  trigger: ['blur', 'change'],
+                },
+              ]"></el-input>
           </el-form-item>
 
           <el-form-item prop="icp" label="ICP备案号">

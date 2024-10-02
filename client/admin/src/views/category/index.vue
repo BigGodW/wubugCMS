@@ -33,11 +33,16 @@
       v-loading="loading"
     >
       <el-table-column type="selection"></el-table-column>
-      <el-table-column prop="name" label="栏目名称"></el-table-column>
+
+      <el-table-column
+        prop="name"
+        label="栏目名称"
+        width="80"
+      ></el-table-column>
 
       <el-table-column prop="id" align="center" label="编号"></el-table-column>
 
-      <el-table-column prop="type" label="类型">
+      <el-table-column prop="type" label="类型" width="80">
         <template #default="scope">
           <p v-if="scope.row.type == 0">栏目</p>
           <p v-else>单页</p>
@@ -54,7 +59,7 @@
           <p v-else>隐藏</p>
         </template>
       </el-table-column>
-
+      
       <el-table-column fixed="right" label="操作" width="160">
         <template #default="scope">
           <el-button

@@ -4,6 +4,7 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="基本信息" name="first"></el-tab-pane>
         <el-tab-pane label="SEO设置" name="second"></el-tab-pane>
+        <el-tab-pane label="扩展信息" name="third"></el-tab-pane>
       </el-tabs>
     </div>
 
@@ -43,7 +44,11 @@
           </el-form-item>
 
           <el-form-item label="栏目标识">
-            <el-input v-model="params.pinyin" @change="changePath" placeholder="注：首页请填写home"></el-input>
+            <el-input
+              v-model="params.pinyin"
+              @change="changePath"
+              placeholder="注：首页请填写home"
+            ></el-input>
           </el-form-item>
 
           <el-form-item label="栏目路径">
@@ -84,10 +89,25 @@
         </div>
 
         <div v-show="activeIndex == 1">
-          <el-form-item label="栏目描述">
-            <el-input v-model="params.description"></el-input>
+          <el-form-item label="seo标题">
+            <el-input v-model="params.seoTitle"></el-input>
           </el-form-item>
 
+          <el-form-item label="seo关键词">
+            <el-input v-model="params.seoKeywords"></el-input>
+          </el-form-item>
+
+          <el-form-item label="seo描述">
+            <el-input
+              type="textarea"
+              prop="textarea"
+              :rows="2"
+              v-model="params.seoDescription"
+            ></el-input>
+          </el-form-item>
+        </div>
+
+        <div v-show="activeIndex == 2">
           <el-form-item label="栏目链接">
             <el-input v-model="params.url"></el-input>
           </el-form-item>
@@ -96,8 +116,9 @@
             <el-radio-group v-model="params.mid">
               <el-radio value="0">基本模型</el-radio>
               <template v-if="modList.length > 0">
+               
                 <el-radio
-                  :disabled="modelFlag"
+                :disabled="modelFlag"
                   v-for="(item, index) of modList"
                   :key="index"
                   :value="item.id"
@@ -126,18 +147,16 @@
             <el-input v-model="params.orderBy"></el-input>
           </el-form-item>
 
-          <el-form-item label="seo标题">
-            <el-input v-model="params.seoTitle"></el-input>
-          </el-form-item>
-
-          <el-form-item label="seo关键词">
-            <el-input v-model="params.seoKeywords"></el-input>
-          </el-form-item>
-
-          <el-form-item label="seo描述">
-            <el-input v-model="params.seoDescription"></el-input>
+          <el-form-item label="栏目描述">
+            <el-input
+              type="textarea"
+              prop="textarea"
+              :rows="2"
+              v-model="params.description"
+            ></el-input>
           </el-form-item>
         </div>
+
         <el-form-item>
           <el-button type="primary" @click="submit('params')">保存</el-button>
         </el-form-item>
@@ -151,7 +170,7 @@ import { views } from "@/api/sys_config.js";
 
 import { find, findId, update } from "@/api/category.js";
 import { search } from "@/api/article.js";
-import { addLabelValue, treeById, tree,showErrors } from "@/utils/tool.js";
+import { addLabelValue, treeById, tree, showErrors } from "@/utils/tool.js";
 import { list } from "@/api/model.js";
 import { pinyin } from "pinyin-pro";
 export default {
@@ -332,6 +351,28 @@ export default {
       }
     },
 
+    checkStrictly() {
+      if (this.params.pinyin == "article") {
+        this.$message({
+          message: "不能使用article作为拼音",
+          type: "success",
+        });
+        return false;
+      }
+
+      // 正则表达式：首字符必须是字母，后续可以是字母或数字
+      const regex = /^[a-zA-Z][a-zA-Z0-9]*$/;
+      // 检查是否符合正则表达式
+      if (!regex.test(this.params.pinyin)) {
+        this.$message({
+          message: "拼音只能包含26个字母和数字，且首字母不能是数字",
+          type: "success",
+        });
+        return false;
+      }
+      return true;
+    },
+
     //更新基本信息
     async update() {
       try {
@@ -354,9 +395,9 @@ export default {
     },
 
     submit(formName) {
-      this.$refs[formName].validate((valid,invalidFields) => {
+      this.$refs[formName].validate((valid, invalidFields) => {
         if (valid) {
-          this.update();
+          this.checkStrictly() && this.update();
         } else {
           showErrors(invalidFields);
           return false;
