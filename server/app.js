@@ -6,7 +6,5 @@ chan.beforeStart(async () => {
 });
 chan.start(() => {
   console.log("ChanCMS 启动成功");
-  // console.log(Chanjs.modules);
-  //  console.log(Chanjs.plugins);
 });
 chan.run();
