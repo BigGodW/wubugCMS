@@ -205,6 +205,7 @@ class CommonService {
         let tags = [];
         // 推荐
         let top = await this.getArticleListByCid(item.id, 1, 2);
+        top = formatDay(top);
         // 最新
         let list = await this.getArticleListByCid(item.id, 4);
         list = formatDay(list);
