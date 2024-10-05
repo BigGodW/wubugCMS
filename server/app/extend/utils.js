@@ -204,7 +204,7 @@ exports.filterFields = (data, fields, isTime = true) => {
  * @param {String} format YYYY-MM-DD HH:mm:ss
  * @returns 返回处理过的数组
  */
-exports.formatDay = (data, time = true, format = "MM-DD") => {
+exports.formatDay = (data, time = true, format = "YYYY-MM-DD") => {
   data.forEach((item) => {
     if (item.createdAt) {
       item.createdAt = time
