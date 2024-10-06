@@ -37,7 +37,7 @@
       <el-table-column
         prop="name"
         label="栏目名称"
-        width="80"
+        width="140"
       ></el-table-column>
 
       <el-table-column prop="id" align="center" label="编号"></el-table-column>
