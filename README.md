@@ -123,6 +123,7 @@ server 部署代码
 
 * **官网:<https://www.chancms.top>**
 * **官网文档 <https://www.chancms.top/docs/index.html>**
+* **视频教程：<https://space.bilibili.com/1885628820>**
 
 ## ❤️项目关注
 
