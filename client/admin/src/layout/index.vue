@@ -3,7 +3,7 @@
     <!-- 左侧菜单 -->
     <el-scrollbar
       class="sidebar"
-      :style="{ width: isCollapse ? '65px' : '200px' }"
+      :style="{ width: isCollapse ? '' : '200px' }"
     >
       <Logo :isCollapse="isCollapse" />
       <SideBar :isCollapse="isCollapse" />
@@ -131,7 +131,7 @@ export default defineComponent({
   height: 100%;
 
   .sidebar {
-    height: 100vh;
+    //height: 100vh;
     border-right: 1px solid #f9f5f5;
     transition: all 0.5s;
   }
