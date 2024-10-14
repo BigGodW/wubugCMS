@@ -3,7 +3,7 @@
     <!-- 左侧菜单 -->
     <el-scrollbar
       class="sidebar"
-      :style="{ width: isCollapse ? '' : '200px' }"
+      :style="{ width: isCollapse ? '65px' : '200px' }"
     >
       <Logo :isCollapse="isCollapse" />
       <SideBar :isCollapse="isCollapse" />
@@ -139,10 +139,10 @@ export default defineComponent({
   .sidebar-container {
     height: 100%;
     background-color: var(--vt-c-white);
-    width: 200px !important;
+    //width: 200px !important;
     // menu未收起时样式
     &-menu:not(.el-menu--collapse) {
-      width: 200px;
+      //width: 200px;
     }
     .el-menu {
       border: none;
@@ -178,7 +178,7 @@ export default defineComponent({
 
     .app-main {
       height: calc(100vh - 51px);
-      padding: 20px 20px 10px;
+      padding: 10px;
       background-color: #f2f3f5;
       overflow: auto;
       .container {
