@@ -131,7 +131,8 @@ export default defineComponent({
   height: 100%;
 
   .sidebar {
-    //height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     border-right: 1px solid #f9f5f5;
     transition: all 0.5s;
   }
@@ -139,11 +140,7 @@ export default defineComponent({
   .sidebar-container {
     height: 100%;
     background-color: var(--vt-c-white);
-    //width: 200px !important;
-    // menu未收起时样式
-    &-menu:not(.el-menu--collapse) {
-      //width: 200px;
-    }
+
     .el-menu {
       border: none;
     }
@@ -182,9 +179,7 @@ export default defineComponent({
       background-color: #f2f3f5;
       overflow: auto;
       .container {
-        // background-color: #fff;
         border-radius: 6px;
-        // padding: 10px;
         min-height: calc(100vh - 120px);
       }
     }
