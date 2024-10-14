@@ -67,4 +67,5 @@ export let tinymceSet = {
     { text: "C#", value: "csharp" },
     { text: "C++", value: "cpp" },
   ],
+  extended_valid_elements: "a[referrerpolicy|href|target|title|class|id|style],img[referrerpolicy|src|alt|width|height|class|id|style]", //允许a标签
 };
