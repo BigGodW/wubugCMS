@@ -11,9 +11,10 @@ module.exports = (opt) => {
   } = opt;
 
   router.use(adapter());
+  router.use(init());
 
   // 首页模板
-  router.get("/", init(), controller.home.index);
+  router.get("/",controller.home.index);
 
   // 分类
   router.get(

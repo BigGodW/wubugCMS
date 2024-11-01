@@ -11,9 +11,13 @@ config.database = {
   database: "chanyue",
   // charset: "utf8mb4",
 };
-
+config.static = [{
+  prefix: "/public/",
+  dir:"app/public",
+  maxAge: 0,
+}];
 //sql debug
-config.debug = false;
+config.SqlDebug = false;
 
 // jwt 配置
 config.token = {
@@ -26,6 +30,7 @@ config.secretcms = {
   key: "chanyue-cms",
 };
 
+//控制模板缓存 
 config.env = "prd";
 
 config.logger = {

@@ -13,13 +13,10 @@ config.authorEmail = "867528315@qq.com";
 config.authorWechat = "yanyutao2014";
 config.JSON_LIMIT = "100kb";
 
-config.static = {
+config.static = [{
   prefix: "/public/",
-  dynamic: true, // 如果当前访问的静态资源没有缓存，则缓存静态文件，和`preload`配合使用；
   dir: ["app/public"],
-  maxAge: 0, // in prod env, 0 in other envs
-  buffer: false, // in prod env, false in other envs
-  preload: false,
-};
+  maxAge: 0,
+}];
 
 module.exports = config;

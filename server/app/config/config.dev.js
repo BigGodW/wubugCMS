@@ -12,9 +12,14 @@ config.database = {
   // charset: "utf8mb4",
 };
 
+config.static = [{
+  prefix: "/public/",
+  dir:"app/public",
+  maxAge: 0,
+}];
 
 //sql debug
-config.debug = false;
+config.SqlDebug = false;
 
 // jwt 配置
 config.token = {
