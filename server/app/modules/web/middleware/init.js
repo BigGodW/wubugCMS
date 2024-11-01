@@ -47,10 +47,8 @@ module.exports = () => {
         frag: _frag,
         tag: _tag,
       };
-
       Chan.config.template = template || defaultTemplate;
-      env === "dev" && console.log("locals-config", req.app.locals);
-      
+      // env === "dev" && console.log("locals-config", req.app.locals);
       await next();
     } catch (error) {
       next(error);
