@@ -14,12 +14,12 @@ module.exports = () => {
     try {
       let { template, env, appName, version } = config;
       if ("site" in req.app.locals) {
-        console.log("locals-repeat");
         await next();
         return;
       }
       let sysconfig = await sysApp.find();
       const { domain } = sysconfig;
+      let _template = sysconfig.template || template;
       // 站点
       const _site = await site.find();
       // 分类
@@ -29,13 +29,13 @@ module.exports = () => {
       // 友情链接
       const _friendlink = await friendlink.list();
       //样式路径
-      const base_url = `/public/template/${template}`;
+      const base_url = `/public/template/${_template}`;
       //获取碎片 默认100条
       const _frag = await frag.list();
       //获取热门标签 默认20条
       const _tag = await tag.hot();
       req.app.locals = {
-        template: sysconfig.template || template,
+        template: _template,
         domain,
         appName,
         version,
