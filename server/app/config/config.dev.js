@@ -8,10 +8,14 @@ config.database = {
   // port: "3306",默认3306
   user: "root",
   password: "123456",
-  database: "chanyue",
+  database: "chancms",
   // charset: "utf8mb4",
 };
 
+//web端口
+config.port = "81"; 
+
+//静态资源
 config.static = [{
   prefix: "/public/",
   dir:"app/public",
@@ -29,7 +33,7 @@ config.token = {
 
 // md5 加盐
 config.secretcms = {
-  key: "chanyue-cms",
+  key: "ChanCMS",
 };
 
 //cors
@@ -40,6 +44,7 @@ config.cors = {
 //多个views
 config.views = []; //path.join(config.appRoot, `modules/web/view`)
 
+// 模板缓存 dev 环境不缓存 prod 环境缓存
 config.env = "dev";
 
 config.logger = {
