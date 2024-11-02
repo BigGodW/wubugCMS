@@ -3,13 +3,10 @@ const config = { ...base };
 
 //mysql配置
 config.database = {
-  // client: "mysql2", 默认mysql
   host: "localhost",
-  // port: "3306",默认3306
   user: "root",
   password: "123456",
   database: "chancms",
-  // charset: "utf8mb4",
 };
 
 //web端口
