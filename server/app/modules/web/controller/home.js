@@ -39,9 +39,6 @@ class HomeController {
       if (nav.length > 0 && nav[0].pinyin == "home" && nav[0].listView) {
         defaultView = nav[0].listView;
       }
-      console.log('template',template)
-      console.log('Chan.config.template',Chan.config.template)
-
       res.render(`${template}/${defaultView}`, { ...result, article });
     } catch (error) {
       console.error(error);

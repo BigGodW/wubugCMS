@@ -49,7 +49,6 @@ module.exports = () => {
         tag: _tag,
       };
       Chan.config.template = _template;
-      console.log("Chan.config.template", Chan.config.template);
       // env === "dev" && console.log("locals-config", req.app.locals);
       await next();
     } catch (error) {
