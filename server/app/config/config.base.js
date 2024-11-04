@@ -19,4 +19,7 @@ config.static = [{
   maxAge: 0,
 }];
 
+config.modules = ['api','common','web'];
+config.plugins = ['plus-wechat'];
+
 module.exports = config;
