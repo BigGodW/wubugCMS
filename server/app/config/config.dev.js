@@ -31,9 +31,9 @@ config.token = {
   REFRESH:false //是否开启刷新token
 };
 
-// md5 加盐
+// bcrypt 加盐
 config.secretcms = {
-  key: "ChanCMS",
+  key: 10,
 };
 
 //cors
