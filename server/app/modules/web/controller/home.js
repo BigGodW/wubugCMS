@@ -65,7 +65,7 @@ class HomeController {
       //获取栏目id
       const id = cid || navSub.cate.id || "";
       if (!id) {
-        res.redirect("/404.html");
+        await res.render(`${template}/404.html`);
         return;
       }
 
@@ -115,7 +115,7 @@ class HomeController {
       }
 
       if (!id) {
-        res.redirect("/404.html");
+        await res.render(`${template}/404.html`);
         return;
       }
 
@@ -123,7 +123,7 @@ class HomeController {
       const article = await ArticleService.detail(id);
 
       if (!article) {
-        res.redirect("/404.html");
+        await res.render(`${template}/404.html`);
         return;
       }
 
@@ -185,7 +185,7 @@ class HomeController {
       let position = {};
 
       if (!id && !cate) {
-        res.redirect("/404.html");
+        await res.render(`${template}/404.html`);
         return;
       }
 
@@ -206,7 +206,7 @@ class HomeController {
 
       //没找到栏目 去404
       if (!cid) {
-        res.redirect("/404.html");
+        await res.render(`${template}/404.html`);
         return;
       }
 
