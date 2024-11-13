@@ -42,7 +42,7 @@ class SysUserController {
   async create(req, res, next) {
     try {
       const body = req.body;
-      body.password = await bcrypt.hash(password, config.secretcms.key);
+      body.password = await bcrypt.hash(body.password, config.secretcms.key);
       const data = await sysUser.create(body);
       res.json({ ...success, data: data });
     } catch (err) {
