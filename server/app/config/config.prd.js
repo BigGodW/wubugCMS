@@ -22,9 +22,6 @@ config.static = [{
   maxAge: 0,
 }];
 
-//sql debug
-config.SqlDebug = false;
-
 // jwt 配置
 config.token = {
   KEY: "ChanCMS",
