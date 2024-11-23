@@ -246,6 +246,12 @@ class HomeController {
     try {
       const {template } = req.app.locals;
       const { keywords, id } = req.params;
+
+      if(keywords.length>50){
+        await res.render(`${template}/404.html`);
+        return;
+      }
+
       const page = id || 1;
       const pageSize = 10;
       // 文章列表

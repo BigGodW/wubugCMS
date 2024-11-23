@@ -1,6 +1,6 @@
 const init = require("./middleware/init.js");
 const adapter = require("./middleware/adapter.js");
-
+const safe = require('express-safe');
 module.exports = (opt) => {
   const {
     router,
@@ -10,9 +10,11 @@ module.exports = (opt) => {
     app,
   } = opt;
 
+
+  router.use(safe());
   router.use(adapter());
   router.use(init());
-
+  
   // 首页模板
   router.get("/",controller.home.index);
 
