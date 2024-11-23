@@ -10,11 +10,11 @@ module.exports = (opt) => {
     app,
   } = opt;
 
-
-  router.use(safe());
-  router.use(adapter());
-  router.use(init());
   
+  router.use(adapter());
+  router.use(safe({pathLimit:true,pathLength:4}));
+  router.use(init());
+
   // 首页模板
   router.get("/",controller.home.index);
 

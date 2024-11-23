@@ -18,7 +18,7 @@ const routers = (app, router, config) => {
   router.use((req, res, next) => {
     let ip = req.headers["x-forwarded-for"] || req.ip;
     console.log("404-->", `${req.method}-${decodeURI(req.url)}-${ip}`);
-    res.render(`${template}/404.html`);
+    res.render(`${template}/404.html`,{url: req.url});
   });
 
   //处理错误
