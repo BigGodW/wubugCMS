@@ -135,6 +135,8 @@ ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CM
 
 ## 管理后台部分截图
 
+![后台展示](https://gitee.com/yanyutao0402/chanyue-cms/raw/master/server/app/public/template/default/img/login.png)
+
 ![后台展示](https://gitee.com/yanyutao0402/chanyue-cms/raw/master/server/app/public/template/default/img/info.png)
 
 ![后台展示](https://gitee.com/yanyutao0402/chanyue-cms/raw/master/server/app/public/template/default/img/category.png)
