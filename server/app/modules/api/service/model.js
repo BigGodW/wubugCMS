@@ -84,6 +84,7 @@ class ModelService {
   async update(body) {
     const { id, old_tableName, tableName, model, status } = body;
     try {
+
       await knex.transaction(async (trx) => {
         const renameTable = await knex
           .raw(`alter table ${old_tableName} rename to ${tableName}`)

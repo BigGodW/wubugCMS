@@ -109,8 +109,10 @@ class FieldService {
 
   // 改
   async update(body) {
-    const { id, length } = body;
+
+    const { id, length,old_ename } = body;
     delete body.id;
+    delete body.old_ename;
     try {
       // 开始事务
       await knex.transaction(async (trx) => {
@@ -145,7 +147,8 @@ class FieldService {
 
           // 获取对应的SQL字段定义
           let sqlType = fieldTypeMap[body.type];
-          const sql = `ALTER TABLE ${tableName} MODIFY COLUMN ${body.ename} ${sqlType}`;
+        
+          const sql = `ALTER TABLE ${tableName} CHANGE ${old_ename} ${body.ename} ${sqlType}`;
           // 执行SQL语句
           const alterResult = await knex.raw(sql).transacting(trx);
 

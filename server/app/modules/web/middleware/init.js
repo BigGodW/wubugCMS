@@ -13,7 +13,7 @@ module.exports = () => {
   return async (req, res, next) => {
     try {
       let { template, env, appName, version } = config;
-      if ("site" in req.app.locals) {
+      if ("site" in req.app.locals && env === "dev") {
         await next();
         return;
       }
