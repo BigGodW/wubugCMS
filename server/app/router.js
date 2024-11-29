@@ -23,8 +23,8 @@ const routers = (app, router, config) => {
 
   //处理错误
   router.use((err, req, res) => {
-    console.error("500-->", req.method, req.url, err);
-    let data = { url: req.url, method: req.method, error: err.message };
+    console.error(`500--> ${req.method}-${req.url}-${err.stack}`);
+    let data = { url: req.url, method: req.method, error: err.stack };
     if (req.is("html") || req.is("html") == null) {
       res.render(`${template}/500.html`, { data });
     } else {
