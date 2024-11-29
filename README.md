@@ -89,7 +89,7 @@ ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CM
   app.js
   ```
 
-* **注意:后台可以自己独立开发，也可以使用ChanCMS自带后台管理界面**
+* **注:ChanCMS自带基于vue3+element-plus+js研发的后台管理界面,如果不满足你编码风格，如native等其它UI，或热衷于如react + antd +TS技术，可以自行调用接口进行二次开发**
 
 ### 🍅️案例
 
