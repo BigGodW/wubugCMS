@@ -104,8 +104,9 @@ ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CM
 * 案例九   [七弈国象](https://doc.7yi.link/)
 * 案例十   [北京辉达环保科技有限公司](http://www.huidaep.com/)
 <!-- * 案例十   [超前端](https://zoye.top/) -->
-* 演示站1  [雅俗共赏](http://www.cqsmservices.cn/)
-* 演示站2 [简游资讯](http://118.89.190.101:81/)
+* 演示站1  [历史人物](http://123.56.28.152:81/)
+* 演示站2  [雅俗共赏](http://www.cqsmservices.cn/)
+* 演示站3 [简游资讯](http://118.89.190.101:81/)
 
 ## 👵开发文档
 
@@ -120,7 +121,7 @@ ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CM
 ## 👴项目交流
 
  如果喜欢我们的项目，请点个 Star。
- 微信群交流请联系微信: `yanyutao2014` 🧒 👧 👱  🧔 👴
+ 微信群交流请联系微信: `yanyutao2014` 🧒 👧 👱  🧔 👴,纯技术交流，广告党勿扰，谢谢合作！！！
 
 ## 许可证
 
