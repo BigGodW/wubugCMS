@@ -89,7 +89,7 @@ ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CM
   app.js
   ```
 
-* **Vue3 element-plus 后台管理源码：<https://space.bilibili.com/1885628820>**
+* **Vue3 element-plus 后台管理源码：[https://gitee.com/yanyutao0402/chan-cms-admin](https://gitee.com/yanyutao0402/chan-cms-admin)**
 
 ### 🍅️案例
 
