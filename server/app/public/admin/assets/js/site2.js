@@ -1,1 +1,1 @@
-import{e as t,A as a}from"./index.js";let e=()=>t({url:"".concat(a.BASE_API,"/api/site/find"),method:"get"}),s=e=>t({url:"".concat(a.BASE_API,"/api/site/update"),method:"post",data:e}),o=()=>t({url:"".concat(a.BASE_API,"/api/site/runEnv"),method:"get"});export{o as r,e as s,s as u};
+import{h as t,A as e}from"./index.js";let u=()=>t({url:"".concat(e.BASE_API,"/api/site/find"),method:"get"}),a=r=>t({url:"".concat(e.BASE_API,"/api/site/update"),method:"post",data:r}),i=()=>t({url:"".concat(e.BASE_API,"/api/site/runEnv"),method:"get"});export{i as r,u as s,a as u};

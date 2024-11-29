@@ -5,4 +5,4 @@ System.register(["./dayjs-legacy.js"],(function(r,t){"use strict";var e;return{s
 			 * @stability  3 - Stable
 			 * @author     Lauri Rooden (https://github.com/litejs/natural-compare-lite)
 			 * @license    MIT License
-			 */try{t.exports=n}catch(i){String.naturalCompare=n}var a=t.exports;r("a",e(a))}}}));
+			 */try{t.exports=n}catch(i){String.naturalCompare=n}var a=t.exports;r("L",e(a))}}}));
