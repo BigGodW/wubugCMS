@@ -35,19 +35,6 @@ ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CM
 
 ## ⛱️软件架构
 
-**client技术栈**
-
-后台管理界面admin
-
-* vue3
-* vue-router
-* pina
-* element-plus
-* vite4
-* tinymce
-  
-**服务端技术栈**
-
 * nodejs v20.16.0+
 * express 4.18+
 * mysql v5.7.26
@@ -61,7 +48,7 @@ ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CM
 ### 项目架构
 
 ```
-server 部署代码
+|- data // 数据库文件
 |- app
     |- config
     |- extend 
@@ -101,6 +88,8 @@ server 部署代码
     |- router.js
   app.js
   ```
+
+* **Vue3 element-plus 后台管理源码：<https://space.bilibili.com/1885628820>**
 
 ### 🍅️案例
 
