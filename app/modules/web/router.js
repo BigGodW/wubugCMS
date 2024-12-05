@@ -57,6 +57,8 @@ module.exports = (opt) => {
       "/page-:id.html",
       "/:cate/page.html",
       "/:cate1/:cate/page.html",
+      "/:cate2/:cate1/:cate/page.html",
+      "/:cate3/:cate2/:cate1/:cate/page.html",
       "/:cate/page-:id.html",
       "/:cate1/:cate/page-:id.html",
       "/:cate2/:cate1/:cate/page-:id.html",
