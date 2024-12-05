@@ -56,6 +56,7 @@ module.exports = (opt) => {
       "/page/:id.html", //兼容old
       "/page-:id.html",
       "/:cate/page.html",
+      "/:cate1/:cate/page.html",
       "/:cate/page-:id.html",
       "/:cate1/:cate/page-:id.html",
       "/:cate2/:cate1/:cate/page-:id.html",
