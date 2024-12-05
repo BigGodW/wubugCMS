@@ -1,5 +1,5 @@
 const auth = require("../../middleware/auth.js");
-
+const init = require("../../middleware/init.js");
 const { upload } = Chan.helper.upload;
 
 module.exports = (opt) => {
@@ -11,6 +11,7 @@ module.exports = (opt) => {
     app,
   } = opt;
 
+  router.use(init());
   // 登录
   router.post("/sysUser/login", controller.sysUser.login);
   router.get("/sysUser/list", controller.sysUser.list);

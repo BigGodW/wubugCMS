@@ -12,7 +12,7 @@ module.exports = (opt) => {
 
   
   router.use(adapter());
-  router.use(safe({pathLimit:true,pathLength:4}));
+  router.use(safe());
   router.use(init());
 
   // 首页模板

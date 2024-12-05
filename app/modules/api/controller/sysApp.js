@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const {
-  config: { APP_PATH, template },
+  config: { APP_PATH},
   modules: {
     api: {
       service: { sysApp },
@@ -27,7 +27,8 @@ class SysAppController {
   // 查
   async getViews(req, res, next) {
     try {
-      const viewsPath = path.join(APP_PATH, `/modules/web/view/${template}`);
+      let _template = Chan.config.template;
+      const viewsPath = path.join(APP_PATH, `/modules/web/view/${_template}`);
       const data = getHtmlFilesSync(viewsPath);
       res.json({ ...success, data: data });
     } catch (err) {
