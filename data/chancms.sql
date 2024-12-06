@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 05/12/2024 23:39:46
+ Date: 06/12/2024 21:56:12
 */
 
 SET NAMES utf8mb4;
@@ -58,7 +58,7 @@ INSERT INTO `cms_article` VALUES (10, 3, '', 'AIGC图片美女', '', '1', '', ''
 INSERT INTO `cms_article` VALUES (11, 6, '', '欢迎使用ChanCMS系统', '', '', '', 'special.html', '', '', '', '', '<section class=\"banner row justify-center\">\n<h1 class=\"chanyue text-c\">ChanCMS</h1>\n<p class=\"f-23 text-c mt-20\">基于express+mysql的一款轻量级高质量cms管理系统</p>\n<p class=\"text-c mt-20\"><span class=\"el-button el-button--primary is-round mr-10 c-fff\"><a href=\"https://www.chancms.top/docs/index.html\" target=\"_blank\" rel=\"noopener\">开始使用</a> </span><span class=\"el-button el-button--primary is-round c-fff\"><a href=\"https://gitee.com/yanyutao0402/chanyue-cms\" target=\"_blank\" rel=\"noopener\">码云</a></span></p>\n</section>\n<section class=\"main center flex justify-between flex-wrap pd-30\">\n<div class=\"m-card\">\n<h3 class=\"f-20 mb-20\">大道至简</h3>\n<p class=\"f-16 mb-20\">基于express自研mvc框架， 优秀的稳定性，可持续迭代，拒绝复杂设计模式。</p>\n</div>\n<div class=\"m-card\">\n<h3 class=\"f-20 mb-20\">独有特色</h3>\n<p class=\"f-16 mb-20\">轻量、灵活、自研、稳定、高性能。</p>\n</div>\n<div class=\"m-card\">\n<h3 class=\"f-20 mb-20\">SEO标准</h3>\n<p class=\"f-16 mb-20\">专注于seo功能，伪静态、自定义导航、灵活设置关键词和描述。</p>\n</div>\n<div class=\"m-card\">\n<h3 class=\"f-20 mb-20\">灵活</h3>\n<p class=\"f-16 mb-20\">万能碎片功能，支持零碎文案配置，把灵活发挥到极致。</p>\n</div>\n<div class=\"m-card\">\n<h3 class=\"f-20 mb-20\">高扩展</h3>\n<p class=\"f-16 mb-20\">无头cms和传统模板共存，多端渲染。灵活模块开发，开发多领域网站。</p>\n</div>\n<div class=\"m-card\">\n<h3 class=\"f-20 mb-20\">高持续性</h3>\n<p class=\"f-16 mb-20\">多年深入nodejs技术栈，一心致力于自研开发，前后端代码逐行开发，可持续性强。</p>\n</div>\n</section>\n<footer class=\"pd-20\">\n<p class=\"mt-30 text-c f-14\">&copy;CopyRight ChanCMS</p>\n<p class=\"mt-5 text-c f-12\"><a href=\"https://beian.miit.gov.cn/\" target=\"_blank\" rel=\"external nofollow noopener\">皖ICP备2024033678号-1</a></p>\n</footer>', 0, 44, '', '2024-10-02 13:58:53', '2024-12-05 23:34:43');
 INSERT INTO `cms_article` VALUES (13, 5, '', 'ChanCMS v3.0.6下载', '', '', '', '', '', '', '', '', '<p>ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CMS系统。</p>', 0, 16, '', '2024-10-02 15:40:46', '2024-11-24 01:19:46');
 INSERT INTO `cms_article` VALUES (14, 2, '', 'pdf', '', '', '', 'article-pdf.html', '', '', '', '', '<p>/public/doc/1.pdf</p>', 0, 36, '', '2024-11-09 18:40:34', '2024-11-03 18:40:34');
-INSERT INTO `cms_article` VALUES (15, 9, NULL, '关于作者', '', '', '', '', '', '', '关于作者测试单页', '', '<p>关于作者测试单页</p>', 0, 17, '', '2024-12-05 23:26:59', '2024-12-05 23:34:48');
+INSERT INTO `cms_article` VALUES (15, 9, NULL, '关于作者', '', '', '', '', '', '', '关于作者测试单页', '', '<p>关于作者测试单页</p>', 0, 20, '', '2024-12-05 23:26:59', '2024-12-05 23:44:33');
 
 -- ----------------------------
 -- Table structure for cms_articletag
@@ -120,13 +120,13 @@ CREATE TABLE `cms_category`  (
 -- Records of cms_category
 -- ----------------------------
 INSERT INTO `cms_category` VALUES (1, 0, '', '', '', '首页', 'home', '/home', '', '1', '', 0, '0', '0', '0', 'index.html', 'article.html', '2024-09-13 22:38:12', '2024-09-17 15:47:29');
-INSERT INTO `cms_category` VALUES (2, 0, '', '', '', '文章', 'art', '/art', '', '0', '', 0, '0', '0', '0', 'list.html', 'article.html', '2024-09-13 22:38:12', '2024-09-13 22:51:31');
+INSERT INTO `cms_category` VALUES (2, 0, '', '', '', '文章', 'art3', '/art3', '', '0', '', 0, '0', '0', '0', 'list.html', 'article.html', '2024-09-13 22:38:12', '2024-12-06 00:13:05');
 INSERT INTO `cms_category` VALUES (3, 0, '', '', '', '图片', 'pics', '/pics', '', '0', '', 0, '0', '0', '0', 'list-img.html', 'article-img.html', '2024-09-13 22:39:02', '2024-09-17 10:26:10');
 INSERT INTO `cms_category` VALUES (4, 0, '', '', '', '视频', 'video', '/video', '', '0', '', 0, '0', '0', '0', 'list.html', 'article.html', '2024-09-13 22:39:22', '2024-09-13 22:39:22');
 INSERT INTO `cms_category` VALUES (5, 0, '', '', '', '下载', 'down', '/down', '', '0', '', 0, '0', '0', '1', 'list.html', 'article-down.html', '2024-09-13 22:39:44', '2024-10-02 15:45:16');
 INSERT INTO `cms_category` VALUES (6, 0, '', '', '', '专题', 'topic', '/topic', '', '1', '', 0, '0', '0', '0', 'list.html', 'special.html', '2024-09-13 22:42:10', '2024-10-01 14:41:51');
 INSERT INTO `cms_category` VALUES (7, 0, '', '', '', '关于', 'about', '/about', '', '1', '', 0, '0', '0', '0', 'list.html', 'page.html', '2024-09-13 22:42:55', '2024-09-13 23:09:29');
-INSERT INTO `cms_category` VALUES (8, 2, '', '', '', '文档', 'doc', '/art/doc', '', '0', '', 0, '0', '0', '0', 'list.html', 'article.html', '2024-12-05 22:35:58', '2024-12-05 22:35:58');
+INSERT INTO `cms_category` VALUES (8, 2, '', '', '', '文档', 'doc', '/art2/doc', '', '0', '', 0, '0', '0', '0', 'list.html', 'article.html', '2024-12-05 22:35:58', '2024-12-06 00:12:46');
 INSERT INTO `cms_category` VALUES (9, 7, '', '', '', '作者', 'zuozhe', '/about/zuozhe', '', '1', '', 0, '0', '0', '0', 'list.html', 'page.html', '2024-12-05 23:25:44', '2024-12-05 23:34:37');
 
 -- ----------------------------
@@ -173,7 +173,7 @@ CREATE TABLE `cms_frag`  (
 -- Records of cms_frag
 -- ----------------------------
 INSERT INTO `cms_frag` VALUES (1, 'chancms简介', 'chancms', '<p><span style=\"font-size: 14px;\">ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CMS系统。轻量、灵活、稳定、高性能、易扩展，让开发更简单。</span></p>', '1', '2024-09-13 22:53:33', '2024-09-27 10:51:41');
-INSERT INTO `cms_frag` VALUES (2, 'PowerBy', 'PowerBy', '<p style=\"text-align: center;\">Powder By <a href=\"http://www.chancms.top\" target=\"_blank\" rel=\"noopener\">ChanCMS v3.0.7</a></p>', '1', '2024-09-27 11:00:03', '2024-09-27 11:10:49');
+INSERT INTO `cms_frag` VALUES (2, 'PowerBy', 'PowerBy', '<p style=\"text-align: center;\">Powder By <a href=\"http://www.chancms.top\" target=\"_blank\" rel=\"noopener\">ChanCMS v3.0.11</a></p>', '1', '2024-09-27 11:00:03', '2024-12-06 21:52:17');
 
 -- ----------------------------
 -- Table structure for cms_friendlink
@@ -412,7 +412,7 @@ CREATE TABLE `sys_loginlog`  (
   `createdAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `uid`(`uid`, `createdAt`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_loginlog
@@ -459,6 +459,8 @@ INSERT INTO `sys_loginlog` VALUES (39, 1, '112.80.234.68', '中国', '江苏省'
 INSERT INTO `sys_loginlog` VALUES (40, 1, '112.80.234.68', '中国', '江苏省', '南京市', '秦淮区', '中国联通', NULL, NULL, '2024-12-02 21:57:58');
 INSERT INTO `sys_loginlog` VALUES (41, 1, '112.80.234.68', '中国', '江苏省', '南京市', '秦淮区', '中国联通', NULL, NULL, '2024-12-05 22:29:03');
 INSERT INTO `sys_loginlog` VALUES (42, 1, '112.80.234.68', '中国', '江苏省', '南京市', '秦淮区', '中国联通', NULL, NULL, '2024-12-05 22:32:13');
+INSERT INTO `sys_loginlog` VALUES (43, 1, '112.80.234.68', '中国', '江苏省', '南京市', '秦淮区', '中国联通', NULL, NULL, '2024-12-05 23:47:47');
+INSERT INTO `sys_loginlog` VALUES (44, 1, '112.80.234.68', '中国', '江苏省', '南京市', '秦淮区', '中国联通', NULL, NULL, '2024-12-06 21:50:57');
 
 -- ----------------------------
 -- Table structure for sys_menu

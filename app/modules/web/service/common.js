@@ -199,13 +199,17 @@ class CommonService {
       cate = cate.filter((item) => item.path != "/home" && item.type == "0");
       const cateField = ["id", "name", "path", "pinyin"];
       cate = filterFields(cate, cateField);
-      let article = [];
+      
+      let articleList = [];
+      let article = {};
       for (let i = 0, item; i < cate.length; i++) {
         let item = cate[i];
         let tags = [];
-        // 推荐
-        let top = await this.getArticleListByCid(item.id, 1, 2);
+        // 头条
+        let top = await this.getArticleListByCid(item.id, 1, 1);
         top = formatDay(top);
+        // 推荐
+        let recommend = await this.getArticleListByCid(item.id, 1, 2);
         // 最新
         let list = await this.getArticleListByCid(item.id, 4);
         list = formatDay(list);
@@ -216,12 +220,14 @@ class CommonService {
           tags.push(...res);
         }
         tags = uniqueByPath(tags);
-        article.push({ top, list, tags, category: item });
+        let _item = { top, list, tags, category: item ,recommend}
+        article[item.pinyin] = _item;
+        articleList.push(_item);
       }
-      return article;
+      return {article,articleList};
     } catch (error) {
-      console.error(err);
-      throw err;
+      console.error(error);
+      throw error;
     }
   }
 
