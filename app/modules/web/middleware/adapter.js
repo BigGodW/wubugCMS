@@ -11,7 +11,7 @@ module.exports = () => {
           return res
             .status(403)
             .send(
-              "非法请求，已成功获取黑客ip和唯一指纹，正在联入互联网报警中..."
+              `错误请求路径: ${req.url}`
             );
         }
       }

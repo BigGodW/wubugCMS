@@ -4,13 +4,12 @@ const {
       service: { sysApp },
     },
   },
-  config:{ template, env,}
+  config:{ template, env}
 } = Chan;
 
 module.exports = () => {
   return async (req, res, next) => {
     try {
-     
       if ("domain" in req.app.locals && env == "prd") {
         await next();
         return;
