@@ -103,7 +103,10 @@ ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CM
 * 案例七   [昂翊信息](http://www.angyi-iot.com/)
 * 案例八   [萌狮换电](http://www.51mshd.com/)
 * 案例九   [七弈国象](https://doc.7yi.link/)
-* 案例十   [北京辉达环保科技有限公司](http://www.huidaep.com/)
+* 案例十   [同宇宙官网](http://www.zdmedia.com.cn:81/)
+* 案例十一 [HANSA中国](http://www.hansa-asia.com/)
+* 案例十二 [国际科技创新中心](http://36.112.126.146:50005/)
+* 案例十三 [北京辉达环保科技有限公司](http://www.huidaep.com/)
 <!-- * 案例十   [超前端](https://zoye.top/) -->
 * 演示站1  [历史人物](http://123.56.28.152:81/)
 * 演示站2  [雅俗共赏](http://www.cqsmservices.cn/)
