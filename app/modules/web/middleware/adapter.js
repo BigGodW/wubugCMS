@@ -6,10 +6,10 @@ module.exports = () => {
       const pathSegments = req.url.split("/").filter((item) => item !== "");
 
       for (let item of pathSegments) {
-        if (item.length > 30) {
-          console.error(`黑客入侵，请求路径: ${req.url}`);
+        if (item.length > 100) {
+          console.error(`错误请求路径: ${req.url}`);
           return res
-            .status(403)
+            .status(403)   
             .send(
               `错误请求路径: ${req.url}`
             );

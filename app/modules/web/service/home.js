@@ -1,6 +1,9 @@
 const CommonService = require("./common.js");
 let {
   modules: {
+    api: {
+      service: {friendlink },
+    },
     web: {
       service: { common },
     },
@@ -50,7 +53,10 @@ class HomeService {
       let recommendImgs = await common.getNewImgList(5, "", 2);
       const recommendImgsField = ["id", "title", "path", "img", "description"];
       recommendImgs = filterFields(recommendImgs, recommendImgsField);
-      return { banner, slide, topnews, imgs, recommend, recommendImgs, hot };
+
+      //友情链接
+      let link = await friendlink.list(1,50);
+      return { banner, slide, topnews, imgs, recommend, recommendImgs, hot,friendlink:link.list };
     } catch (err) {
       console.error(err);
       throw err;
