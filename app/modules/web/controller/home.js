@@ -264,6 +264,7 @@ class HomeController {
     try {
       const { template } = req.app.locals;
       const { path, id } = req.params;
+      const {tag} = req.query;
       const page = id || 1;
       const pageSize = 10;
       // 文章列表
@@ -273,7 +274,7 @@ class HomeController {
       let href = "/tag/" + path;
       let pageHtml = pages(page, count, pageSize, href);
 
-      await res.render(`${template}/tag.html`, { data, path, pageHtml });
+      await res.render(`${template}/tag.html`, { data, path,tag, pageHtml });
     } catch (error) {
       console.error(error);
       next(error);

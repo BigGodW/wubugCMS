@@ -32,6 +32,7 @@ module.exports = () => {
       const _frag = await frag.list();
       //获取热门标签 默认20条
       const _tag = await tag.hot();
+  
       req.app.locals = {
         ...req.app.locals,
         appName,

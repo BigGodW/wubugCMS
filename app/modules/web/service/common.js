@@ -395,8 +395,9 @@ class CommonService {
    * @param {Number} pageSize 默认10条
    * @returns {Array}
    */
-  async tags(name, current = 1, pageSize = 10) {
+  async tags(path, current = 1, pageSize = 10) {
     try {
+      console.log("tags", path, current, pageSize);
       const start = (current - 1) * pageSize;
 
       // 查询个数
@@ -406,7 +407,7 @@ class CommonService {
           this.select(1)
             .from("cms_tag as t")
             .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0")
-            .andWhere("t.name", name);
+            .andWhere("t.path", path);
         })
         .count("* as total");
 
@@ -430,7 +431,7 @@ class CommonService {
           this.select(1)
             .from("cms_tag as t")
             .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0")
-            .andWhere("t.name", name);
+            .andWhere("t.path", path);
         })
         .where("a.status", 0)
         .orderBy("a.createdAt", "DESC")

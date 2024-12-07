@@ -22,7 +22,7 @@
                 <div class="bg-fff pd-15 mb-1 f-14 c-999 radius-6">
                     <i class="ico-20 ico-home pos-r t-3"></i>
                     <a class="" href="/">首页</a> /
-                    <a class="c-666" href="/tags/{{path}}.html">tag标签：<span class="red">{{path}}</span></a>
+                    <a class="c-666" href="/tags/{{path}}.html">tag标签：<span class="red">{{tag || path}}</span></a>
                 </div>
 
                 <div class="bg-fff pl-25 pr-25 pb-25 radius-6 list">
@@ -44,7 +44,7 @@
                                             
                                     </h3>
                                     <p class="f-12 mb-8 flex">
-                                        <a class="el-tag mr-5 mb-5">{{path}}</a>
+                                        <a class="el-tag mr-5 mb-5">{{$value.name}}</a>
 
                                         <span class="c-bfbfbf">
                                         <i class="ico-20 ico-time pos-r t-4"></i> {{ dateFormat($value.createdAt, 'YYYY-MM-DD HH:mm:ss') }}
