@@ -18,6 +18,10 @@ class SysUserController {
     try {
       let { username, password } = req.body;
       const user = await sysUser.find(username);
+      if (!user) {
+        res.json({ ...fail, msg: "用户名或密码错误！" });
+        return;
+      }
       const match = await bcrypt.compare(password, user.password);
       if (user && match) {
         const { id, status } = user;
