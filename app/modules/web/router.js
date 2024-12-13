@@ -1,6 +1,6 @@
 const init = require("./middleware/init.js");
 const adapter = require("./middleware/adapter.js");
-const safe = require('express-safe');
+const safe = require("express-safe");
 module.exports = (opt) => {
   const {
     router,
@@ -10,13 +10,12 @@ module.exports = (opt) => {
     app,
   } = opt;
 
-  
   router.use(adapter());
   router.use(safe());
   router.use(init());
 
   // 首页模板
-  router.get("/",controller.home.index);
+  router.get("/", controller.home.index);
 
   // 分类
   router.get(
@@ -70,13 +69,13 @@ module.exports = (opt) => {
 
   // 搜索页
   router.get(
-    ["/search/:keywords.html", "/search/:keywords/:id.html"],
+    ["/search/:keywords.html", "/search/:keywords/:current.html"],
     controller.home.search
   );
 
   // tag列表页
   router.get(
-    ["/tags/:path.html", "/tags/:path/:id.html"],
+    ["/tags/:path/tag.html","/tags/:path/tag:current.html"],
     controller.home.tag
   );
 

@@ -14,7 +14,6 @@ const {
 
 const ArticleService = article;
 
-
 class HomeController {
   // 首页
   async index(req, res, next) {
@@ -227,14 +226,14 @@ class HomeController {
   async search(req, res, next) {
     try {
       const { template } = req.app.locals;
-      const { keywords, id } = req.params;
+      const { keywords, current=1 } = req.params;
 
       if (keywords.length > 50) {
         await res.render(`${template}/404.html`);
         return;
       }
 
-      const page = id || 1;
+      const page = current;
       const pageSize = 10;
       // 文章列表
       const data = await ArticleService.search(keywords, page, pageSize);
@@ -263,18 +262,20 @@ class HomeController {
   async tag(req, res, next) {
     try {
       const { template } = req.app.locals;
-      const { path, id } = req.params;
-      const {tag} = req.query;
-      const page = id || 1;
+      const { path, current=1 } = req.params;
+      const { tag } = req.query;
+      const page = current;
       const pageSize = 10;
-      // 文章列表
+      // 文章列表 
       const data = await common.tags(path, page, pageSize);
+    
       //分页
       let { count } = data;
-      let href = "/tag/" + path;
-      let pageHtml = pages(page, count, pageSize, href);
+      let href = `/tags/${path}/tag`;
+      let query = `?tag=${tag}`
+      let pageHtml = pages(page, count, pageSize, href,query);
 
-      await res.render(`${template}/tag.html`, { data, path,tag, pageHtml });
+      await res.render(`${template}/tag.html`, { data, path, tag, pageHtml });
     } catch (error) {
       console.error(error);
       next(error);

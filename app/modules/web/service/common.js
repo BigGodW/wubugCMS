@@ -400,16 +400,16 @@ class CommonService {
       console.log("tags", path, current, pageSize);
       const start = (current - 1) * pageSize;
 
-      // 查询个数
-      const total = await knex("cms_article as a")
-        .join("cms_category as c", "a.cid", "c.id")
-        .whereExists(function () {
-          this.select(1)
-            .from("cms_tag as t")
-            .whereRaw("FIND_IN_SET(t.id, a.tagId) > 0")
-            .andWhere("t.path", path);
-        })
-        .count("* as total");
+      // 查询个数    
+      const total = await knex('cms_article as a')
+      .whereExists(function () {
+        this.select(1)
+          .from('cms_tag as t')
+          .whereRaw('FIND_IN_SET(t.id, a.tagId)')
+          .andWhere('t.path', path);
+      })
+      .count('a.id as total');
+
 
       // 查询文章列表
       const result = await knex("cms_article as a")
@@ -438,7 +438,7 @@ class CommonService {
         .offset(start)
         .limit(pageSize);
 
-      const count = total.total || 1;
+      const count = total[0].total || 1;
 
       return {
         count,
