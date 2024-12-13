@@ -239,7 +239,7 @@ class HomeController {
       const data = await ArticleService.search(keywords, page, pageSize);
       //分页
       let { count } = data;
-      let href = "/search/" + keywords;
+      let href = "/search/" + keywords +'/words';
       let pageHtml = pages(page, count, pageSize, href);
       data.list.forEach((ele) => {
         ele.titles = ele.title.replace(

@@ -1,7 +1,7 @@
 function toSearch() {
     var keywords = document.querySelectorAll('.search-input')[0].value || document.querySelectorAll('.search-input')[1].value;
     if (keywords) {
-        location.href = location.origin + '/search/' + keywords + '.html'
+        location.href = location.origin + '/search/' + keywords + '/words.html'
     }
 }
 

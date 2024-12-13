@@ -69,7 +69,7 @@ module.exports = (opt) => {
 
   // 搜索页
   router.get(
-    ["/search/:keywords.html", "/search/:keywords/:current.html"],
+    ["/search/:keywords/words.html", "/search/:keywords/words:current.html"],
     controller.home.search
   );
 
