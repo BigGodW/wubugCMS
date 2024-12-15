@@ -226,20 +226,20 @@ class HomeController {
   async search(req, res, next) {
     try {
       const { template } = req.app.locals;
-      const { keywords, current=1 } = req.params;
+      const { keywords, id } = req.params;
 
       if (keywords.length > 50) {
         await res.render(`${template}/404.html`);
         return;
       }
 
-      const page = current;
+      const page = id || 1;
       const pageSize = 10;
       // 文章列表
       const data = await ArticleService.search(keywords, page, pageSize);
       //分页
       let { count } = data;
-      let href = "/search/" + keywords +'/words';
+      let href = "/search/" + keywords;
       let pageHtml = pages(page, count, pageSize, href);
       data.list.forEach((ele) => {
         ele.titles = ele.title.replace(
