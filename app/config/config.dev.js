@@ -4,6 +4,7 @@ const config = { ...base };
 //mysql配置
 config.db = [
   {
+    client: "mysql2",
     host: "localhost",
     user: "root",
     password: "123456",
