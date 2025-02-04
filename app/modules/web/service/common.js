@@ -183,7 +183,7 @@ class CommonService {
    */
   async getArticleListByCids(cids = []) {
     try {
-      //tag去重
+      // 去重函数
       function uniqueByPath(arr) {
         const map = new Map();
         return arr.filter((item) => {
@@ -194,38 +194,38 @@ class CommonService {
           return false;
         });
       }
-
-      //主栏目-图-文
+  
+      // 主栏目-图-文
       let cate = await this.getAllParentCategory(cids);
       cate = cate.filter((item) => item.path != "/home" && item.type == "0");
       const cateField = ["id", "name", "path", "pinyin"];
       cate = filterFields(cate, cateField);
-      
+  
       let articleList = [];
-      let article = {};
-      for (let i = 0, item; i < cate.length; i++) {
-        let item = cate[i];
-        let tags = [];
-        // 头条
-        let top = await this.getArticleListByCid(item.id, 1, 1);
-        top = formatDay(top);
-        // 推荐
-        let recommend = await this.getArticleListByCid(item.id, 1, 2);
-        // 最新
-        let list = await this.getArticleListByCid(item.id, 4);
-        list = formatDay(list);
-        // tag列表
-        for (let j = 0, sub; j < list.length; j++) {
-          sub = list[j];
-          let res = await this.getTagsFromArticleByAid(sub.id);
-          tags.push(...res);
-        }
+      for (let item of cate) {
+        // 使用 Promise.all 并行获取数据
+        const [_top, _list] = await Promise.all([
+          this.getArticleListByCid(item.id, 1, 1).then(formatDay),
+          this.getArticleListByCid(item.id, 10).then(formatDay)
+        ]);
+  
+        // 获取并处理标签
+        let tagsPromises = _list.map(sub => this.getTagsFromArticleByAid(sub.id));
+        let tags = await Promise.all(tagsPromises);
+        tags = [].concat(...tags); // 将二维数组转为一维
         tags = uniqueByPath(tags);
-        let _item = { top, list, tags, category: item ,recommend}
-        article[item.pinyin] = _item;
+  
+        let _item = { top: _top, list: _list, tags, category: item };
         articleList.push(_item);
       }
-      return {article,articleList};
+  
+      // 方便模板调用
+      let article = {};
+      articleList.forEach(item => {
+        article[item.category.pinyin] = item;
+      });
+  
+      return { article, articleList };
     } catch (error) {
       console.error(error);
       throw error;

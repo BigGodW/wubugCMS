@@ -19,22 +19,22 @@ class HomeController {
   async index(req, res, next) {
     try {
       const { nav, template } = req.app.locals;
+      //首页数据
+      const homeData = !res.locals.banner ? await home.home() : {};
+      //所有展示栏目文章集合（栏目、头条1个、最新文章4个）
+      const articleData = await common.getArticleListByCids();
+      //模板
+      const defaultView =
+        nav?.[0]?.pinyin === "home" && nav[0]?.listView
+          ? nav[0].listView
+          : "index.html";
 
-      let result = {};
-
-      if (!("banner" in res.locals)) {
-        result = await home.home();
-        res.locals = { ...res.locals, ...result };
-      }
-
-      // 指定多栏目栏目获取文章列表
-      // await common.getArticleListByCids([59,1,29,]) 不传入默认所有栏目
-      let data = await common.getArticleListByCids();
-      let defaultView = "index.html";
-      if (nav.length > 0 && nav[0].pinyin == "home" && nav[0].listView) {
-        defaultView = nav[0].listView;
-      }
-      res.render(`${template}/${defaultView}`, { ...result, ...data });
+      console.log({...homeData,...articleData})
+      res.render(`${template}/${defaultView}`, {
+        ...res.locals, // 中间件数据
+        ...homeData, // 首页数据
+        ...articleData, // 栏目文章数据（最高优先级）
+      });
     } catch (error) {
       console.error(error);
       next(error);
@@ -262,18 +262,18 @@ class HomeController {
   async tag(req, res, next) {
     try {
       const { template } = req.app.locals;
-      const { path, current=1 } = req.params;
+      const { path, current = 1 } = req.params;
       const { tag } = req.query;
       const page = current;
       const pageSize = 10;
-      // 文章列表 
+      // 文章列表
       const data = await common.tags(path, page, pageSize);
-    
+
       //分页
       let { count } = data;
       let href = `/tags/${path}/tag`;
-      let query = `?tag=${tag}`
-      let pageHtml = pages(page, count, pageSize, href,query);
+      let query = `?tag=${tag}`;
+      let pageHtml = pages(page, count, pageSize, href, query);
 
       await res.render(`${template}/tag.html`, { data, path, tag, pageHtml });
     } catch (error) {
