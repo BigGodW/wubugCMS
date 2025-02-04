@@ -29,7 +29,7 @@ class HomeController {
           ? nav[0].listView
           : "index.html";
 
-      console.log({...homeData,...articleData})
+      console.log({ ...homeData, ...articleData });
       res.render(`${template}/${defaultView}`, {
         ...res.locals, // 中间件数据
         ...homeData, // 首页数据
@@ -45,34 +45,38 @@ class HomeController {
   async list(req, res, next) {
     try {
       const { template } = req.app.locals;
-      const { cate, current, cid } = req.params;
-      const currentPage = parseInt(current) || 1;
+      const { cate: cateParam, current: currentParam, cid } = req.params;
+      const currentPage = parseInt(currentParam) || 1;
       const pageSize = 10;
       const { category } = req.app.locals;
+
       // 当前栏目和当前栏目下所有子导航
-      let navSub = getChildrenId(cate || cid, category);
-      //获取栏目id
+      const navSub = getChildrenId(cateParam || cid, category);
       const id = cid || navSub.cate.id || "";
+
       if (!id) {
-        await res.render(`${template}/404.html`);
-        return;
+        return await res.render(`${template}/404.html`);
       }
+
       // 当前位置
-      let position = treeById(id, category);
+      let position = treeById(id, category).filter((item) => item); // 确保过滤掉可能的空值
       const positionField = ["id", "name", "path"];
       position = filterFields(position, positionField);
-      //列表页全量数据
+
+      // 列表页全量数据
       const data = await home.list(id, currentPage, pageSize);
-      //分页
-      let { count } = data.data;
-      let href = "";
+
+      // 分页
+      const count = data.data.count;
       let pageHtml = "";
       if (position.length > 0) {
-        href = position.slice(-1)[0].path + "/index";
+        const lastPath = position[position.length - 1].path; // 提前存储最后一个元素的路径
+        const href = `${lastPath}/index`;
         pageHtml = pages(currentPage, count, pageSize, href);
       }
-      //获取模板
-      let view = navSub?.cate?.listView || "list.html";
+
+      // 获取模板
+      const view = navSub?.cate?.listView || "list.html";
       await res.render(`${template}/${view}`, {
         position,
         cate: navSub.cate,
