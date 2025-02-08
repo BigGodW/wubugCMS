@@ -5,6 +5,8 @@ function toSearch() {
     }
 }
 
+
+
 document.querySelectorAll('.search-input').forEach((item) => {
     item.addEventListener('keyup', function (event) {
         console.log(event)

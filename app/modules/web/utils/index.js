@@ -91,3 +91,30 @@ exports.articleDataParse = ({ article, cid, category }) => {
   let view = article.articleView || cate.articleView;
   return { article, cate, position, view };
 };
+
+
+
+exports.searchParams = (req) => {
+  const { template } = req.app.locals;
+  const { keywords, current=1 } = req.params;
+  let key = keywords.slice(0,10);
+  return { current:+current, template, keywords:key };
+};
+
+
+exports.searchDataParse = ({data,keywords,current}) => {
+  // 分页
+  let { count=0,list=[]} = data.search;
+  let href = `/search/${keywords}/words`;
+
+  let pageHtml = pages(current, count, 10, href);
+
+  list.forEach((ele) => {
+    ele.titles = ele.title.replace(
+      new RegExp(keywords, "gi"),
+      `<span class='c-red'>${keywords}</span>`
+    );
+  });
+
+  return { list, pageHtml };  
+}

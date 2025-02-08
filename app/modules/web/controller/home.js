@@ -104,11 +104,11 @@ class HomeController {
         return res.render(`${template}/404.html`);
       }
       const navSub = cate && getChildrenId(cate, category);
-      const initialArticle = id && await common.article(id);
-  
+      const initialArticle = id && (await common.article(id));
+
       //非法访问
       const cid = initialArticle?.cid || navSub?.cate?.id;
-      if (!cid){
+      if (!cid) {
         return res.render(`${template}/404.html`);
       }
 
@@ -119,28 +119,29 @@ class HomeController {
       if (list.length == 0) {
         return res.render(`${template}/404.html`);
       }
-      const article = initialArticle || await common.article(list[0].id);
+      const article = initialArticle || (await common.article(list[0].id));
       if (!article) {
         return res.render(`${template}/404.html`);
       }
-  
+
       // 获取非异步的position数据
       const position = treeById(article.cid, category);
-     
-      // 更新计数
-      common.count({id:article.id});
-      const viewTemplate = article.articleView || navSub?.cate?.articleView  || "page.html";
 
-      console.log('article', {
+      // 更新计数
+      common.count({ id: article.id });
+      const viewTemplate =
+        article.articleView || navSub?.cate?.articleView || "page.html";
+
+      console.log("article", {
         ...pageData,
-        cate:navSub?.cate,
+        cate: navSub?.cate,
         position,
         article,
-      })
-  
+      });
+
       return res.render(`${template}/${viewTemplate}`, {
         ...pageData,
-        cate:navSub?.cate,
+        cate: navSub?.cate,
         position,
         article,
       });
@@ -153,32 +154,13 @@ class HomeController {
   // 搜索页
   async search(req, res, next) {
     try {
-      const { template } = req.app.locals;
-      const { keywords: originalKeywords, id } = req.params;
-
-      // 当关键词过多时，截取前10个字符
-      let keywords = originalKeywords.length > 50 ? originalKeywords.substring(0, 10) : originalKeywords;
-
-      const page = id || 1;
-      const pageSize = 10;
-      // 文章列表
-      const data = await ArticleService.search(keywords, page, pageSize);
-      // 分页
-      let { count } = data;
-      let href = "/search/" + keywords;
-      let pageHtml = pages(page, count, pageSize, href);
-
-      data.list.forEach((ele) => {
-          ele.titles = ele.title.replace(
-              new RegExp(keywords, "gi"),
-              `<span class='c-red'>${keywords}</span>`
-          );
-      });
-
+      let {current, template, keywords} = webUtils.searchParams(req);
+      const data = await home.search({keywords, current});
+      let { pageHtml} = webUtils.searchDataParse({data,keywords,current});
       await res.render(`${template}/search.html`, {
-          keywords,
-          data,
-          pageHtml,
+        keywords,
+        ...data,
+        pageHtml,
       });
     } catch (error) {
       console.error(error);

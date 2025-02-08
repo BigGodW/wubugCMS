@@ -616,12 +616,13 @@ class CommonService {
     }
   }
 
-  async search({key = "", cur = 1, pageSize = 10, cid = 0}) {
+  async search({keywords = "", current = 1, pageSize = 10, cid = 0}) {
     try {
+      console.log('key-->',{keywords , current , pageSize, cid })
       // 查询个数
       let sql;
       const countSql = `SELECT COUNT(*) as count FROM  cms_article a LEFT JOIN cms_category c ON a.cid=c.id`;
-      const keyStr = ` WHERE a.title LIKE \'%${key}%\'`;
+      const keyStr = ` WHERE a.title LIKE \'%${keywords}%\'`;
       const cidStr = `  AND c.id=?`;
 
       if (cid === 0) {
@@ -631,9 +632,9 @@ class CommonService {
       }
       const total = cid ? await knex.raw(sql, [cid]) : await knex.raw(sql, []);
       // 翻页
-      const offset = parseInt((cur - 1) * pageSize);
+      const offset = parseInt((current - 1) * pageSize);
       let sql_list = "";
-      const listStart = `SELECT a.id,a.title,a.attr,a.tagId,a.description,a.cid,a.pv,a.createdAt,a.status,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.title LIKE  \'%${key}%\' `;
+      const listStart = `SELECT a.id,a.title,a.attr,a.tagId,a.description,a.cid,a.pv,a.createdAt,a.status,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.title LIKE  \'%${keywords}%\' `;
       const listEnd = `ORDER BY a.id desc LIMIT ${offset},${parseInt(
         pageSize
       )}`;
@@ -649,7 +650,7 @@ class CommonService {
       return {
         count: count,
         total: Math.ceil(count / pageSize),
-        current: +cur,
+        current,
         list: list[0],
       };
     } catch (err) {
