@@ -26,9 +26,9 @@
                 </div>
 
                 <div class="bg-fff pl-25 pr-25 pb-25 radius-6 list">
-                    {{if data.list.length>0}}
+                    {{if tags.list.length>0}}
                     <ul>
-                        {{each data.list}}
+                        {{each tags.list}}
                         <li class="flex border-dashed pt-20 pb-20">
                             <figure class="flex justify-between mt-10 ">
                                 {{if $value.img}}
@@ -92,8 +92,7 @@
                     <h3 class="m-title border-dashed f-16 flex justify-between">tag标签</h3>
                     <p class="mt-10">
                         {{each tag}}
-                        <a class="el-tag mr-5 mb-5" href="/tags/{{$value.name}}.html"
-                            title="{{$value.name}}">{{$value.name}}</a>
+                        <a class="el-tag mr-5 mb-5" href="/tags/{{$value.path}}/tag.html?tag={{$value.name}}">{{$value.name}}</a>
                         {{/each}}
                     </p>
                 </section>

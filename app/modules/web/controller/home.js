@@ -2,19 +2,15 @@ const {
   modules: {
     web: {
       service: { common, home },
-    },
-    api: {
-      service: { article },
-    },
+    }
   },
   helper: {
-    utils: { pages, getChildrenId, treeById, filterFields, htmlDecode },
+    utils: { getChildrenId, treeById},
   },
 } = Chan;
 
 const webUtils = require("../utils/index.js");
 
-const ArticleService = article;
 
 class HomeController {
   // 首页
@@ -171,21 +167,10 @@ class HomeController {
   // tag
   async tag(req, res, next) {
     try {
-      const { template } = req.app.locals;
-      const { path, current = 1 } = req.params;
-      const { tag } = req.query;
-      const page = current;
-      const pageSize = 10;
-      // 文章列表
-      const data = await common.tags(path, page, pageSize);
-
-      //分页
-      let { count } = data;
-      let href = `/tags/${path}/tag`;
-      let query = `?tag=${tag}`;
-      let pageHtml = pages(page, count, pageSize, href, query);
-
-      await res.render(`${template}/tag.html`, { data, path, tag, pageHtml });
+      let { current, template, path, tag } =  webUtils.tagParams(req);
+      let data = await home.tag({path, current});
+      let { pageHtml } = webUtils.tagDataParse({ data, current, tag, path})
+      await res.render(`${template}/tag.html`, { ...data, path, tag, pageHtml });
     } catch (error) {
       console.error(error);
       next(error);

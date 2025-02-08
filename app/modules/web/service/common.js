@@ -410,8 +410,10 @@ class CommonService {
    * @param {Number} pageSize 默认10条
    * @returns {Array}
    */
-  async tags(path, current = 1, pageSize = 10) {
+  // 异步函数，用于查询标签
+  async tags({path, current = 1, pageSize = 10}) {
     try {
+      // 计算起始位置
       const start = (current - 1) * pageSize;
 
       // 查询个数
@@ -456,7 +458,7 @@ class CommonService {
       return {
         count,
         total: Math.ceil(count / pageSize),
-        current: +current,
+        current,
         list: result,
       };
     } catch (err) {
@@ -588,7 +590,6 @@ class CommonService {
   // 下一篇文章
   async next({ id, cid }) {
     try {
-      console.log('id-->',id,cid)
       const result = await knex('cms_article as a') 
       .select('a.id', 'a.title', 'c.name', 'c.path')
       .leftJoin('cms_category as c', 'a.cid', 'c.id')
@@ -618,7 +619,6 @@ class CommonService {
 
   async search({keywords = "", current = 1, pageSize = 10, cid = 0}) {
     try {
-      console.log('key-->',{keywords , current , pageSize, cid })
       // 查询个数
       let sql;
       const countSql = `SELECT COUNT(*) as count FROM  cms_article a LEFT JOIN cms_category c ON a.cid=c.id`;

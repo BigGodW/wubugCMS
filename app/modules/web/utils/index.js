@@ -2,6 +2,7 @@ const {
   helper: {
     utils: { pages, getChildrenId, treeById, filterFields, htmlDecode },
   },
+  config,
 } = Chan;
 
 /**
@@ -31,7 +32,6 @@ exports.listGetParams = (req) => {
 
   const { cate = "", cid } = req.params;
   const current = parseInt(req.params.current, 10) || 1;
-  console.log("current", current);
   // 当前栏目和当前栏目下所有子导航
   const navSub = getChildrenId(cate || cid, category);
   const _cate = navSub?.cate || {};
@@ -55,7 +55,12 @@ exports.listDataParse = ({ id, category, cate, current, data }) => {
   if (position.length > 0) {
     const lastPath = position[position.length - 1].path; // 提前存储最后一个元素的路径
     const href = `${lastPath}/index`;
-    pageHtml = pages(current, count, 10, href);
+    pageHtml = pages(
+      current,
+      count,
+      config?.data?.list?.articleList?.params?.pageSize || 10,
+      href
+    );
   }
   // 获取模板
   const view = cate?.listView || "list.html";
@@ -92,22 +97,24 @@ exports.articleDataParse = ({ article, cid, category }) => {
   return { article, cate, position, view };
 };
 
-
-
 exports.searchParams = (req) => {
   const { template } = req.app.locals;
-  const { keywords, current=1 } = req.params;
-  let key = keywords.slice(0,10);
-  return { current:+current, template, keywords:key };
+  const { keywords, current = 1 } = req.params;
+  let key = keywords.slice(0, 10);
+  return { current: +current, template, keywords: key };
 };
 
-
-exports.searchDataParse = ({data,keywords,current}) => {
+exports.searchDataParse = ({ data, keywords, current }) => {
   // 分页
-  let { count=0,list=[]} = data.search;
+  let { count = 0, list = [] } = data.search;
   let href = `/search/${keywords}/words`;
 
-  let pageHtml = pages(current, count, 10, href);
+  let pageHtml = pages(
+    current,
+    count,
+    config?.data?.search?.search?.params?.pageSize || 10,
+    href
+  );
 
   list.forEach((ele) => {
     ele.titles = ele.title.replace(
@@ -116,5 +123,27 @@ exports.searchDataParse = ({data,keywords,current}) => {
     );
   });
 
-  return { list, pageHtml };  
-}
+  return { list, pageHtml };
+};
+
+exports.tagParams = (req) => {
+  const { template } = req.app.locals;
+  const { path, current = 1 } = req.params;
+  const { tag } = req.query;
+  return { current: +current, template, path, tag };
+};
+
+exports.tagDataParse = ({ data, current, tag, path }) => {
+  //分页
+  let { count } = data.tags;
+  let href = `/tags/${path}/tag`;
+  let query = `?tag=${tag}`;
+  let pageHtml = pages(
+    current,
+    count,
+    config?.data?.tag?.tags?.params?.pageSize || 10,
+    href,
+    query
+  );
+  return { pageHtml };
+};

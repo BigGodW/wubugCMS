@@ -1,8 +1,8 @@
 const config = {
   tag: {
     //单页文章列表
-    list: {
-      method: "tag",
+    tags: {
+      method: "tags",
       params: { pageSize: 10},
     },
   },
