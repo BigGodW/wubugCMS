@@ -123,7 +123,7 @@ class CommonService {
         .leftJoin("cms_category AS c", "a.cid", "c.id")
         .whereIn("a.cid", ids)
         .where("a.status", 0)
-        .orderBy("createdAt", "DESC")
+        .orderBy("a.createdAt", "DESC")
         .limit(len);
 
       if (attr.length>0) {
