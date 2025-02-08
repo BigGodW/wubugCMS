@@ -1,7 +1,7 @@
 const config = {
   page: {
     //单页文章列表
-    list: {
+    page: {
       method: "list",
       params: { pageSize: 10 },
     },
