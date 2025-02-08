@@ -1,8 +1,7 @@
-const CommonService = require("./common.js");
 let {
   modules: {
     api: {
-      service: {friendlink },
+      service: { friendlink },
     },
     web: {
       service: { common },
@@ -11,6 +10,7 @@ let {
   helper: {
     utils: { filterFields, formatDay },
   },
+  config:{data},
 } = Chan;
 
 class HomeService {
@@ -18,45 +18,47 @@ class HomeService {
   // 首页
   async home() {
     try {
-      //banner轮播图
-      let banner = await common.bannerSlide();
-
-      //文章轮播图
-      let slide = await common.getArticleList(0, 5, 3);
-      const slideField = ["id", "title", "path", "link", "img"];
-      slide = filterFields(slide, slideField);
-
-      //头条
-      let top = await common.getArticleList(0, 1, 1);
-      const topField = ["id", "title", "path", "description", "img"];
-      top = filterFields(top, topField);
-
-      //最新文章
-      let news = await common.getArticleList(0, 5);
-      const newField = ["id", "title", "path", "createdAt"];
-      news = filterFields(news, newField);
-
-      let topnews = { top: top[0], news };
-
-      //图片列表(10条)
-      let imgs = await common.getNewImgList(8);
-      const imgsField = ["id", "title", "path", "img"];
-      imgs = filterFields(imgs, imgsField);
-
-      //推荐（10条）
-      let recommend = await common.getArticleList(0, 10, 2);
-
-      //热门（10条访问量）
-      let hot = await common.getArticlePvList(10);
-
-      //推荐带图片
-      let recommendImgs = await common.getNewImgList(5, "", 2);
-      const recommendImgsField = ["id", "title", "path", "img", "description"];
-      recommendImgs = filterFields(recommendImgs, recommendImgsField);
-
-      //友情链接
-      let link = await friendlink.list(1,50);
-      return { banner, slide, topnews, imgs, recommend, recommendImgs, hot,friendlink:link.list };
+      const config = data.home;
+      let apiCalls = {};
+  
+      // 构建要调用的api对象
+      for (let key in config) {
+        if (config[key].show !== false) {
+          let method = config[key].method;
+          let apiMethod = common[method];
+          let params = config[key].params;
+  
+          // 参数校验与转换
+          if (params) {
+            params.start = Math.max(0, parseInt(params.start, 10) || 0);
+            params.len = Math.min(Math.max(1, parseInt(params.len, 10) || 5), 100); // 限制每页最多100条
+            if (typeof params.attr === 'string') {
+              params.attr = params.attr.trim();
+            }
+          }
+  
+          apiCalls[key] = apiMethod(params).then((data) => {
+            if (config[key].field) {
+              return filterFields(data, config[key].field);
+            }
+            return data;
+          });
+        }
+      }
+  
+      // 使用Promise.all并行执行所有api调用，并通过解构赋值获取结果
+      let results = await Promise.all(Object.values(apiCalls));
+  
+      // 合并结果到一个对象中
+      let resultObject = {};
+      let keys = Object.keys(apiCalls);
+      results.forEach((result, index) => {
+        resultObject[keys[index]] = result;
+      });
+      
+      console.log('resultObject-->',resultObject)
+      return resultObject;
+  
     } catch (err) {
       console.error(err);
       throw err;
@@ -64,37 +66,78 @@ class HomeService {
   }
 
   // 列表页
-  async list(id, currentPage = 1, pageSize = 20) {
+  async list(id, current = 1) {
     try {
-      // 文章列表
-      const data = await common.list(id, currentPage, pageSize);
-      data.list = formatDay(data.list);
-      // 本类推荐
-      let recommend = await common.getArticleListByCid(id, 5, 2);
-      // 本类热门
-      let hot = await common.getArticlePvList(10, id);
-      const hotField = ["id", "title", "path"];
-      hot = filterFields(hot, hotField);
-      // 本类图文
-      const imgs = await common.getNewImgList(5, id);
-      return { data, recommend, hot, imgs };
+      const config = data.list;
+  
+      let apiCalls = {};
+  
+      // 构建要调用的api对象
+      for (let key in config) {
+        if (config[key].show !== false) {
+          let method = config[key].method;
+          let apiMethod = common[method];
+          let params = { ...(config[key].params || {}), id, current };
+          apiCalls[key] = apiMethod(params).then((data) => {
+            if (config[key].field) {
+              return filterFields(data, config[key].field);
+            }
+            return data;
+          });
+        }
+      }
+  
+      // 使用Promise.all并行执行所有api调用，并通过解构赋值获取结果
+      let results = await Promise.all(Object.values(apiCalls));
+  
+      // 合并结果到一个对象中
+      let resultObject = {};
+      let keys = Object.keys(apiCalls);
+      results.forEach((result, index) => {
+        resultObject[keys[index]] = result;
+      });
+  
+      return resultObject;
     } catch (err) {
       console.error(err);
       throw err;
     }
   }
   // 文章页
-  async article(id) {
+  async article({id,cid}) {
     try {
-      // 本类最新
-      let news = await common.getArticleListByCid(id, 10);
-      // 本类热门
-      let hot = await common.getArticlePvList(10, id);
-      const hotField = ["id", "title", "path"];
-      hot = filterFields(hot, hotField);
-      // 本类图文
-      const imgs = await common.getNewImgList(5, id);
-      return { news, hot, imgs };
+      const config = data.article;
+      let apiCalls = {};
+  
+      // 构建要调用的api对象
+      for (let key in config) {
+        if (config[key].show !== false) {
+          let method = config[key].method;
+          let apiMethod = common[method];
+          let params = { ...(config[key].params || {}), id, cid };
+
+          apiCalls[key] = apiMethod(params).then((data) => {
+            if (config[key].field) {
+              return filterFields(data, config[key].field);
+            }
+            return data;
+          });
+        }
+      }
+  
+      // 使用Promise.all并行执行所有api调用，并通过解构赋值获取结果
+      let results = await Promise.all(Object.values(apiCalls));
+  
+      // 合并结果到一个对象中
+      let resultObject = {};
+      let keys = Object.keys(apiCalls);
+      results.forEach((result, index) => {
+        resultObject[keys[index]] = result;
+      });
+  
+      console.log('article-->', resultObject);
+  
+      return resultObject;
     } catch (err) {
       console.error(err);
       throw err;
@@ -102,11 +145,36 @@ class HomeService {
   }
 
   // 单页列表页
-  async page(id, currentPage = 1, pageSize = 10) {
+  async page(id) {
     try {
-      const data = await common.list(id, currentPage, pageSize);
-      data.list = formatDay(data.list);
-      return data;
+      const config = data.page;
+  
+      let apiCalls = {};
+  
+      // 构建要调用的api对象
+      for (let key in config) {
+        if (config[key].show !== false) {
+          let method = config[key].method;
+          let apiMethod = common[method];
+          let params = { ...(config[key].params || {}), id };
+          console.log('page-->', params)
+          apiCalls[key] = apiMethod(params).then((data) => data);
+        }
+      }
+  
+      // 使用Promise.all并行执行所有api调用，并通过解构赋值获取结果
+      let results = await Promise.all(Object.values(apiCalls));
+  
+      // 合并结果到一个对象中
+      let resultObject = {};
+      let keys = Object.keys(apiCalls);
+      results.forEach((result, index) => {
+        resultObject[keys[index]] = result;
+      });
+  
+      console.log('page-->', resultObject);
+  
+      return resultObject;
     } catch (err) {
       console.error(err);
       throw err;

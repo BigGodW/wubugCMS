@@ -32,10 +32,10 @@
                 </div>
 
                 <div class="bg-fff pl-25 pr-25 pb-25 radius-6 list">
-                    {{if data.list.length>0}}
+                    {{if articleList.list.length>0}}
                         <!-- border-dashed pt-20 pb-20 -->
                         <div class="flex flex-wrap gap-7">
-                            {{each data.list}}
+                            {{each articleList.list}}
                             {{if $value.img}}
                             <figure class="flex list-img-item justify-between mt-10 pos-r">
                                 <a href="{{$value.path}}/article-{{$value.id}}.html"

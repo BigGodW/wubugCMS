@@ -1,5 +1,6 @@
 const base = require("./config.base.js");
-const config = { ...base };
+const data = require("./data/index.js");
+const config = { ...base,...data };
 
 //mysql配置
 config.db = [
@@ -51,5 +52,7 @@ config.env = "dev";
 config.logger = {
   level: "dev",
 };
+
+
 
 module.exports = config;

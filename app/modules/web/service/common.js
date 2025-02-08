@@ -1,5 +1,4 @@
 const {
-  
   knex,
   helper: {
     utils: { filterFields, formatDay },
@@ -38,13 +37,21 @@ class CommonService {
   }
 
   /**
-   * @description 通用查询全局文章,不区分栏目
-   * @param {*} start 开始
-   * @param {*} len 查询个数
-   * @param {*} attr 1头条 2推荐 3轮播 4热门
-   * @returns {Array}
+   * @description 获取文章(头条、推荐、轮播、热门)
+   * @param {Array} attr 1头条 2推荐 3轮播 4热门
+   * @param {Array} excludeAttr 排除1头条 2推荐 3轮播 4热门
+   * @param {Object} len 查询个数
+   * @param {Object} start 开始
+   * @param {Number} 1 ->返回对象 2->返回数组
+   * @returns
    */
-  async getArticleList(start = 0, len = 5, attr = "") {
+  async getArticleList({
+    start = 0,
+    len = 5,
+    attr = "",
+    excludeAttr = "",
+    type = 2,
+  }) {
     try {
       const columns = [
         "a.id",
@@ -67,11 +74,17 @@ class CommonService {
         .orderBy("a.createdAt", "DESC")
         .limit(len)
         .offset(start);
+
       if (attr) {
-        query.where("a.attr", "LIKE", `%${attr}%`);
+        query.whereIn("a.attr", attr);
       }
+
+      if (excludeAttr) {
+        query.whereNotIn("a.attr", excludeAttr);
+      }
+
       const result = await query;
-      return result;
+      return type == 2 ? result : result[0];
     } catch (err) {
       console.error(err);
       throw err;
@@ -85,14 +98,14 @@ class CommonService {
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    * @returns {Array}
    */
-  async getArticleListByCid(cid, len = 5, attr = "") {
+  async getArticleListByCid({id, len = 5, attr = []}) {
     try {
       // 获取所有id
       const res = await knex
         .select("id")
         .from("cms_category")
-        .where("pid", cid);
-      const ids = [cid, ...res.map((item) => item.id)];
+        .where("pid", id);
+      const ids = [id, ...res.map((item) => item.id)];
       // 构建查询条件
       let queryBuilder = knex
         .select(
@@ -112,14 +125,16 @@ class CommonService {
         .where("a.status", 0)
         .orderBy("createdAt", "DESC")
         .limit(len);
-      if (attr) {
-        queryBuilder = queryBuilder.andWhere("a.attr", "LIKE", `%${attr}%`);
+
+      if (attr.length>0) {
+        queryBuilder.whereIn("a.attr", attr);
       }
+
       // 执行查询
       const result = await queryBuilder;
       return result;
     } catch (err) {
-      console.error(`cid->${cid} attr-> ${attr} len->${len}`, err);
+      console.error(`cid->${id} attr-> ${attr} len->${len}`, err);
       throw err;
     }
   }
@@ -181,7 +196,7 @@ class CommonService {
    * @param {Array} cids 栏目id
    * @returns {Array}
    */
-  async getArticleListByCids(cids = []) {
+  async getArticleListByCids({cids = [],attr=2,toplen=1,listlen=5}={}) {
     try {
       // 去重函数
       function uniqueByPath(arr) {
@@ -194,38 +209,41 @@ class CommonService {
           return false;
         });
       }
-  
+
       // 主栏目-图-文
       let cate = await this.getAllParentCategory(cids);
       cate = cate.filter((item) => item.path != "/home" && item.type == "0");
       const cateField = ["id", "name", "path", "pinyin"];
       cate = filterFields(cate, cateField);
-  
-      let articleList = [];
+
+      let list = [];
+      console.log(cate);
       for (let item of cate) {
         // 使用 Promise.all 并行获取数据
         const [_top, _list] = await Promise.all([
-          this.getArticleListByCid(item.id, 1, 1).then(formatDay),
-          this.getArticleListByCid(item.id, 10).then(formatDay)
+          this.getArticleListByCid({id:item.id, len:toplen, attr}).then(formatDay),
+          this.getArticleListByCid({id:item.id, len:listlen}).then(formatDay),
         ]);
-  
+
         // 获取并处理标签
-        let tagsPromises = _list.map(sub => this.getTagsFromArticleByAid(sub.id));
+        let tagsPromises = _list.map((sub) =>
+          this.getTagsFromArticleByAid(sub.id)
+        );
         let tags = await Promise.all(tagsPromises);
         tags = [].concat(...tags); // 将二维数组转为一维
         tags = uniqueByPath(tags);
-  
+
         let _item = { top: _top, list: _list, tags, category: item };
-        articleList.push(_item);
+        list.push(_item);
       }
-  
+
       // 方便模板调用
       let article = {};
-      articleList.forEach(item => {
+      list.forEach((item) => {
         article[item.category.pinyin] = item;
       });
-  
-      return { article, articleList };
+
+      return { ...article, list };
     } catch (error) {
       console.error(error);
       throw error;
@@ -238,7 +256,7 @@ class CommonService {
    * @param {Number} len 默认10条
    * @returns
    */
-  async getArticlePvList(len = 10, id = "") {
+  async getArticlePvList({len = 10, id = ""}={}) {
     try {
       let query = knex
         .select(
@@ -283,7 +301,7 @@ class CommonService {
    * @param {*} attr 1头条 2推荐 3轮播 4热门
    * @returns
    */
-  async getNewImgList(len = 10, id = "", attr = "") {
+  async getNewImgList({ len = 10, id = "", attr = "" }={}) {
     try {
       let query = knex
         .select(
@@ -332,25 +350,22 @@ class CommonService {
    * @param {Number} pageSize 默认10条
    * @returns {Array}
    */
-  async list(id, current = 1, pageSize = 10) {
+  async list({id, current = 1, pageSize = 10}) {
+    console.log("id", id,current,pageSize);
     try {
       const start = (current - 1) * pageSize;
-
       // 获取所有id
       let ids = [id];
       const res = await knex("cms_category").select("id").where("pid", id);
-
       res.forEach((item) => {
         ids.push(item.id);
       });
-
       // 查询个数
       const total = await knex("cms_article")
         .count("id as count")
         .whereIn("cid", ids)
         .where("status", 0)
         .first();
-
       const count = total.count || 1;
 
       // 查询文章列表
@@ -383,7 +398,7 @@ class CommonService {
         list: result,
       };
     } catch (err) {
-      console.error(`id->${id} current->${current} pageSize->${pageSize}`, err);
+      console.error(`list-id->${id} current->${current} pageSize->${pageSize}`, err);
       throw err;
     }
   }
@@ -397,19 +412,17 @@ class CommonService {
    */
   async tags(path, current = 1, pageSize = 10) {
     try {
-      console.log("tags", path, current, pageSize);
       const start = (current - 1) * pageSize;
 
-      // 查询个数    
-      const total = await knex('cms_article as a')
-      .whereExists(function () {
-        this.select(1)
-          .from('cms_tag as t')
-          .whereRaw('FIND_IN_SET(t.id, a.tagId)')
-          .andWhere('t.path', path);
-      })
-      .count('a.id as total');
-
+      // 查询个数
+      const total = await knex("cms_article as a")
+        .whereExists(function () {
+          this.select(1)
+            .from("cms_tag as t")
+            .whereRaw("FIND_IN_SET(t.id, a.tagId)")
+            .andWhere("t.path", path);
+        })
+        .count("a.id as total");
 
       // 查询文章列表
       const result = await knex("cms_article as a")
@@ -460,16 +473,23 @@ class CommonService {
    * @param {*} articleId
    * @returns {Array} 返回数组
    */
-  async fetchTagsByArticleId(articleId) {
+  async fetchTagsByArticleId({id,len=5}) {
     try {
+      const article = await knex("cms_article")
+      .select("tagId")
+      .where("id", id)
+      .first();
+
+    if (!article || !article.tagId) {
+      return [];
+    }
+
+      const tagIds = article.tagId.split(',').map(Number);
       const tags = await knex("cms_tag")
-        .select("cms_tag.id", "cms_tag.path", "cms_tag.name")
-        .join(
-          "cms_article",
-          knex.raw(`cms_article.tagId LIKE CONCAT('%', cms_tag.id, '%')`)
-        )
-        .where("cms_article.id", articleId)
-        .limit(10);
+        .select("id", "path", "name")
+        .whereIn("id", tagIds)
+        .limit(len);
+
       return tags;
     } catch (err) {
       console.error(err);
@@ -493,6 +513,151 @@ class CommonService {
       throw err;
     }
   }
+
+  async friendLink({ pageSize = 10 }) {
+    try {
+      // 限制每页最多100条
+      pageSize = Math.min(parseInt(pageSize, 10) || 10, 100);
+      // 并行执行总数查询和分页查询
+      const [list] = await Promise.all([
+        knex("cms_friendlink")
+          .select("title", "link")
+          .orderBy("orderBy", "desc") // 先按 orderBy 降序排序
+          .orderBy("id", "desc") // 再按 id 降序排序
+          .limit(pageSize)
+          .offset(0),
+      ]);
+      return list;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+
+  async article(id) {
+    try {
+      // 查询文章
+      const data = await knex("cms_article").where("id", "=", id).select();
+      //兼容mysql错误
+      if (!data[0] || !data[0].cid) {
+        return false;
+      }
+      // 通过栏目id查找模型id
+      const modId = await knex.raw(
+        `SELECT mid FROM cms_category WHERE id=? LIMIT 0,1`,
+        [data[0].cid]
+      );
+
+      let field = [];
+      if (modId[0].length > 0 && modId[0][0].mid !== "0") {
+        // 通过模型查找表名
+        const tableName = await knex.raw(
+          `SELECT tableName FROM cms_model WHERE id=?`,
+          [modId[0][0].mid]
+        );
+        // 通过表名查找文章
+        field = await knex.raw(`SELECT * FROM ? WHERE aid=? LIMIT 0,1`, [
+          tableName[0][0].tableName,
+          id,
+        ]);
+      }
+      return { ...data[0], field: field[0] || {} };
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+  // 上一篇文章
+  async prev({ id, cid }) {
+    try {
+      const result = await knex('cms_article as a') 
+      .select('a.id', 'a.title', 'c.name', 'c.path')
+      .leftJoin('cms_category as c', 'a.cid', 'c.id')
+      .where('a.id', '<', id)
+      .andWhere('a.cid', cid)
+      .orderBy('a.id', 'desc')
+      .first();
+      return result; 
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+  // 下一篇文章
+  async next({ id, cid }) {
+    try {
+      console.log('id-->',id,cid)
+      const result = await knex('cms_article as a') 
+      .select('a.id', 'a.title', 'c.name', 'c.path')
+      .leftJoin('cms_category as c', 'a.cid', 'c.id')
+      .where('a.id', '>', id)
+      .andWhere('a.cid', cid)
+      .orderBy('a.id', 'asc') 
+      .first();
+      return result; 
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+   // 增加计数器
+   async count({id}) {
+    try {
+      const result = await knex('cms_article')
+      .where('id', id)
+      .increment('pv', 1);
+    return result;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+  async search({key = "", cur = 1, pageSize = 10, cid = 0}) {
+    try {
+      // 查询个数
+      let sql;
+      const countSql = `SELECT COUNT(*) as count FROM  cms_article a LEFT JOIN cms_category c ON a.cid=c.id`;
+      const keyStr = ` WHERE a.title LIKE \'%${key}%\'`;
+      const cidStr = `  AND c.id=?`;
+
+      if (cid === 0) {
+        sql = countSql + keyStr;
+      } else {
+        sql = countSql + keyStr + cidStr;
+      }
+      const total = cid ? await knex.raw(sql, [cid]) : await knex.raw(sql, []);
+      // 翻页
+      const offset = parseInt((cur - 1) * pageSize);
+      let sql_list = "";
+      const listStart = `SELECT a.id,a.title,a.attr,a.tagId,a.description,a.cid,a.pv,a.createdAt,a.status,c.name,c.path FROM cms_article a LEFT JOIN cms_category c ON a.cid=c.id WHERE a.title LIKE  \'%${key}%\' `;
+      const listEnd = `ORDER BY a.id desc LIMIT ${offset},${parseInt(
+        pageSize
+      )}`;
+      if (cid === 0) {
+        sql_list = listStart + listEnd;
+      } else {
+        sql_list = listStart + `AND c.id=? ` + listEnd;
+      }
+      const list = cid
+        ? await knex.raw(sql_list, [cid])
+        : await knex.raw(sql_list, []);
+      const count = total[0][0].count;
+      return {
+        count: count,
+        total: Math.ceil(count / pageSize),
+        current: +cur,
+        list: list[0],
+      };
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
 }
 
 module.exports = CommonService;

@@ -12,6 +12,8 @@ const {
   },
 } = Chan;
 
+const webUtils = require("../utils/index.js");
+
 const ArticleService = article;
 
 class HomeController {
@@ -19,22 +21,9 @@ class HomeController {
   async index(req, res, next) {
     try {
       const { nav, template } = req.app.locals;
-      //首页数据
-      const homeData = !res.locals.banner ? await home.home() : {};
-      //所有展示栏目文章集合（栏目、头条1个、最新文章4个）
-      const articleData = await common.getArticleListByCids();
-      //模板
-      const defaultView =
-        nav?.[0]?.pinyin === "home" && nav[0]?.listView
-          ? nav[0].listView
-          : "index.html";
-
-      console.log({ ...homeData, ...articleData });
-      res.render(`${template}/${defaultView}`, {
-        ...res.locals, // 中间件数据
-        ...homeData, // 首页数据
-        ...articleData, // 栏目文章数据（最高优先级）
-      });
+      const defaultView = webUtils.homeView(nav);
+      const data = await home.home();
+      res.render(`${template}/${defaultView}`, data);
     } catch (error) {
       console.error(error);
       next(error);
@@ -44,43 +33,22 @@ class HomeController {
   // 列表页
   async list(req, res, next) {
     try {
-      const { template } = req.app.locals;
-      const { cate: cateParam, current: currentParam, cid } = req.params;
-      const currentPage = parseInt(currentParam) || 1;
-      const pageSize = 10;
-      const { category } = req.app.locals;
-
-      // 当前栏目和当前栏目下所有子导航
-      const navSub = getChildrenId(cateParam || cid, category);
-      const id = cid || navSub.cate.id || "";
-
+      const { template, category, cate, id, current } =
+        webUtils.listGetParams(req);
       if (!id) {
         return await res.render(`${template}/404.html`);
       }
-
-      // 当前位置
-      let position = treeById(id, category).filter((item) => item); // 确保过滤掉可能的空值
-      const positionField = ["id", "name", "path"];
-      position = filterFields(position, positionField);
-
-      // 列表页全量数据
-      const data = await home.list(id, currentPage, pageSize);
-
-      // 分页
-      const count = data.data.count;
-      let pageHtml = "";
-      if (position.length > 0) {
-        const lastPath = position[position.length - 1].path; // 提前存储最后一个元素的路径
-        const href = `${lastPath}/index`;
-        pageHtml = pages(currentPage, count, pageSize, href);
-      }
-
-      // 获取模板
-      const view = navSub?.cate?.listView || "list.html";
+      const data = await home.list(id, current);
+      const { pageHtml, view, position } = webUtils.listDataParse({
+        id,
+        category,
+        cate,
+        current,
+        data,
+      });
       await res.render(`${template}/${view}`, {
         position,
-        cate: navSub.cate,
-        navSub,
+        cate,
         pageHtml,
         ...data,
       });
@@ -93,64 +61,31 @@ class HomeController {
   // 详情页
   async article(req, res, next) {
     try {
-      const { template } = req.app.locals;
-      let { id } = req.params;
-      const { category } = req.app.locals;
-
-      if (id.includes(".html")) {
-        id = id.replace(".html", "");
-      }
-
+      let { id, template, category } = webUtils.articleGetParams(req);
       if (!id) {
         await res.render(`${template}/404.html`);
         return;
       }
-
       // 文章列表
-      const article = await ArticleService.detail(id);
-
+      const article = await common.article(id);
       if (!article) {
         await res.render(`${template}/404.html`);
         return;
       }
-
       // 栏目id
       const cid = article.cid || "";
-      // 内容标签
-      article.tags = await common.fetchTagsByArticleId(id);
-
-      article.content = htmlDecode(article.content);
-      // 扩展字段
-      Object.getOwnPropertyNames(article.field).forEach(function (key) {
-        if (
-          typeof article.field[key] == "string" &&
-          article.field[key].includes("{")
-        ) {
-          article.field[key] = JSON.parse(article.field[key]);
-        }
+      let { cate, position, view } = webUtils.articleDataParse({
+        article,
+        cid,
+        category,
       });
-      // 当前栏目和当前栏目下所有子导航
-      const navSub = getChildrenId(cid, category);
-      // 当前位置
-      const position = treeById(cid, category);
-      // 增加数量
-      await ArticleService.count(id);
-      //上一页
-      const pre = await ArticleService.pre(id, cid);
-      //下一页
-      const next = await ArticleService.next(id, cid);
-      //热门 推荐 图文
-      const data = await home.article(cid);
-      //获取模板
-      let view = article.articleView || navSub.cate.articleView;
+      //热门 推荐 图文 上一页 下一页 count
+      const data = await home.article({ id, cid });
       await res.render(`${template}/${view}`, {
         ...data,
-        cate: navSub.cate,
+        cate,
         article,
-        navSub,
         position,
-        pre,
-        next,
       });
     } catch (error) {
       console.error(error);
@@ -158,65 +93,55 @@ class HomeController {
     }
   }
 
-  // 单页
+  // 单页 ，分两种情况，一种单个单页，一个
   async page(req, res, next) {
     try {
       const { cate, id } = req.params;
       const { category, template } = req.app.locals;
 
-      // 当前栏目和当前栏目下所有子导航
-      let cid = "";
-      let navSub = {};
-      let article = {};
-      let position = {};
-
+      //非法访问
       if (!id && !cate) {
-        await res.render(`${template}/404.html`);
-        return;
+        return res.render(`${template}/404.html`);
+      }
+      const navSub = cate && getChildrenId(cate, category);
+      const initialArticle = id && await common.article(id);
+  
+      //非法访问
+      const cid = initialArticle?.cid || navSub?.cate?.id;
+      if (!cid){
+        return res.render(`${template}/404.html`);
       }
 
-      //通过拼音找到对应的栏目
-      if (cate) {
-        navSub = getChildrenId(cate, category);
-        //获取栏目id
-        cid = navSub.cate.id || "";
+      const pageData = await home.page(cid);
+      let list = pageData?.page?.list || [];
+
+      //404
+      if (list.length == 0) {
+        return res.render(`${template}/404.html`);
       }
-
-      //文章id查找栏目id
-      if (id) {
-        // 文章列表
-        article = await ArticleService.detail(id);
-        // 栏目id
-        cid = article.cid || "";
+      const article = initialArticle || await common.article(list[0].id);
+      if (!article) {
+        return res.render(`${template}/404.html`);
       }
+  
+      // 获取非异步的position数据
+      const position = treeById(article.cid, category);
+     
+      // 异步更新计数
+      await common.count({id:article.id});
+  
+      const viewTemplate = article.articleView || navSub?.cate?.articleView  || "page.html";
 
-      //没找到栏目 去404
-      if (!cid) {
-        await res.render(`${template}/404.html`);
-        return;
-      }
-
-      //获取单页列表
-      const data = await home.page(cid, 1, 20);
-
-      if (data.list.length > 0 && !id) {
-        article = await ArticleService.detail(data.list[0].id);
-      }
-
-      //没找到文章 去404
-      if (Object.keys(article).length > 0) {
-        // 当前位置
-        position = treeById(article.cid, category);
-        // 增加数量
-        await ArticleService.count(article.id);
-      }
-
-      //获取模板
-      let view = navSub?.cate?.articleView || "page.html";
-      await res.render(`${template}/${view}`, {
-        data: data.list,
-        cate: navSub.cate,
-        navSub,
+      console.log('article', {
+        ...pageData,
+        cate:navSub?.cate,
+        position,
+        article,
+      })
+  
+      return res.render(`${template}/${viewTemplate}`, {
+        ...pageData,
+        cate:navSub?.cate,
         position,
         article,
       });
@@ -230,31 +155,31 @@ class HomeController {
   async search(req, res, next) {
     try {
       const { template } = req.app.locals;
-      const { keywords, id } = req.params;
+      const { keywords: originalKeywords, id } = req.params;
 
-      if (keywords.length > 50) {
-        await res.render(`${template}/404.html`);
-        return;
-      }
+      // 当关键词过多时，截取前10个字符
+      let keywords = originalKeywords.length > 50 ? originalKeywords.substring(0, 10) : originalKeywords;
 
       const page = id || 1;
       const pageSize = 10;
       // 文章列表
       const data = await ArticleService.search(keywords, page, pageSize);
-      //分页
+      // 分页
       let { count } = data;
       let href = "/search/" + keywords;
       let pageHtml = pages(page, count, pageSize, href);
+
       data.list.forEach((ele) => {
-        ele.titles = ele.title.replace(
-          new RegExp(keywords, "gi"),
-          `<span class='c-red'>${keywords}</span>`
-        );
+          ele.titles = ele.title.replace(
+              new RegExp(keywords, "gi"),
+              `<span class='c-red'>${keywords}</span>`
+          );
       });
+
       await res.render(`${template}/search.html`, {
-        keywords,
-        data,
-        pageHtml,
+          keywords,
+          data,
+          pageHtml,
       });
     } catch (error) {
       console.error(error);

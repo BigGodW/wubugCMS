@@ -40,19 +40,21 @@
                     {{/if}}
                         
                     <div class="w-520 h-290 bg-fff pd-20">
-                        {{ if topnews}}
-                        {{if topnews.top}}
+                      
+                        {{if top}}
                         <div class="flex justify-between">
-                            <h2 class="f-16 ellips-2 c-1a1a1a">{{topnews.top.title}}</h2>
+                            <h2 class="f-16 ellips-2 c-1a1a1a">{{top.title}}</h2>
                             <p class="f-14  ellips-3  mb-10 mt-10">
-                                {{topnews.top.description}}<a class="c-003a8c"
-                                    href="{{topnews.top.path}}/article-{{topnews.top.id}}.html"
-                                    title="{{topnews.top.title}}">详情</a>
+                                {{top.description}}<a class="c-003a8c"
+                                    href="{{top.path}}/article-{{top.id}}.html"
+                                    title="{{top.title}}">详情</a>
                             </p>
                         </div>
                         {{/if}}
+
+                        {{if news}}
                         <ul class="w-460-list">
-                            {{each topnews.news}}
+                            {{each news}}
                             <li class="f-14 pt-4 pb-4 flex justify-between">
                                 <a href="{{$value.path}}/article-{{$value.id}}.html"
                                     title="{{$value.title}}">{{$value.title}}</a>
@@ -61,11 +63,12 @@
                             {{/each}}
                         </ul>
                         {{/if}}
+                       
                     </div>
                    
                 </section>
                 <section class="flex flex-wrap justify-between gap-10">
-                    {{each articleList}}
+                    {{each article.list}}
                     <div class="w-460 bg-fff pd-20">
                         <h3 class="m-title f-16 flex justify-between border-dashed mb-10">{{$value.category.name}}<span
                                 class="more"><a href="{{$value.category.path}}/index.html">更多</a></span></h3>
@@ -159,7 +162,7 @@
                 <section class="notices pd-20 mb-20 bg-fff">
                     <h3 class="m-title border-dashed f-16 flex justify-between">友情链接</h3>
                     <p class="mt-10">
-                        {{each friendlink.list}}
+                        {{each friendlink}}
                         <a class="el-tag mr-5 mb-5" href="{{$value.link}}">{{$value.title}}</a>
                         {{/each}}
                     </p>

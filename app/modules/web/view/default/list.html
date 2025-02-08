@@ -32,9 +32,9 @@
                 </div>
 
                 <div class="bg-fff pl-25 pr-25 pb-25 radius-6 list">
-                    {{if data.list.length>0}}
+                    {{if articleList.list.length>0}}
                     <ul>
-                        {{each data.list}}
+                        {{each articleList.list}}
                         <li class="flex border-dashed pt-20 pb-20">
                             <figure class="flex justify-between mt-10 ">
                                 {{if $value.img}}
@@ -90,7 +90,7 @@
                 <!-- HOT -->
                 <section class="notices pd-20 mb-20 bg-fff">
                     <h3 class="m-title border-dashed f-16 flex justify-between">
-                        {{navSub.cate.name}}<span class="more">more</span>
+                        {{cate.name}}<span class="more">more</span>
                     </h3>
                     <ul class="mt-10 list-none">
                         {{each hot}}
@@ -105,9 +105,9 @@
 
                 <!-- 栏目 -->
                 <section class="notices pd-20 mb-20 bg-fff">
-                    <h3 class="m-title border-dashed f-16 flex justify-between">相关栏目</h3>
+                    <h3 class="m-title border-dashed f-16 flex justify-between">子栏目</h3>
                     <p class="mt-10">
-                        {{each navSub.cate.children}}
+                        {{each cate.children}}
                         <a class="el-tag mr-5 mb-5" href="/">{{$value.name}}</a>
                         {{/each}}
                     </p>
@@ -173,7 +173,7 @@
         <p class="mb-20">ad--->{{frag.ad}}</p>
         <p class="mb-20">tag--->{{tag}}</p>
         <p class="mb-20">position------>{{position}}</p>
-        <p class="mb-20">navSub------>{{navSub}}</p>
+        <p class="mb-20">cate------>{{cate}}</p>
         <p class="mb-20">list------>{{data}}</p>
         <p class="mb-20">recommend------>{{recommend}}</p>
         <p class="mb-20">hot------>{{hot}}</p>
