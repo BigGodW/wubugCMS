@@ -127,9 +127,8 @@ class HomeController {
       // 获取非异步的position数据
       const position = treeById(article.cid, category);
      
-      // 异步更新计数
-      await common.count({id:article.id});
-  
+      // 更新计数
+      common.count({id:article.id});
       const viewTemplate = article.articleView || navSub?.cate?.articleView  || "page.html";
 
       console.log('article', {
