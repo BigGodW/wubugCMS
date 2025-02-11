@@ -1,6 +1,6 @@
 const base = require("./config.base.js");
 const data = require("./data/index.js");
-const config = { ...base,...data };
+const config = { ...base, ...data };
 
 //mysql配置
 config.db = [
@@ -10,27 +10,23 @@ config.db = [
     user: "root",
     password: "123456",
     database: "chancms",
-    debug:false
-  }
+    debug: false,
+  },
 ];
 
 //web端口
 config.port = "81";
 
-//静态资源
+//模板静态资源
 config.static = [
-  {
-    prefix: "/public/",
-    dir: "app/public",
-    maxAge: 0,
-  },
+  ...base.static,
 ];
 
 // jwt 配置
 config.token = {
   KEY: "ChanCMS",
   TIME: "1d",
-  REFRESH:false //是否开启刷新token
+  REFRESH: false, //是否开启刷新token
 };
 
 // bcrypt 加盐
@@ -52,7 +48,5 @@ config.env = "dev";
 config.logger = {
   level: "dev",
 };
-
-
 
 module.exports = config;

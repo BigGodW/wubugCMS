@@ -128,13 +128,6 @@ class HomeController {
       const viewTemplate =
         article.articleView || navSub?.cate?.articleView || "page.html";
 
-      console.log("article", {
-        ...pageData,
-        cate: navSub?.cate,
-        position,
-        article,
-      });
-
       return res.render(`${template}/${viewTemplate}`, {
         ...pageData,
         cate: navSub?.cate,

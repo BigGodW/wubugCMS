@@ -12,7 +12,7 @@ module.exports = (opt) => {
 
   router.use(adapter());
   router.use(safe());
-  router.use(init());
+  router.use(init(app));
 
   // 首页模板
   router.get("/", controller.home.index);

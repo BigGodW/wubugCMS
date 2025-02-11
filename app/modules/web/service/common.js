@@ -217,7 +217,6 @@ class CommonService {
       cate = filterFields(cate, cateField);
 
       let list = [];
-      console.log(cate);
       for (let item of cate) {
         // 使用 Promise.all 并行获取数据
         const [_top, _list] = await Promise.all([
@@ -351,7 +350,6 @@ class CommonService {
    * @returns {Array}
    */
   async list({id, current = 1, pageSize = 10}) {
-    console.log("id", id,current,pageSize);
     try {
       const start = (current - 1) * pageSize;
       // 获取所有id

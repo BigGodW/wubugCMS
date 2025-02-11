@@ -74,12 +74,12 @@ const config = {
       show: true,
     },
     //友情链接
-    friendlink: { 
-      method: "friendLink", 
-      params: { 
-        pageSize: 10 
-      }, 
-      show: true 
+    friendlink: {
+      method: "friendLink",
+      params: {
+        pageSize: 10,
+      },
+      show: true,
     },
   },
 };

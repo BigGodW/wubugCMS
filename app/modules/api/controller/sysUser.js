@@ -37,7 +37,7 @@ class SysUserController {
         res.json({ ...fail, msg: "用户名或密码错误！" });
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       next(err);
     }
   }
