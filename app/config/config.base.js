@@ -6,6 +6,7 @@ const config = {};
 config.appRoot = APP_PATH;
 config.appName = "ChanCMS";
 config.port = "81";
+config.version = "v3.0.14";
 config.versionTime = "2025-02-11";
 config.authorEmail = "867528315@qq.com";
 config.authorWechat = "yanyutao2014";
