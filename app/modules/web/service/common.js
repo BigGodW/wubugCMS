@@ -1,14 +1,34 @@
 const {
   knex,
   helper: {
-    utils: { filterFields, formatDay },
+    utils: { filterFields, formatDay,convertArrayToObject },
   },
 } = Chan;
 
 class CommonService {
   constructor() {}
-
-  // 网站栏目
+ async site() {
+    try {
+      let res = await knex("cms_site")
+        .select([
+          "name",
+          "domain",
+          "email",
+          "wx",
+          "icp",
+          "code",
+          "title",
+          "keywords",
+          "description",
+          "json"
+        ]).first() 
+      return res;
+    }catch(err){
+      console.error(err);
+      throw err;
+    }
+  }
+// 网站栏目
   async category() {
     try {
       let res = await knex("cms_category")
@@ -528,6 +548,48 @@ class CommonService {
           .offset(0),
       ]);
       return list;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+  async frag({ pageSize = 10 }) {
+    try {
+       // 限制每页最多100条
+      pageSize = Math.min(parseInt(pageSize, 10) || 10, 100);
+     
+      const list = await knex
+        .select(["name", "mark", "content"])
+        .from('cms_frag')
+        .limit(pageSize)
+        .offset(0)
+        .orderBy("id", "desc");
+
+      const frags = convertArrayToObject(list, "mark");
+      return frags;
+    
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+  async tag({ pageSize = 10 }) {
+    try {
+       // 限制每页最多100条
+      pageSize = Math.min(parseInt(pageSize, 10) || 10, 100);
+     
+      const res = await knex
+        .select(["id", "name", "path","count"])
+        .from('cms_tag')
+        .limit(pageSize)
+        .offset(0)
+        .orderBy("count", "desc");
+
+      const obj = convertArrayToObject(res, "mark");
+      return obj;
+    
     } catch (err) {
       console.error(err);
       throw err;

@@ -12,6 +12,47 @@ let {
 
 class HomeService {
   constructor() {}
+
+
+  async init() {
+    try {
+      const config = data.init;
+
+      let apiCalls = {};
+
+      // 构建要调用的api对象
+      for (let key in config) {
+        if (config[key].show !== false) {
+          let method = config[key].method;
+          let apiMethod = common[method];
+          let params = { ...(config[key].params || {})};
+
+          apiCalls[key] = apiMethod(params).then((data) => {
+            if (config[key].field) {
+              return filterFields(data, config[key].field);
+            }
+            return data;
+          });
+        }
+      }
+
+      // 使用Promise.all并行执行所有api调用，并通过解构赋值获取结果
+      let results = await Promise.all(Object.values(apiCalls));
+
+      // 合并结果到一个对象中
+      let resultObject = {};
+      let keys = Object.keys(apiCalls);
+      results.forEach((result, index) => {
+        resultObject[keys[index]] = result;
+      });
+
+      console.log('resultObject->',resultObject)
+      return resultObject;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
   // 首页
   async home() {
     try {
@@ -22,6 +63,8 @@ class HomeService {
       for (let key in config) {
         if (config[key].show !== false) {
           let method = config[key].method;
+          console.log('method->',method)
+          console.log('common[method]->',common[method])
           let apiMethod = common[method];
           let params = config[key].params;
 
