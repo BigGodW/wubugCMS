@@ -6,10 +6,10 @@ const config = { ...base, ...data };
 config.db = [
   {
     client: "mysql2",
-    host: "localhost",
-    user: "root",
-    password: "123456",
-    database: "chancms",
+    host: "47.109.179.80",
+    user: "wuyong",
+    password: "A190218a",
+    database: "wubug",
     debug: false,
   },
 ];
