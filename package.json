@@ -2,12 +2,12 @@
   "name": "chancms",
   "version": "3.0.14",
   "description": "ChanCMS是一款基于Node、Express、MySQL、Vue3研发的高质量实用型CMS系统。",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "nodemon index.js",
     "clear": "node timer.js",
     "prd": "pm2 start pm2.json",
-    "build":"node app.js"
+    "build":"node index.js"
   },
   "keywords": [
     "\"cms\""
